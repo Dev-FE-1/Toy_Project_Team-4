@@ -1,0 +1,231 @@
+.icon-red-filter {
+  filter: invert(21%) sepia(100%) saturate(3450%) hue-rotate(326deg) brightness(90%) contrast(100%);
+}
+
+.sidebar {
+  position: absolute;
+  width: 68px;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  transition: .5s;
+  box-shadow: 5px 0 40px #d7d7d7;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.sidebar-content {
+  height: 100vh;
+}
+.sidebar:hover {
+  width: 256px;
+}
+
+.sidebar ul {
+  position: relative;
+  height: 100%;
+  list-style: none; /* 목록 스타일 제거 */
+}
+
+.sidebar ul li a:hover {
+  background: #f2f2f2;
+  color: #ed234b;
+}
+
+.sidebar ul li.logo {
+  width: 68px;
+  padding-left: 15px;
+  padding-top: 30px;
+  height: 30px;
+}
+
+.logo-container {
+  position: relative;
+  width: auto;
+  height: 23px; /* 로고 이미지의 크기 조절 */
+}
+
+.logo-container img {
+  position: absolute;
+  width: auto;
+  height: 100%;
+  transition: opacity 0.1s ease; /* 부드러운 전환을 위한 트랜지션 */
+}
+
+.logo-container .logo-hover {
+  opacity: 0; /* 기본 상태에서는 숨기기 */
+}
+
+.sidebar:hover .logo-container .logo-hover {
+  opacity: 1; /* 호버 시 표시 */
+  margin-left: 15px;
+}
+
+.sidebar:hover .logo-container .logo-default {
+  opacity: 0; /* 호버 시 숨기기 */
+}
+
+.sidebar:hover .user-item {
+  margin-left: 15px;
+}
+
+.sidebar ul li.logo {
+  margin-bottom: 50px;
+}
+
+.sidebar ul li a {
+  position: relative;
+  display: flex;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #5e5e5e;
+  transition: background 0.7s, color 0.1s;
+}
+
+.sidebar ul li a .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 68px;
+  width: 68px;
+  height: 50px;
+}
+
+.sidebar ul li a .icon img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 18px;
+}
+
+.sidebar ul li .user-icon {
+  width: 46px; /* 유저 아이콘의 크기 */
+  height: 46px;
+  border-radius: 50%; /* 유저 아이콘을 원형으로 만들기 */
+  margin: 11px;
+}
+
+.sidebar ul li .hover-icon {
+  width: 20px; /* 유저 아이콘의 크기 */
+  height: 20px;
+  opacity: 0; /* 호버 시 숨기기 */
+}
+
+.sidebar ul li .text-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  margin-left: -10px;
+}
+
+.hover-icon-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar ul li .text1 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5e5e5e;
+  margin-bottom: 5px;
+}
+
+.sidebar ul li .text2 {
+  font-size: 12px;
+  color: #ababab;
+}
+
+.sidebar ul li .text {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background: #fff;
+  padding-left: 24px;
+  box-sizing: border-box; 
+}
+
+.bottom img {
+  max-height: 100%;
+  min-width: 20px;
+  width: 20px;
+  transition: opacity 0.3s ease; /* 부드러운 전환을 위한 트랜지션 */
+}
+
+/* li 요소에 호버 시 .bottom의 img 요소 숨기기 */
+.sidebar:hover .bottom img {
+  opacity: 0;
+}
+
+/* User 아이템에 대한 특정 스타일 */
+.user-item {
+  display: flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  margin-bottom: 10px;
+  transition: height 0.5s ease, flex-direction 0.5s;
+}
+
+.user-item:hover {
+  height: 160px;
+  flex-direction: column;
+
+  margin-top: 60px;
+  cursor: pointer;
+}
+.user-item:hover .user-icon {
+  margin-left: -10px;
+}
+
+.user-item:hover .text-container {
+  align-items: center; /* 텍스트 컨테이너의 요소를 가운데 정렬 */
+}
+
+.user-item:hover .hover-icon {
+  opacity: 1; /* 호버 시 표시 */
+  position: absolute;
+  top: 90px;
+  left: 25px;
+}
+
+/* 하위 메뉴 스타일 */
+.submenu {
+  display: none;
+  color: #ababab;
+  font-size: 15px;
+  list-style: none; /* 하위 메뉴 기본 스타일 제거 */
+}
+
+.sidebar ul li:hover .submenu {
+  display: block; /* 부모 항목에 호버 시 하위 메뉴 표시 */
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.submenu li a {
+  display: block; /* 하위 메뉴 링크를 블록 요소로 설정 */
+  padding: 5px 10px;
+  padding-left: 70px; /* 왼쪽 여백 추가 */
+}
+
+.submenu li a:hover {
+  background: #ababab; /* 하위 메뉴 아이템 호버 시 배경색 설정 */
+}
+
+.submenu li .sub-icon {
+  width: 5px;
+  height: 5px;
+  margin-right: 10px; /* 하위 메뉴 아이콘과 텍스트 사이의 간격 설정 */
+}
+
+.submenu li .sub-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}

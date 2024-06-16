@@ -1,0 +1,27 @@
+{
+  "name": "toyprj-1st",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "server": "node server/index.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "create-react-app": "^5.0.1",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
+  },
+  "description": "이 프로젝트는 토이 프로젝트 1 을 위한 템플릿 프로젝트입니다. 템플릿에는 vite 기반 프론트앤드 프로젝트 구조와 express 기반 node 서버를 포함하고 있습니다.",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
+}

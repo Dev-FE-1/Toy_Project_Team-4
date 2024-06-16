@@ -32,7 +32,7 @@ export function createHeader() {
         <span>${userInfo.name} 님 안녕하세요!</span>
       </span>
       <span class="user-icons">
-        <a href="#" target="_blank">
+        <a href="https://us06web.zoom.us/j/88141259246?pwd=Rt4lAS2tMOIVikKaxyshwv9B4NWe16.1" target="_blank">
           <img class="user-icon" src="/images/iconzoom.png" alt="User zoom">
         </a>
         <a href="#">

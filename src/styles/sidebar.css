@@ -175,7 +175,6 @@
 .user-item:hover {
   height: 160px;
   flex-direction: column;
-
   margin-top: 60px;
   cursor: pointer;
 }

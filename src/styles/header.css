@@ -1,0 +1,45 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 68px;
+  width: calc(100% - 68px);
+  transition: all 0.5s;
+  padding: 0 35px;
+  z-index: 1;
+  background-color: #fff;
+  color: #ababab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-header {
+  width: 100%;
+  text-align: left;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  font-size: 15px;
+  height: 60px;
+  align-items: center;
+  display: flex;
+}
+
+.sidebar:hover ~ .header {
+  left: 256px;
+  width: calc(100% - 256px);
+}
+
+.user-icons {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  position: fixed;
+  right: 35px; 
+}
+
+.user-icon {
+  height: 18px;
+}

@@ -1,71 +1,36 @@
-.content {
-  flex-grow: 1;
-  display: flex;
+#content {
+  margin-top: 60px;
   margin-left: 68px;
-}
-
-.header {
-  position: absolute;
-  top: 0;
+  transition: all 0.5s;
+  background-color: #f2f2f2;
   width: calc(100% - 68px);
-  background-color: #fff;
-  color: #ababab;
-  text-align: left;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: 1s;
-  z-index: 1;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.user-info {
-  font-size: 15px;
-  height: 60px;
-  align-items: center;
-  display: flex;
-  margin-left: 35px;
-}
-
-.sidebar:hover + .content {
-  margin-left: 256px;
-  width: calc(100% - 256px);
-  transition: 0.5s;
-}
-
-.user-icons {
-  display: flex;
-  align-items: center;
-  left: 35px;
-  gap: 25px;
-  margin-right: 35px;
-}
-
-.user-icon {
-  height: 18px;
 }
 
 /* home.css */
 
 .mainhome {
   width: 100%;
-  margin-top: 60px;
-  transition: 1s;
-  background-color: #f2f2f2;
   position: relative;
   height: calc(100vh - 60px); /* 부모 요소의 높이를 뷰포트 높이에 맞게 설정 */
-  min-width: 1200px;
+  min-width: 800px;
+  padding: 35px;
+  transition: all 0.5s;
 }
+
 
 .calendar {
   position: absolute;
   top: 35px;
-  left: 35px;
   background-color: #d6d6d6;
   height: calc(100% - 70px); /* 부모 요소의 높이를 기준으로 조정 */
   width: calc(100% - 550px);;
-  margin-bottom: 35px;
   min-width: 630px;
+  transition: all 0.5s;
+}
+
+.sidebar:hover ~ #content .mainhome .calendar {
+  margin-left: 190px;
+  width: calc(100% - 740px); /* 사이드바 확장 시 크기 조정 */
 }
 
 .attendance {

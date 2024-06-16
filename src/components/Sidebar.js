@@ -1,13 +1,32 @@
-window.onload = function() {
+export function loadSidebar() {
   const sidebar = createSidebar();
   document.body.insertBefore(sidebar, document.body.firstChild);
+
+  function adjustHeaderWidth() {
+    const header = document.querySelector('header'); // 헤더 요소를 선택합니다.
+    if (header) {
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar) {
+        header.style.width = `${window.innerWidth - sidebar.offsetWidth}px`; // 사이드바 너비를 제외한 나머지 너비로 헤더 너비를 설정합니다.
+      } else {
+        header.style.width = '100%'; // 사이드바가 없는 경우 전체 너비로 설정합니다.
+      }
+    }
+  }
 
   // 초기 헤더 넓이 조정
   adjustHeaderWidth();
   window.addEventListener('resize', adjustHeaderWidth);
 
   sidebar.addEventListener('transitionend', adjustHeaderWidth); // 사이드바의 트랜지션 끝난 후 헤더 조정
-};
+
+  // // 페이지 로드 시 초기 콘텐츠 설정
+  // navigate(location.hash);
+
+  // window.addEventListener('popstate', () => {
+  //   navigate(location.hash);
+  // });
+}
 
 function createSidebar() {
   const sidebar = document.createElement('div');
@@ -35,90 +54,90 @@ function getMenuItems() {
   return [
     {
       href: "#",
-      iconSrc: "../../public/images/fast_campus_logo_toggle.png",
-      hoverIconSrc: "../../public/images/fast_campus_logo.png",
+      iconSrc: "/images/fast_campus_logo_toggle.png",
+      hoverIconSrc: "/images/fast_campus_logo.png",
       isLogo: true // 사이드바의 로고 항목 표시
     },
     {
       href: "#user-profile",
-      iconSrc: "../../public/images/user1.png",
-      hoverIconSrc: "../../public/images/iconsettings.svg",
+      iconSrc: "/images/user1.png",
+      hoverIconSrc: "/images/iconsettings.svg",
       text1: "User",
       text2: "helloworld@gmail.com",
       className: "user-item"
     },
     {
       href: "#",
-      iconSrc: "../../public/images/iconHome.svg",
+      iconSrc: "/images/iconHome.svg",
       text: "홈"
     },
     {
       href: "#",
-      iconSrc: "../../public/images/iconBoard.svg",
+      iconSrc: "/images/iconBoard.svg",
       text: "게시판",
       subItems: [
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "공지사항"
         },
         {
-          href: "#",
-          iconSrc: "../../public/images/category.svg",
+          href: "inquiry-board",
+          iconSrc: "/images/category.svg",
           text: "문의 게시판"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "행정 자료 요청"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "기업 공지 모음 갤러리"
         }
       ]
     },
     {
       href: "#",
-      iconSrc: "../../public/images/iconCalendar.svg",
+      iconSrc: "/images/iconCalendar.svg",
       text: "출결 관리",
       subItems: [
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "입퇴실 기록"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "외출 조퇴 관리"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "휴가 관리"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "공가 관리"
         },
         {
           href: "#",
-          iconSrc: "../../public/images/category.svg",
+          iconSrc: "/images/category.svg",
           text: "출결 현황 확인"
         }
       ]
     },
     {
-      href: "#",
-      iconSrc: "../../public/images/iconUser1.svg",
+      href: "#user-profile",
+      iconSrc: "/images/iconUser1.svg",
       text: "내 프로필"
     },
     {
       href: "#",
-      iconSrc: "../../public/images/iconToggle.svg",
+      iconSrc: "/images/iconToggle.svg",
       isBottom: true // 사이드바 맨 아래에 위치
     },
   ];
@@ -175,7 +194,8 @@ function createMenuItem(item) {
     });
 
     li.addEventListener('click', function() {
-      window.location.href = item.href;
+      history.pushState(null, '', item.href);
+      navigate(item.href);
     });
   } else {
     const a = document.createElement('a');
@@ -196,6 +216,12 @@ function createMenuItem(item) {
     li.appendChild(a);
 
     addHoverEffect(a, iconElement);
+
+    a.addEventListener('click', function(event) {
+      event.preventDefault();
+      history.pushState(null, '', item.href);
+      navigate(item.href);
+    });
 
     if (item.subItems && item.subItems.length > 0) {
       const subUl = document.createElement('ul');

@@ -1,6 +1,6 @@
 import "./login.css";
 import { onLoginSuccess } from "../main";
-import { signup } from "./signup";
+import { SignupPage } from "./signup";
 import axios from "axios";
 
 export function loadLogin() {
@@ -41,50 +41,48 @@ export function loadLogin() {
         <button type="button" class="loginBtn">로그인</button>
       </form>
       </section>
-  `;
-
-  const signupPageOpen = document.querySelector("#signupPage");
-    signupPageOpen.addEventListener("click", (e) => {
-      e.preventDefault();
-      signup();
-    });
-
+  `
+  const signupPageOpen = document.querySelector("#signupPage")
+  signupPageOpen.addEventListener("click", signup)
   const loginBtn = document.querySelector('.loginBtn')
   loginBtn.addEventListener('click', handleLogin); // handleLogin 함수를 참조하도록 수정
   }
 }
-document.addEventListener("DOMContentLoaded", loadLogin);
+document.addEventListener("DOMContentLoaded", login)
 
-async function handleLogin() { // async 키워드 추가
-  const email = document.querySelector(".userId").value;
-  const password = document.querySelector(".userPw").value;
 
-  try {
-    const response = await axios.get('/api/users.json');
-    const users = response.data.data;
-
-    let userFound = false;
-    for (let user of users) {
-      if (user.email === email) {
-        userFound = true;
-        if (user.pw === password) {
-          alert("로그인 성공!");
-          localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태 저장
-          localStorage.setItem('userEmail', email); // 사용자 이메일 저장
-          onLoginSuccess(); // 로그인 성공 시 메인 페이지 로드
-          return; // 로그인 성공 시 함수 종료
-        } else {
-          alert("비밀번호를 다시 입력해주세요.");
-          return;
+function getId(rows) {
+    const getUsersId = async () => {
+      let msg = "";
+      const res = await axios.get(`/api/users.json?`)
+      if( res.status === 200 ){
+        rows = res.data.data
+        const email = document.querySelector('.userId').value
+        const pw = document.querySelector('.userPw').value
+        
+        for( let i = 0; i < rows.length; i++ ){
+          if ( rows[i].email == email ){
+            if( rows[i].pw == pw ) {
+              document.addEventListener('DOMContentLoaded', mainPage)
+              break
+            } else{
+              msg = "비밀번호를 다시 입력해주세요."
+              break
+            }
+          } else {
+            msg = "회원 정보가 없습니다."
+            break
+          }
         }
-      }
-    }
 
-    if (!userFound) {
-      alert("회원 정보가 없습니다.");
+        alert(msg);
+      }
+      
+      
+      
+      //   {
+      //   console.log(rows[0].email, rows[1].email)
+      // }
     }
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    getUsersId()
   }
-}

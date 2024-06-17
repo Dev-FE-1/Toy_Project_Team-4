@@ -1,13 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
 #signup-main {
-  margin: 0;
-  padding: 0;
-  font-family: "Gothic A1", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
+  margin: 0 auto;
 }
 .wrapper {
   width: 500px;
@@ -62,13 +55,13 @@
   border: 1px solid #ababab;
   border-radius: 5px;
   outline: none;
-  padding-left: 20px;
+  text-align: center;
 }
 
 #signupForm div .name {
-  margin: 15px 0 30px;
-  height: 40px;
-  width: 380px;
+  margin: 15px 0 25px;
+  height: 42px;
+  width: 400px;
   border: 1px solid #ababab;
   border-radius: 5px;
   padding-left: 10px;
@@ -84,7 +77,7 @@
 #signupForm .newUsersEmail input {
   height: 42px;
   padding: 0 25px;
-  margin-right: 26px;
+  margin: 5px 26px 5px 0;
   width: 230px;
   outline: none;
   border: 1px solid #ababab;
@@ -93,7 +86,6 @@
 #signupForm .newUsersEmail .emailbtn {
   height: 35px;
   width: 100px;
-
   background-color: #ed234b;
   border: none;
   border-radius: 5px;
@@ -106,7 +98,6 @@
 }
 #signupForm span {
   display: block;
-  margin-top: 5px;
   color: #ed234b;
 }
 #signupForm .newUsersPw {
@@ -117,7 +108,7 @@
 #signupForm .newUsersPw2 input {
   height: 42px;
   padding: 0 25px;
-  margin-top: 25px;
+  margin: 25px 0 5px;
   outline: none;
   border: 1px solid #ababab;
   border-radius: 5px;
@@ -136,11 +127,12 @@
   width: 400px;
   height: 120px;
   border: 1px solid #ababab;
-  padding: 3px;
+  box-sizing: border-box;
+  padding: 10px;
   border-radius: 5px;
   overflow-y: scroll;
   font-size: 12px;
-  margin-bottom: 5px;
+  margin: 5px 0;
 }
 #signupForm .consentText::-webkit-scrollbar {
   width: 10px;
@@ -151,9 +143,11 @@
   border-radius: 5px;
 }
 #signupForm .consentCheck {
+  display: flex;
   color: #222;
 }
 #signupForm .consentCheck input {
+  margin: 0 5px;
   accent-color: #ed234b;
   cursor: pointer;
 }

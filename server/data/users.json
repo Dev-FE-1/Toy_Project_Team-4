@@ -4,12 +4,22 @@
     {
       "id": 1,
       "email": "tnalsdl2046@gmail.com",
-      "pw": "2046"
+      "pw": "1234"
     },
     {
       "id": 2,
-      "email": "ksm9805@gmail.com",
-      "pw": "9805"
+      "email": "ddhkim11@gmail.com",
+      "pw": "1234"
+    },
+    {
+      "id": 3,
+      "email": "gywjd@gmail.com",
+      "pw": "1234"
+    },
+    {
+      "id": 4,
+      "email": "wonjichoe@gmail.com",
+      "pw": "1234"
     }
   ]
 }

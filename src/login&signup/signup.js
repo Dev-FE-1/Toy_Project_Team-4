@@ -1,27 +1,35 @@
 import "./signup.css"
 // import { setupCounter } from "./counter.js"
 
-export function signup() {
-  const app = document.getElementById('app');
-  if (app) {
-    app.innerHTML = `
-    <section id="signup-main">
-      <div class="wrapper">
-        <div class="signupTop">
-          <div class="logoNtext">
-            <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
-            <div class="signupText1">회원가입</div>
+export class SignupPage {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.render();
+    this.addEventListeners();
+  }
+
+  render() {
+    document.querySelector("body").innerHTML = `
+      <section id="signup-main">
+        <div class="wrapper">
+          <div class="signupTop">
+            <div class="logoNtext">
+              <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
+              <div class="signupText1">회원가입</div>
+            </div>
+            <div class="signupText2">과정에 참여하신 것을 환영합니다 !</div>
           </div>
-          <div class="signupText2">과정에 참여하신 것을 환영합니다 !</div>
-        </div>
-        <form action="" id="signupForm">
-                    <div class='choice'>
-              <input type="radio" name="gender" id="student" checked />수강생
-              <input type="radio" name="gender" id="manager" />매니저
+          <form action="" id="signupForm">
+            <div class='choice'>
+              <input type="radio" name="role" id="student" checked />수강생
+              <input type="radio" name="role" id="manager" />매니저
               <label id='managerCode'></label>
             </div>
-          <div>
-            <input type="text" placeholder="성명" class="name" />
+            <div>
+              <input type="text" placeholder="성명" class="name" />
             </div>
           
           <div class="newUsersEmail">
@@ -77,22 +85,24 @@ export function signup() {
           </div>
         </form>
       </div>
-    </section>
-  `;
-  const manager = document.querySelector('#manager');
-    if (manager) {
-      manager.addEventListener('click', changeElement);
-    }
-  }
+      </section>
+  `
+  const manager = document.querySelector('#manager')
+  manager.addEventListener('click', changeElement)
+
 }
+document.addEventListener("DOMContentLoaded", signup)
 
 
 function changeElement(){
   const student = document.querySelector('#student')
   const managerCode = document.querySelector('#managerCode')
-  if (student.checked) {
-    managerCode.innerHTML = '';
-  } else {
-    managerCode.innerHTML = `<input type='text' id='code' placeholder='사내 인증코드'/>`;
+  managerCode.innerHTML=`<input type='text' id='code' placeholder='사내 인증코드'/>`
+  if(student.checked === true){
+    managerCode.innerHTML=''
   }
+  student.addEventListener('click',changeElement)
 }
+
+
+

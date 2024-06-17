@@ -17,7 +17,7 @@ function navigate(path) {
 }
 
 // 페이지 로드 시 초기 콘텐츠 설정
-document.addEventListener('DOMContentLoaded', () => {
+export const mainPage = document.addEventListener('DOMContentLoaded', () => {
   loadSidebar(); // 사이드바를 페이지 로드 시점에 로드
 
   navigate(location.pathname);

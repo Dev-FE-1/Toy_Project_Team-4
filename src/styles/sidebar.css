@@ -27,11 +27,6 @@
   list-style: none; /* 목록 스타일 제거 */
 }
 
-.sidebar ul li a:hover {
-  background: #f2f2f2;
-  color: #ed234b;
-}
-
 .sidebar ul li.logo {
   width: 68px;
   padding-left: 15px;
@@ -78,8 +73,21 @@
   display: flex;
   white-space: nowrap;
   text-decoration: none;
-  color: #5e5e5e;
+  /* color: #5e5e5e; */
   transition: background 0.7s, color 0.1s;
+}
+
+.sidebar ul li a:hover {
+  background: #f2f2f2;
+  color: #ed234b;
+}
+
+.sidebar ul li a:hover .text {
+  color: #ed234b;  /* hover 상태의 텍스트 색상 */
+}
+
+.sidebar ul li a .text {
+  color: #5e5e5e;
 }
 
 .sidebar ul li a .icon {
@@ -196,7 +204,6 @@
 /* 하위 메뉴 스타일 */
 .submenu {
   display: none;
-  color: #ababab;
   font-size: 15px;
   list-style: none; /* 하위 메뉴 기본 스타일 제거 */
 }
@@ -212,16 +219,14 @@
   display: block; /* 하위 메뉴 링크를 블록 요소로 설정 */
   padding: 5px 10px;
   padding-left: 70px; /* 왼쪽 여백 추가 */
-}
-
-.submenu li a:hover {
-  background: #ababab; /* 하위 메뉴 아이템 호버 시 배경색 설정 */
+  color: #ababab;
 }
 
 .submenu li .sub-icon {
   width: 5px;
   height: 5px;
   margin-right: 10px; /* 하위 메뉴 아이콘과 텍스트 사이의 간격 설정 */
+
 }
 
 .submenu li .sub-icon img {

@@ -18,3 +18,9 @@ body {
   height: 100vh;
   overflow-x: hidden;
 }
+
+#app {
+  display: flex;
+  height: 100vh;
+  width: 100vh;
+}

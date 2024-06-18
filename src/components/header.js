@@ -1,21 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const header = createHeader();
+// document.addEventListener('DOMContentLoaded', function() {
+//   const header = createHeader();
   
-  // document.body의 두 번째 자식 요소를 찾음
-  const secondChild = document.body.children[1];
+//   // document.body의 두 번째 자식 요소를 찾음
+//   const secondChild = document.body.children[1];
 
-  // 두 번째 자식 요소 앞에 header를 삽입
-  if (secondChild) {
-    document.body.insertBefore(header, secondChild);
-  } else {
-    // 두 번째 자식 요소가 없으면 맨 끝에 추가
-    document.body.appendChild(header);
-  }
+//   // 두 번째 자식 요소 앞에 header를 삽입
+//   if (secondChild) {
+//     document.body.insertBefore(header, secondChild);
+//   } else {
+//     // 두 번째 자식 요소가 없으면 맨 끝에 추가
+//     document.body.appendChild(header);
+//   }
 
-  // 초기 헤더 넓이 조정
-  adjustHeaderWidth();
-  window.addEventListener('resize', adjustHeaderWidth);
-});
+//   // 초기 헤더 넓이 조정
+//   adjustHeaderWidth();
+//   window.addEventListener('resize', adjustHeaderWidth);
+// });
 
 export function createHeader() {
   const userInfo = {

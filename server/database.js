@@ -13,4 +13,15 @@ database.serialize(() => {
     )`)
 })
 
+export function getUserByEmail(email, callback) {
+  database.get(`
+    SELECT * FROM Users WHERE email = ?
+  `, [email], (err, row) => {
+    if (err) {
+      return console.log(err.message);
+    }
+    callback(row);
+  });
+}
+
 export default database

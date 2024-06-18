@@ -1,10 +1,12 @@
 import "./signup.css"
 // import { setupCounter } from "./counter.js"
 
-export async function signup() {
-  document.querySelector("body").innerHTML = `
-  <section id="signup-main">
-<div class="wrapper">
+export function signup() {
+  const app = document.getElementById('app');
+  if (app) {
+    app.innerHTML = `
+    <section id="signup-main">
+      <div class="wrapper">
         <div class="signupTop">
           <div class="logoNtext">
             <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
@@ -75,24 +77,22 @@ export async function signup() {
           </div>
         </form>
       </div>
-      </section>
-  `
-  const manager = document.querySelector('#manager')
-  manager.addEventListener('click', changeElement)
-
+    </section>
+  `;
+  const manager = document.querySelector('#manager');
+    if (manager) {
+      manager.addEventListener('click', changeElement);
+    }
+  }
 }
-document.addEventListener("DOMContentLoaded", signup)
 
 
 function changeElement(){
   const student = document.querySelector('#student')
   const managerCode = document.querySelector('#managerCode')
-  managerCode.innerHTML=`<input type='text' id='code' placeholder='사내 인증코드'/>`
-  if(student.checked === true){
-    managerCode.innerHTML=''
+  if (student.checked) {
+    managerCode.innerHTML = '';
+  } else {
+    managerCode.innerHTML = `<input type='text' id='code' placeholder='사내 인증코드'/>`;
   }
-  student.addEventListener('click',changeElement)
 }
-
-
-

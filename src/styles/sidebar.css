@@ -30,6 +30,7 @@
 .sidebar ul li a:hover {
   background: #f2f2f2;
   color: #ed234b;
+  transition: all 0.5s;
 }
 
 .sidebar ul li.logo {
@@ -79,7 +80,7 @@
   white-space: nowrap;
   text-decoration: none;
   color: #5e5e5e;
-  transition: background 0.7s, color 0.1s;
+  transition: background 0.5s, color 0.1s;
 }
 
 .sidebar ul li a .icon {
@@ -143,13 +144,21 @@
 .bottom {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 256px;
   display: flex;
   align-items: center;
   height: 60px;
   background: #fff;
-  padding-left: 24px;
   box-sizing: border-box; 
+}
+
+.bottom a {
+  height: 100%;
+  width: 100%;
+}
+
+.bottom .text {
+  padding-left: 25px;
 }
 
 .bottom img {

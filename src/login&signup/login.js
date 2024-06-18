@@ -1,17 +1,12 @@
-import "./login.css"
-import { mainPage } from "../main"
-// import './main.css';
-// import './styles/sidebar.css';
-// import './styles/header.css';
-// import './styles/home.css';
-// import { loadSidebar } from './components/Sidebar.js';
-// import { createHeader } from './components/header.js';
-// import { loadHome } from './components/home.js';
-import { signup } from "./signup"
-import axios from "axios"
+import "./login.css";
+import { onLoginSuccess } from "../main";
+import { signup } from "./signup";
+import axios from "axios";
 
-function login() {
-  document.querySelector("body").innerHTML = `
+export function loadLogin() {
+  const app = document.getElementById('app');
+  if (app) {
+    app.innerHTML = `
   <section id="login-main">
   <form action="" id="loginForm">
         <div class="loginForm-top">
@@ -46,47 +41,50 @@ function login() {
         <button type="button" class="loginBtn">로그인</button>
       </form>
       </section>
-  `
-  const signupPageOpen = document.querySelector("#signupPage")
-  signupPageOpen.addEventListener("click", signup)
+  `;
+
+  const signupPageOpen = document.querySelector("#signupPage");
+    signupPageOpen.addEventListener("click", (e) => {
+      e.preventDefault();
+      signup();
+    });
+
   const loginBtn = document.querySelector('.loginBtn')
-loginBtn.addEventListener('click', getId)
-}
-document.addEventListener("DOMContentLoaded", login)
-
-
-function getId(rows) {
-    const getUsersId = async () => {
-      let msg = "";
-      const res = await axios.get(`/api/users.json?`)
-      if( res.status === 200 ){
-        rows = res.data.data
-        const email = document.querySelector('.userId').value
-        const pw = document.querySelector('.userPw').value
-        
-        for( let i = 0; i < rows.length; i++ ){
-          if ( rows[i].email == email ){
-            if( rows[i].pw == pw ) {
-              document.addEventListener('DOMContentLoaded', mainPage)
-              break
-            } else{
-              msg = "비밀번호를 다시 입력해주세요."
-              break
-            }
-          } else {
-            msg = "회원 정보가 없습니다."
-            break
-          }
-        }
-
-        alert(msg);
-      }
-      
-      
-      
-      //   {
-      //   console.log(rows[0].email, rows[1].email)
-      // }
-    }
-    getUsersId()
+  loginBtn.addEventListener('click', handleLogin); // handleLogin 함수를 참조하도록 수정
   }
+}
+document.addEventListener("DOMContentLoaded", loadLogin);
+
+async function handleLogin() { // async 키워드 추가
+  const email = document.querySelector(".userId").value;
+  const password = document.querySelector(".userPw").value;
+
+  try {
+    const response = await axios.get('/api/users.json');
+    const users = response.data.data;
+
+    let userFound = false;
+    for (let user of users) {
+      if (user.email === email) {
+        userFound = true;
+        if (user.pw === password) {
+          alert("로그인 성공!");
+          localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태 저장
+          localStorage.setItem('userEmail', email); // 사용자 이메일 저장
+          onLoginSuccess(); // 로그인 성공 시 메인 페이지 로드
+          return; // 로그인 성공 시 함수 종료
+        } else {
+          alert("비밀번호를 다시 입력해주세요.");
+          return;
+        }
+      }
+    }
+
+    if (!userFound) {
+      alert("회원 정보가 없습니다.");
+    }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+  }
+}

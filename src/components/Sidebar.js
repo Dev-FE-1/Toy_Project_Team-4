@@ -1,3 +1,5 @@
+import { navigate } from '../main'; // navigate 함수를 main.js에서 가져옴
+
 export function loadSidebar() {
   const sidebar = createSidebar();
   document.body.insertBefore(sidebar, document.body.firstChild);
@@ -20,12 +22,6 @@ export function loadSidebar() {
 
   sidebar.addEventListener('transitionend', adjustHeaderWidth); // 사이드바의 트랜지션 끝난 후 헤더 조정
 
-  // // 페이지 로드 시 초기 콘텐츠 설정
-  // navigate(location.hash);
-
-  // window.addEventListener('popstate', () => {
-  //   navigate(location.hash);
-  // });
 }
 
 function createSidebar() {
@@ -53,13 +49,13 @@ function createSidebar() {
 function getMenuItems() {
   return [
     {
-      href: "#",
+      href: "/",
       iconSrc: "/images/fast_campus_logo_toggle.png",
       hoverIconSrc: "/images/fast_campus_logo.png",
       isLogo: true // 사이드바의 로고 항목 표시
     },
     {
-      href: "#user-profile",
+      href: "/user-profile",
       iconSrc: "/images/user1.png",
       hoverIconSrc: "/images/iconsettings.svg",
       text1: "User",
@@ -67,22 +63,22 @@ function getMenuItems() {
       className: "user-item"
     },
     {
-      href: "#",
+      href: "/",
       iconSrc: "/images/iconHome.svg",
       text: "홈"
     },
     {
-      href: "#",
+      href: "/board",
       iconSrc: "/images/iconBoard.svg",
       text: "게시판",
       subItems: [
         {
-          href: "#",
+          href: "/notice",
           iconSrc: "/images/category.svg",
           text: "공지사항"
         },
         {
-          href: "inquiry-board",
+          href: "/inquiry-board",
           iconSrc: "/images/category.svg",
           text: "문의 게시판"
         },
@@ -138,6 +134,7 @@ function getMenuItems() {
     {
       href: "#",
       iconSrc: "/images/iconToggle.svg",
+      text: "로그아웃",
       isBottom: true // 사이드바 맨 아래에 위치
     },
   ];
@@ -152,8 +149,26 @@ function createMenuItem(item) {
     li.appendChild(logoContainer);
   } else if (item.isBottom) {
     li.classList.add('bottom');
+
+    const a = document.createElement('a');
+    a.href = item.href;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.classList.add('icon');
     const iconElement = createIconElement(item.iconSrc, item.text);
-    li.appendChild(iconElement);
+    iconSpan.appendChild(iconElement);
+
+    const spanText = document.createElement('span');
+    spanText.classList.add('text');
+    spanText.textContent = item.text;
+
+    a.appendChild(iconSpan);
+    a.appendChild(spanText);
+
+    li.appendChild(a);
+
+    // 로그아웃 클릭 이벤트 추가
+    li.addEventListener('click', handleLogout);
   } else if (item.className === "user-item") {
     li.classList.add(item.className);
 
@@ -247,6 +262,11 @@ function createMenuItem(item) {
         subUl.appendChild(subLi);
 
         addHoverEffect(subA, subIconElement); // 서브아이템에 대한 필터 효과 추가
+        subA.addEventListener('click', function(event) {
+          event.preventDefault();
+          history.pushState(null, '', subItem.href);
+          navigate(subItem.href);
+        });
       });
 
       li.appendChild(subUl);
@@ -254,6 +274,12 @@ function createMenuItem(item) {
   }
 
   return li;
+}
+
+function handleLogout() {
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('userEmail');
+  location.reload(); // 페이지를 새로고침하여 로그인 페이지로 이동
 }
 
 function createLogoContainer(item) {

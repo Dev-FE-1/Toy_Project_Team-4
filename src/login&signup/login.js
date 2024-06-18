@@ -45,8 +45,8 @@ export function loadLogin() {
   const signupPageOpen = document.querySelector("#signupPage")
   signupPageOpen.addEventListener("click",(e) => {
     e.preventDefault();
-    const signupPageInstance = new SignupPage(); 
-  });
+    const signupPageInstance = new SignupPage()
+  })
   const loginBtn = document.querySelector('.loginBtn')
   loginBtn.addEventListener('click', handleLogin); // handleLogin 함수를 참조하도록 수정
   }

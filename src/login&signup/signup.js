@@ -1,5 +1,4 @@
 import "./signup.css"
-// import { setupCounter } from "./counter.js"
 
 export class SignupPage {
     constructor(){
@@ -36,14 +35,14 @@ export class SignupPage {
             />
             <button class="emailbtn">중복확인</button>
           </div>
-          <div><span>사용 할 수 없는 이메일입니다.</span></div>
+          <div><span class="emailText">사용 할 수 없는 이메일입니다.</span></div>
           <div class="newUsersPw">
             <input
               type="password"
               id="usersPw1"
               placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8~12자)"
             />
-            <span>12자 이내의 비밀번호를 입력해주세요.</span>
+            <span class="pwLength">12자 이내의 비밀번호를 입력해주세요.</span>
           </div>
           <div class="newUsersPw2">
             <input
@@ -82,7 +81,7 @@ export class SignupPage {
         </form>
       </div>
       </section>
-    `;
+    `
   }
 
   addEventListeners() {

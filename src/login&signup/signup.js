@@ -8,7 +8,7 @@ export class SignupPage {
     }
 
   render() {
-    document.querySelector("body").innerHTML = `
+    document.querySelector("#app").innerHTML = `
       <section id="signup-main">
         <div class="wrapper">
           <div class="signupTop">

@@ -8,16 +8,17 @@
   height: 100vh;
   background: #fff;
   overflow: hidden;
-  transition: .5s;
+  transition: all 0.5s;
   box-shadow: 5px 0 40px #d7d7d7;
   z-index: 1000;
   box-sizing: border-box;
+  transition: all 0.5s;
 }
 
 .sidebar-content {
   height: 100vh;
 }
-.sidebar:hover {
+.sidebar.expanded {
   width: 256px;
 }
 
@@ -30,14 +31,13 @@
 .sidebar ul li a:hover {
   background: #f2f2f2;
   color: #ed234b;
-  transition: all 0.5s;
 }
 
 .sidebar ul li.logo {
   width: 68px;
   padding-left: 15px;
   padding-top: 30px;
-  height: 30px;
+  height: 60px;
 }
 
 .logo-container {
@@ -57,21 +57,17 @@
   opacity: 0; /* 기본 상태에서는 숨기기 */
 }
 
-.sidebar:hover .logo-container .logo-hover {
+.sidebar.expanded .logo-container .logo-hover {
   opacity: 1; /* 호버 시 표시 */
   margin-left: 15px;
 }
 
-.sidebar:hover .logo-container .logo-default {
+.sidebar.expanded .logo-container .logo-default {
   opacity: 0; /* 호버 시 숨기기 */
 }
 
-.sidebar:hover .user-item {
+.sidebar.expanded .user-item {
   margin-left: 15px;
-}
-
-.sidebar ul li.logo {
-  margin-bottom: 50px;
 }
 
 .sidebar ul li a {
@@ -169,7 +165,7 @@
 }
 
 /* li 요소에 호버 시 .bottom의 img 요소 숨기기 */
-.sidebar:hover .bottom img {
+.sidebar.expanded .bottom img {
   opacity: 0;
 }
 
@@ -177,29 +173,43 @@
 .user-item {
   display: flex;
   align-items: center; /* 세로 가운데 정렬 */
-  margin-bottom: 10px;
-  transition: height 0.5s ease, flex-direction 0.5s;
+  height: 90px;
+  transition: height 1s ease-in-out, margin-top 1s ease-in-out, margin-left 1s ease-in-out, align-items 1s ease-in-out, top 1s ease-in-out, left 1s ease-in-out, opacity 1s ease-in-out;
+  overflow: hidden;
 }
 
-.user-item:hover {
-  height: 160px;
+.sidebar.expanded .user-item:hover {
+  height: 170px;
   flex-direction: column;
-  margin-top: 60px;
   cursor: pointer;
-}
-.user-item:hover .user-icon {
-  margin-left: -10px;
+  overflow: visible;
 }
 
-.user-item:hover .text-container {
+.sidebar.expanded .user-item .user-icon {
+  transition: margin-top 1s ease-in-out;
+}
+
+.sidebar.expanded .user-item:hover .user-icon {
+  margin-left: -10px;
+  margin-top: 50px;
+}
+
+.user-item .text-container {
+  transition: align-items 1s ease-in-out; /* align-items의 트랜지션 제거 */
+}
+
+.sidebar.expanded .user-item:hover .text-container {
   align-items: center; /* 텍스트 컨테이너의 요소를 가운데 정렬 */
 }
 
-.user-item:hover .hover-icon {
-  opacity: 1; /* 호버 시 표시 */
-  position: absolute;
+.user-item .hover-icon {
   top: 90px;
   left: 25px;
+}
+
+.sidebar.expanded .user-item:hover .hover-icon {
+  opacity: 1; /* 호버 시 표시 */
+  position: absolute;
 }
 
 /* 하위 메뉴 스타일 */
@@ -210,11 +220,8 @@
   list-style: none; /* 하위 메뉴 기본 스타일 제거 */
 }
 
-.sidebar ul li:hover .submenu {
-  display: block; /* 부모 항목에 호버 시 하위 메뉴 표시 */
-  position: relative;
-  top: 0;
-  left: 0;
+.submenu.visible {
+  display: block; /* .visible 클래스가 추가되면 표시 */
 }
 
 .submenu li a {

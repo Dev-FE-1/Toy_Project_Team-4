@@ -120,7 +120,7 @@ function createSidebar() {
           <ul class="submenu visible">
             <li><a href="#">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="입퇴실 기록">
+                <img src="/images/category.svg" alt="입실/퇴실 기록">
               </span>
               <span class="sub-text">입실/퇴실 기록</span>
             </a>
@@ -128,7 +128,7 @@ function createSidebar() {
           <li>
             <a href="#">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="외출 조퇴 관리">
+                <img src="/images/category.svg" alt="외출/조퇴 신청">
               </span>
               <span class="sub-text">외출/조퇴 신청</span>
             </a>
@@ -136,7 +136,7 @@ function createSidebar() {
           <li>
             <a href="#">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="휴가 관리">
+                <img src="/images/category.svg" alt="휴가 신청">
               </span>
               <span class="sub-text">휴가 신청</span>
             </a>
@@ -144,9 +144,21 @@ function createSidebar() {
           <li>
             <a href="#">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="공가 관리">
+                <img src="/images/category.svg" alt="공가 신청">
               </span>
               <span class="sub-text">공가 신청</span>
+            </a>
+            <a href="#">
+              <span class="subsub-icon">
+                <img src="/images/category2.svg" alt="신청서 제출">
+              </span>
+              <span class="subsub-text">신청서 제출</span>
+            </a>
+            <a href="#">
+              <span class="subsub-icon">
+                <img src="/images/category2.svg" alt="서류 제출">
+              </span>
+              <span class="subsub-text">서류 제출</span>
             </a>
           </li>
           <li>

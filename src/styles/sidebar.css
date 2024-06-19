@@ -225,14 +225,18 @@
 
 /* 하위 메뉴 스타일 */
 .submenu {
-  display: none;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
   color: #ababab;
   font-size: 15px;
   list-style: none; /* 하위 메뉴 기본 스타일 제거 */
+  transition: max-height 1s ease, opacity 0.5s ease;
 }
 
 .submenu.visible {
-  display: block; /* .visible 클래스가 추가되면 표시 */
+  max-height: 500px; /* 최대 높이를 설정하여 하위 항목들이 모두 보이도록 함 */
+  opacity: 1; /* 투명도를 1로 설정하여 보이도록 함 */
 }
 
 .submenu li a {

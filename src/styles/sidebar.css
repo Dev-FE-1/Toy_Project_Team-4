@@ -12,12 +12,12 @@
   box-shadow: 5px 0 40px #d7d7d7;
   z-index: 1000;
   box-sizing: border-box;
-  transition: all 0.5s;
 }
 
 .sidebar-content {
   height: 100vh;
 }
+
 .sidebar.expanded {
   width: 256px;
 }
@@ -28,9 +28,73 @@
   list-style: none; /* 목록 스타일 제거 */
 }
 
+.sidebar ul li a {
+  position: relative;
+  display: flex;
+  white-space: nowrap;
+  text-decoration: none;
+  align-items: center;
+  color: #5e5e5e;
+  transition: background 0.5s, color 0.1s;
+}
+
 .sidebar ul li a:hover {
   background: #f2f2f2;
   color: #ed234b;
+}
+
+.sidebar ul li a .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 68px;
+  width: 68px;
+  height: 50px;
+}
+
+.sidebar ul li a .icon img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 18px;
+}
+
+.sidebar ul li .user-icon {
+  width: 46px; /* 유저 아이콘의 크기 */
+  height: 46px;
+  border-radius: 50%; /* 유저 아이콘을 원형으로 만들기 */
+  justify-content: center;
+  margin: 10px;
+}
+
+.sidebar ul li .hover-icon {
+  width: 20px; /* 유저 아이콘의 크기 */
+  height: 20px;
+  opacity: 0; /* 호버 시 숨기기 */
+}
+
+.sidebar ul li .text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: -10px;
+}
+
+.sidebar ul li .text1 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5e5e5e;
+  margin-bottom: 5px;
+}
+
+.sidebar ul li .text2 {
+  font-size: 12px;
+  color: #ababab;
+}
+
+.sidebar ul li .text {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
 }
 
 .sidebar ul li.logo {
@@ -66,75 +130,65 @@
   opacity: 0; /* 호버 시 숨기기 */
 }
 
-.sidebar.expanded .user-item {
-  margin-left: 15px;
+
+.sidebar ul li.user-item a:hover {
+  background: none; /* 유저 아이템 호버 시 배경색 변경 안 함 */
 }
 
-.sidebar ul li a {
-  position: relative;
+.user-item {
   display: flex;
-  white-space: nowrap;
-  text-decoration: none;
-  color: #5e5e5e;
-  transition: background 0.5s, color 0.1s;
+  height: 90px;
+  transition: height 1s ease-in-out, margin-top 1s ease-in-out, margin-left 1s ease-in-out, align-items 1s ease-in-out, top 1s ease-in-out, left 1s ease-in-out, opacity 1s ease-in-out;
+  overflow: hidden;
 }
 
-.sidebar ul li a .icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 68px;
-  width: 68px;
-  height: 50px;
-}
-
-.sidebar ul li a .icon img {
-  max-width: 100%;
-  max-height: 100%;
-  width: 18px;
-}
-
-.sidebar ul li .user-icon {
-  width: 46px; /* 유저 아이콘의 크기 */
-  height: 46px;
-  border-radius: 50%; /* 유저 아이콘을 원형으로 만들기 */
-  margin: 11px;
-}
-
-.sidebar ul li .hover-icon {
-  width: 20px; /* 유저 아이콘의 크기 */
-  height: 20px;
-  opacity: 0; /* 호버 시 숨기기 */
-}
-
-.sidebar ul li .text-container {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
+.user-item:hover a {
+  display: flex; /* 내부 요소를 플렉스 컨테이너로 설정 */
+  flex-direction: column; /* 내부 요소들을 수직으로 정렬 */
+  align-items: center; /* 내부 요소들을 수직 가운데 정렬 */
+  width: 100%; /* 링크가 전체 너비를 차지하도록 설정 */
   margin-left: -10px;
 }
 
-.hover-icon-container img {
-  max-width: 100%;
-  height: auto;
+.user-item:hover .text-container {
+  align-items: center; /* 내부 요소들을 수직 가운데 정렬 */
 }
-
-.sidebar ul li .text1 {
-  font-size: 15px;
-  font-weight: 500;
-  color: #5e5e5e;
-  margin-bottom: 5px;
-}
-
-.sidebar ul li .text2 {
-  font-size: 12px;
-  color: #ababab;
-}
-
-.sidebar ul li .text {
-  display: flex;
+.sidebar.expanded .user-item:hover {
+  height: 170px;
+  flex-direction: column;
+  cursor: pointer;
+  overflow: visible;
+  justify-content: center;
   align-items: center;
-  font-size: 15px;
+  display: flex; /* display: block; 대신 display: flex; */
+  /* margin-left: -10px; */
+}
+
+.sidebar.expanded .user-item:hover .user-icon {
+ margin-left: -2px;
+ margin-top: 10px;
+}
+
+.sidebar.expanded .user-item .user-icon {
+  transition: margin-top 1s ease-in-out;
+}
+
+.user-item .text-container {
+  transition: align-items 1s ease-in-out; /* align-items의 트랜지션 제거 */
+}
+
+.user-item .hover-icon {
+  left: 13px;
+  top: -10px
+}
+
+.sidebar.expanded .user-item {
+ margin-left: 18px;
+}
+
+.sidebar.expanded .user-item:hover .hover-icon {
+  opacity: 1; /* 호버 시 표시 */
+  position: absolute;
 }
 
 .bottom {
@@ -145,7 +199,7 @@
   align-items: center;
   height: 60px;
   background: #fff;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .bottom a {
@@ -169,49 +223,6 @@
   opacity: 0;
 }
 
-/* User 아이템에 대한 특정 스타일 */
-.user-item {
-  display: flex;
-  align-items: center; /* 세로 가운데 정렬 */
-  height: 90px;
-  transition: height 1s ease-in-out, margin-top 1s ease-in-out, margin-left 1s ease-in-out, align-items 1s ease-in-out, top 1s ease-in-out, left 1s ease-in-out, opacity 1s ease-in-out;
-  overflow: hidden;
-}
-
-.sidebar.expanded .user-item:hover {
-  height: 170px;
-  flex-direction: column;
-  cursor: pointer;
-  overflow: visible;
-}
-
-.sidebar.expanded .user-item .user-icon {
-  transition: margin-top 1s ease-in-out;
-}
-
-.sidebar.expanded .user-item:hover .user-icon {
-  margin-left: -10px;
-  margin-top: 50px;
-}
-
-.user-item .text-container {
-  transition: align-items 1s ease-in-out; /* align-items의 트랜지션 제거 */
-}
-
-.sidebar.expanded .user-item:hover .text-container {
-  align-items: center; /* 텍스트 컨테이너의 요소를 가운데 정렬 */
-}
-
-.user-item .hover-icon {
-  top: 90px;
-  left: 25px;
-}
-
-.sidebar.expanded .user-item:hover .hover-icon {
-  opacity: 1; /* 호버 시 표시 */
-  position: absolute;
-}
-
 /* 하위 메뉴 스타일 */
 .submenu {
   display: none;
@@ -228,6 +239,7 @@
   display: block; /* 하위 메뉴 링크를 블록 요소로 설정 */
   padding: 5px 10px;
   padding-left: 70px; /* 왼쪽 여백 추가 */
+  align-items: center;
 }
 
 .submenu li a:hover {
@@ -241,6 +253,9 @@
 }
 
 .submenu li .sub-icon img {
+  display: flex;
   max-width: 100%;
   max-height: 100%;
+  justify-content: center;
+  align-items: center;
 }

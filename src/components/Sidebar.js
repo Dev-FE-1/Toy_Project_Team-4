@@ -4,6 +4,11 @@ export function loadSidebar() {
   const sidebar = createSidebar();
   document.body.insertBefore(sidebar, document.body.firstChild);
 
+  // 사이드바 클릭 이벤트 추가
+  sidebar.addEventListener('click', function(event) {
+    sidebar.classList.toggle('expanded');
+  });
+
   function adjustHeaderWidth() {
     const header = document.querySelector('header'); // 헤더 요소를 선택합니다.
     if (header) {
@@ -68,7 +73,7 @@ function getMenuItems() {
       text: "홈"
     },
     {
-      href: "/board",
+      // href: "/board",
       iconSrc: "/images/iconBoard.svg",
       text: "게시판",
       subItems: [
@@ -95,7 +100,7 @@ function getMenuItems() {
       ]
     },
     {
-      href: "#",
+      // href: "#",
       iconSrc: "/images/iconCalendar.svg",
       text: "출결 관리",
       subItems: [
@@ -270,6 +275,12 @@ function createMenuItem(item) {
       });
 
       li.appendChild(subUl);
+
+      // 서브 메뉴를 클릭했을 때만 표시되도록 이벤트 추가
+      li.addEventListener('click', function(event) {
+        event.stopPropagation();
+        subUl.classList.toggle('visible');
+      });
     }
   }
 

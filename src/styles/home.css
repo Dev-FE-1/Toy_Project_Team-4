@@ -28,7 +28,7 @@
   transition: all 0.5s;
 }
 
-.sidebar:hover + #app .calendar {
+.sidebar.expanded + #app .calendar {
   margin-left: 190px;
   width: calc(100% - 740px); /* 사이드바 확장 시 크기 조정 */
 }

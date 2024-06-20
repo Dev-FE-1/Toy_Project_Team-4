@@ -27,7 +27,7 @@
   display: flex;
 }
 
-.sidebar:hover ~ .header {
+.sidebar.expanded ~ .header {
   left: 256px;
   width: calc(100% - 256px);
 }

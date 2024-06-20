@@ -3,23 +3,31 @@
   "data": [
     {
       "id": 1,
+      "name": "김수민",
       "email": "tnalsdl2046@gmail.com",
-      "pw": "1234"
+      "pw": "1234",
+      "userType": "student"
     },
     {
       "id": 2,
+      "name": "김도형",
       "email": "ddhkim11@gmail.com",
-      "pw": "1234"
+      "pw": "1234",
+      "userType": "student"
     },
     {
       "id": 3,
+      "name": "임효정",
       "email": "gywjd@gmail.com",
-      "pw": "1234"
+      "pw": "1234",
+      "userType": "student"
     },
     {
       "id": 4,
+      "name": "최원지",
       "email": "wonjichoe@gmail.com",
-      "pw": "1234"
+      "pw": "1234",
+      "userType": "student"
     }
   ]
 }

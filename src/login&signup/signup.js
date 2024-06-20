@@ -1,10 +1,20 @@
 import "./signup.css"
+import axios from "axios"
+import { loadLogin } from "./login"
 
 export class SignupPage {
-    constructor(){
-      this.render()
-      this.addEventListeners()
-    }
+  constructor() {
+    this.render()
+    this.addEventListeners()
+
+    // 최종 가입하기 유효성 검사 변수
+    this.emailValidation = false
+    this.emailRegexValidation = false
+    this.pwValidation = false
+    this.usersNameValidation = false
+    this.consentValidation = false
+    this.codeValidation = false
+  }
 
   render() {
     document.querySelector("#app").innerHTML = `
@@ -85,91 +95,160 @@ export class SignupPage {
   }
 
   addEventListeners() {
-    // 수강생, 매니저 구분 체크박스
-    const manager = document.querySelector('#manager');
-    const student = document.querySelector('#student');
-    manager.addEventListener('click', () => this.changeElement());
-    student.addEventListener('click', () => this.changeElement());
-
-    // 이메일 유효성 검사
-    const usersEmail = document.querySelector('#usersEmail')
-    const emailError = document.querySelector('.emailText')
-    const emailBtn = document.querySelector('.emailbtn')
-
-    usersEmail.addEventListener('input', () => {
-      const emailValue = usersEmail.value;
-      const emailRegex = /^[a-zA-Z0-9]+@gmail\.com$/
-      if(emailRegex.test(emailValue)){
-        emailError.textContent ='중복 확인을 해주세요.'
+    // 이름 빈값 확인
+    const usersName = document.querySelector(".name")
+    usersName.addEventListener("input", () => {
+      if (usersName.value === "") {
+        this.usersNameValidation = false
       } else {
-        emailError.textContent ='사용 할 수 없는 이메일입니다.'
+        this.usersNameValidation = true
       }
     })
-    const checkEmail = (event) => {
+
+    // 수강생, 매니저 구분 체크박스
+    const manager = document.querySelector("#manager")
+    const student = document.querySelector("#student")
+    manager.addEventListener("click", () => this.changeElement())
+    student.addEventListener("click", () => this.changeElement())
+
+    // 이메일 유효성 검사
+    const usersEmail = document.querySelector("#usersEmail")
+    const emailError = document.querySelector(".emailText")
+    const emailBtn = document.querySelector(".emailbtn")
+
+    usersEmail.addEventListener("input", () => {
+      const emailValue = usersEmail.value
+      const emailRegex = /^[a-zA-Z0-9]+@gmail\.com$/
+      if (emailRegex.test(emailValue)) {
+        emailError.textContent = "중복 확인을 해주세요."
+        emailError.setAttribute("style", "color : #ed234b")
+        this.emailRegexValidation = true
+        this.emailValidation = false
+      } else {
+        emailError.textContent = "사용 할 수 없는 이메일입니다."
+        emailError.setAttribute("style", "color : #ed234b")
+        this.emailRegexValidation = false
+        this.emailValidation = false
+      }
+    })
+    const checkEmail = async (event) => {
       event.preventDefault()
-      if(emailError.textContent =='중복 확인을 해주세요.'){
-        emailError.textContent ='확인되었습니다.'
+      if (this.emailRegexValidation) {
+        const res = await axios.get("/api/users.json")
+        const users = res.data.data
+
+        for (let user of users) {
+          if (user.email === usersEmail.value) {
+            emailError.textContent = "중복된 이메일입니다."
+            emailError.setAttribute("style", "color : #ed234b")
+            this.emailValidation = false
+            break
+          } else {
+            emailError.textContent = "이메일이 확인 되었습니다."
+            emailError.setAttribute("style", "color : green")
+            this.emailValidation = true
+          }
+        }
+      } else {
+        alert("이메일 형식을 확인해주세요.")
       }
     }
-    emailBtn.addEventListener('click', checkEmail)
-    usersEmail.addEventListener('keyup', (event) => {
+
+    emailBtn.addEventListener("click", checkEmail)
+    usersEmail.addEventListener("keyup", (event) => {
       if (event.keyCode === 13) {
         checkEmail(event)
       }
     })
-    
 
     // 비밀번호 유효성 검사
-    const usersPw = document.querySelector('#usersPw1')
-    const pwLength = document.querySelector('.pwLength')
-    usersPw.addEventListener('input', () => {
+    const usersPw = document.querySelector("#usersPw1")
+    const pwLength = document.querySelector(".pwLength")
+    usersPw.addEventListener("input", () => {
       const pwValue = usersPw.value
       const pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/
-      if(pwRegex.test(pwValue)){
-        pwLength.textContent ='확인되었습니다.'
+      if (pwRegex.test(pwValue)) {
+        pwLength.textContent = "확인되었습니다."
+        pwLength.setAttribute("style", "color : green")
       } else {
-        pwLength.textContent ='12자 이내의 비밀번호를 입력해주세요.'
+        pwLength.textContent = "12자 이내의 비밀번호를 입력해주세요."
+        pwLength.setAttribute("style", "color : #ed234b")
       }
-      this.pwValidation(usersPw, usersPw2, doNotPw)
+      this.pwEqual(usersPw, usersPw2, doNotPw)
     })
 
     // 2차 비밀번호 유효성 검사
-    const usersPw2 = document.querySelector('#usersPw2')
-    const doNotPw = document.querySelector('.doNotPw')
-    usersPw2.addEventListener('input', () => {
-      this.pwValidation(usersPw, usersPw2, doNotPw)
+    const usersPw2 = document.querySelector("#usersPw2")
+    const doNotPw = document.querySelector(".doNotPw")
+    usersPw2.addEventListener("input", () => {
+      this.pwEqual(usersPw, usersPw2, doNotPw)
+    })
+
+    // 개인정보 동의 여부 검사
+    const notConsent = document.querySelector("#notConsent")
+    const consent = document.querySelector("#consent")
+    consent.addEventListener("click", () => {
+      if (consent.checked) {
+        this.consentValidation = true
+      }
+    })
+
+    notConsent.addEventListener("click", () => {
+      if (notConsent.checked) {
+        this.consentValidation = false
+      }
+    })
+
+    // 최종 가입하기 버튼 클릭시 유효성 검사
+    const signupBtn = document.querySelector(".submitBtn")
+    signupBtn.addEventListener("click", (event) => {
+      event.preventDefault()
+      if (this.emailValidation && this.pwValidation && this.usersNameValidation && this.consentValidation) {
+        alert("가입이 완료되었습니다. 로그인 화면으로 이동합니다.")
+        loadLogin()
+      } else {
+        alert("양식의 검증이 완료되지 않았습니다. 회원가입 정보를 확인해주십시오.")
+      }
     })
   }
-  
+
   // 비밀번호 유효성 검사 함수
-  pwValidation(usersPw, usersPw2, doNotPw) {
-    if(usersPw.value != '' && usersPw2.value != ''){
-      if(usersPw.value === usersPw2.value){
-        doNotPw.textContent = '확인되었습니다.'
+  pwEqual(usersPw, usersPw2, doNotPw) {
+    if (usersPw.value != "" && usersPw2.value != "") {
+      if (usersPw.value === usersPw2.value) {
+        doNotPw.textContent = "확인되었습니다."
+        doNotPw.setAttribute("style", "color : green")
+        this.pwValidation = true
       } else {
-        doNotPw.textContent = '비밀번호가 일치하지 않습니다.'
+        doNotPw.textContent = "비밀번호가 일치하지 않습니다."
+        doNotPw.setAttribute("style", "color : #ed234b")
+        this.pwValidation = false
       }
     } else {
-      doNotPw.textContent = '비밀번호가 일치하지 않습니다.'
+      doNotPw.textContent = "비밀번호가 일치하지 않습니다."
+      doNotPw.setAttribute("style", "color : #ed234b")
+      this.pwValidation = false
     }
   }
 
   // 매니저 체크되면 input박스 생성
   changeElement() {
-    const student = document.querySelector('#student');
-    const managerCode = document.querySelector('#managerCode');
+    const student = document.querySelector("#student")
+    const managerCode = document.querySelector("#managerCode")
 
     if (student.checked) {
-      managerCode.innerHTML = '';
+      managerCode.innerHTML = ""
     } else {
-      managerCode.innerHTML = `<input type='text' id='code' placeholder='사내 인증코드'/>`;
+      managerCode.innerHTML = `<input type='text' id='code' placeholder='사내 인증코드'/>`
     }
+    // 사내 인증코드 유효성 검사
+    const code = document.querySelector("#code")
+    code.addEventListener("input", () => {
+      if (code.value === "team4") {
+        this.codeValidation = true
+      } else {
+        this.codeValidation = false
+      }
+    })
   }
 }
-
-
-
-
-
-
-

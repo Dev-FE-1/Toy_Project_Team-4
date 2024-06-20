@@ -1,10 +1,10 @@
-import "./login.css";
-import { onLoginSuccess } from "../main";
-import { SignupPage } from "./signup";
-import axios from "axios";
+import "./login.css"
+import { onLoginSuccess } from "../main"
+import { SignupPage } from "./signup"
+import axios from "axios"
 
 export function loadLogin() {
-  const app = document.getElementById('app');
+  const app = document.getElementById("app")
   if (app) {
     app.innerHTML = `
   <section id="login-main">
@@ -42,48 +42,45 @@ export function loadLogin() {
       </form>
       </section>
   `
-  const signupPageOpen = document.querySelector("#signupPage")
-  signupPageOpen.addEventListener("click",(e) => {
-    e.preventDefault();
-    const signupPageInstance = new SignupPage()
-  })
-  const loginBtn = document.querySelector('.loginBtn')
-  loginBtn.addEventListener('click', handleLogin); // handleLogin 함수를 참조하도록 수정
+    const signupPageOpen = document.querySelector("#signupPage")
+    signupPageOpen.addEventListener("click", () => {
+      const signupPageInstance = new SignupPage()
+    })
+    const loginBtn = document.querySelector(".loginBtn")
+    loginBtn.addEventListener("click", handleLogin) // handleLogin 함수를 참조하도록 수정
   }
 }
 document.addEventListener("DOMContentLoaded", loadLogin)
 
-
-async function handleLogin() { // async 키워드 추가
-  const email = document.querySelector(".userId").value;
-  const password = document.querySelector(".userPw").value;
+async function handleLogin() {
+  // async 키워드 추가
+  const email = document.querySelector(".userId").value
+  const password = document.querySelector(".userPw").value
 
   try {
-    const response = await axios.get('/api/users.json');
-    const users = response.data.data;
+    const res = await axios.get("/api/users.json")
+    const users = res.data.data
 
-    let userFound = false;
+    let userFound = false
     for (let user of users) {
       if (user.email === email) {
-        userFound = true;
+        userFound = true
         if (user.pw === password) {
-          alert("로그인 성공!");
-          localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태 저장
-          localStorage.setItem('userEmail', email); // 사용자 이메일 저장
-          onLoginSuccess(); // 로그인 성공 시 메인 페이지 로드
-          return; // 로그인 성공 시 함수 종료
+          alert("로그인 성공!")
+          localStorage.setItem("isLoggedIn", "true") // 로그인 상태 저장
+          localStorage.setItem("userEmail", email) // 사용자 이메일 저장
+          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드
         } else {
-          alert("비밀번호를 다시 입력해주세요.");
-          return;
+          alert("비밀번호를 다시 입력해주세요.")
         }
       }
     }
 
     if (!userFound) {
-      alert("회원 정보가 없습니다.");
+      alert("회원 정보가 없습니다.")
     }
   } catch (error) {
-    console.error('Error fetching users:', error);
-    alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    console.error("Error fetching users:", error)
+    alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.")
   }
 }

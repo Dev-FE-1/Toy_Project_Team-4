@@ -6,48 +6,48 @@
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
   min-width: 445px;
   margin-bottom: 35px;
-  background: #fff; 
-  box-shadow: 5px 0 40px #d7d7d7; 
+  background: #fff;
+  box-shadow: 5px 0 40px #d7d7d7;
 }
 
 #attendance h4 {
-  font-weight: 500; 
+  font-weight: 500;
   padding: 20px 30px;
-  border-bottom: 1px solid #EBEFF2; 
+  border-bottom: 1px solid #ebeff2;
 }
 
 #attendance p {
-  color:#5e5e5e;
-  font-size:13px;
+  color: #5e5e5e;
+  font-size: 13px;
   padding: 20px 30px;
 }
 
 #attendance p span {
-  display:inline-block;
+  display: inline-block;
   width: 9px !important;
-  height:9px !important;
+  height: 9px !important;
   border-radius: 50%;
-  background: #ED234B;
+  background: #ed234b;
   margin: auto 10px;
-  position:relative;
-  bottom:1px;
+  position: relative;
+  bottom: 1px;
 }
 
 #attendance p span::before {
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-  width:5px;
-  height:5px;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background:#fff;
+  background: #fff;
 }
 
 #attendance .info {
-  height:calc(100% - 110px);
-  display:flex;
+  height: calc(100% - 110px);
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }
@@ -57,36 +57,36 @@
 }
 
 #attendance .info .inner .time {
-  font-size:75px;
-  font-weight:bold;
-  color:#ababab;
-  margin:0 0 52px;
+  font-size: 75px;
+  font-weight: bold;
+  color: #ababab;
+  margin: 0 0 52px;
 }
 
 #attendance .info .inner .btn-wrap {
   position: relative;
-  height:50px;
-  width:100%;
-  margin:auto;
+  height: 50px;
+  width: 100%;
+  margin: auto;
 }
 
 #attendance .info .inner .toggle-btn {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:235px;
-  height:50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 235px;
+  height: 50px;
   text-align: center;
   color: #fff;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 30px;
 }
 
 #attendance .info .inner .toggle-btn.active {
-  z-index:1;
+  z-index: 1;
 }
 
 #attendance .info .inner .toggle-btn.checkin {
@@ -94,7 +94,7 @@
 }
 
 #attendance .info .inner .toggle-btn.checkin:hover {
-  background: #6DE1A2;
+  background: #6de1a2;
 }
 
 #attendance .info .inner .toggle-btn.checkout {
@@ -103,7 +103,7 @@
 }
 
 #attendance .info .inner .toggle-btn.checkout:hover {
-  background:#F26581;
+  background: #f26581;
 }
 
 .overlay {
@@ -134,40 +134,40 @@
 }
 
 .overlay .modal .material-symbols-outlined {
-  position:absolute;
-  right:13px;
-  top:13px;
-  transition:transform .3s;
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  transition: transform 0.3s;
   cursor: pointer;
 }
 
 .overlay .modal .material-symbols-outlined:hover {
-  transform:rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .overlay .modal p {
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
 
 .overlay .modal .modal-wrap {
-  display:flex;
+  display: flex;
 }
 
 .overlay .modal .modal-wrap button {
-  width:110px;
-  height:57px;
+  width: 110px;
+  height: 57px;
   border-radius: 10px;
-  margin:0 20px;
-  color:#fff;
-  border:none;
+  margin: 0 20px;
+  color: #fff;
+  border: none;
 }
 
 .overlay .modal .modal-wrap button#submitModal {
-  background: #ED234B;
+  background: #ed234b;
 }
 
 .overlay .modal .modal-wrap button#submitModal:hover {
-  background: #F26581;
+  background: #f26581;
 }
 
 .overlay .modal .modal-wrap button#closeModal {

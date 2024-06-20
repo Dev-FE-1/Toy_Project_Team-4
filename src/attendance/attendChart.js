@@ -10,9 +10,10 @@ export function createAttendanceChart(student) {
     labels: ['출석', '조퇴', '결석'],
     datasets: [{
       data: [
-        parseInt(student.attendanceDays), 
-        parseInt(student.earlyLeaveDays), 
-        parseInt(student.absentDays) 
+        // parseInt(student.attendanceDays), 
+        // parseInt(student.earlyLeaveDays), 
+        // parseInt(student.absentDays) 
+        27, 2, 1
       ],
       backgroundColor: ['#2ED47A', '#FFB946', '#ED234B'],
     }]

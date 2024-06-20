@@ -1,4 +1,4 @@
-.attendance {
+#attendance {
   position: absolute;
   top: 35px;
   right: 35px;
@@ -10,22 +10,22 @@
   box-shadow: 5px 0 40px #d7d7d7; 
 }
 
-.attendance h4 {
+#attendance h4 {
   font-weight: 500; 
   padding: 20px 30px;
 }
 
-.attendance .info {
+#attendance .info {
   border-top: 1px solid #EBEFF2; 
   padding: 20px 30px;
 }
 
-.attendance .info p {
+#attendance .info p {
   color:#5e5e5e;
   font-size:13px;
 }
 
-.attendance .info p span {
+#attendance .info p span {
   display:inline-block;
   width: 11px !important;
   height:11px !important;
@@ -36,7 +36,7 @@
   bottom:1px;
 }
 
-.attendance .info p span::before {
+#attendance .info p span::before {
   content:"";
   position:absolute;
   left:50%;
@@ -48,22 +48,22 @@
   background:#fff;
 }
 
-.attendance .info .inner {
+#attendance .info .inner {
   text-align: center;
 }
 
-.attendance .info .inner .time {
+#attendance .info .inner .time {
   font-size:75px;
   font-weight:bold;
   color:#ababab;
   margin:30px 0;
 }
 
-.attendance .info .inner .btn-wrap {
+#attendance .info .inner .btn-wrap {
   position: relative;
 }
 
-.attendance .info .inner .toggle-btn {
+#attendance .info .inner .toggle-btn {
   position:absolute;
   left:50%;
   top:50%;
@@ -78,24 +78,24 @@
   border-radius: 30px;
 }
 
-.attendance .info .inner .toggle-btn.active {
+#attendance .info .inner .toggle-btn.active {
   z-index:1;
 }
 
-.attendance .info .inner .toggle-btn.checkin {
+#attendance .info .inner .toggle-btn.checkin {
   background: #2ed47a;
 }
 
-.attendance .info .inner .toggle-btn.checkin:hover {
+#attendance .info .inner .toggle-btn.checkin:hover {
   background: #6DE1A2;
 }
 
-.attendance .info .inner .toggle-btn.checkout {
+#attendance .info .inner .toggle-btn.checkout {
   background: #ed234b;
   /* z-index: 2; */
 }
 
-.attendance .info .inner .toggle-btn.checkout:hover {
+#attendance .info .inner .toggle-btn.checkout:hover {
   background:#F26581;
 }
 
@@ -148,6 +148,7 @@
   border-radius: 10px;
   margin:0 20px;
   color:#fff;
+  border:none;
 }
 
 .overlay .modal .modal-wrap button#submitModal {

@@ -9,6 +9,7 @@ import { createHeader } from './components/header.js';
 import { createHomeContent } from './components/home.js';
 import { loadInquiryBoard } from './components/InquiryBoard.js';
 
+
 export function navigate(path) {
   const app = document.getElementById('app');
   if (path === '/inquiry-board') {

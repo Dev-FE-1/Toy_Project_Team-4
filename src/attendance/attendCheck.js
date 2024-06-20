@@ -13,7 +13,8 @@ export function loadAttendCheck() {
         </div>
     </section>
     `
-  createAttendanceChart()
-
+    requestAnimationFrame(() => {
+      createAttendanceChart()
+    });
   }
 }

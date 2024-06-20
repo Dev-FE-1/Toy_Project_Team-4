@@ -15,10 +15,12 @@ export function createHomeContent() {
     </div>
   `;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    loadAttendRecord()
-    loadAttendCheck()
-    loadOverlay()
-  })
+  // requestAnimationFrame을 사용하여 브라우저의 렌더링이 완료된 후에 함수 실행
+  requestAnimationFrame(() => {
+    loadAttendRecord();
+    loadAttendCheck();
+    loadOverlay();
+  });
+
   return content;
 }

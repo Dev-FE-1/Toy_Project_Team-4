@@ -4,10 +4,9 @@ import { updateTime } from './updateTime.js';
 
 
 export function loadAttendRecord() {
-  const attendance = document.getElementById('attendance');
+  const attendance = document.querySelector('#attendance');
   if (attendance) {
     attendance.innerHTML = `
-  <section id="attendRecord">
     <h4>입퇴실 기록</h4>
     <div class="info">
       <p><span></span>현재 시각</p>
@@ -19,10 +18,11 @@ export function loadAttendRecord() {
         </div>
       </div>
     </div>
-  </section>
   `
-
-  loadCheckInOut()
-  updateTime()
+  requestAnimationFrame(() => {
+    loadCheckInOut()
+    updateTime()
+  });
+    console.log("update함수 실행됨")
   }
 }

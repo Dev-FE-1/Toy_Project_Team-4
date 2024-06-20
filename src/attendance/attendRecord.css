@@ -1,0 +1,167 @@
+.attendance {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  background-color: rgb(209, 240, 212);
+  height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
+  min-width: 445px;
+  margin-bottom: 35px;
+  background: #fff; 
+  box-shadow: 5px 0 40px #d7d7d7; 
+}
+
+.attendance h4 {
+  font-weight: 500; 
+  padding: 20px 30px;
+}
+
+.attendance .info {
+  border-top: 1px solid #EBEFF2; 
+  padding: 20px 30px;
+}
+
+.attendance .info p {
+  color:#5e5e5e;
+  font-size:13px;
+}
+
+.attendance .info p span {
+  display:inline-block;
+  width: 11px !important;
+  height:11px !important;
+  border-radius: 50%;
+  background: #ED234B;
+  margin: auto 10px;
+  position:relative;
+  bottom:1px;
+}
+
+.attendance .info p span::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  width:5px;
+  height:5px;
+  border-radius: 50%;
+  background:#fff;
+}
+
+.attendance .info .inner {
+  text-align: center;
+}
+
+.attendance .info .inner .time {
+  font-size:75px;
+  font-weight:bold;
+  color:#ababab;
+  margin:30px 0;
+}
+
+.attendance .info .inner .btn-wrap {
+  position: relative;
+}
+
+.attendance .info .inner .toggle-btn {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:235px;
+  height:50px;
+  text-align: center;
+  color: #fff;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  border-radius: 30px;
+}
+
+.attendance .info .inner .toggle-btn.active {
+  z-index:1;
+}
+
+.attendance .info .inner .toggle-btn.checkin {
+  background: #2ed47a;
+}
+
+.attendance .info .inner .toggle-btn.checkin:hover {
+  background: #6DE1A2;
+}
+
+.attendance .info .inner .toggle-btn.checkout {
+  background: #ed234b;
+  /* z-index: 2; */
+}
+
+.attendance .info .inner .toggle-btn.checkout:hover {
+  background:#F26581;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  visibility: hidden;
+}
+
+.overlay.active {
+  visibility: visible;
+}
+
+.overlay .modal {
+  background: #fff;
+  padding: 60px 20px 40px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.overlay .modal .material-symbols-outlined {
+  position:absolute;
+  right:13px;
+  top:13px;
+  transition:transform .3s;
+  cursor: pointer;
+}
+
+.overlay .modal .material-symbols-outlined:hover {
+  transform:rotate(360deg);
+}
+
+.overlay .modal p {
+  margin-bottom:50px;
+}
+
+.overlay .modal .modal-wrap button {
+  width:110px;
+  height:57px;
+  border-radius: 10px;
+  margin:0 20px;
+  color:#fff;
+}
+
+.overlay .modal .modal-wrap button#submitModal {
+  background: #ED234B;
+}
+
+.overlay .modal .modal-wrap button#submitModal:hover {
+  background: #F26581;
+}
+
+.overlay .modal .modal-wrap button#closeModal {
+  background: #ababab;
+}
+
+.overlay .modal .modal-wrap button#closeModal:hover {
+  background: #9f9f9f;
+}

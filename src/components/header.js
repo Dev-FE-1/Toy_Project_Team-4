@@ -48,12 +48,14 @@ export function createHeader() {
   return header;
 }
 
-function adjustHeaderWidth() {
-  const home = document.getElementById('content');
-  const sidebar = document.getElementById('sidebar');
-  if (home && sidebar) {
-    const sidebarWidth = sidebar.offsetWidth;
-    home.style.width = `calc(100vw - ${sidebarWidth}px)`;
-    home.style.left = `${sidebarWidth}px`;
+export function adjustHeaderWidth() {
+  const header = document.querySelector('header'); // 헤더 요소를 선택합니다.
+  if (header) {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      header.style.width = `${window.innerWidth - sidebar.offsetWidth}px`; // 사이드바 너비를 제외한 나머지 너비로 헤더 너비를 설정합니다.
+    } else {
+      header.style.width = '100%'; // 사이드바가 없는 경우 전체 너비로 설정합니다.
+    }
   }
 }

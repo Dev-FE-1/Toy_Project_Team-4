@@ -1,4 +1,4 @@
-import { navigate } from '../main'; // navigate 함수를 main.js에서 가져옴
+import { route } from '../main'; // navigate 함수를 main.js에서 가져옴
 
 export function loadSidebar() {
   const sidebar = createSidebar();
@@ -69,7 +69,7 @@ function createSidebar() {
           </a>
         </li>
         <li>
-          <a href="undefined">
+          <a href="javascript:void(0);" class="has-submenu">
             <span class="icon">
               <img src="/images/iconBoard.svg" alt="게시판">
             </span>
@@ -93,7 +93,7 @@ function createSidebar() {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/request">
                 <span class="sub-icon">
                   <img src="/images/category.svg" alt="행정 자료 요청">
                 </span>
@@ -101,7 +101,7 @@ function createSidebar() {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/gallery">
                 <span class="sub-icon">
                   <img src="/images/category.svg" alt="기업 공지 모음 갤러리">
                 </span>
@@ -111,22 +111,23 @@ function createSidebar() {
           </ul>
         </li>
         <li>
-          <a href="undefined">
+          <a href="javascript:void(0);" class="has-submenu">
             <span class="icon">
               <img src="/images/iconCalendar.svg" alt="출결 관리">
             </span>
             <span class="text">출결 관리</span>
           </a>
           <ul class="submenu visible">
-            <li><a href="#">
-              <span class="sub-icon">
-                <img src="/images/category.svg" alt="입실/퇴실 기록">
-              </span>
+            <li>
+              <a href="/attendance-record">
+                <span class="sub-icon">
+                  <img src="/images/category.svg" alt="입실/퇴실 기록">
+                </span>
               <span class="sub-text">입실/퇴실 기록</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/going-out">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="외출/조퇴 신청">
               </span>
@@ -134,7 +135,7 @@ function createSidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/vacation">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="휴가 신청">
               </span>
@@ -142,27 +143,33 @@ function createSidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+          <a href="javascript:void(0);" class="has-submenu">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="공가 신청">
               </span>
               <span class="sub-text">공가 신청</span>
             </a>
-            <a href="#">
-              <span class="subsub-icon">
-                <img src="/images/category2.svg" alt="신청서 제출">
-              </span>
-              <span class="subsub-text">신청서 제출</span>
-            </a>
-            <a href="#">
-              <span class="subsub-icon">
-                <img src="/images/category2.svg" alt="서류 제출">
-              </span>
-              <span class="subsub-text">서류 제출</span>
-            </a>
+            <ul class="submenu visible">
+              <li>
+                <a href="/application-form">
+                  <span class="subsub-icon">
+                    <img src="/images/category2.svg" alt="신청서 제출">
+                  </span>
+                  <span class="subsub-text">신청서 제출</span>
+                </a>
+              </li>
+              <li>
+                <a href="/document">
+                  <span class="subsub-icon">
+                    <img src="/images/category2.svg" alt="서류 제출">
+                  </span>
+                  <span class="subsub-text">서류 제출</span>
+                </a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a href="#">
+            <a href="/attendance">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="출결 현황 확인">
               </span>
@@ -170,13 +177,6 @@ function createSidebar() {
             </a>
           </li>
         </ul>
-      </li>
-      <li>
-        <a href="#user-profile">
-          <span class="icon"><img src="/images/iconUser1.svg" alt="내 프로필">
-          </span>
-          <span class="text">내 프로필</span>
-        </a>
       </li>
       <li class="bottom">
         <a href="#">
@@ -210,11 +210,17 @@ function createSidebar() {
         addHoverEffect(link, icon);
       }
     });
-    addClickEffect(link);
+    // 링크 클릭 시 페이지 네비게이션을 위한 이벤트 핸들러 추가
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const path = link.getAttribute('href');
+      history.pushState(null, null, path);
+      route(); // 경로 변경 시 route 함수 호출
+    });
   });
 
   // 서브메뉴 클릭 이벤트 추가
-  const submenuParents = sidebar.querySelectorAll('li > a[href="undefined"]');
+  const submenuParents = sidebar.querySelectorAll('.has-submenu');
   submenuParents.forEach(parent => {
     parent.addEventListener('click', function(event) {
       event.preventDefault();
@@ -254,17 +260,3 @@ function addHoverEffect(element, iconElement) {
   }
 }
 
-function addClickEffect(element) {
-  element.addEventListener('click', function(event) {
-    event.preventDefault();
-    resetActiveLinks();
-    element.classList.add('active');
-    history.pushState(null, '', element.href);
-    navigate(element.href);
-  });
-}
-
-function resetActiveLinks() {
-  const links = document.querySelectorAll('.sidebar ul li a');
-  links.forEach(link => link.classList.remove('active'));
-}

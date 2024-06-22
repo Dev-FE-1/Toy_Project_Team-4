@@ -1,7 +1,7 @@
-import "./vacation_request.css";
+import "./vacation_request.css"
 
 export function loadVacationRequest() {
-  const app = document.getElementById("app");
+  const app = document.getElementById("app")
 
   app.innerHTML = `
     <div class="vacation_request_container">
@@ -28,29 +28,23 @@ export function loadVacationRequest() {
         <button type="submit">휴가 신청 제출</button>
       </form>
     </div>
-  `;
+  `
 
   const handleFileChange = (id, callback) => {
     document.getElementById(id).addEventListener("change", function () {
-      callback(this.files);
-    });
-  };
+      callback(this.files)
+    })
+  }
 
-  handleFileChange("convert_to_pdf", (files) =>
-    console.log("Convert to PDF:", files[0])
-  );
-  handleFileChange("compress_to_zip", (files) =>
-    console.log("Compress to ZIP:", files)
-  );
+  handleFileChange("convert_to_pdf", (files) => console.log("Convert to PDF:", files[0]))
+  handleFileChange("compress_to_zip", (files) => console.log("Compress to ZIP:", files))
 
-  document
-    .getElementById("vacationRequestForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const formData = new FormData(this);
-      app.innerHTML = `
+  document.getElementById("vacationRequestForm").addEventListener("submit", function (event) {
+    event.preventDefault()
+    const formData = new FormData(this)
+    app.innerHTML = `
       <h2>휴가 신청</h2>
       <p>휴가 신청이 성공적으로 제출되었습니다.</p>
-    `;
-    });
+    `
+  })
 }

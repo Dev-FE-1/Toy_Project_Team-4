@@ -33,7 +33,6 @@ export function loadSidebar() {
   window.addEventListener('resize', adjustHeaderWidth);
 
   sidebar.addEventListener('transitionend', adjustHeaderWidth); // 사이드바의 트랜지션 끝난 후 헤더 조정
-
 }
 
 function createSidebar() {
@@ -95,17 +94,17 @@ function createSidebar() {
             <li>
               <a href="/request">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="행정 자료 요청">
+                  <img src="/images/category.svg" alt="문서 발급">
                 </span>
-                <span class="sub-text">행정 자료 요청</span>
+                <span class="sub-text">문서 발급</span>
               </a>
             </li>
             <li>
               <a href="/gallery">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="기업 공지 모음 갤러리">
+                  <img src="/images/category.svg" alt="기업 공지 모음">
                 </span>
-                <span class="sub-text">기업 공지 모음 갤러리</span>
+                <span class="sub-text">기업 공지 모음</span>
               </a>
             </li>
           </ul>
@@ -169,11 +168,11 @@ function createSidebar() {
             </ul>
           </li>
           <li>
-            <a href="/attendance">
+            <a href="/status">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="출결 현황 확인">
+                <img src="/images/category.svg" alt="신청 현황">
               </span>
-              <span class="sub-text">출결 현황 확인</span>
+              <span class="sub-text">신청 현황</span>
             </a>
           </li>
         </ul>
@@ -214,8 +213,10 @@ function createSidebar() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const path = link.getAttribute('href');
-      history.pushState(null, null, path);
-      route(); // 경로 변경 시 route 함수 호출
+      if (path && path !== 'javascript:void(0);') {
+        history.pushState(null, null, path);
+        route(); // 경로 변경 시 route 함수 호출
+      }
     });
   });
 

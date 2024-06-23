@@ -1,0 +1,58 @@
+body {
+    background-color: #F2F2F2;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #222;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ABABAB;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    height: 100px;
+  }
+  
+  input[type="date"]:focus,
+  textarea:focus {
+    border-color: #ED234B;
+    outline: none;
+  }
+  
+  button {
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #ED234B;
+    color: #fff;
+    width: 50%;
+    text-align: center;
+    display: block;
+    margin: auto;
+  }
+  
+  button:hover {
+    opacity: 0.7;
+  }
+  

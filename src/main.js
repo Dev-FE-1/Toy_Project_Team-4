@@ -6,16 +6,24 @@ import './styles/InquiryBoard.css';
 import { loadLogin } from './login&signup/login.js';
 import { mainHome } from './components/home.js';
 import { loadInquiryBoard } from './components/InquiryBoard.js';
-
+import { loadAttendRecord } from './attendance/attendRecord.js';
+import { loadOverlay } from './attendance/overlay.js';
+import { updateTime } from './attendance/updateTime.js';
+import { loadLeaveRequest } from './request/leave_request.js';
+import { loadOfficialLeaveRequest } from './request/offical_leave_request.js';
+import { loadOfficialLeaveSubmitDocument } from './request/offical_leave_submit_document.js';
+import { loadStatus } from './request/status.js';
+import { loadVacationRequest } from './request/vacation_request.js';
+import { loadGallery } from './gallery/gallery.js';
 
 const app = () => {
-  init()
-  route()
+  init();
+  route();
 }
 
 function init() {
-  window.addEventListener("popstate", route)
-  document.body.addEventListener("click", navPage)
+  window.addEventListener("popstate", route);
+  document.body.addEventListener("click", navPage);
 }
 
 function navPage(event) {
@@ -30,8 +38,8 @@ function navPage(event) {
 }
 
 export function route() {
-  const path = location.pathname
-  const app = document.querySelector("#app")
+  const path = location.pathname;
+  const app = document.querySelector("#app");
 
   if (!app) return;
 
@@ -54,30 +62,30 @@ export function route() {
       app.innerHTML = `` // 행정 자료 요청
       break;
     case "/gallery":
-      app.innerHTML = `` // 기업 공지 모음 갤러리
+      loadGallery(); // 기업 공지 모음 갤러리
       break;
     case "/attendance-record":
-      app.innerHTML = `` // 입퇴실 기록
+      loadAttendRecord(); // 입퇴실 기록
       break;
     case "/going-out":
-      app.innerHTML = `` // 외출,조퇴 신청
+      loadLeaveRequest(); // 외출, 조퇴 신청
       break;
     case "/vacation":
-      app.innerHTML = `` // 휴가 신청
+      loadVacationRequest(); // 휴가 신청
       break;
     case "/application-form":
-      app.innerHTML = `` // 신청서 제출
+      loadOfficialLeaveRequest(); // 공가 신청
       break;
     case "/document":
-      app.innerHTML = `` // 서류 제출
+      loadOfficialLeaveSubmitDocument(); // 서류 제출
       break;
-    case "/attendance":
-      app.innerHTML = `` // 출결 현황 확인
+    case "/status":
+      loadStatus(); // 신청 현황
       break;
   }
 }
 
-document.addEventListener("DOMContentLoaded", app)
+document.addEventListener("DOMContentLoaded", app);
 
 // 페이지 로드 시 초기 콘텐츠 설정
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,4 +1,4 @@
-import "../styles/profile.css"
+import "./profile.css"
 import axios from "axios"
 
 export function profile() {

@@ -14,7 +14,7 @@ import { loadOfficialLeaveSubmitDocument } from "./request/offical_leave_submit_
 import { loadStatus } from "./request/status.js"
 import { loadVacationRequest } from "./request/vacation_request.js"
 import { loadGallery } from "./gallery/gallery.js"
-import { profile } from "./page/profile.js"
+import { profile } from "./profile/profile.js"
 
 const app = () => {
   init()

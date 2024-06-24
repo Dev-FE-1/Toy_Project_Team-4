@@ -145,6 +145,10 @@
   margin-bottom:50px;
 }
 
+.overlay .modal .modal-wrap {
+  display:flex;
+}
+
 .overlay .modal .modal-wrap button {
   width:110px;
   height:57px;

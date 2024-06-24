@@ -1,19 +1,26 @@
-import axios from 'axios';
 import Chart from 'chart.js/auto';
-import 'chartjs-plugin-datalabels'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth(); // 현재 월 (0부터 시작)
+const currentYear = currentDate.getFullYear(); // 현재 연도
+const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate(); // 현재 월의 총 일수
 
 export function createAttendanceChart(student) {
   const ctx = document.getElementById('attendanceCanvas').getContext('2d');
+  
+  // 출석 데이터 계산 및 텍스트로 표시할 값 설정
+  const attendancePercentage = Math.round((parseInt(student.attendanceDays) / totalDays) * 100);
+  document.getElementById('chart1-center-text').textContent = `${attendancePercentage}%`;
 
   // 도넛 그래프 데이터 설정
   const chartData = {
-    labels: ['출석', '조퇴', '결석'],
+    // labels: ['출석', '조퇴', '결석'],
     datasets: [{
       data: [
-        // parseInt(student.attendanceDays), 
-        // parseInt(student.earlyLeaveDays), 
-        // parseInt(student.absentDays) 
-        27, 2, 1
+        parseInt(student.attendanceDays), 
+        parseInt(student.earlyLeaveDays), 
+        parseInt(student.absentDays) 
       ],
       backgroundColor: ['#2ED47A', '#FFB946', '#ED234B'],
     }]
@@ -27,31 +34,16 @@ export function createAttendanceChart(student) {
       legend: {
         position: 'right',
       },
-    },
-    tooltip: {
-      enabled: false,
-    },
-    datalabels: {
-      color: '#2ED47A',
-      font: {
-        size: '30'
+      tooltip: {
+        enabled: false,
       }
-    },
-    formatter: (value, ctx) => {
-      let sum = ctx.dataset.data.reduce((a, b) => a + b, 0);
-      let percentage = ((value * 100) / sum).toFixed(2) + "%";
-      return percentage;
-    },
-    display: true, // 데이터 레이블 표시
-    anchor: 'center', // 텍스트 위치 설정 (중앙)
-    align: 'center'
+    }
   };
 
   new Chart(ctx, {
     type: 'doughnut',
     data: chartData,
-    options: chartOptions
+    options: chartOptions,
+    //plugins: [ChartDataLabels] // 플러그인 추가
   });
-
-  console.log('Chart Data:', chartData);
 }

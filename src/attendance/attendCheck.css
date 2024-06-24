@@ -13,6 +13,80 @@
   border-bottom: 1px solid #EBEFF2; 
 }
 
+#attendance-Check .attendance-canvas {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+#attendance-Check .attendance-canvas ul li {
+  font-size:13px;
+  margin:5px 10px;
+}
+
+#attendance-Check .attendance-canvas ul li span {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius: 50%;
+  margin-right:10px;
+}
+#attendance-Check .attendance-canvas ul li span.green {
+  background-color: #2ed47a;
+}
+#attendance-Check .attendance-canvas ul li span.yellow {
+  background-color: #FFB946;
+}
+#attendance-Check .attendance-canvas ul li span.red {
+  background-color: #ED234B;
+}
+
 #attendance-Check #attendance-chart {
-  margin:0 auto;
+  position: relative;
+}
+
+#attendance-Check .chart-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  font-weight:500;
+  color: #2ed47a;
+}
+
+#attendance-Check .attendance-result {
+  position: absolute;
+  top: 250px;
+  left: 30px;
+}
+
+#attendance-Check .attendance-result .result p {
+  color:#5e5e5e;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+#attendance-Check .attendance-result .result p span {
+  display:inline-block;
+  width: 9px !important;
+  height:9px !important;
+  border-radius: 50%;
+  background: #ED234B;
+  margin: auto 20px auto 10px;
+  position:relative;
+  bottom:1px;
+}
+
+#attendance-Check .attendance-result .result p span::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  width:4px;
+  height:4px;
+  border-radius: 50%;
+  background:#fff;
 }

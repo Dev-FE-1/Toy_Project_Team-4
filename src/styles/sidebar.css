@@ -43,6 +43,19 @@
   color: #ed234b;
 }
 
+.sidebar ul li a:hover {
+  background: #f2f2f2;
+  color: #ed234b;
+}
+
+.sidebar ul li a:hover .text {
+  color: #ed234b;  /* hover 상태의 텍스트 색상 */
+}
+
+.sidebar ul li a .text {
+  color: #5e5e5e;
+}
+
 .sidebar ul li a .icon {
   display: flex;
   justify-content: center;
@@ -254,6 +267,7 @@
   width: 5px;
   height: 5px;
   margin-right: 10px; /* 하위 메뉴 아이콘과 텍스트 사이의 간격 설정 */
+
 }
 
 .submenu li .sub-icon img {

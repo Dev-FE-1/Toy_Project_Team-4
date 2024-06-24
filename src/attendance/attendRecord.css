@@ -27,8 +27,8 @@
 
 #attendance .info p span {
   display:inline-block;
-  width: 11px !important;
-  height:11px !important;
+  width: 9px !important;
+  height:9px !important;
   border-radius: 50%;
   background: #ED234B;
   margin: auto 10px;
@@ -61,6 +61,9 @@
 
 #attendance .info .inner .btn-wrap {
   position: relative;
+  height:50px;
+  width:100%;
+  margin:auto;
 }
 
 #attendance .info .inner .toggle-btn {
@@ -140,6 +143,10 @@
 
 .overlay .modal p {
   margin-bottom:50px;
+}
+
+.overlay .modal .modal-wrap {
+  display:flex;
 }
 
 .overlay .modal .modal-wrap button {

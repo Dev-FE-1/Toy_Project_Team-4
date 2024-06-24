@@ -23,6 +23,5 @@ export function loadAttendRecord() {
     loadCheckInOut()
     updateTime()
   });
-    console.log("update함수 실행됨")
   }
 }

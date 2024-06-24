@@ -5,6 +5,7 @@
   background-color: #fff; 
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
   min-width: 445px;
+  box-shadow: 5px 0 40px #d7d7d7;
 }
 
 #attendance-Check h4 {
@@ -13,6 +14,111 @@
   border-bottom: 1px solid #EBEFF2; 
 }
 
+#attendance-Check .attendance-canvas {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+#attendance-Check .attendance-canvas ul li {
+  font-size:13px;
+  margin:5px 10px;
+}
+
+#attendance-Check .attendance-canvas ul li span {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius: 50%;
+  margin-right:10px;
+}
+#attendance-Check .attendance-canvas ul li span.green {
+  background-color: #2ed47a;
+}
+#attendance-Check .attendance-canvas ul li span.yellow {
+  background-color: #FFB946;
+}
+#attendance-Check .attendance-canvas ul li span.red {
+  background-color: #ED234B;
+}
+
 #attendance-Check #attendance-chart {
-  margin:0 auto;
+  position: relative;
+}
+
+#attendance-Check .chart-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  font-weight:500;
+  color: #2ed47a;
+}
+
+#attendance-Check .attendance-result {
+  padding: 0 30px;
+}
+
+#attendance-Check .attendance-result .result {
+  display:flex;
+  align-items: center;
+  margin-bottom:5px;
+}
+
+#attendance-Check .attendance-result .result p {
+  color:#5e5e5e;
+  font-size:13px;
+  flex:1;
+}
+
+#attendance-Check .attendance-result .result p span {
+  display:inline-block;
+  width: 9px !important;
+  height:9px !important;
+  border-radius: 50%;
+  background: #ED234B;
+  margin: auto 20px auto 10px;
+  position:relative;
+  bottom:1px;
+}
+
+#attendance-Check .attendance-result .result p span::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  width:4px;
+  height:4px;
+  border-radius: 50%;
+  background:#fff;
+}
+
+#attendance-Check .attendance-result .result .progress-bar {
+  position: relative;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+  height: 20px;
+  flex:2;
+}
+
+#attendance-Check .attendance-result .result .progress-fill {
+  background-color: #2ED47A;
+  height: 100%;
+  width: 0;
+  border-radius: 25px 0 0 25px;
+  transition: width 0.5s ease-in-out;
+}
+
+#attendance-Check .attendance-result .result .progress-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 12px;
 }

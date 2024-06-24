@@ -1,6 +1,5 @@
 export function loadOverlay() {
   const overlay = document.querySelector('.overlay');
-  console.log(overlay)
   if (overlay) {
     overlay.innerHTML = `
     <div class="modal">

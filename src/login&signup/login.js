@@ -31,8 +31,7 @@ export function loadLogin() {
         </div>
         <div class="emailCheck">
           <label for="emailCheck">
-            <input type="checkbox" id="rememberEmail" /> 이메일 기억하기</label
-          >
+            <input type="checkbox" id="emailCheck" /> 이메일 기억하기</label >
         </div>
         <div class="pageMove">
           <button id="pwFind">비밀번호 찾기</button>

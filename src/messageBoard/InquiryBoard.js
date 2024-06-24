@@ -1,20 +1,33 @@
+import './InquiryBoard.css';
+
+
 export function loadInquiryBoard() {
   const app = document.getElementById('app');
   app.innerHTML = `
-    <div class="inquiry-board">
-      <h1>Inquiry Board</h1>
-      <form id="inquiry-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-        <br>
-        <button type="submit">Submit</button>
-      </form>
-      <ul id="inquiry-list"></ul>
+    <div class="borad">
+      <div class="inquiry-board">
+        <div class="header-section">
+          <h1>문의 게시판</h1>
+          <button id="write-button">글쓰기</button>
+        </div>
+        <form id="inquiry-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          <br>
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+          <br>
+          <button type="submit">Submit</button>
+        </form>
+        <ul id="inquiry-list"></ul>
+      </div>
     </div>
   `;
+
+  document.getElementById('write-button').addEventListener('click', () => {
+    const form = document.getElementById('inquiry-form');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  });
 
   document.getElementById('inquiry-form').addEventListener('submit', (e) => {
     e.preventDefault();

@@ -1,9 +1,9 @@
 #content {
-  margin-top: 60px;
-  margin-left: 68px;
+  /* margin-top: 60px;
+  margin-left: 68px; */
   transition: all 0.5s;
   background-color: #f2f2f2;
-  width: calc(100% - 68px);
+  width: 100%;
 }
 
 /* home.css */

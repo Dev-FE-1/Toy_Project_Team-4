@@ -57,15 +57,19 @@
 }
 
 #attendance-Check .attendance-result {
-  position: absolute;
-  top: 250px;
-  left: 30px;
+  padding: 0 30px;
+}
+
+#attendance-Check .attendance-result .result {
+  display:flex;
+  align-items: center;
+  margin-bottom:5px;
 }
 
 #attendance-Check .attendance-result .result p {
   color:#5e5e5e;
   font-size:13px;
-  margin-bottom:10px;
+  flex:1;
 }
 
 #attendance-Check .attendance-result .result p span {
@@ -89,4 +93,31 @@
   height:4px;
   border-radius: 50%;
   background:#fff;
+}
+
+#attendance-Check .attendance-result .result .progress-bar {
+  position: relative;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+  height: 20px;
+  flex:2;
+}
+
+#attendance-Check .attendance-result .result .progress-fill {
+  background-color: #2ED47A;
+  height: 100%;
+  width: 0;
+  border-radius: 25px 0 0 25px;
+  transition: width 0.5s ease-in-out;
+}
+
+#attendance-Check .attendance-result .result .progress-text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 12px;
 }

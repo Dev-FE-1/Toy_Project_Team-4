@@ -47,3 +47,17 @@ export function createAttendanceChart(student) {
     //plugins: [ChartDataLabels] // 플러그인 추가
   });
 }
+
+export function createProgressChart(attendancePercentage, coursePercentage) {
+  function setProgress(barId, textId, percentage, hours) {
+    const fillElement = document.getElementById(barId);
+    const textElement = document.getElementById(textId);
+    
+    fillElement.style.width = percentage + '%';
+    textElement.textContent = `${percentage}% (${hours}시간)`;
+  }
+
+  // 예시로 각각 80%와 20%로 설정
+  setProgress('attendance-fill', 'attendance-text', attendancePercentage, 100); // 총 100시간이라고 가정
+  setProgress('course-fill', 'course-text', coursePercentage, 100); // 총 100시간이라고 가정
+}

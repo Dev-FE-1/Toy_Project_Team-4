@@ -1,5 +1,5 @@
 import "./attendCheck.css";
-import { createAttendanceChart } from './attendChart.js';
+import { createAttendanceChart, createProgressChart } from './attendChart.js';
 
 
 export function loadAttendCheck() {
@@ -22,11 +22,17 @@ export function loadAttendCheck() {
         <div class="attendance-result">
           <div class="result">
             <p><span></span>나의 출석률</p>
-            <div class="result-chart"></div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="attendance-fill"></div>
+              <div class="progress-text" id="attendance-text"></div>
+            </div>
           </div>
           <div class="result">
             <p><span></span>과정 진행률</p>
-            <div class="result-chart"></div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="course-fill"></div>
+              <div class="progress-text" id="course-text"></div>
+            </div>
           </div>
         </div>
     </section>
@@ -38,8 +44,14 @@ export function loadAttendCheck() {
         earlyLeaveDays: 2,
         absentDays: 1
       };
+
+      const course = {
+        coursePercentage: 20 
+      };
+      const attendancePercentage = Math.round((parseInt(student.attendanceDays) / 100) * 100);
       
       createAttendanceChart(student); 
+      createProgressChart(attendancePercentage, course.coursePercentage);
     });
   }
 }

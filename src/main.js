@@ -2,10 +2,9 @@ import './main.css';
 import './styles/sidebar.css';
 import './styles/header.css';
 import './styles/home.css';
-import './styles/InquiryBoard.css';
 import { loadLogin } from './login&signup/login.js';
 import { mainHome } from './components/home.js';
-import { loadInquiryBoard } from './components/InquiryBoard.js';
+import { loadInquiryBoard } from './messageBoard/InquiryBoard.js';
 import { loadAttendRecord } from './attendance/attendRecord.js';
 import { loadOverlay } from './attendance/overlay.js';
 import { updateTime } from './attendance/updateTime.js';
@@ -99,5 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 로그인 완료 후 메인 페이지 로드 함수
 export function onLoginSuccess() {
-  mainHome(); // 메인 페이지 로드
+  const app = document.getElementById('app');
+  if (app) {
+    app.innerHTML = ''; // 기존 콘텐츠 삭제
+    mainHome(); // 메인 페이지 로드
+  }
 }

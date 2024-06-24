@@ -28,7 +28,7 @@ function init() {
 function navPage(event) {
   const a = event.target.closest("a");
 
-  if (a && a.href) {
+  if (a && a.href !== 'javascript:void(0)') {
     event.preventDefault();
     const path = a.getAttribute("href");
     history.pushState(null, null, path);

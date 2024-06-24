@@ -27,7 +27,7 @@
 - 김도형 : HTML, CSS, JavaScript / 강의, 복습 위주 학습 / 비전공자
 - 김수민 : HTML, CSS, JavaScript / 강의, 복습 위주 학습 / 비전공자
 - 임효정 : HTML, CSS, JavaScript, Figma / 강의 위주 학습 / 비전공자
-- 최원지:  HTML, CSS, JabaScript, SCSS, Figma / 강의, 예제 위주 학습 / 비전공자
+- 최원지:  HTML, CSS, JavaScript, SCSS, Figma / 강의, 예제 위주 학습 / 비전공자
 
 <br>
 

@@ -24,6 +24,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: calc(100% - 68px);
+  height: calc(100% - 60px);
+  margin-left: 68px;
+  margin-top: 60px;
 }
 
 a {

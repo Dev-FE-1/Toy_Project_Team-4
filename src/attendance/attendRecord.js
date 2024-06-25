@@ -8,8 +8,9 @@ export function loadAttendRecord() {
   if (attendance) {
     attendance.innerHTML = `
     <h4>입퇴실 기록</h4>
+          <p><span></span>현재 시각</p>
     <div class="info">
-      <p><span></span>현재 시각</p>
+
       <div class="inner">
         <div class="time"></div>
         <div class="btn-wrap">

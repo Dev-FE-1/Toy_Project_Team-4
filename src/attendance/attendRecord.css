@@ -13,19 +13,16 @@
 #attendance h4 {
   font-weight: 500; 
   padding: 20px 30px;
+  border-bottom: 1px solid #EBEFF2; 
 }
 
-#attendance .info {
-  border-top: 1px solid #EBEFF2; 
+#attendance p {
+  color:#5e5e5e;
+  font-size:13px;
   padding: 20px 30px;
 }
 
-#attendance .info p {
-  color:#5e5e5e;
-  font-size:13px;
-}
-
-#attendance .info p span {
+#attendance p span {
   display:inline-block;
   width: 9px !important;
   height:9px !important;
@@ -36,7 +33,7 @@
   bottom:1px;
 }
 
-#attendance .info p span::before {
+#attendance p span::before {
   content:"";
   position:absolute;
   left:50%;
@@ -48,6 +45,13 @@
   background:#fff;
 }
 
+#attendance .info {
+  height:calc(100% - 110px);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 #attendance .info .inner {
   text-align: center;
 }
@@ -56,7 +60,7 @@
   font-size:75px;
   font-weight:bold;
   color:#ababab;
-  margin:30px 0;
+  margin:0 0 52px;
 }
 
 #attendance .info .inner .btn-wrap {

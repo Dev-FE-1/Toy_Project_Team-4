@@ -1,7 +1,7 @@
-import "./leave_request.css";
+import "./leave_request.css"
 
 export function loadLeaveRequest() {
-  const app = document.getElementById("app");
+  const app = document.getElementById("app")
   app.innerHTML = `
     <div class="leave_request_container">
       <h2>외출/조퇴 신청</h2>
@@ -11,15 +11,13 @@ export function loadLeaveRequest() {
         <button type="submit">제출</button>
       </form>
     </div>
-  `;
+  `
 
-  document
-    .getElementById("leaveRequestForm")
-    .addEventListener("submit", (event) => {
-      event.preventDefault();
-      app.innerHTML = `
+  document.getElementById("leaveRequestForm").addEventListener("submit", (event) => {
+    event.preventDefault()
+    app.innerHTML = `
       <h2>외출/조퇴 신청 완료</h2>
       <p>사유: ${document.getElementById("reason").value}</p>
-    `;
-    });
+    `
+  })
 }

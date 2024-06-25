@@ -1,9 +1,8 @@
-import "./attendCheck.css";
-import { createAttendanceChart, createProgressChart } from './attendChart.js';
-
+import "./attendCheck.css"
+import { createAttendanceChart, createProgressChart } from "./attendChart.js"
 
 export function loadAttendCheck() {
-  const attendanceCheck = document.getElementById('attendance-Check');
+  const attendanceCheck = document.getElementById("attendance-Check")
   if (attendanceCheck) {
     attendanceCheck.innerHTML = `
       <h4>출결 현황 확인</h4>
@@ -42,16 +41,16 @@ export function loadAttendCheck() {
         totalDays: 30,
         attendanceDays: 27,
         earlyLeaveDays: 2,
-        absentDays: 1
-      };
+        absentDays: 1,
+      }
 
       const course = {
-        coursePercentage: 20 
-      };
-      const attendancePercentage = Math.round((parseInt(student.attendanceDays) / 100) * 100);
-      
-      createAttendanceChart(student); 
-      createProgressChart(attendancePercentage, course.coursePercentage);
-    });
+        coursePercentage: 20,
+      }
+      const attendancePercentage = Math.round((parseInt(student.attendanceDays) / 100) * 100)
+
+      createAttendanceChart(student)
+      createProgressChart(attendancePercentage, course.coursePercentage)
+    })
   }
 }

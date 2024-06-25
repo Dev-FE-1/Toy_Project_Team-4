@@ -1,107 +1,104 @@
-body {
-  background-color: #F2F2F2;
-}
-
-.gallery-container {
-  width: 90%;
+.gallery_container {
+  width: 80%;
   max-width: 100%;
-  padding: 20px;
+  padding: 40px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.gallery-header {
+.gallery_container h2 {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.gallery_container .gallery_header,
+.gallery_container .sort-options,
+.gallery_container .card-footer,
+.gallery_container .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
-.gallery-header h2 {
-  font-size: 2rem;
-  color: #222;
+.gallery_container .sort-options {
+  justify-content: flex-end;
+  margin-right: 10px;
 }
 
-.sort-options {
-  display: flex;
-  align-items: center;
-}
-
-.sort-options select {
-  padding: 5px 10px;
-  font-size: 1rem;
-  border: 1px solid #ED234B;
+.gallery_container .sort-options select {
+  padding: 10px;
   border-radius: 5px;
-  background-color: #fff;
-  border: none;
-  outline: none;
+  border: 1px solid #ABABAB;
+  font-size: 1rem;
 }
 
-.card-grid {
+.gallery_container .sort-options select:focus {
+  outline: none;
+  border: 2px solid #ED234B;
+}
+
+.gallery_container .card-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
 }
 
-.card {
+.gallery_container .card {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
   padding: 20px;
   box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 350px;
-  width: calc(25% - 20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  height: 300px;
+  width: calc(23% - 20px);
 }
 
-.card:hover {
+.gallery_container .card:hover {
   transform: translateY(-10px);
   box-shadow: 0 .8rem 4rem -.8rem #0a0a1466;
 }
 
-.card img {
+.gallery_container .card img {
   width: 100%;
   height: 50%;
   border-radius: 5px;
   margin-bottom: 15px;
 }
 
-.card h3 {
-  font-size: 1.2rem;
-  color: #5e5e5e;
-  margin: 0 0 10px;
-}
-
-.card p {
+.gallery_container .card h3,
+.gallery_container .card p {
   font-size: 1rem;
   color: #5e5e5e;
   margin: 0 0 10px;
 }
 
-.card-footer {
-  display: flex;
+.gallery_container .card-footer {
   justify-content: flex-end;
-  align-items: center;
   margin-top: 20px;
 }
 
-.card-footer .date {
+.gallery_container .card-footer .date {
   font-size: 0.9rem;
   color: #ED234B;
 }
 
-.pagination {
-  display: flex;
+.gallery_container .pagination {
   justify-content: center;
   margin: 20px 0;
 }
 
-.pagination button {
+.gallery_container .pagination button {
   background-color: #fff;
-  border: none;
+  border: 1px solid #d6d6d6;
   color: #222;
   padding: 10px 20px;
   margin: 0 5px;
@@ -109,7 +106,7 @@ body {
   border-radius: 5px;
 }
 
-.pagination button.active {
+.gallery_container .pagination button.active {
   background-color: #ED234B;
   color: #fff;
 }

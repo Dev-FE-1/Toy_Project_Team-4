@@ -6,8 +6,8 @@ export function loadAttendCheck() {
   const attendanceCheck = document.getElementById('attendance-Check');
   if (attendanceCheck) {
     attendanceCheck.innerHTML = `
-    <section id="attendCheck">
       <h4>출결 현황 확인</h4>
+      <div class="chart-section">
         <div class="attendance-canvas">
           <div id="attendance-chart" style="width: 200px; height: 200px;">
             <canvas id="attendanceCanvas"></canvas>
@@ -35,7 +35,7 @@ export function loadAttendCheck() {
             </div>
           </div>
         </div>
-    </section>
+      </div>
     `
     requestAnimationFrame(() => {
       const student = {

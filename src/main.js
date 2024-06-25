@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", app)
 
 // 페이지 로드 시 초기 콘텐츠 설정
 document.addEventListener("DOMContentLoaded", () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
+  loadLogin()
+  const isLoggedIn = JSON.parse(localStorage.getItem("userInfo")).isLoggedIn
   if (isLoggedIn === "true") {
     onLoginSuccess() // 로그인 상태라면 메인 페이지를 로드합니다.
   } else {

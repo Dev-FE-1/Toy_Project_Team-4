@@ -3,6 +3,7 @@ import { loadAttendCheck } from "../attendance/attendCheck.js"
 import { loadOverlay } from "../attendance/overlay.js"
 import { createHeader, adjustHeaderWidth } from "./header.js"
 import { loadSidebar } from "./Sidebar.js"
+import { loadLogin } from "../login&signup/login.js"
 
 export function createHomeContent() {
   const content = document.createElement("div")
@@ -28,7 +29,7 @@ export function createHomeContent() {
 }
 
 export function mainHome() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
+  const isLoggedIn = JSON.parse(localStorage.getItem("userInfo")).isLoggedIn
   if (isLoggedIn !== "true") {
     loadLogin()
     return

@@ -49,7 +49,7 @@
 }
 
 .sidebar ul li a:hover .text {
-  color: #ed234b;  /* hover 상태의 텍스트 색상 */
+  color: #ed234b; /* hover 상태의 텍스트 색상 */
 }
 
 .sidebar ul li a .text {
@@ -143,7 +143,6 @@
   opacity: 0; /* 호버 시 숨기기 */
 }
 
-
 .sidebar ul li.user-item a:hover {
   background: none; /* 유저 아이템 호버 시 배경색 변경 안 함 */
 }
@@ -151,7 +150,8 @@
 .user-item {
   display: flex;
   height: 90px;
-  transition: height 1s ease-in-out, margin-top 1s ease-in-out, margin-left 1s ease-in-out, align-items 1s ease-in-out, top 1s ease-in-out, left 1s ease-in-out, opacity 1s ease-in-out;
+  transition: height 1s ease-in-out, margin-top 1s ease-in-out, margin-left 1s ease-in-out, align-items 1s ease-in-out,
+    top 1s ease-in-out, left 1s ease-in-out, opacity 1s ease-in-out;
   overflow: hidden;
 }
 
@@ -178,8 +178,8 @@
 }
 
 .sidebar.expanded .user-item:hover .user-icon {
- margin-left: -2px;
- margin-top: 10px;
+  margin-left: -2px;
+  margin-top: 10px;
 }
 
 .sidebar.expanded .user-item .user-icon {
@@ -192,11 +192,11 @@
 
 .user-item .hover-icon {
   left: 13px;
-  top: -10px
+  top: -10px;
 }
 
 .sidebar.expanded .user-item {
- margin-left: 18px;
+  margin-left: 18px;
 }
 
 .sidebar.expanded .user-item:hover .hover-icon {
@@ -267,7 +267,6 @@
   width: 5px;
   height: 5px;
   margin-right: 10px; /* 하위 메뉴 아이콘과 텍스트 사이의 간격 설정 */
-
 }
 
 .submenu li .sub-icon img {

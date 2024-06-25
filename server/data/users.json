@@ -6,28 +6,36 @@
       "name": "김수민",
       "email": "tnalsdl2046@gmail.com",
       "pw": "1234",
-      "userType": "student"
+      "userType": "student",
+      "background": "/public/images/backgroundimages3.jpg",
+      "profileImage": "/public/images/수민.jpg"
     },
     {
       "id": 2,
       "name": "김도형",
       "email": "ddhkim11@gmail.com",
       "pw": "1234",
-      "userType": "student"
+      "userType": "student",
+      "background": "/public/images/backgroundimages2.jpg",
+      "profileImage": "/public/images/도형.jpg"
     },
     {
       "id": 3,
       "name": "임효정",
       "email": "gywjd@gmail.com",
       "pw": "1234",
-      "userType": "student"
+      "userType": "student",
+      "background": "/public/images/backgroundimages1.jpg",
+      "profileImage": "/public/images/효정.jpg"
     },
     {
       "id": 4,
       "name": "최원지",
       "email": "wonjichoe@gmail.com",
       "pw": "1234",
-      "userType": "student"
+      "userType": "student",
+      "background": "/public/images/backgroundimages4.jpg",
+      "profileImage": "/public/images/원지.jpg"
     }
   ]
 }

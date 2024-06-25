@@ -4,14 +4,15 @@ export function loadStatus() {
     const app = document.getElementById('app');
 
     app.innerHTML = `
-        <div class="status_container">
+        <div class="container">
             <h2>신청 현황</h2>
             <div class="tabs">
                 <button class="tablink active" data-tab="leaveRequestStatus">외출/조퇴 신청</button>
-                <button class="tablink" data-tab="vacationRequestStatus">휴가 신청</button>
                 <button class="tablink" data-tab="officialLeaveRequestStatus">공가 신청</button>
+                <button class="tablink" data-tab="vacationRequestStatus">휴가 신청</button>
             </div>
             <div id="content">
+                <!-- 콘텐츠가 JavaScript에 의해 동적으로 로드됩니다. -->
             </div>
         </div>
     `;
@@ -133,6 +134,7 @@ export function loadStatus() {
         }
     }
 
+    // 탭 이벤트 리스너 추가
     const tablinks = document.querySelectorAll('.tablink');
     tablinks.forEach((tablink) => {
         tablink.addEventListener('click', function(event) {
@@ -140,6 +142,6 @@ export function loadStatus() {
         });
     });
 
+    // 초기 탭 설정
     document.querySelector('.tablink.active').click();
 }
-

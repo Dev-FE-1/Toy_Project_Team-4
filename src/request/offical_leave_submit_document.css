@@ -1,89 +1,87 @@
-.offical_leave_submit_document_container {
-  width: 60%;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.offical_leave_submit_document_container h2 {
-  font-size: 2rem;
-  color: #222;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.offical_leave_submit_document_container .downloads {
-  display: flex;
-  justify-content: space-around;
-}
-
-.offical_leave_submit_document_container .download-link,
-.offical_leave_submit_document_container .file-subsection {
-  margin-bottom: 20px;
-}
-
-.offical_leave_submit_document_container .download-link {
-  display: block;
-  color: #ED234B;
-  text-decoration: none;
-}
-
-.offical_leave_submit_document_container .file-input-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-#convert_to_pdf,
-#compress_to_zip,
-#all_file {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-#convert_to_pdf,
-#compress_to_zip {
-  margin-right: 10px;
-}
-
-#all_file {
-  width: 100%;
-  padding: 12px;
-  margin: 5px 0 20px;
-}
-
-.offical_leave_submit_document_container .file-action-btn,
-.offical_leave_submit_document_container button {
-  padding: 10px;
-  background-color: #ED234B;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-}
-
-.offical_leave_submit_document_container .file-action-btn {
-  width: 100px;
-}
-
-.offical_leave_submit_document_container .file-action-btn:hover,
-.offical_leave_submit_document_container button:hover {
-  opacity: 0.7;
-}
-
-.offical_leave_submit_document_container button {
-  padding: 15px 30px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 50%;
-  text-align: center;
-  display: block;
-  margin: auto;
-  border-radius: 4px;
-}
+body {
+    background-color: #F2F2F2;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #222;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ABABAB;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .file-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  
+  .file-input-container input[type="file"] {
+    flex: 1;
+  }
+  
+  #convert_to_pdf,
+  #compress_to_zip {
+    margin-right: 10px;
+  }
+  
+  .file-action-btn {
+    width: 100px;
+    padding: 10px;
+    background-color: #ED234B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .file-action-btn:hover {
+    opacity: 0.7;
+  }
+  
+  .download-link {
+    display: block;
+    margin: 15px 0 10px;
+    color: #ED234B;
+    text-decoration: none;
+  }
+  
+  #all_file {
+    margin-bottom: 20px;
+  }
+  
+  .center-btn {
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #ED234B;
+    color: #fff;
+    width: 50%;
+    text-align: center;
+    display: block;
+    margin: auto;
+  }
+  
+  .center-btn:hover {
+    opacity: 0.7;
+  }
+  

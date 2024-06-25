@@ -1,32 +1,30 @@
-.status_container {
+body {
+    background-color: #F2F2F2;
+  }
+  
+  .container {
     width: 60%;
-    height: 70%;
     background-color: #fff;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
 }
 
-.status_container h2 {
-    font-size: 2rem;
+h2 {
+    font-size: 1.5rem;
     color: #222;
     margin: 0 0 40px;
     text-align: center;
 }
 
-.status_container h3 {
-    font-size: 1rem;
-    color: #222;
-    margin: 20px 0;
-}
-
-.status_container .tabs {
+.tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-.status_container .tablink {
+.tablink {
+    width: auto;
     background-color: #ababab;
     color: #fff;
     border: none;
@@ -38,51 +36,62 @@
     transition: background-color 0.3s;
 }
 
-.status_container .tablink:hover {
+.tablink:hover {
     background-color: #ED234B;
 }
 
-.status_container .tablink.active {
+.tablink.active {
     background-color: #ED234B;
 }
 
-.status_container #content {
-    background-color: #fff;
-}
-
-.status_container .tabcontent {
+.tabcontent {
     display: none;
     padding: 20px;
     border-top: none;
 }
 
-.status_container .tabcontent.active {
+.tabcontent.active {
     display: block;
 }
 
-.status_container table {
+#content {
+    background-color: #fff;
+    font-size: 1rem;
+    margin: auto;
+}
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    
 }
 
-.status_container th,
-.status_container td {
+th,
+td {
     padding: 12px;
     border: 1px solid #d6d6d6;
     text-align: center;
     color: #222;
 }
 
-.status_container th {
+th {
     background-color: #ED234B;
     color: #fff;
 }
 
-.status_container td {
+td {
     background-color: #fff;
 }
 
-.status_container tr:nth-child(even) td {
+tr:nth-child(even) td {
     background-color: #fff;
 }
+
+h3 {
+    font-size: 1rem;
+    margin-top: 40px;
+    text-align: left;
+    font-weight: bold;
+}
+  
+  

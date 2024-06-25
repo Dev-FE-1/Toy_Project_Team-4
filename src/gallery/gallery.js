@@ -4,8 +4,8 @@ export function loadGallery() {
     const app = document.getElementById('app');
     
     app.innerHTML = `
-        <div class="gallery_container">
-            <div class="gallery_header">
+        <div class="gallery-container">
+            <div class="gallery-header">
                 <h2>기업 공지 모음</h2>
                 <div class="sort-options">
                     <select id="sort">
@@ -23,14 +23,7 @@ export function loadGallery() {
         </div>
     `;
 
-    const sortElement = document.getElementById('sort');
-    sortElement.addEventListener('change', sortCards);
-    sortElement.addEventListener('focus', function() {
-        this.style.border = '2px solid #ED234B';
-    });
-    sortElement.addEventListener('blur', function() {
-        this.style.border = '1px solid #ABABAB';
-    });
+    document.getElementById('sort').addEventListener('change', sortCards);
 
     sortCards();
     displayCards(currentPage);

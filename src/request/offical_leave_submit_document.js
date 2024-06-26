@@ -1,4 +1,4 @@
-import "./offical_leave_submit_document.css";
+import "./offical_leave_submit_document.css"
 
 export function loadOfficialLeaveSubmitDocument() {
   document.getElementById("app").innerHTML = `
@@ -29,28 +29,20 @@ export function loadOfficialLeaveSubmitDocument() {
         </form>
       </div>
     </div>
-  `;
+  `
 
-  document
-    .getElementById("officialLeaveForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      console.log(
-        "PDF 변환 파일:",
-        document.getElementById("convert_to_pdf").files[0]
-      );
-      console.log(
-        "ZIP 압축 파일들:",
-        document.getElementById("compress_to_zip").files
-      );
-      console.log("첨부 파일:", document.getElementById("all_file").files[0]);
-    });
+  document.getElementById("officialLeaveForm").addEventListener("submit", function (event) {
+    event.preventDefault()
+    console.log("PDF 변환 파일:", document.getElementById("convert_to_pdf").files[0])
+    console.log("ZIP 압축 파일들:", document.getElementById("compress_to_zip").files)
+    console.log("첨부 파일:", document.getElementById("all_file").files[0])
+  })
 
   window.convertToPDF = function () {
-    alert("PDF 변환 기능은 나중에함.");
-  };
+    alert("PDF 변환 기능은 나중에함.")
+  }
 
   window.createZip = function () {
-    alert("ZIP 압축 기능 나중에함");
-  };
+    alert("ZIP 압축 기능 나중에함")
+  }
 }

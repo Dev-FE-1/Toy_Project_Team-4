@@ -46,13 +46,13 @@ export function loadLogin() {
       const signupPageInstance = new SignupPage()
     })
     const loginBtn = document.querySelector(".loginBtn")
-    loginBtn.addEventListener("click", handleLogin) // handleLogin 함수를 참조하도록 수정
+    loginBtn.addEventListener("click", handleLogin)
   }
 }
 document.addEventListener("DOMContentLoaded", loadLogin)
 
+// users.json에 입력된 이메일, 비밀번호와 비교 및 로컬스토리지에 이메일 저장
 async function handleLogin() {
-  // async 키워드 추가
   const email = document.querySelector(".userId").value
   const password = document.querySelector(".userPw").value
 
@@ -66,8 +66,10 @@ async function handleLogin() {
         userFound = true
         if (user.pw === password) {
           alert("로그인 성공!")
-          localStorage.setItem("isLoggedIn", "true") // 로그인 상태 저장
-          localStorage.setItem("userEmail", email) // 사용자 이메일 저장
+          localStorage.setItem(
+            "userInfo",
+            JSON.stringify({ isLoggedIn: "true", userEmail: email, userUrl: "", userIntro: "" })
+          )
           onLoginSuccess() // 로그인 성공 시 메인 페이지 로드
         } else {
           alert("비밀번호를 다시 입력해주세요.")

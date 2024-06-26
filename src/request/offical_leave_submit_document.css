@@ -3,7 +3,7 @@
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,7 +28,7 @@
 
 .offical_leave_submit_document_container .download-link {
   display: block;
-  color: #ED234B;
+  color: #ed234b;
   text-decoration: none;
 }
 
@@ -43,7 +43,7 @@
 #all_file {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ABABAB;
+  border: 1px solid #ababab;
   border-radius: 5px;
   box-sizing: border-box;
 }
@@ -62,7 +62,7 @@
 .offical_leave_submit_document_container .file-action-btn,
 .offical_leave_submit_document_container button {
   padding: 10px;
-  background-color: #ED234B;
+  background-color: #ed234b;
   color: #fff;
   border: none;
   border-radius: 5px;

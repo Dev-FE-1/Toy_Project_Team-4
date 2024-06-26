@@ -15,22 +15,6 @@ import { loadStatus } from './request/status.js';
 import { loadVacationRequest } from './request/vacation_request.js';
 import { loadGallery } from './gallery/gallery.js';
 import { loadDocumentRequestForm } from './document/document.js';
-import "./main.css"
-import "./styles/sidebar.css"
-import "./styles/header.css"
-import "./styles/home.css"
-import { loadLogin } from "./login&signup/login.js"
-import { mainHome } from "./components/home.js"
-import { loadInquiryBoard } from "./messageBoard/InquiryBoard.js"
-import { loadAttendRecord } from "./attendance/attendRecord.js"
-import { loadOverlay } from "./attendance/overlay.js"
-import { updateTime } from "./attendance/updateTime.js"
-import { loadLeaveRequest } from "./request/leave_request.js"
-import { loadOfficialLeaveRequest } from "./request/offical_leave_request.js"
-import { loadOfficialLeaveSubmitDocument } from "./request/offical_leave_submit_document.js"
-import { loadStatus } from "./request/status.js"
-import { loadVacationRequest } from "./request/vacation_request.js"
-import { loadGallery } from "./gallery/gallery.js"
 import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
 

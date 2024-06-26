@@ -1,18 +1,18 @@
 import './InquiryBoard.css';
 
 let inquiries = [
-  { id: 1, title: '문의합니다', author: '임효정', date: '6월24일' },
-  { id: 2, title: '문의합니다', author: '김수민', date: '6월24일' },
-  { id: 3, title: '문의합니다', author: '김도형', date: '6월24일' },
-  { id: 4, title: '문의합니다', author: '최원지', date: '6월24일' },
-  { id: 5, title: '문의합니다', author: '임효정', date: '6월24일' },
-  { id: 6, title: '문의합니다', author: '김수민', date: '6월25일' },
-  { id: 7, title: '문의합니다', author: '김도형', date: '6월25일' },
-  { id: 8, title: '문의합니다', author: '최원지', date: '6월25일' },
-  { id: 9, title: '문의합니다', author: '임효정', date: '6월25일' },
-  { id: 10, title: '문의합니다', author: '김수민', date: '6월26일' },
-  { id: 11, title: '문의합니다', author: '김도형', date: '6월26일' },
-  { id: 12, title: '문의합니다', author: '최원지', date: '6월26일' }
+  { id: 1, title: '문의합니다', author: '임효정', date: '6월 24일' },
+  { id: 2, title: '문의합니다', author: '김수민', date: '6월 24일' },
+  { id: 3, title: '문의합니다', author: '김도형', date: '6월 24일' },
+  { id: 4, title: '문의합니다', author: '최원지', date: '6월 24일' },
+  { id: 5, title: '문의합니다', author: '임효정', date: '6월 24일' },
+  { id: 6, title: '문의합니다', author: '김수민', date: '6월 25일' },
+  { id: 7, title: '문의합니다', author: '김도형', date: '6월 25일' },
+  { id: 8, title: '문의합니다', author: '최원지', date: '6월 25일' },
+  { id: 9, title: '문의합니다', author: '임효정', date: '6월 25일' },
+  { id: 10, title: '문의합니다', author: '김수민', date: '6월 26일' },
+  { id: 11, title: '문의합니다', author: '김도형', date: '6월 26일' },
+  { id: 12, title: '문의합니다', author: '최원지', date: '6월 26일' }
 ];
 
 const itemsPerPage = 5; //한 페이지에 5개씩 표시
@@ -75,11 +75,12 @@ function loadInquiries() {
     </li>
   `;
 
+  const sortedInquiries = [...inquiries].reverse(); //배열을 역순으로 정렬
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, inquiries.length);
 
   for (let i = startIndex; i < endIndex; i++) {
-    const inquiry = inquiries[i];
+    const inquiry = sortedInquiries[i];
     const listItem = document.createElement('li');
     listItem.classList.add('inquirylist');
     listItem.innerHTML = `

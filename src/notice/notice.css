@@ -1,0 +1,24 @@
+#notice-section {
+  margin: auto 0;
+  width: 1000px;
+  height: 700px;
+  /* position: relative; */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #fff;
+}
+#notice-section .notice-top {
+  height: 10%;
+  display: flex;
+}
+#notice-section .notice-bottom {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+#notice-section .notice-bottom .bodytable td {
+  border: 1px solid #ababab;
+  padding: 10px;
+}

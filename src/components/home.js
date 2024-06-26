@@ -29,8 +29,8 @@ export function createHomeContent() {
 }
 
 export function mainHome() {
-  const isLoggedIn = JSON.parse(localStorage.getItem("userInfo")).isLoggedIn
-  if (isLoggedIn !== "true") {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+  if (!userInfo) {
     loadLogin()
     return
   }

@@ -32,6 +32,7 @@ import { loadStatus } from "./request/status.js"
 import { loadVacationRequest } from "./request/vacation_request.js"
 import { loadGallery } from "./gallery/gallery.js"
 import { profile } from "./profile/profile.js"
+import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 
 
 const app = () => {
@@ -88,7 +89,7 @@ export function route() {
       loadGallery() // 기업 공지 모음 갤러리
       break
     case "/attendance-record":
-      loadAttendRecord() // 입퇴실 기록
+      loadAttendConfirm() // 입퇴실 기록
       break
     case "/going-out":
       loadLeaveRequest() // 외출, 조퇴 신청

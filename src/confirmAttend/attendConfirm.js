@@ -4,7 +4,7 @@ export function loadAttendConfirm () {
   const app = document.getElementById('app')
 
   app.innerHTML = `
-    <div id="attendConfirm">
+    <div class="attendConfirm">
       
     </div>
   `

@@ -45,6 +45,13 @@ export function loadLogin() {
     signupPageOpen.addEventListener("click", () => {
       const signupPageInstance = new SignupPage()
     })
+
+    const loginForm = document.querySelector("#loginForm");
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault(); 
+      handleLogin(); 
+    });
+
     const loginBtn = document.querySelector(".loginBtn")
     loginBtn.addEventListener("click", handleLogin)
   }

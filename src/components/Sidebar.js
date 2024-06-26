@@ -61,7 +61,7 @@ function createSidebar() {
           </a>
         </li>
         <li>
-          <a href="/">
+          <a href="/home">
             <span class="icon">
               <img src="/images/iconHome.svg" alt="Home">
             </span>

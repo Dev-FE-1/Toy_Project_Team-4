@@ -13,6 +13,7 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "@mui/x-date-pickers": "^7.7.1",
     "axios": "^1.7.2",
     "better-sqlite3": "^11.0.0",
     "chart.js": "^4.4.3",

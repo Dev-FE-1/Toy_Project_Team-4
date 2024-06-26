@@ -37,7 +37,7 @@ export function loadLogin() {
           <button id="pwFind">비밀번호 찾기</button>
           <button id="signupPage">회원가입</button>
         </div>
-        <button type="button" class="loginBtn">로그인</button>
+        <button type="submit" class="loginBtn">로그인</button>
       </form>
       </section>
   `
@@ -46,16 +46,17 @@ export function loadLogin() {
       const signupPageInstance = new SignupPage()
     })
 
-    const loginForm = document.querySelector("#loginForm");
+    const loginForm = document.querySelector("#loginForm")
     loginForm.addEventListener("submit", (event) => {
-      event.preventDefault(); 
-      handleLogin(); 
-    });
+      event.preventDefault()
+      handleLogin()
+    })
 
     const loginBtn = document.querySelector(".loginBtn")
     loginBtn.addEventListener("click", handleLogin)
   }
 }
+
 document.addEventListener("DOMContentLoaded", loadLogin)
 
 // users.json에 입력된 이메일, 비밀번호와 비교 및 로컬스토리지에 이메일 저장

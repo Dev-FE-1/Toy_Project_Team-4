@@ -14,6 +14,7 @@ import { loadOfficialLeaveSubmitDocument } from './request/offical_leave_submit_
 import { loadStatus } from './request/status.js';
 import { loadVacationRequest } from './request/vacation_request.js';
 import { loadGallery } from './gallery/gallery.js';
+import { loadDocumentRequestForm } from './document/document.js';
 
 const app = () => {
   init();
@@ -58,7 +59,7 @@ export function route() {
       loadInquiryBoard(); // 문의 게시판
       break;
     case "/request":
-      app.innerHTML = `` // 행정 자료 요청
+      loadDocumentRequestForm(); // 행정 자료 요청
       break;
     case "/gallery":
       loadGallery(); // 기업 공지 모음 갤러리

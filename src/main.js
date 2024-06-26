@@ -62,13 +62,8 @@ export function route() {
       loadInquiryBoard() // 문의 게시판
       break
     case "/request":
-
       loadDocumentRequestForm(); // 행정 자료 요청
-      break;
-
-      app.innerHTML = `` // 행정 자료 요청
       break
-
     case "/gallery":
       loadGallery() // 기업 공지 모음 갤러리
       break

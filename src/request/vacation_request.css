@@ -1,5 +1,5 @@
 .vacation_request_container {
-  width: 60%;
+  width: 50%;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
@@ -10,7 +10,7 @@
 }
 
 .vacation_request_container h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #222;
   margin-bottom: 20px;
   text-align: center;

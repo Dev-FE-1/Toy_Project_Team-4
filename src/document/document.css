@@ -63,7 +63,7 @@
 }
 
 .document_container textarea {
-    height: 100px;
+    height: auto;
 }
 
 .document_container input[type="text"]:focus,

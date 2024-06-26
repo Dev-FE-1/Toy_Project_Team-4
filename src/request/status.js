@@ -1,9 +1,9 @@
-import "./status.css";
+import "./status.css"
 
 export function loadStatus() {
-    const app = document.getElementById('app');
+  const app = document.getElementById("app")
 
-    app.innerHTML = `
+  app.innerHTML = `
         <div class="status_container">
             <h2>신청 현황</h2>
             <div class="tabs">
@@ -14,42 +14,46 @@ export function loadStatus() {
             <div id="content">
             </div>
         </div>
-    `;
+    `
 
-    const content = document.getElementById('content');
+  const content = document.getElementById("content")
 
-    const leaveRequestData = [
-        { status: '대기중', submittedAt: '2024-06-01 10:00', reason: '개인 사유' },
-        { status: '승인', submittedAt: '2024-06-02 12:00', reason: '병원 방문' }
-    ];
+  const leaveRequestData = [
+    { status: "대기중", submittedAt: "2024-06-01 10:00", reason: "개인 사유" },
+    { status: "승인", submittedAt: "2024-06-02 12:00", reason: "병원 방문" },
+  ]
 
-    const officialLeaveRequestData = [
-        { status: '대기중', submittedAt: '2024-06-03 09:00', reason: '면접' },
-        { status: '승인', submittedAt: '2024-06-04 11:00', reason: '예비군' }
-    ];
+  const officialLeaveRequestData = [
+    { status: "대기중", submittedAt: "2024-06-03 09:00", reason: "면접" },
+    { status: "승인", submittedAt: "2024-06-04 11:00", reason: "예비군" },
+  ]
 
-    const documentSubmissionData = [
-        { status: '반려', submittedAt: '2024-06-07 10:00', remarks: '서류 미비' },
-        { status: '승인', submittedAt: '2024-06-08 12:00', remarks: '완료' }
-    ];
+  const documentSubmissionData = [
+    { status: "반려", submittedAt: "2024-06-07 10:00", remarks: "서류 미비" },
+    { status: "승인", submittedAt: "2024-06-08 12:00", remarks: "완료" },
+  ]
 
-    const vacationRequestData = [
-        { status: '승인', submittedAt: '2024-06-05 14:00', reason: '휴가' },
-        { status: '대기중', submittedAt: '2024-06-06 16:00', reason: '그냥' }
-    ];
+  const vacationRequestData = [
+    { status: "승인", submittedAt: "2024-06-05 14:00", reason: "휴가" },
+    { status: "대기중", submittedAt: "2024-06-06 16:00", reason: "그냥" },
+  ]
 
-    function populateTable(data, hasRemarks = false) {
-        return data.map(item => `
+  function populateTable(data, hasRemarks = false) {
+    return data
+      .map(
+        (item) => `
             <tr>
                 <td>${item.status}</td>
                 <td>${item.submittedAt}</td>
                 <td>${hasRemarks ? item.remarks : item.reason}</td>
             </tr>
-        `).join('');
-    }
+        `
+      )
+      .join("")
+  }
 
-    function renderLeaveRequestStatus() {
-        content.innerHTML = `
+  function renderLeaveRequestStatus() {
+    content.innerHTML = `
             <h3>외출/조퇴 신청 현황</h3>
             <table>
                 <thead>
@@ -63,11 +67,11 @@ export function loadStatus() {
                     ${populateTable(leaveRequestData)}
                 </tbody>
             </table>
-        `;
-    }
+        `
+  }
 
-    function renderOfficialLeaveRequestStatus() {
-        content.innerHTML = `
+  function renderOfficialLeaveRequestStatus() {
+    content.innerHTML = `
             <h3>공가 신청서 제출 현황</h3>
             <table>
                 <thead>
@@ -94,11 +98,11 @@ export function loadStatus() {
                     ${populateTable(documentSubmissionData, true)}
                 </tbody>
             </table>
-        `;
-    }
+        `
+  }
 
-    function renderVacationRequestStatus() {
-        content.innerHTML = `
+  function renderVacationRequestStatus() {
+    content.innerHTML = `
             <h3>휴가 신청 현황</h3>
             <table>
                 <thead>
@@ -112,34 +116,33 @@ export function loadStatus() {
                     ${populateTable(vacationRequestData)}
                 </tbody>
             </table>
-        `;
-    }
+        `
+  }
 
-    function openTab(event, tabName) {
-        const tablinks = document.querySelectorAll('.tablink');
+  function openTab(event, tabName) {
+    const tablinks = document.querySelectorAll(".tablink")
 
-        tablinks.forEach((tablink) => {
-            tablink.classList.remove('active');
-        });
-
-        event.currentTarget.classList.add('active');
-
-        if (tabName === 'leaveRequestStatus') {
-            renderLeaveRequestStatus();
-        } else if (tabName === 'officialLeaveRequestStatus') {
-            renderOfficialLeaveRequestStatus();
-        } else if (tabName === 'vacationRequestStatus') {
-            renderVacationRequestStatus();
-        }
-    }
-
-    const tablinks = document.querySelectorAll('.tablink');
     tablinks.forEach((tablink) => {
-        tablink.addEventListener('click', function(event) {
-            openTab(event, this.getAttribute('data-tab'));
-        });
-    });
+      tablink.classList.remove("active")
+    })
 
-    document.querySelector('.tablink.active').click();
+    event.currentTarget.classList.add("active")
+
+    if (tabName === "leaveRequestStatus") {
+      renderLeaveRequestStatus()
+    } else if (tabName === "officialLeaveRequestStatus") {
+      renderOfficialLeaveRequestStatus()
+    } else if (tabName === "vacationRequestStatus") {
+      renderVacationRequestStatus()
+    }
+  }
+
+  const tablinks = document.querySelectorAll(".tablink")
+  tablinks.forEach((tablink) => {
+    tablink.addEventListener("click", function (event) {
+      openTab(event, this.getAttribute("data-tab"))
+    })
+  })
+
+  document.querySelector(".tablink.active").click()
 }
-

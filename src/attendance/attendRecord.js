@@ -1,10 +1,9 @@
-import "./attendRecord.css";
-import { loadCheckInOut } from './checkInOut.js';
-import { updateTime } from './updateTime.js';
-
+import "./attendRecord.css"
+import { loadCheckInOut } from "./checkInOut.js"
+import { updateTime } from "./updateTime.js"
 
 export function loadAttendRecord() {
-  const attendance = document.querySelector('#attendance');
+  const attendance = document.querySelector("#attendance")
   if (attendance) {
     attendance.innerHTML = `
     <h4>입퇴실 기록</h4>
@@ -20,9 +19,9 @@ export function loadAttendRecord() {
       </div>
     </div>
   `
-  requestAnimationFrame(() => {
-    loadCheckInOut()
-    updateTime()
-  });
+    requestAnimationFrame(() => {
+      loadCheckInOut()
+      updateTime()
+    })
   }
 }

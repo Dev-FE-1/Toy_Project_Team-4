@@ -1,44 +1,45 @@
-import { route } from '../main'; // navigate 함수를 main.js에서 가져옴
+import { route } from "../main" // navigate 함수를 main.js에서 가져옴
+import { loadLogin } from "../login&signup/login"
 
 export function loadSidebar() {
-  const sidebar = createSidebar();
-  document.body.insertBefore(sidebar, document.body.firstChild);
+  const sidebar = createSidebar()
+  document.body.insertBefore(sidebar, document.body.firstChild)
 
   // 사이드바 내부 클릭 이벤트 추가
-  sidebar.addEventListener('click', function(event) {
-    sidebar.classList.toggle('expanded');
-  });
+  sidebar.addEventListener("click", function (event) {
+    sidebar.classList.toggle("expanded")
+  })
 
   // 사이드바 외부 클릭 이벤트 추가
-  document.addEventListener('click', function(event) {
+  document.addEventListener("click", function (event) {
     if (!sidebar.contains(event.target)) {
-      sidebar.classList.remove('expanded');
+      sidebar.classList.remove("expanded")
     }
-  });
+  })
 
   function adjustHeaderWidth() {
-    const header = document.querySelector('header'); // 헤더 요소를 선택합니다.
+    const header = document.querySelector("header") // 헤더 요소를 선택합니다.
     if (header) {
-      const sidebar = document.getElementById('sidebar');
+      const sidebar = document.getElementById("sidebar")
       if (sidebar) {
-        header.style.width = `${window.innerWidth - sidebar.offsetWidth}px`; // 사이드바 너비를 제외한 나머지 너비로 헤더 너비를 설정합니다.
+        header.style.width = `${window.innerWidth - sidebar.offsetWidth}px` // 사이드바 너비를 제외한 나머지 너비로 헤더 너비를 설정합니다.
       } else {
-        header.style.width = '100%'; // 사이드바가 없는 경우 전체 너비로 설정합니다.
+        header.style.width = "100%" // 사이드바가 없는 경우 전체 너비로 설정합니다.
       }
     }
   }
 
   // 초기 헤더 넓이 조정
-  adjustHeaderWidth();
-  window.addEventListener('resize', adjustHeaderWidth);
+  adjustHeaderWidth()
+  window.addEventListener("resize", adjustHeaderWidth)
 
-  sidebar.addEventListener('transitionend', adjustHeaderWidth); // 사이드바의 트랜지션 끝난 후 헤더 조정
+  sidebar.addEventListener("transitionend", adjustHeaderWidth) // 사이드바의 트랜지션 끝난 후 헤더 조정
 }
 
 function createSidebar() {
-  const sidebar = document.createElement('div');
-  sidebar.id = 'sidebar';
-  sidebar.classList.add('sidebar');
+  const sidebar = document.createElement("div")
+  sidebar.id = "sidebar"
+  sidebar.classList.add("sidebar")
 
   sidebar.innerHTML = `
     <div class="sidebar-content">
@@ -186,78 +187,76 @@ function createSidebar() {
         </a>
       </li>
     </div>
-  `;
+  `
 
   // 모든 서브메뉴에서 visible 클래스 제거
-  const submenus = sidebar.querySelectorAll('.submenu');
-  submenus.forEach(submenu => {
-    submenu.classList.remove('visible');
-  });
+  const submenus = sidebar.querySelectorAll(".submenu")
+  submenus.forEach((submenu) => {
+    submenu.classList.remove("visible")
+  })
 
   // 로그아웃 클릭 이벤트 추가
-  const logoutLink = sidebar.querySelector('.bottom a');
+  const logoutLink = sidebar.querySelector(".bottom a")
   if (logoutLink) {
-    logoutLink.addEventListener('click', handleLogout);
+    logoutLink.addEventListener("click", handleLogout)
   }
 
   // 모든 링크에 클릭 이벤트 추가
-  const links = sidebar.querySelectorAll('a[href]');
-  links.forEach(link => {
-    const icons = link.querySelectorAll('img');
-    icons.forEach(icon => {
-      if (!icon.classList.contains('user-icon')) {
-        addHoverEffect(link, icon);
+  const links = sidebar.querySelectorAll("a[href]")
+  links.forEach((link) => {
+    const icons = link.querySelectorAll("img")
+    icons.forEach((icon) => {
+      if (!icon.classList.contains("user-icon")) {
+        addHoverEffect(link, icon)
       }
-    });
+    })
     // 링크 클릭 시 페이지 네비게이션을 위한 이벤트 핸들러 추가
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const path = link.getAttribute('href');
-      if (path && path !== 'javascript:void(0);') {
-        history.pushState(null, null, path);
-        route(); // 경로 변경 시 route 함수 호출
+    link.addEventListener("click", (e) => {
+      e.preventDefault()
+      const path = link.getAttribute("href")
+      if (path && path !== "javascript:void(0);") {
+        history.pushState(null, null, path)
+        route() // 경로 변경 시 route 함수 호출
       }
-    });
-  });
+    })
+  })
 
   // 서브메뉴 클릭 이벤트 추가
-  const submenuParents = sidebar.querySelectorAll('.has-submenu');
-  submenuParents.forEach(parent => {
-    parent.addEventListener('click', function(event) {
-      event.preventDefault();
-      const submenu = parent.nextElementSibling;
-      if (submenu && submenu.classList.contains('submenu')) {
-        submenu.classList.toggle('visible');
-        event.stopPropagation(); // 이벤트 버블링 중지
+  const submenuParents = sidebar.querySelectorAll(".has-submenu")
+  submenuParents.forEach((parent) => {
+    parent.addEventListener("click", function (event) {
+      event.preventDefault()
+      const submenu = parent.nextElementSibling
+      if (submenu && submenu.classList.contains("submenu")) {
+        submenu.classList.toggle("visible")
+        event.stopPropagation() // 이벤트 버블링 중지
       }
-    });
-  });
+    })
+  })
 
-  return sidebar;
+  return sidebar
 }
 
 function handleLogout(event) {
-  event.preventDefault(); // 기본 동작 막기
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('userEmail');
-  location.reload(); // 페이지를 새로고침하여 로그인 페이지로 이동
+  event.preventDefault() // 기본 동작 막기
+  localStorage.removeItem("userInfo")
+  location.reload() // 페이지를 새로고침하여 로그인 페이지로 이동
 }
 
 function addHoverEffect(element, iconElement) {
-  if (iconElement.classList.contains('hover-icon')) {
-    iconElement.addEventListener('mouseover', function() {
-      iconElement.classList.add('icon-red-filter');
-    });
-    iconElement.addEventListener('mouseout', function() {
-      iconElement.classList.remove('icon-red-filter');
-    });
+  if (iconElement.classList.contains("hover-icon")) {
+    iconElement.addEventListener("mouseover", function () {
+      iconElement.classList.add("icon-red-filter")
+    })
+    iconElement.addEventListener("mouseout", function () {
+      iconElement.classList.remove("icon-red-filter")
+    })
   } else {
-    element.addEventListener('mouseover', function() {
-      iconElement.classList.add('icon-red-filter');
-    });
-    element.addEventListener('mouseout', function() {
-      iconElement.classList.remove('icon-red-filter');
-    });
+    element.addEventListener("mouseover", function () {
+      iconElement.classList.add("icon-red-filter")
+    })
+    element.addEventListener("mouseout", function () {
+      iconElement.classList.remove("icon-red-filter")
+    })
   }
 }
-

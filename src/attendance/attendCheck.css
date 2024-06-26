@@ -2,52 +2,51 @@
   position: absolute;
   bottom: 35px;
   right: 35px;
-  background-color: #fff; 
+  background-color: #fff;
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
   min-width: 445px;
   box-shadow: 5px 0 40px #d7d7d7;
 }
 
 #attendance-Check h4 {
-  font-weight: 500; 
+  font-weight: 500;
   padding: 20px 30px;
-  border-bottom: 1px solid #EBEFF2; 
+  border-bottom: 1px solid #ebeff2;
 }
 
 #attendance-Check .chart-section {
-  height:calc(100% - 57px);
+  height: calc(100% - 57px);
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
 #attendance-Check .attendance-canvas {
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 #attendance-Check .attendance-canvas ul li {
-  font-size:13px;
-  margin:5px 10px;
+  font-size: 13px;
+  margin: 5px 10px;
 }
 
 #attendance-Check .attendance-canvas ul li span {
-  display:inline-block;
-  width:8px;
-  height:8px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  margin-right:10px;
+  margin-right: 10px;
 }
 #attendance-Check .attendance-canvas ul li span.green {
   background-color: #2ed47a;
 }
 #attendance-Check .attendance-canvas ul li span.yellow {
-  background-color: #FFB946;
+  background-color: #ffb946;
 }
 #attendance-Check .attendance-canvas ul li span.red {
-  background-color: #ED234B;
+  background-color: #ed234b;
 }
 
 #attendance-Check #attendance-chart {
@@ -60,7 +59,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 50px;
-  font-weight:500;
+  font-weight: 500;
   color: #2ed47a;
 }
 
@@ -69,38 +68,38 @@
 }
 
 #attendance-Check .attendance-result .result {
-  display:flex;
+  display: flex;
   align-items: center;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
 
 #attendance-Check .attendance-result .result p {
-  color:#5e5e5e;
-  font-size:13px;
-  flex:1;
+  color: #5e5e5e;
+  font-size: 13px;
+  flex: 1;
 }
 
 #attendance-Check .attendance-result .result p span {
-  display:inline-block;
+  display: inline-block;
   width: 9px !important;
-  height:9px !important;
+  height: 9px !important;
   border-radius: 50%;
-  background: #ED234B;
+  background: #ed234b;
   margin: auto 20px auto 10px;
-  position:relative;
-  bottom:1px;
+  position: relative;
+  bottom: 1px;
 }
 
 #attendance-Check .attendance-result .result p span::before {
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-  width:4px;
-  height:4px;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background:#fff;
+  background: #fff;
 }
 
 #attendance-Check .attendance-result .result .progress-bar {
@@ -110,11 +109,11 @@
   border-radius: 25px;
   overflow: hidden;
   height: 20px;
-  flex:2;
+  flex: 2;
 }
 
 #attendance-Check .attendance-result .result .progress-fill {
-  background-color: #2ED47A;
+  background-color: #2ed47a;
   height: 100%;
   width: 0;
   border-radius: 25px 0 0 25px;

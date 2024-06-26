@@ -3,7 +3,7 @@
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,7 +30,7 @@
   padding: 12px;
   margin-top: 5px;
   margin-bottom: 20px;
-  border: 1px solid #ABABAB;
+  border: 1px solid #ababab;
   border-radius: 5px;
   box-sizing: border-box;
   height: 200px;
@@ -38,7 +38,7 @@
 }
 
 .leave_request_container textarea:focus {
-  border-color: #ED234B;
+  border-color: #ed234b;
   outline: none;
 }
 
@@ -48,7 +48,7 @@
   cursor: pointer;
   border-radius: 5px;
   font-size: 1rem;
-  background-color: #ED234B;
+  background-color: #ed234b;
   color: #fff;
   width: 50%;
   text-align: center;

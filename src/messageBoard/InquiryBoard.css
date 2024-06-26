@@ -9,13 +9,17 @@
   background-color: #fff;
   height: 100%;
   box-shadow: 5px 0 40px #d7d7d7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
 }
 
 .header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #f2f2f2;
+  /* border-bottom: 2px solid #f2f2f2; */
 }
 
 .inquiry-board h1 {
@@ -24,44 +28,91 @@
   font-weight: 800;
 }
 
-.inquiry-board button {
+.inquiry-board .header-section button {
   height: 40px;
   width: 190px;
   margin-right: 30px;
   padding: 10px 20px;
+  background-color: #ed234b;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.inquiry-board .header-section button:hover {
+  background-color: #f26581;
 }
 
 .inquiry-board form {
-  padding: 100px;
+  /* padding: 100px; */
   display: none;
+  position: absolute; /* 위치를 절대값으로 설정 */
+  top: 90;
+  left: 98;
+  width: calc(100% - 138px);
+  height: calc(100% - 130px); /* 높이를 100%로 설정하여 전체를 덮도록 함 */
+  background-color: #fff; /* 배경색 설정 */
+  z-index: 10; /* 다른 요소 위로 올라오도록 z-index 설정 */
 }
 
+.inquiry-board .formlist {
+  padding: 50px;
+  /* margin-top: 0px; */
+}
 
-/* .inquiry-board label {
-  display: block;
-  margin-bottom: 5px;
-} */
+.inquiry-board .formlist button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 30px;
+  color: #fff;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.formlist .submit-button {
+  background-color: #ed234b;
+}
+
+.formlist .cancel-button {
+  background-color: #ababab;
+}
+
+.inquiry-board label {
+  font-size: 20px;
+}
 
 .inquiry-board input, 
 .inquiry-board textarea {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  /* border: 1px solid #ed234b; */
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+}
+
+.inquiry-board input {
+  height: 50px;
+}
+.inquiry-board textarea {
+  height: 400px;
 }
 
 .inquiry-board input:focus,
 .inquiry-board textarea:focus {
   border: 1px solid #ed234b; /* 선택되었을 때의 테두리 색상 */
+  border-radius: 5px;
   outline: none; /* 기본 아웃라인 제거 */
 }
 
-.inquiry-board ul {
-  list-style: none;
-  padding: 0;
-}
 
+/* 문의 리스트 */
 .inquiry-board li {
+  border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   display: flex;
@@ -82,8 +133,42 @@ ul li.inquirylist {
   align-items: center;
 }
 
+/* 페이지네이션 */
 div .pagination {
   display: flex;
   justify-content: center;
-  bottom: 0;
+  align-items: center;
+  margin-bottom: 10px;
+  /* width: 40px; */
+}
+
+.page-button {
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  /* border: 1px solid #ccc; */
+  background-color: #fff;
+  color: #ababab;
+}
+
+.page-button.active {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.page-arrow {
+  color: #ababab;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: solid 0.5px #ababab;
+  margin: 10px;
+}
+
+.page-arrow.disabled {
+  color: #fff;
+  background-color: #f26581;
+  border: none;
 }

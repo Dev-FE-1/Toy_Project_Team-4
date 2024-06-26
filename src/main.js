@@ -17,6 +17,7 @@ import { loadGallery } from './gallery/gallery.js';
 import { loadDocumentRequestForm } from './document/document.js';
 import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
+import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js";
 
 
 const app = () => {

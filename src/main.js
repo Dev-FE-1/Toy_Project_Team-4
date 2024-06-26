@@ -15,22 +15,6 @@ import { loadStatus } from './request/status.js';
 import { loadVacationRequest } from './request/vacation_request.js';
 import { loadGallery } from './gallery/gallery.js';
 import { loadDocumentRequestForm } from './document/document.js';
-import "./main.css"
-import "./styles/sidebar.css"
-import "./styles/header.css"
-import "./styles/home.css"
-import { loadLogin } from "./login&signup/login.js"
-import { mainHome } from "./components/home.js"
-import { loadInquiryBoard } from "./messageBoard/InquiryBoard.js"
-import { loadAttendRecord } from "./attendance/attendRecord.js"
-import { loadOverlay } from "./attendance/overlay.js"
-import { updateTime } from "./attendance/updateTime.js"
-import { loadLeaveRequest } from "./request/leave_request.js"
-import { loadOfficialLeaveRequest } from "./request/offical_leave_request.js"
-import { loadOfficialLeaveSubmitDocument } from "./request/offical_leave_submit_document.js"
-import { loadStatus } from "./request/status.js"
-import { loadVacationRequest } from "./request/vacation_request.js"
-import { loadGallery } from "./gallery/gallery.js"
 import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
 
@@ -78,13 +62,8 @@ export function route() {
       loadInquiryBoard() // 문의 게시판
       break
     case "/request":
-
       loadDocumentRequestForm(); // 행정 자료 요청
-      break;
-
-      app.innerHTML = `` // 행정 자료 요청
       break
-
     case "/gallery":
       loadGallery() // 기업 공지 모음 갤러리
       break

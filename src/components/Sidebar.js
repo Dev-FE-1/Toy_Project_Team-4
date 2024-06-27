@@ -211,14 +211,14 @@ function createSidebar() {
       }
     })
     // 링크 클릭 시 페이지 네비게이션을 위한 이벤트 핸들러 추가
-    link.addEventListener("click", (e) => {
-      e.preventDefault()
-      const path = link.getAttribute("href")
-      if (path && path !== "javascript:void(0);") {
-        history.pushState(null, null, path)
-        route() // 경로 변경 시 route 함수 호출
-      }
-    })
+    // link.addEventListener("click", (e) => {
+    //   e.preventDefault()
+    //   const path = link.getAttribute("href")
+    //   if (path && path !== "javascript:void(0);") {
+    //     history.pushState(null, null, path)
+    //     route() // 경로 변경 시 route 함수 호출
+    //   }
+    // })
   })
 
   // 서브메뉴 클릭 이벤트 추가
@@ -240,7 +240,12 @@ function createSidebar() {
 function handleLogout(event) {
   event.preventDefault() // 기본 동작 막기
   localStorage.removeItem("userInfo")
-  location.reload() // 페이지를 새로고침하여 로그인 페이지로 이동
+
+  // 히스토리를 초기화하여 뒤로가기 시 이전 페이지로 가지 않도록 함
+  history.pushState(null, null, "/")
+  history.replaceState(null, null, "/")
+  
+  window.location.href = "http://localhost:5173" // 로그인 페이지의 URL
 }
 
 function addHoverEffect(element, iconElement) {

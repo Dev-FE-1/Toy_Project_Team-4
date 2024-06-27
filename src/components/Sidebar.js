@@ -179,7 +179,7 @@ function createSidebar() {
         </ul>
       </li>
       <li class="bottom">
-        <a href="#">
+        <a href="/">
           <span class="icon">
             <img src="/images/iconToggle.svg" alt="로그아웃">
           </span>

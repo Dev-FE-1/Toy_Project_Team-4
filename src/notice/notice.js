@@ -1,43 +1,30 @@
 import axios from "axios"
 import "./notice.css"
 
-let noticeList = [] // 전역 범위에 선언
+let noticeList = []
+const COUNT_PAGE = 3
 
 export function loadNotice() {
   const app = document.getElementById("app")
 
   app.innerHTML = `
-    <section id="notice-section">
-      <div class="notice-top">
-        <h1>공지사항</h1>
-      </div>
-      <div class="notice-bottom">
-        <div>
-          <input
-            type="search"
-            class="form-control"
-            style="margin-bottom: 5px"
-            onkeydown="doSearch(event, this.value)"
-            placeholder="원하는 키워드로 검색해보세요."
-          />
+      <section id="notice-section">
+        <div class="notice-top">
+          <h1>공지사항</h1>
         </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <td onclick="sort('id')">No.</td>
-              <td onclick="sort('date')">날짜</td>
-              <td onclick="sort('title')">제목</td>
-              <td onclick="sort('content')">내용</td>
-              <td onclick="sort('userName')">작성자</td>
-            </tr>
-          </thead>
-          <tbody class="bodytable"></tbody>
-        </table>
-      </div>
-    </section>
+        <div class="notice-bottom">
+          <ul class="post-list"></ul>
+          <div class="pagination-container">
+            <div class="prev-button"><</div>
+            <div class="number-btn-wrapper"></div>
+            <div class="next-button">></div>
+          </div>
+        </div>
+      </section>
   `
 
-  setTimeout(getNoticeList, 0)
+  setPageButtons()
+  getNoticeList()
   return app
 }
 
@@ -46,68 +33,63 @@ async function getNoticeList() {
   try {
     const res = await axios.get("/api/notice.json")
     noticeList = res.data.data
-
-    renderTable(noticeList)
+    const getTotalPageCount = Math.ceil(noticeList.length / COUNT_PAGE)
+    setPageButtons(getTotalPageCount)
+    if (document.querySelector(".post-list") != null && document.querySelector(".post-list").children.length < 3) {
+      getPost(1, noticeList)
+    }
   } catch (err) {
     console.error("error", err)
   }
 }
 
-// 검색 필터
-function doSearch(e, keyword) {
-  if (e.keyCode == 13) {
-    const regexp = new RegExp(keyword, "gi")
-    const data = noticeList.filter(
-      (item) =>
-        regexp.test(item.id) ||
-        regexp.test(item.date) ||
-        regexp.test(item.title) ||
-        regexp.test(item.content) ||
-        regexp.test(item.userName)
-    )
-    renderTable(data)
+// 페이지네이션 버튼 생성 및 클릭이벤트
+const setPageButtons = (getTotalPageCount) => {
+  const numberBtnWrapper = document.querySelector(".number-btn-wrapper")
+  if (numberBtnWrapper != null) {
+    numberBtnWrapper.innerHTML = ""
+    for (let i = 1; i <= getTotalPageCount; i++) {
+      numberBtnWrapper.innerHTML += `<span class="number-btn">${i}</span>`
+    }
+
+    const pageNumberBtn = document.querySelectorAll(".number-btn")
+    pageNumberBtn.forEach((btnItem) => {
+      btnItem.addEventListener("click", () => {
+        getPost(btnItem.textContent, noticeList)
+      })
+    })
   }
 }
 
-// td에 내용 넣기
-function renderTable(noticeList) {
-  const oTable = document.querySelector(".bodytable")
-  if (!oTable) {
-    console.error("Table body element not found")
-    return
+// 페이지 번호에 맞는 데이터 불러오기
+const getPost = (pageNum, noticeList) => {
+  if (document.querySelector(".number-btn") != null) {
+    const ul = document.querySelector(".post-list")
+    ul.innerHTML = ""
+    const start = (pageNum - 1) * COUNT_PAGE
+    const end = pageNum * COUNT_PAGE
+    const postData = noticeList.slice(start, end)
+    for (let i = 0; i < postData.length; i++) {
+      ul.innerHTML += `
+              <li>
+            <div class="post-container">
+              <p class="post-number">${postData[i].id}</p>
+              <div class="post">
+                <div class="post-top">
+                  <p class="post-title">${postData[i].title}</p>
+                  <p class="post-date">${postData[i].date}</p>
+                </div>
+                <div class="post-mid">
+                  <p class="post-content">${postData[i].content}</p>
+                </div>
+                <div class="post-bottom">
+                  <p class="userName">${postData[i].userName}</p>
+                  <button class="complate">complete</button>
+                </div>
+              </div>
+            </div>
+          </li>
+  `
+    }
   }
-  const h = []
-  noticeList.forEach((data) => {
-    h.push("<tr>")
-    h.push(`<td>${data.id}</td>`)
-    h.push(`<td>${data.date}</td>`)
-    h.push(`<td>${data.title}</td>`)
-    h.push(`<td>${data.content}</td>`)
-    h.push(`<td>${data.userName}</td>`)
-    h.push("</tr>")
-  })
-  oTable.innerHTML = h.join("")
 }
-
-// sort를 클릭했을 때 정렬
-function sort(sortField) {
-  const sortOption = {
-    id: true,
-    date: true,
-    title: true,
-    content: true,
-    userName: true,
-  }
-
-  if (sortOption[sortField]) {
-    noticeList = noticeList.sort((a, b) => (a[sortField] < b[sortField] ? -1 : a[sortField] > b[sortField] ? 1 : 0))
-  } else {
-    noticeList = noticeList.sort((a, b) => (a[sortField] < b[sortField] ? 1 : a[sortField] > b[sortField] ? -1 : 0))
-  }
-  sortOption[sortField] = !sortOption[sortField]
-  renderTable(noticeList)
-}
-
-// 전역 범위에 함수를 할당하여 HTML에서 호출할 수 있도록 함
-window.sort = sort
-window.doSearch = doSearch

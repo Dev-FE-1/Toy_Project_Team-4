@@ -2,23 +2,59 @@
   margin: auto 0;
   width: 1000px;
   height: 700px;
-  /* position: relative; */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #fff;
 }
 #notice-section .notice-top {
   height: 10%;
-  display: flex;
+  font-size: 28px;
+  padding: 30px;
 }
-#notice-section .notice-bottom {
+#notice-section .notice-bottom .post-list {
+  align-items: center;
+  padding: 0 20px;
+}
+#notice-section .notice-bottom .post-list li {
+  list-style-type: none;
+}
+#notice-section .notice-bottom .post-list li .post-container {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  padding: 10px;
+}
+#notice-section .notice-bottom .post-list li .post-container .post-number {
+  font-size: 15px;
+  padding: 15px;
+}
+#notice-section .notice-bottom .post-list .post {
   width: 100%;
-  height: 90%;
   display: flex;
   flex-direction: column;
 }
+#notice-section .notice-bottom .post-list .post-top,
+#notice-section .notice-bottom .post-list .post-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.pagination-container {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
 
-#notice-section .notice-bottom .bodytable td {
-  border: 1px solid #ababab;
-  padding: 10px;
+.pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.pagination-container .number-btn-wrapper span {
+  display: block;
+  margin: 0 10px;
 }

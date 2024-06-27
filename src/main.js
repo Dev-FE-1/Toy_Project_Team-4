@@ -2,6 +2,7 @@ import './main.css'
 import './styles/sidebar.css'
 import './styles/header.css'
 import './styles/home.css'
+import './styles/footer.css'
 import { loadLogin } from './login&signup/login.js'
 import { mainHome } from './components/home.js'
 import { loadInquiryBoard } from './messageBoard/InquiryBoard.js'
@@ -17,6 +18,7 @@ import { loadGallery } from './gallery/gallery.js'
 import { loadDocumentRequestForm } from './document/document.js'
 import { profile } from './profile/profile.js'
 import { loadNotice } from './notice/notice.js'
+import { createFooter, adjustFooterWidth } from './components/footer.js' // 푸터 추가
 
 const app = () => {
   init()
@@ -31,7 +33,7 @@ function init() {
 function navPage(event) {
   const a = event.target.closest('a')
 
-  if (a && a.href) {
+  if (a && a.href !== 'javascript:void(0)') {
     event.preventDefault()
     const path = a.getAttribute('href')
     history.pushState(null, null, path)
@@ -85,12 +87,19 @@ export function route() {
       loadStatus() // 신청 현황
       break
   }
-}
 
-document.addEventListener('DOMContentLoaded', app)
+  // 라우팅 후 푸터 추가 (기존 푸터가 있는지 확인)
+  const existingFooter = document.getElementById('footer')
+  if (!existingFooter) {
+    const footer = createFooter()
+    document.body.appendChild(footer)
+    adjustFooterWidth()
+  }
+}
 
 // 페이지 로드 시 초기 콘텐츠 설정
 document.addEventListener('DOMContentLoaded', () => {
+  app()
   loadLogin()
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
   if (userInfo) {

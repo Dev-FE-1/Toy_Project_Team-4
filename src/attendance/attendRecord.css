@@ -3,7 +3,7 @@
   top: 35px;
   right: 35px;
   background-color: rgb(209, 240, 212);
-  height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
+  height: calc(50% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
   min-width: 445px;
   margin-bottom: 35px;
   background: #fff;

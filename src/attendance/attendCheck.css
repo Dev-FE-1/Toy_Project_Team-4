@@ -1,9 +1,9 @@
 #attendance-Check {
   position: absolute;
-  bottom: 35px;
+  bottom: 0;
   right: 35px;
-  background-color: #fff;
-  height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
+  background-color: hsl(0, 0%, 100%);
+  height: calc(50% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
   min-width: 445px;
   box-shadow: 5px 0 40px #d7d7d7;
 }

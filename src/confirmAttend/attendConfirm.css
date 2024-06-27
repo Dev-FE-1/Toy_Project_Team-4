@@ -40,11 +40,50 @@
 
 .attend-Confirm .title-wrap .search-wrap .date-range .date-wrap {
   margin-left:10px;
+  display: flex;
+  align-items: center;
 }
 
-.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input.date-selector {
-
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"] {
+  border: 1px solid #ccc;
+  height: 40px;
+  border-radius: 20px;
+  padding: 10px 20px ;
+  text-align:center;
+  background: url(/public/images/search_icon.svg) no-repeat left/20px;
+  margin: 0 5px;
 }
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-year-field,
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-month-field,
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-day-field {
+  color: #ccc; /* 크롬 등 웹킷 기반 브라우저 */
+}
+
+/* Firefox */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-moz-placeholder {
+  color: #ccc;
+}
+
+/* Internet Explorer 10-11 */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]:-ms-input-placeholder {
+  color: #ccc;
+}
+
+/* Edge */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-ms-input-placeholder {
+  color: #ccc;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::placeholder {
+  color: #ccc;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::before {
+  content: attr(placeholder);
+  color: #ccc;
+}
+
 
 .attend-Confirm .title-wrap .search-wrap .move-btn {
   display: inline-block;
@@ -148,4 +187,38 @@
 .attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p:last-child,
 .attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p .num {
   color: #fff;  
+}
+
+.attend-Confirm #table-wrap {
+  width:100%;
+  margin-top:30px;
+}
+
+.attend-Confirm #table-wrap tr {
+  border-bottom: 2px solid #dfdfdf;
+}
+
+.attend-Confirm #table-wrap tr th {
+  border-top: 2px solid #dfdfdf;
+  font-size:14px;
+  padding: 8px 0;
+}
+
+.attend-Confirm #table-wrap tr td {
+  font-size:14px;
+  text-align: center;
+  padding:50px 0;
+}
+
+.attend-Confirm #table-wrap tr td span {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #D9F7E7;
+  border-radius: 20px;
+  color: #30A164;
+}
+
+.attend-Confirm #table-wrap tr td span.notyet {
+  background: #bababa;
+  color: #fff;
 }

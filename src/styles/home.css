@@ -11,9 +11,9 @@
 .mainhome {
   width: 100%;
   position: relative;
-  height: calc(100vh - 60px); /* 부모 요소의 높이를 뷰포트 높이에 맞게 설정 */
+  height: calc(100vh - 116px); /* 부모 요소의 높이를 뷰포트 높이에 맞게 설정 */
   min-width: 800px;
-  padding: 35px;
+  padding: 35px 35px 0 35px;
   transition: all 0.5s;
 }
 
@@ -22,7 +22,7 @@
   position: absolute;
   top: 35px;
   background-color: #d6d6d6;
-  height: calc(100% - 70px); /* 부모 요소의 높이를 기준으로 조정 */
+  height: calc(100% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
   width: calc(100% - 550px);;
   min-width: 630px;
   transition: all 0.5s;
@@ -32,14 +32,14 @@
   margin-left: 190px;
   width: calc(100% - 740px); /* 사이드바 확장 시 크기 조정 */
 }
-
+/* 
 .attendance {
   position: absolute;
   top: 35px;
   right: 35px;
   background-color: rgb(209, 240, 212);
-  height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
-  min-width: 445px;
+  height: calc(50% - 55px); /* 부모 요소의 높이를 기준으로 조정 */
+  /* min-width: 445px;
   margin-bottom: 35px;
 }
 
@@ -49,5 +49,5 @@
   right: 35px;
   background-color: rgb(246, 217, 217);
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
-  min-width: 445px;
-}
+  /* min-width: 445px;
+} */ 

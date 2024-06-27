@@ -6,9 +6,6 @@ import "./styles/footer.css"
 import { loadLogin } from "./login&signup/login.js"
 import { mainHome } from "./components/home.js"
 import { loadInquiryBoard } from "./messageBoard/InquiryBoard.js"
-import { loadAttendRecord } from "./attendance/attendRecord.js"
-import { loadOverlay } from "./attendance/overlay.js"
-import { updateTime } from "./attendance/updateTime.js"
 import { loadLeaveRequest } from "./request/leave_request.js"
 import { loadOfficialLeaveRequest } from "./request/offical_leave_request.js"
 import { loadOfficialLeaveSubmitDocument } from "./request/offical_leave_submit_document.js"
@@ -43,10 +40,18 @@ function navPage(event) {
 }
 
 export function route() {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"))
   const path = location.pathname
   const app = document.querySelector("#app")
 
   if (!app) return
+
+  // 로그인하지 않은 상태이면 항상 로그인 페이지로
+  if (!userInfo) {
+    loadLogin()
+    history.replaceState(null, null, "/") //로그인하지 않은 상태에서는 history.replaceState를 사용하여 히스토리를 대체
+    return
+  }
 
   app.innerHTML = "" // 기존 콘텐츠 삭제
 
@@ -87,6 +92,9 @@ export function route() {
     case "/status":
       loadStatus() // 신청 현황
       break
+    default:
+      mainHome() // 기본 페이지
+      break  
   }
 
   // 라우팅 후 푸터 추가 (기존 푸터가 있는지 확인)
@@ -101,7 +109,7 @@ export function route() {
 // 페이지 로드 시 초기 콘텐츠 설정
 document.addEventListener("DOMContentLoaded", () => {
   app()
-  loadLogin()
+  // loadLogin()
   const userInfo = JSON.parse(localStorage.getItem("userInfo"))
   if (userInfo) {
     onLoginSuccess() // 로그인 상태라면 메인 페이지를 로드합니다.
@@ -117,6 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
     adjustFooterWidth()
     window.addEventListener("resize", adjustFooterWidth)
   }
+
+  // 현재 URL에 맞는 페이지 로드
+  route()
 })
 
 // 로그인 완료 후 메인 페이지 로드 함수

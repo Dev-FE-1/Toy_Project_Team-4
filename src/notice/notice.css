@@ -7,8 +7,9 @@
   background-color: #fff;
 }
 #notice-section .notice-top {
-  height: 10%;
-  font-size: 28px;
+  height: 12%;
+  font-size: 30px;
+  font-weight: 800;
   padding: 30px;
 }
 #notice-section .notice-bottom .post-list {
@@ -42,11 +43,18 @@
   flex-direction: row;
   justify-content: space-between;
 }
+#notice-section .post div {
+  margin: 10px 0;
+}
+#notice-section .post-title {
+  font-size: 18px;
+}
 .pagination-container {
   display: flex;
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
 }
 
 .pagination-container .number-btn-wrapper {

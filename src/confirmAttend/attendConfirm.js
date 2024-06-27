@@ -3,67 +3,66 @@ import './attendConfirm.css'
 let attends = [
   {
     id: 1,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 2,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 3,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 4,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 5,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 6,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "정상처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '정상처리',
   },
   {
     id: 7,
-    date : "2024-06-16",
-    in: "09:58",
-    out: "19:01",
-    time: "09:03",
-    status: "미처리" 
+    date: '2024-06-16',
+    in: '09:58',
+    out: '19:01',
+    time: '09:03',
+    status: '미처리',
   },
-  
 ]
 
 const itemsPerPage = 6 //한 페이지에 6개씩
 let currentPage = 1
 
-export function loadAttendConfirm () {
+export function loadAttendConfirm() {
   const app = document.getElementById('app')
 
   app.innerHTML = `
@@ -137,36 +136,36 @@ export function loadAttendConfirm () {
 function attendPagination(totalItems) {
   const totalPages = Math.ceil(totalItems / itemsPerPage)
   const pagination = document.getElementById('pagination')
-  pagination.innerHTML = ""
+  pagination.innerHTML = ''
 
   const createPageButton = (page) => {
     const button = document.createElement('button')
     button.textContent = page
-    button.classList.add('page-btn')
-    if(page === currentPage) {
+    button.classList.add('page-button')
+    if (page === currentPage) {
       button.classList.add('active')
     }
     button.addEventListener('click', () => {
       currentPage = page
-      loadAttend();
+      loadAttend()
     })
     return button
   }
 
   pagination.appendChild(pageArrow('left', currentPage === 1))
-  
-  for(let i = 1; i <= totalPages; i++) {
+
+  for (let i = 1; i <= totalPages; i++) {
     pagination.appendChild(createPageButton(i))
   }
 
-  pagination.appendChild(pageArrow('right',currentPage === totalPages))
+  pagination.appendChild(pageArrow('right', currentPage === totalPages))
 }
 
 function pageArrow(direction, disabled) {
   const arrow = document.createElement('button')
   arrow.textContent = direction === 'left' ? '<' : '>'
   arrow.classList.add('page-arrow')
-  if(disabled) {
+  if (disabled) {
     arrow.classList.add('disabled')
   } else {
     arrow.addEventListener('click', () => {
@@ -178,16 +177,16 @@ function pageArrow(direction, disabled) {
 }
 
 function loadAttend() {
-  const attendTable = document.getElementById("table-body")
-  attendTable.innerHTML = ""
+  const attendTable = document.getElementById('table-body')
+  attendTable.innerHTML = ''
 
-  const sortedAttend = [...attends].reverse(); // 배열을 역순으로 정렬
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, sortedAttend.length);
+  const sortedAttend = [...attends].reverse() // 배열을 역순으로 정렬
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = Math.min(startIndex + itemsPerPage, sortedAttend.length)
 
   sortedAttend.slice(startIndex, endIndex).forEach((attend) => {
-    const trItem = document.createElement('tr');
-    trItem.classList.add('attend-tr');
+    const trItem = document.createElement('tr')
+    trItem.classList.add('attend-tr')
     trItem.innerHTML = `
       <td>${attend.id}</td>
       <td>${attend.date}</td>
@@ -195,9 +194,9 @@ function loadAttend() {
       <td>${attend.out}</td>
       <td>${attend.time}</td>
       <td><span class="${attend.status === '미처리' ? 'notyet' : ''}">${attend.status}</span></td>
-    `;
-    attendTable.appendChild(trItem);
-  });
+    `
+    attendTable.appendChild(trItem)
+  })
 
-  attendPagination(attends.length);
+  attendPagination(attends.length)
 }

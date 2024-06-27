@@ -19,6 +19,7 @@ import { loadDocumentRequestForm } from './document/document.js'
 import { profile } from './profile/profile.js'
 import { loadNotice } from './notice/notice.js'
 import { createFooter, adjustFooterWidth } from './components/footer.js' // 푸터 추가
+import { loadAttendConfirm } from './confirmAttend/attendConfirm.js'
 
 const app = () => {
   init()
@@ -69,7 +70,7 @@ export function route() {
       loadGallery() // 기업 공지 모음 갤러리
       break
     case '/attendance-record':
-      loadAttendRecord() // 입퇴실 기록
+      loadAttendConfirm() // 입퇴실 기록
       break
     case '/going-out':
       loadLeaveRequest() // 외출, 조퇴 신청

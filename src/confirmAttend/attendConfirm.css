@@ -1,0 +1,224 @@
+.attendConfirmWrap {
+  padding: 35px;
+  width: 100%;
+  height: 100%;
+}
+
+.attend-Confirm {
+  background: #fff;
+  height: 100%;
+  box-shadow: 5px 0 40px #d7d7d7;
+}
+
+.attend-Confirm .title-wrap {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.attend-Confirm .title-wrap .search-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range {
+  margin-left:20px;
+  display: flex;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range span {
+  font-size:14px;
+  color: #ABABAB;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap {
+  margin-left:10px;
+  display: flex;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"] {
+  border: 1px solid #ccc;
+  height: 40px;
+  border-radius: 20px;
+  padding: 10px 20px ;
+  text-align:center;
+  background: url(/public/images/search_icon.svg) no-repeat left/20px;
+  margin: 0 5px;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-year-field,
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-month-field,
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-webkit-datetime-edit-day-field {
+  color: #ccc; /* 크롬 등 웹킷 기반 브라우저 */
+}
+
+/* Firefox */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-moz-placeholder {
+  color: #ccc;
+}
+
+/* Internet Explorer 10-11 */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]:-ms-input-placeholder {
+  color: #ccc;
+}
+
+/* Edge */
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::-ms-input-placeholder {
+  color: #ccc;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::placeholder {
+  color: #ccc;
+}
+
+.attend-Confirm .title-wrap .search-wrap .date-range .date-wrap input[type="date"]::before {
+  content: attr(placeholder);
+  color: #ccc;
+}
+
+
+.attend-Confirm .title-wrap .search-wrap .move-btn {
+  display: inline-block;
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  background: #ED234B;
+  color:#fff;
+  padding-left: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: .3s;
+}
+
+.attend-Confirm .title-wrap .search-wrap .move-btn:hover {
+  background: #F26581;
+}
+
+.attend-Confirm .summary-wrap {
+  box-shadow: 5px 0 40px #d7d7d7;
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  border-radius: 7px;
+  padding: 20px;
+  background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px/16%;
+}
+
+.attend-Confirm .summary-wrap h4 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-size:14px;
+  color:#555;
+}
+
+.attend-Confirm .summary-wrap .summary-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn {
+  display: flex;
+  align-items: center;
+  border:1px solid #E7E7E7;
+  border-radius: 10px;
+  padding: 10px;
+  width: 24%;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn:hover {
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .icon {
+  padding: 10px;
+  background: #F0F0F0;
+  border-radius: 10px;
+  margin-right: 10px;
+
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .icon .material-symbols-outlined {
+  color: #ababab;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt {
+  font-size: 15px;
+  color: #5E5E5E;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p:last-child {
+  color:#999;
+  margin-top:5px;
+  margin-left:3px;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p .num {
+  font-weight:bold;
+  font-size:20px;
+  color: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active {
+  border:1px solid #E7E7E7;
+  background: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .icon {
+  background: #FFB8B8;
+}
+ 
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .icon .material-symbols-outlined {
+  color: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt,
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p:last-child,
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p .num {
+  color: #fff;  
+}
+
+.attend-Confirm #table-wrap {
+  width:100%;
+  margin-top:30px;
+}
+
+.attend-Confirm #table-wrap tr {
+  border-bottom: 2px solid #dfdfdf;
+}
+
+.attend-Confirm #table-wrap tr th {
+  border-top: 2px solid #dfdfdf;
+  font-size:14px;
+  padding: 8px 0;
+}
+
+.attend-Confirm #table-wrap tr td {
+  font-size:14px;
+  text-align: center;
+  padding:50px 0;
+}
+
+.attend-Confirm #table-wrap tr td span {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #D9F7E7;
+  border-radius: 20px;
+  color: #30A164;
+}
+
+.attend-Confirm #table-wrap tr td span.notyet {
+  background: #bababa;
+  color: #fff;
+}

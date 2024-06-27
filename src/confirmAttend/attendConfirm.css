@@ -1,13 +1,14 @@
 .attendConfirmWrap {
   padding: 35px;
   width: 100%;
-  height: 100%;
+  height:100%;
 }
 
 .attend-Confirm {
   background: #fff;
   height: 100%;
   box-shadow: 5px 0 40px #d7d7d7;
+  overflow-y:scroll;
 }
 
 .attend-Confirm .title-wrap {

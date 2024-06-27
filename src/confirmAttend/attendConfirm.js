@@ -1,68 +1,22 @@
+import axios from "axios"
 import './attendConfirm.css'
 //https://wehagothelp.zendesk.com/hc/ko/articles/5730890938905--%EA%B7%BC%ED%83%9C%EA%B4%80%EB%A6%AC-%EC%B6%9C%ED%87%B4%EA%B7%BC%EA%B8%B0%EB%A1%9D-%EB%A9%94%EB%89%B4-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0
-let attends = [
-  {
-    id: 1,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 2,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 3,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 4,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 5,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 6,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '정상처리',
-  },
-  {
-    id: 7,
-    date: '2024-06-16',
-    in: '09:58',
-    out: '19:01',
-    time: '09:03',
-    status: '미처리',
-  },
-]
 
+let attends = []
 const itemsPerPage = 6 //한 페이지에 6개씩
 let currentPage = 1
 
-export function loadAttendConfirm() {
+export async function loadAttendConfirm() {
+  try {
+    const res = await axios.get('/api/attendance.json');
+    attends = res.data.data;
+    renderAttendConfirm(); // 데이터를 받아온 후 테이블을 렌더링
+  } catch (err) {
+    console.error('Error fetching attendance data:', err);
+  }
+}
+
+function renderAttendConfirm() {
   const app = document.getElementById('app')
 
   app.innerHTML = `

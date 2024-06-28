@@ -13,6 +13,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
+  overflow-y: scroll;
 }
 
 .header-section {
@@ -49,7 +50,7 @@
   top: 90;
   left: 98;
   width: calc(100% - 138px);
-  height: calc(100% - 130px); /* 높이를 100%로 설정하여 전체를 덮도록 함 */
+  height: calc(100% - 190px); /* 높이를 100%로 설정하여 전체를 덮도록 함 */
   background-color: #fff; /* 배경색 설정 */
   z-index: 10; /* 다른 요소 위로 올라오도록 z-index 설정 */
 }
@@ -99,7 +100,7 @@
   height: 50px;
 }
 .inquiry-board textarea {
-  height: 400px;
+  height: 300px;
 }
 
 .inquiry-board input:focus,
@@ -158,17 +159,18 @@ div .pagination {
 }
 
 .page-arrow {
-  color: #ababab;
-  background-color: #fff;
+  color: #fff;
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  border: solid 0.5px #ababab;
+  background-color: #f26581;
+  border: none;
   margin: 10px;
 }
 
 .page-arrow.disabled {
   color: #fff;
-  background-color: #f26581;
-  border: none;
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
 }

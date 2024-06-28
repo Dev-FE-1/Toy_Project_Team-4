@@ -1,4 +1,5 @@
 import "./gallery.css"
+import "../messageBoard/InquiryBoard.css"
 
 // DOMContentLoaded 이벤트 핸들러 내에서 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,8 +40,8 @@ export function loadGallery() {
 
   // 초기 카드 정렬 및 표시
   sortCards();
-  displayCards(currentPage);
-  setupPagination();
+  // displayCards(currentPage);
+  // setupPagination();
 }
 
 const cards = [
@@ -214,11 +215,45 @@ function setupPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
   const pageCount = Math.ceil(cards.length / cardsPerPage);
+  
+  // 왼쪽 화살표 추가
+  const leftArrow = createArrow('left', currentPage === 1);
+  pagination.appendChild(leftArrow);
+
   for (let i = 1; i <= pageCount; i++) {
-    pagination.innerHTML += `
-            <button class="${i === currentPage ? "active" : ""}" onclick="goToPage(${i})">${i}</button>
-        `;
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.classList.add('page-button');
+    if (i === currentPage) {
+      pageButton.classList.add('active');
+    }
+    pageButton.addEventListener('click', () => {
+      currentPage = i;
+      displayCards(currentPage);
+      setupPagination();
+    });
+    pagination.appendChild(pageButton);
   }
+
+  // 오른쪽 화살표 추가
+  const rightArrow = createArrow('right', currentPage === pageCount);
+  pagination.appendChild(rightArrow);
+}
+
+function createArrow(direction, disabled) {
+  const arrow = document.createElement('button');
+  arrow.textContent = direction === 'left' ? '<' : '>';
+  arrow.classList.add('page-arrow');
+  if (disabled) {
+    arrow.classList.add('disabled');
+  } else {
+    arrow.addEventListener('click', () => {
+      currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
+      displayCards(currentPage);
+      setupPagination();
+    });
+  }
+  return arrow;
 }
 
 function sortCards() {

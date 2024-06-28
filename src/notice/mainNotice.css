@@ -1,0 +1,90 @@
+#mainNotice {
+  position: absolute;
+  top: 35px;
+  background: #fff;
+  height: calc(100% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
+  width: calc(100% - 550px);
+  min-width: 630px;
+  transition: all 0.5s;
+}
+#mainNotice .calendar {
+  height: 25%;
+}
+#mainNotice .noticeForm {
+  border-top: 1px solid #e6e6e6;
+}
+#mainNotice .noticeForm .noticelist {
+  height: 70%;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 20px;
+  color: #777;
+}
+#mainNotice .noticeForm .noticelist li {
+  list-style-type: none;
+}
+#mainNotice .noticeForm .noticelist li .post {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
+  margin: 10px;
+  padding: 20px;
+}
+
+#mainNotice .post div {
+  width: 100%;
+  margin-top: 10px;
+}
+#mainNotice .post .post-top,
+#mainNotice .post .post-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+#mainNotice .noticeForm .noticelist .post .post-top {
+  height: 10%;
+}
+#mainNotice .noticeForm .noticelist .post .post-top .post-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #222;
+}
+#mainNotice .noticeForm .noticelist .post .post-mid {
+  height: 80%;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom {
+  height: 10%;
+  align-items: center;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .complate {
+  margin-bottom: 10px;
+  width: 130px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  color: #f2f2f2;
+  background-color: #ed234b;
+  cursor: pointer;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .complate:hover {
+  background-color: #f26581;
+}
+#mainNotice .noticeForm .runNotice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5%;
+}
+#mainNotice .noticeForm .runNotice a {
+  display: block;
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ed234b;
+  background-color: transparent;
+  text-align: center;
+  padding-top: 10px;
+}

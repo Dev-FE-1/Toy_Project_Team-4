@@ -147,12 +147,12 @@ function renderTable(filteredAttend) {
     const trItem = document.createElement('tr');
     trItem.classList.add('attend-tr')
     trItem.innerHTML = `
-      <td>${attend.id}</td>
-      <td>${attend.date}</td>
-      <td>${attend.in || '-'}</td>
-      <td>${attend.out || '-'}</td>
-      <td>${attend.time || '-'}</td>
-      <td><span class="${attend.status === '미처리' ? 'notyet' : ''}">${attend.status}</span></td>
+      <td data-label="구분">${attend.id}</td>
+      <td data-label="일자">${attend.date}</td>
+      <td data-label="입실시간">${attend.in || '-'}</td>
+      <td data-label="퇴실시간">${attend.out || '-'}</td>
+      <td data-label="총 학습시간">${attend.time || '-'}</td>
+      <td data-label="상태"><span class="${attend.status === '미처리' ? 'notyet' : ''}">${attend.status}</span></td>
     `
     attendTable.appendChild(trItem)
   });

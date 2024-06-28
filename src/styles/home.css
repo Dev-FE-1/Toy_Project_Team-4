@@ -17,16 +17,15 @@
   transition: all 0.5s;
 }
 
-
-.calendar {
+/* .calendar {
   position: absolute;
   top: 35px;
   background-color: #d6d6d6;
-  height: calc(100% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
+  height: calc(100% - 35px); 부모 요소의 높이를 기준으로 조정
   width: calc(100% - 550px);;
   min-width: 630px;
   transition: all 0.5s;
-}
+} */
 
 .sidebar.expanded + #app .calendar {
   margin-left: 190px;
@@ -39,7 +38,7 @@
   right: 35px;
   background-color: rgb(209, 240, 212);
   height: calc(50% - 55px); /* 부모 요소의 높이를 기준으로 조정 */
-  /* min-width: 445px;
+/* min-width: 445px;
   margin-bottom: 35px;
 }
 
@@ -49,5 +48,5 @@
   right: 35px;
   background-color: rgb(246, 217, 217);
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
-  /* min-width: 445px;
-} */ 
+/* min-width: 445px;
+} */

@@ -58,7 +58,7 @@
   height: 10%;
   align-items: center;
 }
-#mainNotice .noticeForm .noticelist .post .post-bottom .complate {
+#mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
   margin-bottom: 10px;
   width: 130px;
   height: 30px;
@@ -68,7 +68,7 @@
   background-color: #ed234b;
   cursor: pointer;
 }
-#mainNotice .noticeForm .noticelist .post .post-bottom .complate:hover {
+#mainNotice .noticeForm .noticelist .post .post-bottom .Complete:hover {
   background-color: #f26581;
 }
 #mainNotice .noticeForm .runNotice {

@@ -1,15 +1,14 @@
 .attendConfirmWrap {
-  padding: 35px;
-  width: 100%;
-  height:100%;
+  width: 90%;
+  height:90%;
 }
 
 .attend-Confirm {
   background: #fff;
   height: 100%;
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
-
-  overflow-y:scroll;
+  border-radius: 10px;
+  overflow-y: scroll;
 }
 
 .attend-Confirm .title-wrap {
@@ -47,7 +46,8 @@
 }
 
 .attend-Confirm .summary-wrap {
-  box-shadow: 5px 0 40px #d7d7d7;
+  /* box-shadow: 5px 0 40px #d7d7d7; */
+  box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
   width: calc(100% - 60px);
   margin: 0 auto;
   border-radius: 7px;
@@ -67,15 +67,18 @@
   justify-content: space-between;
   align-items: center;
   width: 80%;
+  flex-wrap:wrap;
 }
 
 .attend-Confirm .summary-wrap .summary-btns .s-btn {
   display: flex;
   align-items: center;
   border:1px solid #E7E7E7;
+  background:#fff;
   border-radius: 10px;
   padding: 10px;
   width: 24%;
+  min-height:77px;
   cursor: pointer;
   transition: .3s;
 }
@@ -100,6 +103,10 @@
 .attend-Confirm .summary-wrap .summary-btns .s-btn .txt {
   font-size: 15px;
   color: #5E5E5E;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p {
+  word-break:break-all;
 }
 
 .attend-Confirm .summary-wrap .summary-btns .s-btn .txt p:last-child {
@@ -139,11 +146,11 @@
 }
 
 .attend-Confirm #table-wrap tr {
-  border-bottom: 2px solid #dfdfdf;
+  border-bottom: 2px solid #efefef;
 }
 
 .attend-Confirm #table-wrap tr th {
-  border-top: 2px solid #dfdfdf;
+  border-top: 2px solid #efefef;
   font-size:14px;
   padding: 8px 0;
 }
@@ -168,3 +175,88 @@
   background: #bababa;
   color: #fff;
 }
+
+/*PC*/
+@media screen and (max-width:1005px) {
+  .attend-Confirm .summary-wrap {
+    background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px / 70%;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn {
+    width:48%;
+    margin:5px 0;
+  }
+}
+
+/*Tablet*/
+@media screen and (max-width: 640px) {
+  .attend-Confirm .summary-wrap {
+    background:none;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns {
+    justify-content: center;
+    width:100%;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn {
+    width:90%;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 550px) {
+  .attend-Confirm .title-wrap {
+    flex-direction: column;
+    padding: 30px 30px 15px;
+  }
+
+  .attend-Confirm .title-wrap h2 {
+    margin-bottom:30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .attend-Confirm .summary-wrap .summary-btns .s-btn .txt {
+    font-size:14px;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn .txt p .num {
+    font-size:18px;
+  }
+
+  .attend-Confirm #table-wrap thead {
+    clip: rect(0 0 0 0);
+    height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+    border:none;
+  }
+
+  .attend-Confirm #table-wrap tr th {
+    font-size:13px;
+    display:block;
+  }
+
+  .attend-Confirm #table-wrap tr td {
+    display:block;
+    border-bottom:1px solid #efefef;
+    text-align:right;
+    padding: 20px 10px;
+  }
+
+  .attend-Confirm #table-wrap tr td::before {
+    content:attr(data-label);
+    float:left;
+    font-weight:800;
+  }
+   
+  .attend-Confirm #table-wrap tr td span {
+    text-align: center;
+  }
+}
+
+

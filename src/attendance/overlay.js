@@ -3,7 +3,6 @@ export function loadOverlay() {
   if (overlay) {
     overlay.innerHTML = `
     <div class="modal">
-        <span class="material-symbols-outlined">close</span>
           <p><span class="check"></span> 하시겠습니까?</p>
           <div class="modal-wrap">
             <button id="submitModal">예</button>

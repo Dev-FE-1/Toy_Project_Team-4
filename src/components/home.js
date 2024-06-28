@@ -4,6 +4,7 @@ import { loadOverlay } from "../attendance/overlay.js"
 import { createHeader, adjustHeaderWidth } from "./header.js"
 import { loadSidebar } from "./Sidebar.js"
 import { loadLogin } from "../login&signup/login.js"
+import { mainNotice } from "../notice/mainNotice.js"
 
 export function createHomeContent() {
   const content = document.createElement("div")
@@ -23,6 +24,7 @@ export function createHomeContent() {
     loadAttendRecord()
     loadAttendCheck()
     loadOverlay()
+    mainNotice()
   })
 
   return content

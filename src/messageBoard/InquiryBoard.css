@@ -1,18 +1,22 @@
 /* src/styles/inquiryBoard.css */
 .borad {
-  padding: 35px;
-  width: 100%;
-  height: 100%;
+  /* padding: 35px; */
+  position: relative;
+  width: 90%;
+  height: 90%;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .inquiry-board {
-  background-color: #fff;
+  /* background-color: #fff; */
   height: 100%;
-  box-shadow: 5px 0 40px #d7d7d7;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
+  overflow-y: scroll;
 }
 
 .header-section {
@@ -23,7 +27,7 @@
 }
 
 .inquiry-board h1 {
-  padding: 30px;
+  padding: 40px;
   font-size: 30px;
   font-weight: 800;
 }
@@ -31,7 +35,7 @@
 .inquiry-board .header-section button {
   height: 40px;
   width: 190px;
-  margin-right: 30px;
+  margin-right: 40px;
   padding: 10px 20px;
   background-color: #ed234b;
   border-radius: 5px;
@@ -43,20 +47,18 @@
 }
 
 .inquiry-board form {
-  /* padding: 100px; */
   display: none;
-  position: absolute; /* 위치를 절대값으로 설정 */
-  top: 90;
-  left: 98;
-  width: calc(100% - 138px);
-  height: calc(100% - 130px); /* 높이를 100%로 설정하여 전체를 덮도록 함 */
+  position: absolute;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
   background-color: #fff; /* 배경색 설정 */
+  overflow-y: scroll;
   z-index: 10; /* 다른 요소 위로 올라오도록 z-index 설정 */
 }
 
 .inquiry-board .formlist {
-  padding: 50px;
-  /* margin-top: 0px; */
+  padding: 0 50px 30px 50px;
 }
 
 .inquiry-board .formlist button {
@@ -96,10 +98,10 @@
 }
 
 .inquiry-board input {
-  height: 50px;
+  height: 40px;
 }
 .inquiry-board textarea {
-  height: 400px;
+  height: 250px;
 }
 
 .inquiry-board input:focus,
@@ -112,8 +114,6 @@
 
 /* 문의 리스트 */
 .inquiry-board li {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
@@ -128,9 +128,15 @@
   width: 50%; /* 제목란의 너비를 조절 */
 }
 
+.inquiry-board li.inquiry-title {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
 ul li.inquirylist {
-  height: 120px;
+  height: 100px;
   align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
 /* 페이지네이션 */
@@ -138,7 +144,7 @@ div .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   /* width: 40px; */
 }
 
@@ -158,17 +164,18 @@ div .pagination {
 }
 
 .page-arrow {
-  color: #ababab;
-  background-color: #fff;
+  color: #fff;
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  border: solid 0.5px #ababab;
+  background-color: #f26581;
+  border: none;
   margin: 10px;
 }
 
 .page-arrow.disabled {
   color: #fff;
-  background-color: #f26581;
-  border: none;
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
 }

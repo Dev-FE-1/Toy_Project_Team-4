@@ -46,7 +46,7 @@ export function loadInquiryBoard() {
           </div>
         </form>
         <ul id="inquiry-list">
-          <li>
+          <li class="inquiry-title">
             <div><strong>글번호</strong></div>
             <div class="title"><strong>제목</strong></div>
             <div><strong>작성자</strong></div>
@@ -99,7 +99,7 @@ export function loadInquiryBoard() {
 function loadInquiries() {
   const inquiryList = document.getElementById('inquiry-list');
   inquiryList.innerHTML = `
-    <li>
+    <li class="inquiry-title">
       <div><strong>글번호</strong></div>
       <div class="title"><strong>제목</strong></div>
       <div><strong>작성자</strong></div>

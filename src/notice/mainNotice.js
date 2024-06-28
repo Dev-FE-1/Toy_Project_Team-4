@@ -1,11 +1,12 @@
 import axios from "axios"
 import "./mainNotice.css"
+import { loadCalendar } from "../calendar/calendar.js"
 
 let noticeList = []
 const COUNT_PAGE = 3
 
 export function mainNotice() {
-  const calendar = document.querySelector(".calendar")
+  const calendar = document.getElementById("calendar")
   if (calendar) {
     calendar.innerHTML = `
       <section id="mainNotice">
@@ -20,6 +21,7 @@ export function mainNotice() {
       </section>
     `
     getNoticeList()
+    loadCalendar()
     return calendar
   }
 }

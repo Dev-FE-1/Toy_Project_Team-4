@@ -3,7 +3,7 @@
   width: 1000px;
   height: 700px;
   position: relative;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   background-color: #fff;
 }

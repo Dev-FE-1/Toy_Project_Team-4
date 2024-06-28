@@ -90,7 +90,7 @@
 .pagination-container button {
   margin: 5px;
   color: #ababab;
-  background-color: #fff;
+  background-color: transparent;
 }
 .pagination-container .prev-button,
 .pagination-container .next-button {
@@ -100,6 +100,7 @@
 }
 .pagination-container .prev-button.color,
 .pagination-container .next-button.color {
+  border: none;
   background-color: #f26581;
   color: #fff;
 }

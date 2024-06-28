@@ -11,6 +11,12 @@ export function loadNotice() {
       <section id="notice-section">
         <div class="notice-top">
           <h1>공지사항</h1>
+              <input
+              type="search"
+              class="form-control"
+              style="margin-bottom: 5px"
+              placeholder="원하는 키워드로 검색해보세요."
+            />
         </div>
         <div class="notice-bottom">
           <ul class="post-list"></ul>
@@ -23,6 +29,7 @@ export function loadNotice() {
       </section>
   `
   getNoticeList()
+
   return app
 }
 
@@ -33,6 +40,23 @@ async function getNoticeList() {
     noticeList = res.data.data
     const getTotalPageCount = Math.ceil(noticeList.length / COUNT_PAGE)
     setPageButtons(getTotalPageCount)
+
+    const search = document.querySelector(".form-control")
+    search.onkeydown = (e, textContent) => {
+      if (e.keyCode == 13) {
+        let regexp = new RegExp(textContent, "gi")
+        let data = noticeList.filter(
+          (item) =>
+            regexp.test(item.id) ||
+            regexp.test(item.date) ||
+            regexp.test(item.title) ||
+            regexp.test(item.content) ||
+            regexp.test(item.userName)
+        )
+        getPost(1, data)
+      }
+    }
+
     if (document.querySelector(".post-list") != null && document.querySelector(".post-list").children.length < 3) {
       getPost(1, noticeList)
     }
@@ -149,11 +173,11 @@ const changeBtn = () => {
   let maxNum = Math.max(...btnNum)
   let minNum = Math.min(...btnNum)
   if (Number(btnFocus.textContent) == minNum) {
-    nextBtn.classList.add("color")
-    prevBtn.classList.remove("color")
-  } else if (Number(btnFocus.textContent) == maxNum) {
     nextBtn.classList.remove("color")
     prevBtn.classList.add("color")
+  } else if (Number(btnFocus.textContent) == maxNum) {
+    nextBtn.classList.add("color")
+    prevBtn.classList.remove("color")
   }
 
   btnFocus.className = "number-btn"

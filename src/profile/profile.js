@@ -1,5 +1,6 @@
 import "./profile.css"
 import axios from "axios"
+import { loadModal, loadprofilemodal } from "./profileModal"
 
 export function profile() {
   const app = document.querySelector("#app")
@@ -27,14 +28,15 @@ export function profile() {
             <span class="material-symbols-outlined"> campaign </span>
             <textarea id="userIntro" type="text" /></textarea>
           </div>
-          <button id="localStorageBtn">수정하기</button>
+          <button id="localStorageBtn">수정하기</button><div class="profilemodal"></div>
         </div>
       </div>
     </section>
     `
   getUserInfo()
+  loadModal()
   const setlocalStorageBtn = document.querySelector("#localStorageBtn")
-  setlocalStorageBtn.addEventListener("click", setlocalStorage)
+  setlocalStorageBtn.addEventListener("click", loadprofilemodal())
   return app
 }
 
@@ -66,14 +68,4 @@ async function getUserInfo() {
       }
     }
   }
-}
-
-// 유저 URL, Intro 로컬스토리지에 저장
-const setlocalStorage = () => {
-  const userProfileInfo = {
-    userUrl: document.querySelector("#userUrl").value,
-    userIntro: document.querySelector("#userIntro").value,
-  }
-  const newUserInfo = Object.assign(JSON.parse(localStorage.getItem("userInfo")), userProfileInfo)
-  localStorage.setItem("userInfo", JSON.stringify(newUserInfo))
 }

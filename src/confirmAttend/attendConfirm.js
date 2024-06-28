@@ -1,18 +1,21 @@
-import axios from "axios"
-import './attendConfirm.css'
-//https://wehagothelp.zendesk.com/hc/ko/articles/5730890938905--%EA%B7%BC%ED%83%9C%EA%B4%80%EB%A6%AC-%EC%B6%9C%ED%87%B4%EA%B7%BC%EA%B8%B0%EB%A1%9D-%EB%A9%94%EB%89%B4-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0
+// //https://wehagothelp.zendesk.com/hc/ko/articles/5730890938905--%EA%B7%BC%ED%83%9C%EA%B4%80%EB%A6%AC-%EC%B6%9C%ED%87%B4%EA%B7%BC%EA%B8%B0%EB%A1%9D-%EB%A9%94%EB%89%B4-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0
+import axios from "axios";
+import './attendConfirm.css';
 
 let attends = []
-const itemsPerPage = 6 //한 페이지에 6개씩
+let filteredAttends = []
+const itemsPerPage = 6 // 한 페이지에 6개씩
 let currentPage = 1
 
 export async function loadAttendConfirm() {
   try {
-    const res = await axios.get('/api/attendance.json');
-    attends = res.data.data;
-    renderAttendConfirm(); // 데이터를 받아온 후 테이블을 렌더링
+    const res = await axios.get('/api/attendance.json')
+    attends = res.data.data
+    filteredAttends = attends
+    renderAttendConfirm()
+    updateSummaryCounts()
   } catch (err) {
-    console.error('Error fetching attendance data:', err);
+    console.error('Error fetching attendance data:', err)
   }
 }
 
@@ -21,90 +24,161 @@ function renderAttendConfirm() {
 
   app.innerHTML = `
     <div class="attendConfirmWrap">
-      <div class="attend-Confirm">
-        <div class="title-wrap">
-          <h2>입퇴실 기록</h2>
-          <div class="search-wrap">
-            <a href="./" class="move-btn">신청하기 > </a>
-            <div class="date-range">
-              <span>기간</span>
-              <div class="date-wrap">
-                <input type="date" required >
-                <span>~</span>
-                <input type="date" required >
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div class="summary-wrap">
-          <h4>입퇴실 Summary</h4>
-          <div class="summary-btns">
-            <div class="s-btn">
-              <div class="icon"><span class="material-symbols-outlined">business_center</span></div>
-              <div class="txt">전체</div>
-            </div>
-            <div class="s-btn active">
-              <div class="icon"><span class="material-symbols-outlined">work_history</span></div> 
-              <div class="txt">
-                <p>정상출석일</p>
-                <p><span class="num">17</span>일</p>
-              </div>
-            </div>
-            <div class="s-btn">
-              <div class="icon"><span class="material-symbols-outlined">unknown_5</span></div>
-              <div class="txt">
-                <p>미처리</p>
-                <p><span class="num">3</span>일</p>
-              </div>
-            </div>
-            <div class="s-btn">
-              <div class="icon"><span class="material-symbols-outlined">business_center</span></div>
-              <div class="txt">
-                <p>실제 입퇴실 등록일</p>
-                <p><span class="num">1</span>일</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <table id="table-wrap">
-          <thead>
-            <tr>
-              <th>구분</th>
-              <th>일자</th>
-              <th>입실시간</th>
-              <th>퇴실시간</th>
-              <th>총 학습시간</th>
-              <th>상태</th>
-            </tr>
-          </thead>
-          <tbody id="table-body">
-          </tbody>
-        </table>
-        <div id="pagination" class="pagination"></div>
-      </div>
-    </div>
-  `
-  loadAttend()
+       <div class="attend-Confirm">
+         <div class="title-wrap">
+           <h2>입퇴실 기록</h2>
+           <div class="search-wrap">
+             <a href="./" class="move-btn">입/퇴실 등록하기 > </a>
+           </div>
+         </div> 
+         <div class="summary-wrap">
+           <h4>입퇴실 Summary</h4>
+           <div class="summary-btns">
+             <div class="s-btn whole active">
+               <div class="icon"><span class="material-symbols-outlined">business_center</span></div>
+               <div class="txt">전체</div>
+             </div>
+             <div class="s-btn done">
+               <div class="icon"><span class="material-symbols-outlined">work_history</span></div> 
+               <div class="txt">
+                 <p>정상출석일</p>
+                 <p><span class="num doneNum"></span>일</p>
+               </div>
+             </div>
+             <div class="s-btn notYet">
+               <div class="icon"><span class="material-symbols-outlined">unknown_5</span></div>
+               <div class="txt">
+                 <p>미처리</p>
+                 <p><span class="num notYetNum"></span>일</p>
+               </div>
+             </div>
+             <div class="s-btn eitherOne">
+               <div class="icon"><span class="material-symbols-outlined">business_center</span></div>
+               <div class="txt">
+                 <p>실제 입퇴실 등록일</p>
+                 <p><span class="num eitherNum"></span>일</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <table id="table-wrap">
+           <thead>
+             <tr>
+               <th>구분</th>
+               <th>일자</th>
+               <th>입실시간</th>
+               <th>퇴실시간</th>
+               <th>총 학습시간</th>
+               <th>상태</th>
+             </tr>
+           </thead>
+           <tbody id="table-body">
+           </tbody>
+         </table>
+         <div id="pagination" class="pagination"></div>
+       </div>
+     </div>
+  `;
+
+  const wholeBtn = document.querySelector('.s-btn.whole')
+  const doneBtn = document.querySelector('.s-btn.done')
+  const notYetBtn = document.querySelector('.s-btn.notYet')
+  const eitherBtn = document.querySelector('.s-btn.eitherOne')
+
+  wholeBtn.addEventListener('click', () => {
+    filterAttend('whole')
+    setActiveBtn(wholeBtn)
+  });
+  doneBtn.addEventListener('click', () => {
+    filterAttend('done')
+    setActiveBtn(doneBtn)
+});
+  notYetBtn.addEventListener('click', () => {
+    filterAttend('notYet')
+    setActiveBtn(notYetBtn)
+  });
+  eitherBtn.addEventListener('click', () => {
+    filterAttend('eitherOne')
+    setActiveBtn(eitherBtn)
+  });
+
+  renderTable(filteredAttends)
+}
+
+function setActiveBtn(activeBtn) {
+  document.querySelectorAll('.summary-btns .s-btn').forEach(btn => {
+    btn.classList.remove('active')
+  });
+
+  activeBtn.classList.add('active')
+}
+
+function filterAttend(filterType) {
+  currentPage = 1
+
+  switch (filterType) {
+    case 'whole':
+      filteredAttends = attends
+      break;
+    case 'done':
+      filteredAttends = attends.filter(attend => attend.in && attend.out)
+      break;
+    case 'notYet':
+      filteredAttends = attends.filter(attend => !attend.in && !attend.out)
+      break;
+    case 'eitherOne':
+      filteredAttends = attends.filter(attend => attend.in || attend.out)
+      break;
+    default:
+      break;
+  }
+
+  renderTable(filteredAttends)
+}
+
+function renderTable(filteredAttend) {
+  const attendTable = document.getElementById('table-body')
+  attendTable.innerHTML = ''
+
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = Math.min(startIndex + itemsPerPage, filteredAttend.length)
+
+  filteredAttend.slice().reverse().slice(startIndex, endIndex).forEach((attend) => {
+    const trItem = document.createElement('tr');
+    trItem.classList.add('attend-tr')
+    trItem.innerHTML = `
+      <td>${attend.id}</td>
+      <td>${attend.date}</td>
+      <td>${attend.in || '-'}</td>
+      <td>${attend.out || '-'}</td>
+      <td>${attend.time || '-'}</td>
+      <td><span class="${attend.status === '미처리' ? 'notyet' : ''}">${attend.status}</span></td>
+    `
+    attendTable.appendChild(trItem)
+  });
+
+  attendPagination(filteredAttend.length)
 }
 
 function attendPagination(totalItems) {
   const totalPages = Math.ceil(totalItems / itemsPerPage)
   const pagination = document.getElementById('pagination')
-  pagination.innerHTML = ''
+  pagination.innerHTML = '';
 
+  // 페이지 버튼 생성 함수
   const createPageButton = (page) => {
-    const button = document.createElement('button')
-    button.textContent = page
+    const button = document.createElement('button');
+    button.textContent = page;
     button.classList.add('page-button')
     if (page === currentPage) {
       button.classList.add('active')
     }
     button.addEventListener('click', () => {
-      currentPage = page
-      loadAttend()
-    })
-    return button
-  }
+      currentPage = page;
+      renderTable(filteredAttends)
+    });
+    return button;
+  };
 
   pagination.appendChild(pageArrow('left', currentPage === 1))
 
@@ -124,33 +198,18 @@ function pageArrow(direction, disabled) {
   } else {
     arrow.addEventListener('click', () => {
       currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1
-      loadAttend()
-    })
+      renderTable(filteredAttends)
+    });
   }
-  return arrow
+  return arrow;
 }
 
-function loadAttend() {
-  const attendTable = document.getElementById('table-body')
-  attendTable.innerHTML = ''
+function updateSummaryCounts() {
+  const doneCount = attends.filter(attend => attend.in && attend.out).length;
+  const notYetCount = attends.filter(attend => !attend.in && !attend.out).length;
+  const eitherCount = attends.filter(attend => attend.in || attend.out).length;
 
-  const sortedAttend = [...attends].reverse() // 배열을 역순으로 정렬
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = Math.min(startIndex + itemsPerPage, sortedAttend.length)
-
-  sortedAttend.slice(startIndex, endIndex).forEach((attend) => {
-    const trItem = document.createElement('tr')
-    trItem.classList.add('attend-tr')
-    trItem.innerHTML = `
-      <td>${attend.id}</td>
-      <td>${attend.date}</td>
-      <td>${attend.in}</td>
-      <td>${attend.out}</td>
-      <td>${attend.time}</td>
-      <td><span class="${attend.status === '미처리' ? 'notyet' : ''}">${attend.status}</span></td>
-    `
-    attendTable.appendChild(trItem)
-  })
-
-  attendPagination(attends.length)
+  document.querySelector('.doneNum').textContent = doneCount;
+  document.querySelector('.notYetNum').textContent = notYetCount;
+  document.querySelector('.eitherNum').textContent = eitherCount;
 }

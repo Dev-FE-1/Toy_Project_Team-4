@@ -10,7 +10,6 @@ export function profile() {
         <div class="profile-top">
           <div class="user-img"></div>
         </div>
-        
         <div class="profile-bottom">
           <div>
             <span class="material-symbols-outlined"> person </span>
@@ -28,15 +27,18 @@ export function profile() {
             <span class="material-symbols-outlined"> campaign </span>
             <textarea id="userIntro" type="text" /></textarea>
           </div>
-          <button id="localStorageBtn">수정하기</button><div class="profilemodal"></div>
+          <button id="localStorageBtn">수정하기</button>
         </div>
+        <div class="profilemodal"></div>
       </div>
     </section>
     `
   getUserInfo()
   loadModal()
   const setlocalStorageBtn = document.querySelector("#localStorageBtn")
-  setlocalStorageBtn.addEventListener("click", loadprofilemodal())
+  setlocalStorageBtn.addEventListener("click", () => {
+    loadprofilemodal()
+  })
   return app
 }
 

@@ -23,11 +23,7 @@ let calendarDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         let html = "<thead><tr>";
         arrWeekDays.forEach((day, idx) => {
             html += "<th";
-            if (idx === 0) {
-              html += " class=\"Sun\"";
-            } else if (idx === 6) {
-              html += " class=\"Sat\"";
-            } else if (idx === 3) {
+            if (idx === 3) {
               html += " class=\"todayDate\"";
             }
             html += ">" + calendarDays[day] + "</th>";
@@ -113,11 +109,6 @@ let calendarDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         arrWeek.forEach((day, idx) => {
             let holidayInfo = getCalendarHoliday(calendarYear, calendarMonth, day);
             let dayClass = "";
-            if (idx === 0) {
-                dayClass = "Sun";
-            } else if (idx === 6) {
-                dayClass = "Sat";
-            }
             if (holidayInfo) {
                 dayClass += " holiday";
             }

@@ -9,10 +9,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   font-size: 14px;
-  background-color: #f2f2f2;
+  background-color: #fff;
 }
 /* 상단 */
 .wrapper .signupTop {
@@ -49,10 +49,10 @@
   accent-color: #ed234b;
   cursor: pointer;
 }
-#signupForm .choice #managerCode #code{
+#signupForm .choice #managerCode #code {
   height: 35px;
   width: 100px;
-  margin: 0 0 0 30px; 
+  margin: 0 0 0 30px;
   border: 1px solid #ababab;
   border-radius: 5px;
   outline: none;

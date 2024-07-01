@@ -10,7 +10,36 @@
   height: 10%;
   font-size: 30px;
   font-weight: 800;
-  padding: 40px 0 20px 40px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#notice-section .notice-top h1 {
+  padding-top: 40px;
+}
+#notice-section .notice-top div {
+  display: flex;
+  align-items: center;
+}
+#notice-section .notice-top div input {
+  width: 300px;
+  height: 40px;
+  margin: 40px 10px 0 0;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  outline: none;
+}
+#notice-section .notice-top div img {
+  width: 140px;
+  height: 100px;
+  padding-top: 30px;
+  margin-left: 10px;
+}
+#notice-section .notice-top input:hover {
+  box-shadow: 0 0 5px rgba(246, 34, 87, 0.8);
+  border: none;
 }
 #notice-section .notice-bottom .post-list {
   height: 80%;
@@ -67,7 +96,7 @@
   font-weight: 800;
   color: #222;
 }
-#notice-section .post-container .post .post-bottom .complate {
+#notice-section .post-container .post .post-bottom .complete {
   margin-bottom: 10px;
   width: 150px;
   height: 30px;
@@ -76,7 +105,7 @@
   color: #f2f2f2;
   background-color: #ed234b;
 }
-#notice-section .post-container .post .post-bottom .complate:hover {
+#notice-section .post-container .post .post-bottom .complete:hover {
   background-color: #f26581;
 }
 .pagination-container {
@@ -88,9 +117,10 @@
 }
 
 .pagination-container button {
+  padding: 10px;
   margin: 5px;
   color: #ababab;
-  background-color: #fff;
+  background-color: transparent;
 }
 .pagination-container .prev-button,
 .pagination-container .next-button {
@@ -100,6 +130,7 @@
 }
 .pagination-container .prev-button.color,
 .pagination-container .next-button.color {
+  border: none;
   background-color: #f26581;
   color: #fff;
 }
@@ -110,7 +141,6 @@
 }
 .pagination-container .number-btn-wrapper button {
   display: block;
-  margin: 0 15px;
 }
 .pagination-container .number-btn-wrapper .btnFocus {
   color: #ed234b;

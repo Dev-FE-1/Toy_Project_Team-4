@@ -4,6 +4,7 @@
   transition: all 0.5s;
   background-color: #f2f2f2;
   width: 100%;
+  height: 100%; 
 }
 
 /* home.css */
@@ -11,12 +12,33 @@
 .mainhome {
   width: 100%;
   position: relative;
-  height: calc(100vh - 116px); /* 부모 요소의 높이를 뷰포트 높이에 맞게 설정 */
-  min-width: 800px;
-  padding: 35px 35px 0 35px;
-  transition: all 0.5s;
+  height: calc(100vh - 116px);
+  /* min-width: 800px; */
+  padding: 30px;
+  /* transition: all 0.5s; */
+  display:flex; 
+  justify-content: space-between;
+  overflow-y: scroll;
 }
 
+#calendar {
+  /* position: absolute;
+  top: 35px; */
+  background: #fff;
+  width:60%;
+  height: 100%;
+  /* width: calc(100% - 550px); */
+  /* min-width: 630px; */
+  /* transition: all 0.5s; */
+}
+
+#attendSection {
+  width:39%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 /* .calendar {
   position: absolute;
   top: 35px;
@@ -27,10 +49,10 @@
   transition: all 0.5s;
 } */
 
-.sidebar.expanded + #app .calendar {
+/* .sidebar.expanded + #app .calendar {
   margin-left: 190px;
-  width: calc(100% - 740px); /* 사이드바 확장 시 크기 조정 */
-}
+  width: calc(100% - 740px); 
+} */
 /* 
 .attendance {
   position: absolute;
@@ -50,3 +72,29 @@
   height: calc(50% - 52px); /* 부모 요소의 높이를 기준으로 조정 */
 /* min-width: 445px;
 } */
+
+/*Tablet*/
+
+@media screen and (max-width: 950px) {
+  .mainhome {    
+    flex-direction: column-reverse;
+  }
+
+  #calendar {
+    background: #fff;
+    width:100%;
+    height: auto;
+    margin: 2% 0;
+  }
+  
+  #attendSection {
+    width:100%;
+    height: auto;
+  }
+}
+
+/*Mobile*/
+
+@media screen and (max-width: 600px) {
+
+}

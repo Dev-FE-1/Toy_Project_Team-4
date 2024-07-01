@@ -1,10 +1,10 @@
 #attendance-Check {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
-  right: 35px;
+  right: 35px; */
   background-color: hsl(0, 0%, 100%);
-  height: calc(50% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
-  min-width: 445px;
+  height: 49%; /* 부모 요소의 높이를 기준으로 조정 */
+  /* min-width: 445px; */
   box-shadow: 5px 0 40px #d7d7d7;
 }
 
@@ -16,6 +16,7 @@
 
 #attendance-Check .chart-section {
   height: calc(100% - 57px);
+  overflow-y: scroll;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -127,4 +128,30 @@
   transform: translateY(-50%);
   color: #555;
   font-size: 12px;
+}
+
+@media screen and (max-width: 950px) {
+
+  #attendance-Check {
+    height:auto;
+  }
+
+  #attendance-Check .chart-section {
+    overflow-y: inherit;
+  }
+}
+
+@media screen and (max-width: 440px) {
+
+  #attendance-Check .attendance-result .result {
+    display: block;
+  }
+
+  #attendance-Check .attendance-result .result p {
+    margin-bottom: 5px;
+  }
+
+  #attendance-Check .attendance-result .result p span {
+    margin: auto 10px;
+  }
 }

@@ -1,6 +1,6 @@
 .document_container {
-    width: 40%;
-    height: 65%;
+    width: 90%;
+    height: 90%;
     background-color: #fff;
     padding: 40px;
     border-radius: 10px;
@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin: auto;
+    overflow-y: scroll;
 }
 
 .document_container h2 {

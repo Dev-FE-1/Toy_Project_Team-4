@@ -1,0 +1,148 @@
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: "Nanum Gothic Coding", sans-serif;
+    background-color: #f2f2f2;
+    flex-direction: column;
+}
+
+.login-container {
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px #d6d6d6, 0 12px 24px #d6d6d6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container h1 {
+    margin: 16px 0 24px;
+    font-size: 30px;
+    color: #222;
+    white-space: nowrap;
+}
+
+.login-container .logo {
+    margin-bottom: 24px;
+    max-width: 80%;
+    height: auto;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 80%;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 2px solid #f2f2f2;
+    border-radius: 10px;
+    color: #ababab;
+    font-size: 15px;
+}
+
+.login-container input {
+    color: #ababab;
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: #ed234b;
+}
+
+.login-container input:focus::placeholder {
+    color: transparent;
+}
+
+.link {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 10px auto;
+}
+
+.link a {
+    text-decoration: none;
+    color: #5e5e5e;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.login-container button {
+    background-color: #ed234b;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    width: 90%;
+    max-width: 90%;
+    height: 50px;
+    margin-top: 16px;
+    cursor: pointer;
+} */
+
+/* 기존 스타일 내용 생략 */
+
+.loading-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-container.hidden {
+    display: none;
+}
+
+@keyframes dot-blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.loading-animation {
+    display: flex;
+    gap: 30px;
+}
+
+.loading-dot {
+    width: 30px;
+    height: 30px;
+    background-color: #ed234b;
+    border-radius: 50%;
+    animation: dot-blink 1s infinite;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.6s;
+}

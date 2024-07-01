@@ -51,9 +51,11 @@
   z-index: -1;
 }
 
-#weekCalendar tr .Sun {
-  color: red;
-}
-#weekCalendar tr .Sat {
-  color: blue;
+@media screen and (max-width: 440px) {
+  #weekCalendar .today {
+    padding-bottom:30px;
+  }
+  #weekCalendar tr th {
+    font-size: 14px;
+  }
 }

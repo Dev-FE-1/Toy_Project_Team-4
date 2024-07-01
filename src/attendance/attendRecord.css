@@ -1,13 +1,14 @@
 #attendance {
-  position: absolute;
+  /* position: absolute;
   top: 35px;
-  right: 35px;
+  right: 35px; */
   background-color: rgb(209, 240, 212);
-  height: calc(50% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
-  min-width: 445px;
-  margin-bottom: 35px;
+  height: 49%; 
+  /* min-width: 445px; */
+  /* margin-bottom: 35px; */
   background: #fff;
   box-shadow: 5px 0 40px #d7d7d7;
+  overflow-y: scroll;
 }
 
 #attendance h4 {
@@ -176,4 +177,20 @@
 
 .overlay .modal .modal-wrap button#closeModal:hover {
   background: #9f9f9f;
+}
+
+@media screen and (max-width: 950px) {
+  #attendance {
+    height: auto;
+    margin-bottom: 2%;
+    overflow-y: inherit;
+    padding-bottom:10px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  #attendance .info .inner .time {
+    font-size:60px;
+    word-break: break-all;
+  }
 }

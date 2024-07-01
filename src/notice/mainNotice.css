@@ -1,20 +1,18 @@
 #mainNotice {
-  position: absolute;
-  top: 35px;
-  background: #fff;
-  height: calc(100% - 35px); /* 부모 요소의 높이를 기준으로 조정 */
-  width: calc(100% - 550px);
-  min-width: 630px;
-  transition: all 0.5s;
+  height:100%;
 }
+
 #mainNotice .calendar {
   height: 25%;
 }
 #mainNotice .noticeForm {
+  height: 75%;
   border-top: 1px solid #e6e6e6;
+  overflow-y: scroll;
 }
 #mainNotice .noticeForm .noticelist {
-  height: 70%;
+  /* height: 70%; */
+  background: #fff;
   align-items: center;
   padding: 0 20px;
   margin-top: 20px;
@@ -51,12 +49,25 @@
   font-weight: 800;
   color: #222;
 }
+#mainNotice .noticeForm .noticelist .post .post-top .post-date {
+  font-size:14px;
+  color:#ababab;
+}
 #mainNotice .noticeForm .noticelist .post .post-mid {
   height: 80%;
+}
+#mainNotice .noticeForm .noticelist .post .post-mid .post-content {
+  line-height: 22px;
+  font-size: 15px;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom {
   height: 10%;
   align-items: center;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .userName {
+  display: flex;
+  align-items: center;
+  font-size:14px;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
   margin-bottom: 10px;
@@ -87,4 +98,29 @@
   background-color: transparent;
   text-align: center;
   padding-top: 10px;
+}
+
+@media screen and (max-width: 950px) {
+  #mainNotice .noticeForm {
+    overflow-y: inherit;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #mainNotice .calendar {
+    height: auto;
+  }
+  #mainNotice .noticeForm .noticelist li .post {
+    height:auto;
+  }
+  #mainNotice .noticeForm .noticelist .post .post-top .post-date {
+    margin-top: 5px;
+    text-align: right;
+  }
+  #mainNotice .post .post-top, #mainNotice .post .post-bottom {
+    flex-direction: column;
+  }
+  #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
+    margin-top: 10px;
+  }
 }

@@ -13,8 +13,10 @@ export function createHomeContent() {
   content.innerHTML = `
     <div class="mainhome">
       <div id="calendar"></div>
-      <div id="attendance"></div>
-      <div id="attendance-Check"></div>
+      <div id="attendSection">
+        <div id="attendance"></div>
+        <div id="attendance-Check"></div>
+      </div>
       <div class="overlay"></div>
     </div>
   `

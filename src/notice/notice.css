@@ -5,6 +5,7 @@
   box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   background-color: #fff;
+  overflow-y: scroll;
 }
 #notice-section .notice-top {
   height: 10%;
@@ -145,4 +146,33 @@
 .pagination-container .number-btn-wrapper .btnFocus {
   color: #ed234b;
   font-weight: 800;
+}
+
+@media screen and (max-width: 600px) {
+
+  #notice-section .notice-top {
+    flex-direction: column;
+    height:auto;
+  }
+
+  #notice-section .notice-top div {
+    flex-direction: column;
+  }
+
+  #notice-section .notice-bottom .post-list li .post-container {
+    height:auto;
+  }
+  #notice-section .notice-bottom .post-list li .post-container .post-date {
+    margin-top: 5px;
+    text-align: right;
+  }
+  #notice-section .notice-bottom .post-list .post-container .post {
+    height: auto;
+  }
+  #notice-section .post .post-top, #notice-section .post .post-bottom {
+    flex-direction: column;
+  }
+  #notice-section .post-container .post .post-bottom .complete {
+    margin-top: 10px;
+  }
 }

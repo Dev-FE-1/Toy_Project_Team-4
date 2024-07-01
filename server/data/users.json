@@ -40,6 +40,46 @@
       "userType": "student",
       "background": "/public/images/backgroundimages4.jpg",
       "profileImage": "/public/images/원지.jpg"
+    },
+    {
+      "id": 5,
+      "name": "김수민",
+      "email": "tnalsdl20461@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "manager",
+      "background": "/public/images/backgroundimages3.jpg",
+      "profileImage": "/public/images/수민.jpg"
+    },
+    {
+      "id": 6,
+      "name": "김도형",
+      "email": "ddhkim111@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "manager",
+      "background": "/public/images/backgroundimages2.jpg",
+      "profileImage": "/public/images/도형.jpg"
+    },
+    {
+      "id": 7,
+      "name": "임효정",
+      "email": "gywjd1@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "manager",
+      "background": "/public/images/backgroundimages1.jpg",
+      "profileImage": "/public/images/효정.jpg"
+    },
+    {
+      "id": 8,
+      "name": "최원지",
+      "email": "wonjichoe1@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "manager",
+      "background": "/public/images/backgroundimages4.jpg",
+      "profileImage": "/public/images/원지.jpg"
     }
   ]
 }

@@ -7,7 +7,10 @@
 }
 
 #weekCalendar .today {
-  padding-left:30px;
+  padding-left: 30px;
+    font-weight: bold;
+    padding-top: 10px;
+    color: #222;
 }
 
 #weekCalendar table {

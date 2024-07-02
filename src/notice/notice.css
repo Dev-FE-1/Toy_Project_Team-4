@@ -5,7 +5,7 @@
   box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   background-color: #fff;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #notice-section .notice-top {
   height: 10%;
@@ -87,6 +87,9 @@
 #notice-section .notice-bottom .post-list .post-container .post-mid {
   height: 80%;
 }
+#notice-section .notice-bottom .post-list .post-container .post-mid .post-content {
+  line-height: 21px;
+}
 #notice-section .notice-bottom .post-list .post-container .post-bottom {
   height: 10%;
   align-items: center;
@@ -148,12 +151,15 @@
   font-weight: 800;
 }
 
-@media screen and (max-width: 600px) {
-
+@media screen and (max-width: 950px) {
+  
   #notice-section .notice-top {
     flex-direction: column;
     height:auto;
   }
+}
+
+@media screen and (max-width: 600px) {
 
   #notice-section .notice-top div {
     flex-direction: column;

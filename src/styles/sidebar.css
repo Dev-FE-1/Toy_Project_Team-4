@@ -195,7 +195,7 @@
   transition: margin-top 1s ease-in-out;
 }
 
-.user-item .text-container {
+.user-item .text-containㅂer {
   transition: align-items 1s ease-in-out; /* align-items의 트랜지션 제거 */
 }
 

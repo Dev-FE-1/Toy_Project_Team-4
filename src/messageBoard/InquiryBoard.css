@@ -138,6 +138,7 @@ ul li.inquirylist {
   height: 100px;
   align-items: center;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
 }
 
 /* 페이지네이션 */
@@ -189,45 +190,115 @@ div .pagination {
   z-index: 1; 
   width: 100%;
   height: 100%;
-  position: absolute;
-  border-radius: 10px;
-  overflow-y: scroll;
   top: 50%;
   left: 50%;
+  border-radius: 10px;
+  overflow-y: scroll;
   transform: translate(-50%, -50%); /* 중앙으로 이동 */
   background-color: #fff;
-
+  position: absolute;
 }
 
 .inquirymodal-content {
-  position: absolute;
   background-color: #fff;
-  /* width: 100%; */
-  /* height: 100%; */
-  /* margin: 30px; */
   padding: 40px;
-  margin-top: 100px;
-  flex-direction: column; /* 세로 방향 정렬 */
-  display: flex;
+  margin-top: 80px;
 }
 
-.inquirymodal-content button {
+#inquirymodal-body {
+  height: 300px;
+}
+
+#inquirymodal-body h2 {
+  font-size: 30px;
+}
+
+#inquirymodal-body .inquiry-details {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  gap: 30px; /* 요소 간의 간격 */
+  margin-top: 20px;
+}
+
+#inquirymodal-body .inquiry-details .inquiry-name {
+  font-size: 18px;
+  color: 5e5e5e;
+}
+
+#inquirymodal-body .inquiry-details .inquiry-date {
+  font-size: 16px;
+  color: #ababab;
+}
+
+#inquirymodal-body .inquiry-message {
+  margin-top: 30px;
+  border-top: 0.5px solid #ababab;
+  padding-top: 30px;
+}
+
+/* 문의 내용 모달 버튼*/
+.modal-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom:  0.5px solid #ababab;
+}
+
+.listbutton {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.deletebutton {
+  display: flex;
+  gap: 10px;
+}
+
+.listbutton button, 
+.deletebutton button {
   height: 40px;
-  width: 80px;
+  width: 80px; /* 버튼 너비 */
   padding: 10px;
   border-radius: 5px;
   color: #fff;
   border: none; /* 기본 테두리 제거 */
   cursor: pointer;
-  font-size: 14px;
-  /* display: flexbox; */
-  justify-content: center;
+  font-size: 14px; /* 글자 크기 */
 }
 
-.inquirymodal-content .listbutton button {
+.listbutton button {
   background-color: #ed234b;
 }
 
-.inquirymodal-content .deletebutton button {
+.listbutton button:hover {
+  background-color: #f26581;
+}
+
+.deletebutton button {
   background-color: #ababab;
+}
+
+.deletebutton button:hover {
+background: #9f9f9f;
+}
+
+.modal-buttons-container .img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.modal-buttons-container .comment {
+  font-size: 15px;
+  font-weight: 400;
+  color: #5e5e5e;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  left: 0%;
 }

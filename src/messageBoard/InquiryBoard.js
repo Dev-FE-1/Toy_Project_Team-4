@@ -49,13 +49,18 @@ export function loadInquiryBoard() {
         <div id="inquirymodal" class="inquirymodal">
           <div class="inquirymodal-content">
             <div id="inquirymodal-body"></div>
-            <div id="modalbutton" class="listbutton">
-              <button id="modal-list-button">목록</button>
-            </div>
-            <div id="modalbutton" class="deletebutton">
-              <button id="modal-modify-button">수정</button>
-              <button id="modal-delete-button">삭제</button>
-            </div>
+            <div id="modal-buttons-container" class="modal-buttons-container">
+              <div id="comment" class="comment">
+                <img src="/images/iconComment.svg" class="img" alt="댓글">
+                <span>댓글</span>
+              </div>  
+              <div id="listbutton" class="listbutton">
+                <button id="modal-list-button">목록</button>
+              </div>
+              <div id="deletebutton" class="deletebutton">
+                <button id="modal-modify-button">수정</button>
+                <button id="modal-delete-button">삭제</button>
+              </div>
           </div>
         </div>
       </div>
@@ -186,7 +191,8 @@ function addInquiry(name, title, message) {
     id: inquiries.length + 1,
     title: title,
     name: name,
-    date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
+    date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }),
+    message: message
   };
 
   inquiries.push(newInquiry);
@@ -197,12 +203,19 @@ function toggleModal(show, inquiry = null) {
   const modal = document.getElementById('inquirymodal');
   const modalBody = document.getElementById('inquirymodal-body');
 
+  if (!modal || !modalBody) {
+    console.error('Modal elements not found');
+    return;
+  }
+
   if (show && inquiry) {
     modalBody.innerHTML = `
       <h2>${inquiry.title}</h2>
-      <p><strong>작성자:</strong> ${inquiry.name}</p>
-      <p><strong>작성일:</strong> ${inquiry.date}</p>
-      <p>${inquiry.message}</p>
+      <div class="inquiry-details">
+        <div class="inquiry-name"><span>${inquiry.name}</span></div>
+        <div class="inquiry-date"><span>${inquiry.date}</span></div>
+      </div>
+      <div class="inquiry-message"><span>${inquiry.message}</span></div>
     `;
   }
   modal.style.display = show ? 'block' : 'none';

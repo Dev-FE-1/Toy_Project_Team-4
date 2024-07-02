@@ -17,6 +17,11 @@ import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
 import { createFooter, adjustFooterWidth } from "./components/footer.js" // 푸터 추가
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
+import "./managerHome/managerHome.css"
+import "./managerHome/managerSidebar.css"
+import { managerHome } from "./managerHome/managerHome.js"
+
+const userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
 const app = () => {
   init()
@@ -30,7 +35,6 @@ function init() {
 
 function navPage(event) {
   const a = event.target.closest("a")
-
   if (a && a.href !== "javascript:void(0)") {
     event.preventDefault()
     const path = a.getAttribute("href")
@@ -40,7 +44,6 @@ function navPage(event) {
 }
 
 export function route() {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"))
   const path = location.pathname
   const app = document.querySelector("#app")
 
@@ -75,7 +78,7 @@ export function route() {
       loadGallery() // 기업 공지 모음 갤러리
       break
     case "/attendance-record":
-      loadAttendConfirm(); // 입퇴실 기록
+      loadAttendConfirm() // 입퇴실 기록
       break
     case "/going-out":
       loadLeaveRequest() // 외출, 조퇴 신청
@@ -92,11 +95,53 @@ export function route() {
     case "/status":
       loadStatus() // 신청 현황
       break
-    default:
-      mainHome() // 기본 페이지
-      break  
-  }
 
+    /* =================== 관리자 페이지 라우팅 =================== */
+
+    case "/manager-profile":
+      // 매니저 프로필 관리 페이지
+      break
+    case "/managerhome":
+      managerHome() // 메인 홈
+      break
+    case "/manager-notice":
+      // 공지사항
+      break
+    case "/manager-inquiry-board":
+      // 문의 게시판
+      break
+    case "/manager-request":
+      // 행정 자료 요청
+      break
+    case "/manager-gallery":
+      // 기업 공지 모음
+      break
+    case "/student-attendance-record":
+      // 수강생 출결 현황
+      break
+    case "/manager-going-out":
+      // 외출, 조퇴 관리
+      break
+    case "/manager-vacation":
+      // 휴가 관리
+      break
+    case "/manager-public-house":
+      // 공가 관리
+      break
+    case "/student-info":
+      // 수강생 리스트
+      break
+    default:
+      if (app) {
+        app.innerHTML = "" // 기존 콘텐츠 삭제
+        if (userInfo.userType === "student") {
+          mainHome() // 수강생 메인 페이지
+        } else if (userInfo.userType === "manager") {
+          managerHome() // 관리자 메인페이지
+        }
+      }
+      break
+  }
   // 라우팅 후 푸터 추가 (기존 푸터가 있는지 확인)
   const existingFooter = document.getElementById("footer")
   if (!existingFooter) {
@@ -109,15 +154,12 @@ export function route() {
 // 페이지 로드 시 초기 콘텐츠 설정
 document.addEventListener("DOMContentLoaded", () => {
   app()
-  // loadLogin()
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"))
   if (userInfo) {
-    onLoginSuccess() // 로그인 상태라면 메인 페이지를 로드합니다.
+    onLoginSuccess()
   } else {
-    loadLogin() // 로그인 상태가 아니라면 로그인 페이지를 로드합니다.
+    loadLogin()
   }
-
-  // 푸터 추가 (기존 푸터가 있는지 확인)
+  // 푸터 추가
   const existingFooter = document.getElementById("footer")
   if (!existingFooter) {
     const footer = createFooter()
@@ -125,8 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
     adjustFooterWidth()
     window.addEventListener("resize", adjustFooterWidth)
   }
-
-  // 현재 URL에 맞는 페이지 로드
   route()
 })
 
@@ -135,6 +175,10 @@ export function onLoginSuccess() {
   const app = document.getElementById("app")
   if (app) {
     app.innerHTML = "" // 기존 콘텐츠 삭제
-    mainHome() // 메인 페이지 로드
+    if (userInfo.userType === "student") {
+      mainHome() // 메인 페이지 로드
+    } else if (userInfo.userType === "manager") {
+      managerHome()
+    }
   }
 }

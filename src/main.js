@@ -15,13 +15,12 @@ import { loadGallery } from "./gallery/gallery.js"
 import { loadDocumentRequestForm } from "./document/document.js"
 import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
-import { createFooter, adjustFooterWidth } from "./components/footer.js" // 푸터 추가
+import { createFooter, adjustFooterWidth } from "./components/footer.js"
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
-import "./managerHome/managerHome.css"
-import "./managerHome/managerSidebar.css"
 import { managerHome } from "./managerHome/managerHome.js"
+import { studentInfo } from "./studentInfoList/studentInfo.js"
 
-const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
 const app = () => {
   init()
@@ -50,6 +49,7 @@ export function route() {
   if (!app) return
 
   // 로그인하지 않은 상태이면 항상 로그인 페이지로
+  userInfo = JSON.parse(localStorage.getItem("userInfo"))
   if (!userInfo) {
     loadLogin()
     history.replaceState(null, null, "/") //로그인하지 않은 상태에서는 history.replaceState를 사용하여 히스토리를 대체
@@ -129,16 +129,13 @@ export function route() {
       // 공가 관리
       break
     case "/student-info":
-      // 수강생 리스트
+      studentInfo() // 수강생 리스트
       break
     default:
-      if (app) {
-        app.innerHTML = "" // 기존 콘텐츠 삭제
-        if (userInfo.userType === "student") {
-          mainHome() // 수강생 메인 페이지
-        } else if (userInfo.userType === "manager") {
-          managerHome() // 관리자 메인페이지
-        }
+      if (userInfo.userType === "student") {
+        mainHome() // 수강생 메인 페이지
+      } else if (userInfo.userType === "manager") {
+        managerHome() // 관리자 메인페이지
       }
       break
   }
@@ -172,6 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 로그인 완료 후 메인 페이지 로드 함수
 export function onLoginSuccess() {
+  userInfo = JSON.parse(localStorage.getItem("userInfo"))
+  if (!userInfo) {
+    loadLogin()
+    return
+  }
+
   const app = document.getElementById("app")
   if (app) {
     app.innerHTML = "" // 기존 콘텐츠 삭제

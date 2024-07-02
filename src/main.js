@@ -18,6 +18,7 @@ import { loadNotice } from "./notice/notice.js"
 import { createFooter, adjustFooterWidth } from "./components/footer.js"
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
+import { studentInfo } from "./studentInfoList/studentInfo.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -128,16 +129,13 @@ export function route() {
       // 공가 관리
       break
     case "/student-info":
-      // 수강생 리스트
+      studentInfo() // 수강생 리스트
       break
     default:
-      if (app) {
-        app.innerHTML = "" // 기존 콘텐츠 삭제
-        if (userInfo.userType === "student") {
-          mainHome() // 수강생 메인 페이지
-        } else if (userInfo.userType === "manager") {
-          managerHome() // 관리자 메인페이지
-        }
+      if (userInfo.userType === "student") {
+        mainHome() // 수강생 메인 페이지
+      } else if (userInfo.userType === "manager") {
+        managerHome() // 관리자 메인페이지
       }
       break
   }

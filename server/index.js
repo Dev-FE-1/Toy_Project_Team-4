@@ -135,6 +135,31 @@ app.get("/api/gallery.json", (req, res) => {
   })
 })
 
+app.get("/api/inquiry.json", (req, res) => {
+  fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading JSON file:", err)
+      return res.status(500).send({
+        status: "Internal Server Error",
+        message: err,
+        data: null,
+      })
+    }
+
+    try {
+      const json = JSON.parse(data)
+      res.json(json)
+    } catch (parseErr) {
+      console.error("Error parsing JSON file:", parseErr)
+      return res.status(500).send({
+        status: "Internal Server Error",
+        message: parseErr,
+        data: null,
+      })
+    }
+  })
+})
+
 // app.get("/api/userInfo", (req, res) => {
 //   const sql = "SELECT * FROM userInfo"
 

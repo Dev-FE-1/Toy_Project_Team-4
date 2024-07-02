@@ -42,10 +42,7 @@ export function loadGallery() {
 
 function initializeSortElement() {
   const sortElement = document.getElementById("sort");
-  if (!sortElement) {
-    console.error("Sort element not found");
-    return;
-  }
+
   sortElement.addEventListener("change", () => sortCards(cards));
   sortElement.addEventListener("focus", function () {
     this.style.border = "2px solid #ED234B";
@@ -69,9 +66,12 @@ async function getgalleryList() {
       throw new Error("Invalid data format");
     }
 
-    sortCards(cards); // 데이터가 로드된 후 정렬 함수 호출
-  } catch (err) {
-    console.error("Error fetching gallery list:", err)
+    // 데이터가 로드된 후에 sortCards 호출
+    document.addEventListener("DOMContentLoaded", () => {
+      sortCards(cards);
+    });
+    } catch (err) {
+    console.error("Error fetching gallery list:", err);
   }
 }
 

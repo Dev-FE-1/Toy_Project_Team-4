@@ -1,22 +1,14 @@
 import './InquiryBoard.css';
+import axios from 'axios';
 
-let inquiries = [
-  { id: 1, title: '문의합니다', name: '임효정', date: '6월 24일' },
-  { id: 2, title: '문의합니다', name: '김수민', date: '6월 24일' },
-  { id: 3, title: '문의합니다', name: '김도형', date: '6월 24일' },
-  { id: 4, title: '문의합니다', name: '최원지', date: '6월 24일' },
-  { id: 5, title: '문의합니다', name: '임효정', date: '6월 24일' },
-  { id: 6, title: '문의합니다', name: '김수민', date: '6월 25일' },
-  { id: 7, title: '문의합니다', name: '김도형', date: '6월 25일' },
-  { id: 8, title: '문의합니다', name: '최원지', date: '6월 25일' },
-  { id: 9, title: '문의합니다', name: '임효정', date: '6월 25일' },
-  { id: 10, title: '문의합니다', name: '김수민', date: '6월 26일' },
-  { id: 11, title: '문의합니다', name: '김도형', date: '6월 26일' },
-  { id: 12, title: '문의합니다', name: '최원지', date: '6월 26일' }
-];
 
+let inquiries = [];
 const itemsPerPage = 5; //한 페이지에 5개씩 표시
 let currentPage = 1;
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadInquiryBoard();
+});
 
 export function loadInquiryBoard() {
   const app = document.getElementById('app');
@@ -54,49 +46,70 @@ export function loadInquiryBoard() {
           </li>
         </ul>
         <div id="pagination" class="pagination"></div>
+        <div id="inquirymodal" class="inquirymodal">
+          <div class="inquirymodal-content">
+            <div id="inquirymodal-body"></div>
+            <div id="modalbutton" class="listbutton">
+              <button id="modal-list-button">목록</button>
+            </div>
+            <div id="modalbutton" class="deletebutton">
+              <button id="modal-modify-button">수정</button>
+              <button id="modal-delete-button">삭제</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `;
 
-  const writeButton = document.getElementById('write-button');
-  const cancelButton = document.getElementById('cancel-button');
-  const submitButton = document.getElementById('submit-button');
-  const form = document.getElementById('inquiry-form');
-  const inquiryList = document.getElementById('inquiry-list');
-  const pagination = document.getElementById('pagination');
-
-  const toggleForm = (show) => {
-    form.style.display = show ? 'block' : 'none';
-    inquiryList.style.display = show ? 'none' : 'block';
-    pagination.style.display = show ? 'none' : 'flex';
-  };
-
-  writeButton.addEventListener('click', () => {
-    toggleForm(true);
-  });
-
-  cancelButton.addEventListener('click', () => {
-    toggleForm(false);
-  });
-
-  submitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const title = document.getElementById('title').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    if (name === '' || title === '' || message === '') {
-      alert('모든 필드를 채워주세요.');
-      return;
-    }
-    addInquiry(name, title, message);
-    toggleForm(false); // 작성 후 폼 숨기기 
-  });
+  document.getElementById('write-button').addEventListener('click', () => toggleForm(true));
+  document.getElementById('cancel-button').addEventListener('click', () => toggleForm(false));
+  document.getElementById('submit-button').addEventListener('click', handleSubmit);
+  //모달 버튼 이벤트리스너
+  document.getElementById('modal-list-button').addEventListener('click', () => toggleModal(false));
+  document.getElementById('modal-modify-button').addEventListener('click', () => toggleModal(false));
+  document.getElementById('modal-delete-button').addEventListener('click', () => toggleModal(false));
 
   loadInquiries();
 }
 
-function loadInquiries() {
+function toggleForm(show) {
+  const form = document.getElementById('inquiry-form');
+  const inquiryList = document.getElementById('inquiry-list');
+  const pagination = document.getElementById('pagination');
+
+  form.style.display = show ? 'block' : 'none';
+  inquiryList.style.display = show ? 'none' : 'block';
+  pagination.style.display = show ? 'none' : 'flex';
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const title = document.getElementById('title').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (name === '' || title === '' || message === '') {
+    alert('모든 필드를 채워주세요.');
+    return;
+  }
+
+  addInquiry(name, title, message);
+  toggleForm(false); // 작성 후 폼 숨기기
+}
+
+// inquiry.json 데이터 가져오기
+async function loadInquiries() {
+  try {
+    const res = await axios.get("/api/inquiry.json")
+    inquiries = res.data.data
+    displayInquiries();
+  } catch (err) {
+    console.error("error", err)
+  }
+}
+
+function displayInquiries() {
   const inquiryList = document.getElementById('inquiry-list');
   inquiryList.innerHTML = `
     <li class="inquiry-title">
@@ -121,6 +134,7 @@ function loadInquiries() {
       <div>${inquiry.name}</div>
       <div>${inquiry.date}</div>
     `;
+    listItem.addEventListener('click', () => toggleModal(true, inquiry)); //클릭하면 모달창생성
     inquiryList.appendChild(listItem);
   }
 
@@ -159,7 +173,7 @@ function displayPagination(totalItems) {
     }
     pageButton.addEventListener('click', () => {
       currentPage = i;
-      loadInquiries();
+      displayInquiries();
     });
     pagination.appendChild(pageButton);
   }
@@ -176,5 +190,20 @@ function addInquiry(name, title, message) {
   };
 
   inquiries.push(newInquiry);
-  loadInquiries();
+  displayInquiries();
+}
+
+function toggleModal(show, inquiry = null) {
+  const modal = document.getElementById('inquirymodal');
+  const modalBody = document.getElementById('inquirymodal-body');
+
+  if (show && inquiry) {
+    modalBody.innerHTML = `
+      <h2>${inquiry.title}</h2>
+      <p><strong>작성자:</strong> ${inquiry.name}</p>
+      <p><strong>작성일:</strong> ${inquiry.date}</p>
+      <p>${inquiry.message}</p>
+    `;
+  }
+  modal.style.display = show ? 'block' : 'none';
 }

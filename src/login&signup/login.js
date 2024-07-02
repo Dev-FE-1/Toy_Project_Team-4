@@ -76,7 +76,13 @@ async function handleLogin() {
           alert("로그인 성공!")
           localStorage.setItem(
             "userInfo",
-            JSON.stringify({ isLoggedIn: "true", userEmail: email, userUrl: "", userIntro: "" })
+            JSON.stringify({
+              userType: user.userType,
+              isLoggedIn: "true",
+              userEmail: email,
+              userUrl: "",
+              userIntro: "",
+            })
           )
           onLoginSuccess() // 로그인 성공 시 메인 페이지 로드
         } else {

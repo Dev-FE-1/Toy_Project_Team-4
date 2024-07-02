@@ -69,6 +69,10 @@
   align-items: center;
   font-size:14px;
 }
+#mainNotice .noticeForm .noticelist .post .post-bottom .userName > span {
+  color: #ababab;
+  margin-right: 5px;
+}
 #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
   margin-bottom: 10px;
   width: 130px;

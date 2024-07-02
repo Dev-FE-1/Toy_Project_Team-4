@@ -42,8 +42,10 @@ export function loadLogin() {
       </section>
   `
     const signupPageOpen = document.querySelector("#signupPage")
-    signupPageOpen.addEventListener("click", () => {
+    signupPageOpen.addEventListener("click", (event) => {
+      event.preventDefault()
       const signupPageInstance = new SignupPage()
+      signupPageInstance.loadSignup()
     })
 
     const loginForm = document.querySelector("#loginForm")
@@ -53,7 +55,10 @@ export function loadLogin() {
     })
 
     const loginBtn = document.querySelector(".loginBtn")
-    loginBtn.addEventListener("click", handleLogin)
+    loginBtn.addEventListener("click", (event) => {
+      event.preventDefault()
+      handleLogin()
+    })
   }
 }
 
@@ -84,9 +89,11 @@ async function handleLogin() {
               userIntro: "",
             })
           )
-          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드
+          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드, user 객체 전달
+          return
         } else {
           alert("비밀번호를 다시 입력해주세요.")
+          return
         }
       }
     }

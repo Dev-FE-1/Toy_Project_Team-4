@@ -1,5 +1,6 @@
 .status_container {
-  width: 50%;
+  width: 90%;
+  height:90%;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
@@ -43,10 +44,6 @@
 
 .status_container .tablink.active {
   background-color: #ed234b;
-}
-
-.status_container #content {
-  background-color: #fff;
 }
 
 .status_container .tabcontent {

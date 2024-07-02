@@ -8,7 +8,7 @@
 #mainNotice .noticeForm {
   height: 75%;
   border-top: 1px solid #e6e6e6;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #mainNotice .noticeForm .noticelist {
   /* height: 70%; */
@@ -68,6 +68,10 @@
   display: flex;
   align-items: center;
   font-size:14px;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .userName > span {
+  color: #ababab;
+  margin-right: 5px;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
   margin-bottom: 10px;

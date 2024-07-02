@@ -4,7 +4,7 @@ import './attendConfirm.css';
 
 let attends = []
 let filteredAttends = []
-const itemsPerPage = 6 // 한 페이지에 6개씩
+const itemsPerPage = 5 // 한 페이지에 6개씩
 let currentPage = 1
 
 export async function loadAttendConfirm() {

@@ -11,12 +11,12 @@ export function loadStatus() {
                 <button class="tablink" data-tab="vacationRequestStatus">휴가 신청</button>
                 <button class="tablink" data-tab="officialLeaveRequestStatus">공가 신청</button>
             </div>
-            <div id="content">
+            <div class="content">
             </div>
         </div>
     `
 
-  const content = document.getElementById("content")
+  const content = document.querySelector(".content")
 
   const leaveRequestData = [
     { status: "대기중", submittedAt: "2024-06-01 10:00", reason: "개인 사유" },

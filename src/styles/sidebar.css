@@ -79,6 +79,7 @@
   border-radius: 50%; /* 유저 아이콘을 원형으로 만들기 */
   justify-content: center;
   margin: 10px;
+  transition: transform .3s;
 }
 
 .sidebar ul li .hover-icon {
@@ -151,6 +152,9 @@
   opacity: 0; /* 호버 시 숨기기 */
 }
 
+.sidebar ul li.user-item:hover .user-icon {
+  transform: scale(1.1);
+}
 
 .sidebar ul li.user-item a:hover {
   background: none; /* 유저 아이템 호버 시 배경색 변경 안 함 */
@@ -187,8 +191,8 @@
 }
 
 .sidebar.expanded .user-item:hover .user-icon {
- margin-left: -2px;
- margin-top: 10px;
+  margin-left: -2px;
+  margin-top: 10px;
 }
 
 .sidebar.expanded .user-item .user-icon {

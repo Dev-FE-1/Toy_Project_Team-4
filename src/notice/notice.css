@@ -5,7 +5,7 @@
   box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   background-color: #fff;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #notice-section .notice-top {
   height: 10%;

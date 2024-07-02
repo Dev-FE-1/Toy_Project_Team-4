@@ -1,3 +1,4 @@
+import axios from "axios"
 export function loadManagerSidebar() {
   const sidebar = createSidebar()
   document.body.insertBefore(sidebar, document.body.firstChild)
@@ -5,12 +6,14 @@ export function loadManagerSidebar() {
   // 사이드바 내부 클릭 이벤트 추가
   sidebar.addEventListener("click", function (event) {
     sidebar.classList.toggle("expanded")
+    closeAllSubmenus()
   })
 
   // 사이드바 외부 클릭 이벤트 추가
   document.addEventListener("click", function (event) {
     if (!sidebar.contains(event.target)) {
       sidebar.classList.remove("expanded")
+      closeAllSubmenus()
     }
   })
 
@@ -31,6 +34,7 @@ export function loadManagerSidebar() {
   window.addEventListener("resize", adjustHeaderWidth)
 
   sidebar.addEventListener("transitionend", adjustHeaderWidth) // 사이드바의 트랜지션 끝난 후 헤더 조정
+  createUser()
 }
 
 function createSidebar() {
@@ -49,11 +53,11 @@ function createSidebar() {
         </li>
         <li class="user-item">
           <a href="/manager-profile">
-            <img src="/images/user1.png" alt="User" class="user-icon">
+            <img alt="User" class="user-icon">
             <img src="/images/iconsettings.svg" alt="Settings" class="hover-icon">
             <div class="text-container">
-              <span class="text1">User</span>
-              <span class="text2">helloworld@gmail.com</span>
+              <span class="text1"></span>
+              <span class="text2"></span>
             </div>
           </a>
         </li>
@@ -159,6 +163,9 @@ function createSidebar() {
       </li>
       <li class="bottom">
         <a href="/">
+          <span class="icon">
+            <img src="/images/iconToggle.svg" alt="로그아웃">
+          </span>
           <span class="text">로그아웃</span>
         </a>
       </li>
@@ -187,15 +194,30 @@ function createSidebar() {
       }
     })
     // 링크 클릭 시 페이지 네비게이션을 위한 이벤트 핸들러 추가
-    // link.addEventListener("click", (e) => {
-    //   e.preventDefault()
-    //   const path = link.getAttribute("href")
-    //   if (path && path !== "javascript:void(0);") {
-    //     history.pushState(null, null, path)
-    //     route() // 경로 변경 시 route 함수 호출
-    //   }
-    // })
+    link.addEventListener("click", (e) => {
+      if (!sidebar.classList.contains("expanded")) {
+        e.preventDefault()
+        sidebar.classList.add("expanded")
+      } else {
+        const path = link.getAttribute("href")
+        if (path && path !== "javascript:void(0);") {
+          e.preventDefault()
+          //history.pushState(null, null, path)
+          //route() // 경로 변경 시 route 함수 호출
+        }
+      }
+    })
   })
+
+  const userItem = sidebar.querySelector(".user-item")
+  if (userItem) {
+    userItem.addEventListener("click", (e) => {
+      if (!sidebar.classList.contains("expanded")) {
+        e.preventDefault()
+        sidebar.classList.add("expanded")
+      }
+    })
+  }
 
   // 서브메뉴 클릭 이벤트 추가
   const submenuParents = sidebar.querySelectorAll(".has-submenu")
@@ -211,6 +233,15 @@ function createSidebar() {
   })
 
   return sidebar
+}
+
+function closeAllSubmenus() {
+  const visiblemenu = document.querySelectorAll(".submenu.visible")
+  if (visiblemenu) {
+    visiblemenu.forEach((menu) => {
+      menu.classList.remove("visible")
+    })
+  }
 }
 
 function handleLogout(event) {
@@ -241,3 +272,26 @@ function addHoverEffect(element, iconElement) {
     })
   }
 }
+
+async function createUser() {
+  const userIcon = document.querySelector(".user-icon");
+  const userName = document.querySelector(".user-item .text1");
+  const userEmail = document.querySelector(".user-item .text2");
+
+  // users.json에 입력된 배경이미지, 프로필사진, 이름, 이메일 가져오기
+  const res = await axios.get("/api/users.json")
+  const users = res.data.data
+
+  const getuserInfo = JSON.parse(localStorage.getItem("userInfo"))
+
+  for (let user of users) {
+    if (user.email == getuserInfo.userEmail) {
+      if (userEmail != null) {
+        userName.textContent = "(Manager)" + `${user.name}`
+        userEmail.textContent = getuserInfo.userEmail
+        userIcon.setAttribute("src", `${user.profileImage}`)
+        break
+      }
+    }
+  }
+} 

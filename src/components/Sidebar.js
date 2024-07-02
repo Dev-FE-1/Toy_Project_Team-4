@@ -10,7 +10,6 @@ export function loadSidebar() {
   sidebar.addEventListener("click", function (event) {
     sidebar.classList.toggle("expanded")
     closeAllSubmenus()
-
   })
 
   // 사이드바 외부 클릭 이벤트 추가

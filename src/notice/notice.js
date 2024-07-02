@@ -15,7 +15,6 @@ export function loadNotice() {
               <input
               type="search"
               class="form-control"
-              style="margin-bottom: 5px"
               placeholder="원하는 키워드로 검색해보세요."
             />
             <img src="/public/images/notice.svg" alt="공지사항 아이콘">

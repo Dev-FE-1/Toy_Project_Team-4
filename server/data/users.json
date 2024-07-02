@@ -80,6 +80,56 @@
       "userType": "manager",
       "background": "/public/images/backgroundimages4.jpg",
       "profileImage": "/public/images/원지.jpg"
+    },
+    {
+      "id": 9,
+      "name": "강동원",
+      "email": "dongwon12@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages3.jpg",
+      "profileImage": "/public/images/강동원.jpg"
+    },
+    {
+      "id": 10,
+      "name": "변요한",
+      "email": "yoyo22@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages4.jpg",
+      "profileImage": "/public/images/변요한.jpg"
+    },
+    {
+      "id": 11,
+      "name": "김비숑",
+      "email": "rain97@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages2.jpg",
+      "profileImage": "/public/images/비숑.jpg"
+    },
+    {
+      "id": 12,
+      "name": "공유",
+      "email": "share09@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages1.jpg",
+      "profileImage": "/public/images/공유.jpg"
+    },
+    {
+      "id": 13,
+      "name": "김태희",
+      "email": "th12@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages4.jpg",
+      "profileImage": "/public/images/user1.png"
     }
   ]
 }

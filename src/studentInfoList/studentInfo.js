@@ -16,8 +16,7 @@ async function getStudentInfo(e) {
   }
   students = userData.filter(userType)
   setStudentList(students)
-  const loadingContainer = document.querySelector(".student-loading-container")
-  loadingContainer.classList.add("hidden")
+
   // 검색 필터
   if (e) {
     const searchValue = document.querySelector(".form-search").value
@@ -41,17 +40,17 @@ export function studentInfo() {
           </div>
         </div>
         <div class="studentListBottom">
+                    <div class="loading-container" id="loadingOverlay">
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
           <ul class="getStudentInfo">
           </ul>
-          <div class="student-loading-container" id="loadingOverlay">
-            <div class="loading-animation">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-          </div>
         </div>
         <div class="studentModal"></div>
-
       </section>
     `
   getStudentInfo()
@@ -76,6 +75,9 @@ export function studentInfo() {
 // 수강생 리스트 생성
 export const setStudentList = (studentsList) => {
   const ul = document.querySelector(".getStudentInfo")
+  const loadingContainer = document.querySelector("#loadingOverlay")
+  loadingContainer.classList.add("hidden")
+  ul.classList.add("addHeight")
 
   ul.innerHTML = ""
   for (let i = 0; i < studentsList.length; i++) {

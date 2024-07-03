@@ -49,10 +49,12 @@
 #studentList .studentListBottom .getStudentInfo {
   height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   width: 100%;
   padding: 0 15px 0 50px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #studentList .studentListBottom .getStudentInfo li {
   list-style: none;
@@ -142,7 +144,7 @@
   background-position: center;
 }
 
-/* 수강생리스트 모달 */
+/* 수강생 리스트 모달 */
 #studentList .studentModal {
   position: fixed;
   margin: 0;

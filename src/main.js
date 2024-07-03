@@ -99,7 +99,7 @@ export function route() {
     /* =================== 관리자 페이지 라우팅 =================== */
 
     case "/manager-profile":
-      // 매니저 프로필 관리 페이지
+      profile() // 매니저 프로필 관리 페이지
       break
     case "/managerhome":
       managerHome() // 메인 홈

@@ -30,6 +30,13 @@ export function profile() {
           <button id="localStorageBtn">수정하기</button>
         </div>
         <div class="profilemodal"></div>
+            <div class="loading-container" id="loadingOverlay">
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
       </div>
     </section>
     `
@@ -49,6 +56,7 @@ async function getUserInfo() {
   const userName = document.querySelector("#userName")
   const userUrl = document.querySelector("#userUrl")
   const userIntro = document.querySelector("#userIntro")
+  const loadingContainer = document.querySelector(".loading-container")
 
   // users.json에 입력된 배경이미지, 프로필사진, 이름, 이메일 가져오기
   const res = await axios.get("/api/users.json")
@@ -66,6 +74,8 @@ async function getUserInfo() {
         userImage.setAttribute("style", `background-image : url("${user.profileImage}")`)
         userUrl.value = getlocalStorage.userUrl
         userIntro.value = getlocalStorage.userIntro
+
+        loadingContainer.classList.add("hidden")
         break
       }
     }

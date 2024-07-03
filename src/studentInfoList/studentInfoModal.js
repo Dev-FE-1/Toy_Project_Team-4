@@ -1,4 +1,7 @@
 import "./studentInfo.css"
+import { setStudentList } from "./studentInfo"
+
+let students4Edit = []
 
 export function loadModal() {
   const studentModal = document.querySelector(".studentModal")
@@ -24,16 +27,35 @@ export function loadModal() {
   return studentModal
 }
 
-// 프로필 모달 띄우기
-export const loadstudentmodal = () => {
+// 수강생 리스트페이지 모달 띄우기
+export const loadstudentmodal = (students) => {
   const studentModal = document.querySelector(".studentModal")
   studentModal.classList.add("active")
+
+  if (students.length > 0) {
+    students4Edit = students
+  }
 }
 
+// 수강생 리스트페이지 모달과 함께 버튼 + 선택한 수강생리스트 없애기
 const resetStudentInfoBtn = (studentModal) => {
-  studentModal.classList.remove("active")
+  const listEditBtn = document.querySelector(".listEditFinish")
   const label = document.querySelectorAll("label")
+  const checkbox = document.querySelectorAll("input")
+  let notDeleteList = []
+
+  studentModal.classList.remove("active")
+  listEditBtn.classList.add("listEditBtn")
+  listEditBtn.classList.remove("listEditFinish")
+  listEditBtn.textContent = "수강생 편집"
   for (let i = 0; i < label.length; i++) {
     label[i].classList.remove("clickArea")
   }
+  for (let i = 1; i < checkbox.length; i++) {
+    if (checkbox[i].checked == false) {
+      notDeleteList.push(students4Edit[i - 1])
+    }
+    checkbox[i].checked = false
+  }
+  setStudentList(notDeleteList)
 }

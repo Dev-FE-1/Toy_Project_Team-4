@@ -491,3 +491,9 @@ background: #9f9f9f;
 #submit-modify-button.submit-button:hover {
   background-color: #f26581;
 }
+
+/* 로딩페이지 */
+.loading-container {
+  top: 0;
+  left: 0;
+}

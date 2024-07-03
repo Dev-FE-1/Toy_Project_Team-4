@@ -11,7 +11,6 @@ let currentInquiryId = null; // 현재 수정 또는 삭제하려는 게시물�
 let currentUser = null; // 현재 사용자 정보를 저장할 변수 추가
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // showLoading();
   loadInquiryBoard();
 });
 
@@ -74,6 +73,13 @@ export function loadInquiryBoard() {
           </div>
         </div>
       </div>
+      <div class="loading-container" id="loadingOverlay">
+          <div class="loading-animation">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+          </div>
+        </div>
     </div>
   `;
   // 글쓰기, 취소, 작성 이벤트리스너
@@ -134,12 +140,20 @@ async function loadCurrentUser() {
 
 // inquiry.json 데이터 가져오기
 async function loadInquiries() {
+  const loadingContainer = document.querySelector(".loading-container");
+  if (!loadingContainer) {
+    console.error("Loading container not found");
+    return;
+  }
+  loadingContainer.classList.remove("hidden");
   try {
-    const res = await axios.get("/api/inquiry.json")
-    inquiries = res.data.data
+    const res = await axios.get("/api/inquiry.json");
+    inquiries = res.data.data;
     displayInquiries();
   } catch (err) {
-    console.error("error", err)
+    console.error("error", err);
+  } finally {
+    loadingContainer.classList.add("hidden");
   }
 }
 // 글 목록 불러오기

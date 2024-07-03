@@ -1,5 +1,4 @@
 import Chart from "chart.js/auto"
-import ChartDataLabels from "chartjs-plugin-datalabels"
 
 const currentDate = new Date()
 const currentMonth = currentDate.getMonth() // 현재 월 (0부터 시작)

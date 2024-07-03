@@ -1,6 +1,7 @@
 .attendConfirmWrap {
   width: 90%;
   height:90%;
+
 }
 
 .attend-Confirm {
@@ -9,6 +10,7 @@
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
   border-radius: 10px;
   overflow-y: scroll;
+  position: relative;
 }
 
 .attend-Confirm .title-wrap {

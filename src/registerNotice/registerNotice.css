@@ -1,0 +1,113 @@
+#registerNotice {
+  width: 90%;
+  height: 90%;
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border-radius: 10px;
+  position: relative;
+}
+
+#registerNotice .title-wrap {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#registerNotice .title-wrap h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+#registerNotice .title-wrap .btn-wrap .btn {
+  display: inline-block;
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  background: #ED234B;
+  color:#fff;
+  padding-left: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: .3s;
+}
+
+#registerNotice .title-wrap .btn-wrap .btn:hover {
+  background: #F26581;
+}
+
+#registerNotice .inner {
+  padding: 0 30px;
+}
+
+#registerNotice .post-area {
+  box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
+  margin: 10px 0;
+  padding: 20px 20px 10px 20px;
+  border-radius: 5px; 
+}
+
+#registerNotice .inner .p-top,
+#registerNotice .inner .p-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#registerNotice .inner .p-top h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #222;
+}
+#registerNotice .inner .p-top p {
+  font-size:14px;
+  color:#bebebe;
+}
+#registerNotice .inner .p-top p .wDate {
+  color:#ababab;
+}
+
+#registerNotice .inner .p-middle {
+  line-height: 22px;
+  font-size: 15px;
+  margin: 20px 0 30px;
+}
+
+#registerNotice .inner .p-bottom .writer {
+  display:flex;
+  align-items: center;
+}
+
+#registerNotice .inner .p-bottom .writer .img-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  margin-right:10px;
+}
+
+#registerNotice .inner .p-bottom .writer .img-wrap img {
+  width: 100%;
+}
+
+#registerNotice .inner .p-bottom .writer span {
+  color: #5e5e5e;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#registerNotice .inner .p-bottom .btn-wrap a {
+  color: #5e5e5e;
+  transition: .2s;
+}
+
+#registerNotice .inner .p-bottom .btn-wrap a:hover {
+  color: #ED234B;
+}
+
+#registerNotice .loading-container {
+  left:0;
+  top:0;
+}

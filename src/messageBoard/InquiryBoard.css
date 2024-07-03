@@ -337,7 +337,8 @@ background: #9f9f9f;
   color: #5e5e5e;
   padding-bottom: 15px;
   border-bottom:  0.5px solid #ababab;
-  display: flex
+  display: flex;
+  align-items: center;
 }
 
 .comment-header .img {
@@ -460,4 +461,33 @@ background: #9f9f9f;
   color: #f26581;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* 게시물 수정 폼*/
+.form-buttons button{
+  height: 40px;
+  width: 80px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+#cancel-modify-button.cancel-button {
+  background-color: #ababab;
+}
+
+#cancel-modify-button.cancel-button:hover {
+  background: #9f9f9f;
+}
+
+#submit-modify-button.submit-button {
+  background-color: #ed234b;
+}
+
+#submit-modify-button.submit-button:hover {
+  background-color: #f26581;
 }

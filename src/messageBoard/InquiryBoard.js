@@ -7,11 +7,14 @@ let inquiries = [];
 const itemsPerPage = 5; //한 페이지에 5개씩 표시
 let currentPage = 1;
 let currentAction = ''; // action 값을 저장할 전역 변수 추가
+let currentInquiryId = null; // 현재 수정 또는 삭제하려는 게시물의 ID
+let currentUser = null; // 현재 사용자 정보를 저장할 변수 추가
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // showLoading();
   loadInquiryBoard();
 });
+
 
 export function loadInquiryBoard() {
   const app = document.getElementById('app');
@@ -25,9 +28,6 @@ export function loadInquiryBoard() {
         <form id="inquiry-form">
           <h1>문의 게시판</h1>
           <div id="formlist" class="formlist">
-            <label for="name">작성자:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>
             <br>
@@ -76,44 +76,60 @@ export function loadInquiryBoard() {
       </div>
     </div>
   `;
-
-  document.getElementById('write-button').addEventListener('click', () => toggleForm(true));
+  // 글쓰기, 취소, 작성 이벤트리스너
+  document.getElementById('write-button').addEventListener('click', async () => {
+    await loadCurrentUser(); // 현재 사용자 정보를 로드합니다.
+    toggleForm(true);
+  });
   document.getElementById('cancel-button').addEventListener('click', () => toggleForm(false));
   document.getElementById('submit-button').addEventListener('click', handleSubmit);
-  //모달 버튼 이벤트리스너
+  // 글 내용 목록, 수정, 삭제 이벤트리스너
   document.getElementById('modal-list-button').addEventListener('click', () => toggleModal(false));
   document.getElementById('modal-modify-button').addEventListener('click', () => showPasswordModal('modify'));
   document.getElementById('modal-delete-button').addEventListener('click', () => showPasswordModal('delete'));
-
+  // 수정 삭제 모달창 이벤트리스너
   document.getElementById('close-password-modal').addEventListener('click', () => togglePasswordModal(false));
   document.getElementById('confirm-password-button').addEventListener('click', handlePasswordConfirmation);
 
+  // 비밀번호 입력 필드에서 Enter 키를 눌렀을 때 비밀번호 확인 로직 실행
+  document.getElementById('password-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handlePasswordConfirmation();
+    }
+  });
+  
   loadInquiries();
 }
 
-function toggleForm(show) {
-  const form = document.getElementById('inquiry-form');
-  const inquiryList = document.getElementById('inquiry-list');
-  const pagination = document.getElementById('pagination');
+// 현재 사용자 정보를 로드하는 함수
+async function loadCurrentUser() {
+  try {
+    // 로컬 스토리지에서 사용자 정보 가져오기
+    const getuserInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-  form.style.display = show ? 'block' : 'none';
-  inquiryList.style.display = show ? 'none' : 'block';
-  pagination.style.display = show ? 'none' : 'flex';
-}
+    if (!getuserInfo || !getuserInfo.userEmail) {
+      console.error("User info not found in localStorage");
+      alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
+      window.location.href = '/login'; // 로그인 페이지로 리디렉션
+      return;
+    }
 
-function handleSubmit(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const title = document.getElementById('title').value.trim();
-  const message = document.getElementById('message').value.trim();
+    // users.json에서 프로필 사진과 이름 가져오기
+    const res = await axios.get("/api/users.json");
+    const users = res.data.data;
 
-  if (name === '' || title === '' || message === '') {
-    alert('모든 필드를 채워주세요.');
-    return;
+    const user = users.find(user => user.email === getuserInfo.userEmail);
+
+    if (user) {
+      currentUser = user;
+    } else {
+      console.error("User not found in users.json");
+      alert("사용자 정보를 찾을 수 없습니다.");
+    }
+  } catch (error) {
+    console.error("Error fetching users data", error);
+    alert("사용자 정보를 불러오는 중 오류가 발생했습니다.");
   }
-
-  addInquiry(name, title, message);
-  toggleForm(false); // 작성 후 폼 숨기기
 }
 
 // inquiry.json 데이터 가져오기
@@ -126,7 +142,7 @@ async function loadInquiries() {
     console.error("error", err)
   }
 }
-
+// 글 목록 불러오기
 function displayInquiries() {
   const inquiryList = document.getElementById('inquiry-list');
   inquiryList.innerHTML = `
@@ -158,7 +174,10 @@ function displayInquiries() {
       <div class="userprofile"><img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
       <div>${inquiry.date}</div>
     `;
-    listItem.addEventListener('click', () => toggleModal(true, inquiry)); //클릭하면 모달창생성
+    listItem.addEventListener('click', () => {
+      currentInquiryId = inquiry.id; // 현재 게시물 ID 저장
+      toggleModal(true, inquiry);
+    });
     inquiryList.appendChild(listItem);
   }
 
@@ -205,21 +224,68 @@ function displayPagination(totalItems) {
   pagination.appendChild(createArrow('right', currentPage === totalPages));
 }
 
-function addInquiry(name, title, message) {
+// 글쓰기 폼
+function toggleForm(show) {
+  const form = document.getElementById('inquiry-form');
+  const inquiryList = document.getElementById('inquiry-list');
+  const pagination = document.getElementById('pagination');
+
+  form.style.display = show ? 'block' : 'none';
+  inquiryList.style.display = show ? 'none' : 'block';
+  pagination.style.display = show ? 'none' : 'flex';
+}
+
+// 글쓰기 작성
+async function handleSubmit(e) {
+  e.preventDefault();
+  const titleElement = document.getElementById('title');
+  const messageElement = document.getElementById('message');
+
+  if (!titleElement || !messageElement) {
+    console.error("Form elements not found");
+    return;
+  }
+
+  const title = titleElement.value.trim();
+  const message = messageElement.value.trim();
+  
+  if (title === '' || message === '') {
+    alert('모든 필드를 채워주세요.');
+    return;
+  }
+
+  if (!currentUser) {
+    alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
+    window.location.href = '/login'; // 로그인 페이지로 리디렉션
+    return;
+  }
+
+  try {
+    addInquiry(currentUser.name, title, message, currentUser);
+    toggleForm(false); // 작성 후 폼 숨기기
+  } catch (error) {
+    console.error("Error adding inquiry", error);
+    alert("문의 작성 중 오류가 발생했습니다.");
+  }
+}
+
+// 글 추가
+function addInquiry(name, title, message, userInfo) {
   const newInquiry = {
     id: inquiries.length + 1,
     title: title,
     name: name,
     date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }),
     message: message,
-    comments: [] // 새로 추가된 문의에 대한 빈 댓글 배열
+    comments: [],
+    profileImage: userInfo ? userInfo.profileImage : '', // 사용자 프로필 이미지
   };
 
   inquiries.push(newInquiry);
   displayInquiries();
 }
-
-function toggleModal(show, inquiry = null) {
+//글 내용 보기
+function toggleModal(show = true, inquiry = null) {
   const modal = document.getElementById('inquirymodal');
   const modalBody = document.getElementById('inquirymodal-body');
 
@@ -229,6 +295,7 @@ function toggleModal(show, inquiry = null) {
   }
 
   if (show && inquiry) {
+    currentInquiryId = inquiry.id; // 현재 게시물 ID 설정
     modalBody.innerHTML = `
       <h2>${inquiry.title}</h2>
       <div class="inquiry-details">
@@ -248,7 +315,7 @@ function toggleModal(show, inquiry = null) {
       commentsList.innerHTML = '<p>아직 댓글이 없습니다.</p>';
     } else {
       // 여러 댓글을 처리하기 위해 배열로 가정
-      const comments = Array.isArray(inquiry.comments) ? inquiry.comments : [{ comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName }];
+      // const comments = Array.isArray(inquiry.comments) ? inquiry.comments : [{ comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName }];
       const commentCount = comments.length;
 
       const commentHeader = document.createElement('div');
@@ -274,7 +341,7 @@ function toggleModal(show, inquiry = null) {
   }
   modal.style.display = show ? 'block' : 'none';
 }
-
+// 글 내용에 있는 수정, 삭제 버튼 누를시 비밀번호 입력창
 function showPasswordModal(action) {
   currentAction = action; // 전역 변수에 action 값 설정
   const passwordModal = document.getElementById('password-modal');
@@ -305,6 +372,7 @@ function handlePasswordConfirmation() {
 
   if (passwordInput === '1234') {
     if (currentAction === 'modify') {
+      togglePasswordModal(false);
       modifyContents();
     } else if (currentAction === 'delete') {
       setTimeout(() => {
@@ -319,4 +387,52 @@ function handlePasswordConfirmation() {
     alert('비밀번호가 틀렸습니다');
   }
   passwordInputElement.value = ''; // 입력 필드를 비웁니다.
+}
+
+// 게시물 수정 로직
+function modifyContents() {
+  const modalBody = document.getElementById('inquirymodal-body');
+  const modalButtonsContainer = document.getElementById('modal-buttons-container');
+  const commentsSection = document.getElementById('comments-section');
+  const inquiry = inquiries.find(inquiry => inquiry.id === currentInquiryId); // 현재 게시물 찾기
+
+  if (!inquiry) {
+    console.error('Inquiry not found');
+    return;
+  }
+
+  // 기존 버튼 컨테이너와 댓글 섹션 숨기기
+  modalButtonsContainer.style.display = 'none';
+  commentsSection.style.display = 'none';
+
+  modalBody.innerHTML = `
+    <div id="modify-form">
+      <label for="modify-title">제목:</label>
+      <input type="text" id="modify-title" name="title" required value="${inquiry.title}">
+      <br>
+      <label for="modify-message">내용:</label>
+      <textarea id="modify-message" name="message" required>${inquiry.message}</textarea>
+      <br>
+      <div class="form-buttons">
+        <button type="button" id="cancel-modify-button" class="cancel-button">취소</button>
+        <button type="button" id="submit-modify-button" class="submit-button">수정</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('cancel-modify-button').addEventListener('click', () => {
+    toggleModal(true, inquiry); // 글 내용을 다시 표시
+    modalButtonsContainer.style.display = 'flex'; // 수정 폼을 닫을 때 버튼 컨테이너 다시 보이기
+    commentsSection.style.display = 'block'; // 수정 폼을 닫을 때 댓글 섹션 다시 보이기
+  });
+
+  document.getElementById('submit-modify-button').addEventListener('click', () => {
+    inquiry.title = document.getElementById('modify-title').value;
+    inquiry.message = document.getElementById('modify-message').value;
+
+    displayInquiries();
+    toggleModal(true, inquiry); // 글 내용을 다시 표시
+    modalButtonsContainer.style.display = 'flex'; // 수정 폼을 닫을 때 버튼 컨테이너 다시 보이기
+    commentsSection.style.display = 'block'; // 수정 폼을 닫을 때 댓글 섹션 다시 보이기
+  });
 }

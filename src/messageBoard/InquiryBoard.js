@@ -1,12 +1,15 @@
 import './InquiryBoard.css';
 import axios from 'axios';
+// import { showLoading } from '../../loading-animation/loading-animation.js';
 
 
 let inquiries = [];
 const itemsPerPage = 5; //한 페이지에 5개씩 표시
 let currentPage = 1;
+let currentAction = ''; // action 값을 저장할 전역 변수 추가
 
 document.addEventListener('DOMContentLoaded', () => {
+  // showLoading();
   loadInquiryBoard();
 });
 
@@ -49,11 +52,7 @@ export function loadInquiryBoard() {
         <div id="inquirymodal" class="inquirymodal">
           <div class="inquirymodal-content">
             <div id="inquirymodal-body"></div>
-            <div id="modal-buttons-container" class="modal-buttons-container">
-              <div id="comment" class="comment">
-                <img src="/images/iconComment.svg" class="img" alt="댓글">
-                <span>댓글</span>
-              </div>  
+            <div id="modal-buttons-container" class="modal-buttons-container"> 
               <div id="listbutton" class="listbutton">
                 <button id="modal-list-button">목록</button>
               </div>
@@ -61,6 +60,17 @@ export function loadInquiryBoard() {
                 <button id="modal-modify-button">수정</button>
                 <button id="modal-delete-button">삭제</button>
               </div>
+            </div>
+            <div id="comments-section" class="comments-section">
+            <ul id="comments-list" class="comments-list"></ul>
+          </div>
+        </div>
+        <div id="password-modal" class="password-modal">
+          <div class="password-modal-content">
+            <span class="close-password-modal" id="close-password-modal">&times;</span>
+            <p id="password-modal-message"></p>
+            <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
+            <button id="confirm-password-button">확인</button>
           </div>
         </div>
       </div>
@@ -72,8 +82,11 @@ export function loadInquiryBoard() {
   document.getElementById('submit-button').addEventListener('click', handleSubmit);
   //모달 버튼 이벤트리스너
   document.getElementById('modal-list-button').addEventListener('click', () => toggleModal(false));
-  document.getElementById('modal-modify-button').addEventListener('click', () => toggleModal(false));
-  document.getElementById('modal-delete-button').addEventListener('click', () => toggleModal(false));
+  document.getElementById('modal-modify-button').addEventListener('click', () => showPasswordModal('modify'));
+  document.getElementById('modal-delete-button').addEventListener('click', () => showPasswordModal('delete'));
+
+  document.getElementById('close-password-modal').addEventListener('click', () => togglePasswordModal(false));
+  document.getElementById('confirm-password-button').addEventListener('click', handlePasswordConfirmation);
 
   loadInquiries();
 }
@@ -131,12 +144,18 @@ function displayInquiries() {
 
   for (let i = startIndex; i < endIndex; i++) {
     const inquiry = sortedInquiries[i];
+    const commentCount = inquiry.comments ? inquiry.comments.length : 0;
     const listItem = document.createElement('li');
     listItem.classList.add('inquirylist');
     listItem.innerHTML = `
       <div>${inquiry.id}</div>
-      <div class="title">${inquiry.title}</div>
-      <div>${inquiry.name}</div>
+      <div class="title">${inquiry.title}
+        <div class="comment-count">
+          <img src="/images/iconComment.svg" class="img" alt="댓글">
+          <span>${commentCount}</span>
+        </div>
+      </div>
+      <div class="userprofile"><img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
       <div>${inquiry.date}</div>
     `;
     listItem.addEventListener('click', () => toggleModal(true, inquiry)); //클릭하면 모달창생성
@@ -192,7 +211,8 @@ function addInquiry(name, title, message) {
     title: title,
     name: name,
     date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' }),
-    message: message
+    message: message,
+    comments: [] // 새로 추가된 문의에 대한 빈 댓글 배열
   };
 
   inquiries.push(newInquiry);
@@ -212,11 +232,91 @@ function toggleModal(show, inquiry = null) {
     modalBody.innerHTML = `
       <h2>${inquiry.title}</h2>
       <div class="inquiry-details">
-        <div class="inquiry-name"><span>${inquiry.name}</span></div>
+        <div class="inquiry-name">
+          <img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
         <div class="inquiry-date"><span>${inquiry.date}</span></div>
       </div>
       <div class="inquiry-message"><span>${inquiry.message}</span></div>
     `;
+
+    // 댓글 데이터를 사용하여 댓글 목록을 생성합니다.
+    const commentsList = document.getElementById('comments-list');
+    commentsList.innerHTML = '';
+    const comments = inquiry.comments || [];
+
+    if (comments.length === 0) {
+      commentsList.innerHTML = '<p>아직 댓글이 없습니다.</p>';
+    } else {
+      // 여러 댓글을 처리하기 위해 배열로 가정
+      const comments = Array.isArray(inquiry.comments) ? inquiry.comments : [{ comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName }];
+      const commentCount = comments.length;
+
+      const commentHeader = document.createElement('div');
+      commentHeader.classList.add('comment-header');
+      commentHeader.innerHTML = `<img src="/images/iconComment.svg" class="img" alt="댓글"><span>댓글 ${commentCount}</span>`;
+      commentsList.appendChild(commentHeader);
+
+      comments.forEach(commentData => {
+        const { comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName } = commentData;
+
+        const commentDetail = document.createElement('div');
+        commentDetail.innerHTML = `
+          <div class="comment-detail">
+            <div class="comment-name">
+            <img src="${managerprofile}" alt="manager profile" class="manager-profile">${managerName}</div>
+            <div class="comment-date"><span>${commentDate}</span></div>
+          </div>
+          <div class="comment-message"><span>${comment}</span></div>
+        `;
+        commentsList.appendChild(commentDetail);
+      });
+    }
   }
   modal.style.display = show ? 'block' : 'none';
+}
+
+function showPasswordModal(action) {
+  currentAction = action; // 전역 변수에 action 값 설정
+  const passwordModal = document.getElementById('password-modal');
+  const passwordModalMessage = document.getElementById('password-modal-message');
+
+  if (action === 'modify') {
+    passwordModalMessage.textContent = '수정하시겠습니까?';
+  } else if (action === 'delete') {
+    passwordModalMessage.textContent = '삭제하시겠습니까?';
+  }
+
+  passwordModal.style.display = 'block';
+}
+
+function togglePasswordModal(show) {
+  const passwordModal = document.getElementById('password-modal');
+  passwordModal.style.display = show ? 'block' : 'none';
+  // 모달을 닫을 때 입력 필드를 비웁니다.
+  if (!show) {
+    document.getElementById('password-input').value = '';
+  }
+}
+
+// 비밀번호 확인 로직
+function handlePasswordConfirmation() {
+  const passwordInputElement = document.getElementById('password-input');
+  const passwordInput = passwordInputElement.value;
+
+  if (passwordInput === '1234') {
+    if (currentAction === 'modify') {
+      modifyContents();
+    } else if (currentAction === 'delete') {
+      setTimeout(() => {
+        alert('게시물이 삭제되었습니다');
+        togglePasswordModal(false);
+        toggleModal(false);
+      }, 1000);
+    }
+  } else if (passwordInput === '') {
+    alert('비밀번호를 입력하세요!');
+  } else {
+    alert('비밀번호가 틀렸습니다');
+  }
+  passwordInputElement.value = ''; // 입력 필드를 비웁니다.
 }

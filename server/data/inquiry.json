@@ -1,0 +1,125 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "id": 1,
+      "date": "2024-06-24",
+      "title": "문의합니다",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "장려금 관련 문의 어쩌구.",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "2024-06-26",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2024-06-25",
+      "title": "과정 문의",
+      "profileImage": "/public/images/수민.jpg",
+      "name": "김수민",
+      "message": "과정 관련 문의 어쩌구.",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "2024-06-26",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다!"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2024-06-26",
+      "title": "문의합니다",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "과정 관련 문의 어쩌구."
+    },
+    {
+      "id": 4,
+      "date": "2024-06-27",
+      "title": "문의 사항",
+      "profileImage": "/public/images/원지.jpg",
+      "name": "최원지",
+      "message": "과정 관련 문의 어쩌구."
+    },
+    {
+      "id": 5,
+      "date": "2024-06-28",
+      "title": "문의합니다",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "장려금 관련 문의 어쩌구."
+    },
+    {
+      "id": 6,
+      "date": "2024-06-28",
+      "title": "과정 문의",
+      "profileImage": "/public/images/수민.jpg",
+      "name": "김수민",
+      "message": "과정 관련 문의 어쩌구.",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "2024-06-26",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다!"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "2024-06-29",
+      "title": "패리포터 기자단 관련 문의",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "과정 관련 문의 어쩌구."
+    },
+    {
+      "id": 8,
+      "date": "2024-06-30",
+      "title": "문의 사항",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "과정 관련 문의 어쩌구.",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "2024-06-26",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다!"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "2024-06-30",
+      "title": "문의합니다",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "과정 관련 문의 어쩌구.",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "2024-06-26",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다!"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "date": "2024-07-01",
+      "title": "과정에 관련하여 문의 사항 있습니다!",
+      "profileImage": "/public/images/원지.jpg",
+      "name": "최원지",
+      "message": "과정 관련 문의 어쩌구."
+    }
+  ]
+}

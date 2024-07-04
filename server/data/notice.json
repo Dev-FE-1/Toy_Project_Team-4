@@ -5,35 +5,40 @@
       "id": 6,
       "date": "2024-06-26",
       "title": "(금) 입실 공지",
-      "userName": "manager",
+      "userName": "김수민 M",
+      "userImg" : "/public/images/수민.jpg",
       "content": "금요일 아침이 밝았습니다!!! 오늘은 이번주의 끝! 금요일입니다@ 오늘 하루도 좋은 하루 되길 바라겠습니다!<br/>공지사항이 많으니 하나씩 꼼꼼히 확인 부탁드리겠습니다."
     },
     {
       "id": 5,
       "date": "2024-06-25",
       "title": "(목) 퇴실 공지",
-      "userName": "manager",
+      "userName": "김도형 M",
+      "userImg" : "/public/images/도형.jpg",
       "content": "안녕하세요 여러분@@ 목요일이 지나가고 있습니다! 오늘도 너무너무 고생 많으셨습니다~!<br/>공지사항이 많으니 하나씩 꼼꼼히 확인 부탁드리겠습니다."
     },
     {
       "id": 4,
       "date": "2024-06-24",
       "title": "(수) 퇴실 공지",
-      "userName": "manager",
+      "userName": "임효정 M",
+      "userImg" : "/public/images/효정.jpg",
       "content": "안녕하세요 수강생 여러분! 다들 오늘의 공부 열심히 하셨나요?? 열심히하는 모습이 아주 보기 좋습니다!<br/>오늘 하루도 고생하셨습니다!!!"
     },
     {
       "id": 3,
       "date": "2024-06-24",
       "title": "(수) 입실 공지",
-      "userName": "manager",
+      "userName": "최원지 M",
+      "userImg" : "/public/images/원지.jpg",
       "content": "수요일 아침이 밝았습니다!!! 작일 취업특강으로 원하시는 정보를 얻으셨을까요??<br/>오늘도 빠이팅입니다~ 좋은 하루 되길 바라겠습니다!<br/>:전구:공지사항이 많으니 하나씩 꼼꼼히 확인 부탁드리겠습니다.:전구:"
     },
     {
       "id": 2,
       "date": "2024-06-23",
       "title": "(화) 퇴실 공지",
-      "userName": "manager",
+      "userName": "김도형 M",
+      "userImg" : "/public/images/도형.jpg",
       "content": "화요일이 지나가고 있습니다! 취업특강으로 원하시는 정보를 얻으셨길 바라겠습니다!!<br/>오늘도 너무너무 고생 많으셨습니다~!<br/>공지사항이 많으니 하나씩 꼼꼼히 확인 부탁드리겠습니다."
     },
     {
@@ -41,6 +46,7 @@
       "date": "2024-06-23",
       "title": "취업 준비 특강 공지",
       "userName": "manager",
+      "userImg" : "/public/images/user1.png",
       "content": "안녕하세요 수강생 여러분! <br/>금일 18시에서 20시까지 취업 준비 특강 진행 예정입니다~ <br/>모두 참여하셔서 여러분의 프론트엔드 개발자 취업 준비에 도움이 되었으면 좋겠습니다."
     }
   ]

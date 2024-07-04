@@ -83,9 +83,10 @@ async function handleLogin() {
             "userInfo",
             JSON.stringify({
               userType: user.userType,
+              userName: user.name,
               isLoggedIn: "true",
               userEmail: email,
-              userUrl: "",
+              userUrl: user.profileImage,
               userIntro: "",
             })
           )

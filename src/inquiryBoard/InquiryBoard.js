@@ -11,9 +11,6 @@ let currentUser = null; // 현재 사용자 정보를 저장할 변수 추가
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadCurrentUser(); // 현재 사용자 정보를 로드합니다.
-  if (currentUser) {
-    loadInquiryBoard();
-  }
 });
 
 
@@ -150,7 +147,7 @@ async function loadCurrentUser() {
 }
 
 // inquiry.json 데이터 가져오기
-async function loadInquiries() {
+export async function loadInquiries(forManager = false) {
   const loadingContainer = document.querySelector(".loading-container");
   if (!loadingContainer) {
     console.error("Loading container not found");
@@ -160,7 +157,7 @@ async function loadInquiries() {
   try {
     const res = await axios.get("/api/inquiry.json");
     inquiries = res.data.data;
-    displayInquiries();
+    displayInquiries(forManager);
   } catch (err) {
     console.error("error", err);
   } finally {
@@ -168,7 +165,7 @@ async function loadInquiries() {
   }
 }
 // 글 목록 불러오기
-function displayInquiries() {
+function displayInquiries(forManager = false) {
   const inquiryList = document.getElementById('inquiry-list');
   if (!inquiryList) {
     console.error("inquiry-list element not found");
@@ -210,7 +207,7 @@ function displayInquiries() {
     `;
     listItem.addEventListener('click', () => {
       currentInquiryId = inquiry.id; // 현재 게시물 ID 저장
-      if (inquiry.SecretSettings) {
+      if (inquiry.SecretSettings && !forManager) {
         showSecretModal();
       } else {
         toggleModal(true, inquiry);
@@ -318,7 +315,7 @@ function addInquiry(name, title, message, userInfo) {
 }
 
 // 글 눌렀을 때 비밀글인지 검증
-function toggleModal(show = true, inquiry = null) {
+export function toggleModal(show = true, inquiry = null) {
   const modal = document.getElementById('inquirymodal');
   const modalBody = document.getElementById('inquirymodal-body');
   
@@ -368,9 +365,8 @@ function toggleModal(show = true, inquiry = null) {
       `;
       commentsList.appendChild(commentDetail);
     });
-  }
-}
-modal.style.display = show ? 'block' : 'none';
+  }}
+  modal.style.display = show ? 'block' : 'none';
 }
 // 글 내용에 있는 수정, 삭제 버튼 누를시 비밀번호 입력창
 function showPasswordModal(action) {

@@ -30,13 +30,13 @@ export function profile() {
           <button id="localStorageBtn">수정하기</button>
         </div>
         <div class="profilemodal"></div>
-            <div class="loading-container" id="loadingOverlay">
-      <div class="loading-animation">
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-      </div>
-    </div>
+        <div class="loading-container" id="loadingOverlay">
+          <div class="loading-animation">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        </div>
       </div>
     </section>
     `

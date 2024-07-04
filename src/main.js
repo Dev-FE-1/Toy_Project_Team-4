@@ -21,6 +21,7 @@ import { managerHome } from "./managerHome/managerHome.js"
 import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
 import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
+import { registerNotice } from "./registerNotice/registerNotice.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -107,7 +108,7 @@ export function route() {
       managerHome() // 메인 홈
       break
     case "/manager-notice":
-      // 공지사항
+      registerNotice() // 공지사항
       break
     case "/manager-inquiry-board":
       managerloadInquiryBoard() // 문의 게시판

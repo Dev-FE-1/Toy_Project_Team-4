@@ -8,6 +8,7 @@ let currentPage = 1;
 let currentAction = ''; // action 값을 저장할 전역 변수 추가
 let currentInquiryId = null; // 현재 수정 또는 삭제하려는 게시물의 ID
 let currentUser = null; // 현재 사용자 정보를 저장할 변수 추가
+export { inquiries, currentInquiryId, currentUser }; // inquiries와 currentInquiryId 변수를 익스포트
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadCurrentUser(); // 현재 사용자 정보를 로드합니다.
@@ -48,8 +49,9 @@ export function loadInquiryBoard() {
         </ul>
         <div id="pagination" class="pagination"></div>
         <div id="inquirymodal" class="inquirymodal">
-          <div class="inquirymodal-content">
-            <div id="inquirymodal-body"></div>
+        <div class="inquirymodal-content">
+        <h1>문의 게시판</h1>
+          <div id="inquirymodal-body"></div>
             <div id="modal-buttons-container" class="modal-buttons-container"> 
               <div id="listbutton" class="listbutton">
                 <button id="modal-list-button">목록</button>

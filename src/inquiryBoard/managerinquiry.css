@@ -1,0 +1,26 @@
+.comments-section .comment-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.comment-form textarea#comment-input{
+  height: 70px;
+  width: 80%;
+  margin: 0;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-form #submit-comment-button {
+  color: #fff;
+  background-color: #ed234b;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 20px;
+  /* margin-top: 50px; */
+}

@@ -26,11 +26,11 @@
   /* border-bottom: 2px solid #f2f2f2; */
 }
 
-.inquiry-board h1 {
+.inquiry-board .header-section h1 {
   padding: 40px;
   font-size: 30px;
   font-weight: 800;
-  z-index: 30;
+  /* z-index: 30; */
 }
 
 .inquiry-board .header-section button {
@@ -240,7 +240,14 @@ div .pagination {
 .inquirymodal-content {
   background-color: #fff;
   padding: 40px;
-  margin-top: 80px;
+  /* margin-top: 80px; */
+}
+
+.inquirymodal-content h1 {
+  /* padding: 40px; */
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 40px;
 }
 
 #inquirymodal-body {

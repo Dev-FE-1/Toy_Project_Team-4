@@ -21,7 +21,14 @@ export function loadNotice() {
           </div>
         </div>
         <div class="notice-bottom">
-          <ul class="post-list"></ul>
+        <ul class="post-list"></ul>
+        <div class="loading-container" id="loadingOverlay">
+          <div class="loading-animation">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+          </div>
+        </div>
           <div class="pagination-container">
             <button class="prev-button"><</button>
             <div class="number-btn-wrapper"></div>
@@ -184,6 +191,8 @@ function doSearch() {
 // 공지사항 목록 생성
 const setPost = (postData) => {
   const ul = document.querySelector(".post-list")
+  const loadingContainer = document.querySelector("#loadingOverlay")
+  loadingContainer.classList.add("hidden")
   ul.innerHTML = ""
   for (let i = 0; i < postData.length; i++) {
     if (i < COUNT_PAGE) {
@@ -209,6 +218,7 @@ const setPost = (postData) => {
           `
     }
   }
+
   const completeBtns = document.querySelectorAll(".complete")
   completeBtns.forEach((completeBtn) => {
     completeBtn.addEventListener("click", () => {

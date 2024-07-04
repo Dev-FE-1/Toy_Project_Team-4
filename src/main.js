@@ -20,7 +20,6 @@ import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
 import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
-import { registerNotice } from "./registerNotice/registerNotice.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 

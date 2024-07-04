@@ -2,7 +2,6 @@ import axios from "axios"
 import "./registerNotice.css"
 
 let noticeList = []
-let userInfo = []
 const COUNT_PAGE = 4
 let currentPage = 1
 
@@ -26,6 +25,8 @@ export function registerNotice () {
             <div class="loading-dot"></div>
         </div>
       </div>
+    </div>
+    <div class="regist-dimm">
       <div class="regist-modal">
         <div class="inner">
           <div class="title">
@@ -57,8 +58,6 @@ export function registerNotice () {
         </div>
       </div>
     </div>
-    
-    
   `
   const loadingContainer = document.querySelector(".loading-container")
 
@@ -74,22 +73,6 @@ async function getPosts (loadingContainer) {
     if(document.querySelector("#registerNotice .inner") !=null) {
       createPost(noticeList)
       loadingContainer.classList.add("hidden")
-    }
-  } catch (err) {
-    console.error("error", err)
-  }
-}
-
-async function getUser () {
-  try {
-    const res = await axios.get("api/users.json")
-    userInfo = res.data.data
-
-    const registUser = document.querySelector("#regist-modal #writer")
-    const registEmail = document.querySelector("#regist-modal #email")
-    if (userInfo.length > 0 && registUser && registEmail) {
-      registUser.value = userInfo[0].name
-      registEmail.value = userInfo[0].email
     }
   } catch (err) {
     console.error("error", err)
@@ -179,10 +162,17 @@ function registerModal () {
   const registerNotice = document.getElementById("registerNotice")
   const registerClosebtn1 = document.querySelector(".regist-modal .material-symbols-outlined")
   const registerClosebtn2 = document.querySelector(".regist-modal .cancel-button")
+  const registerSubmitbtn = document.querySelector(".regist-modal .submit-button")
 
-  registBtn.addEventListener('click', async () => {
+  registBtn.addEventListener('click', () => {
     registerNotice.classList.add("register")
-    await getUser()
+    const getlocalStorage = JSON.parse(localStorage.getItem("userInfo"))
+    const registUser = document.querySelector(".regist-modal #writer")
+    const registEmail = document.querySelector(".regist-modal #email")
+    registUser.value = getlocalStorage.userName
+    registEmail.value = getlocalStorage.userEmail
+    registUser.setAttribute('readonly', 'true')
+    registEmail.setAttribute('readonly', 'true')
   })
   registerClosebtn1.addEventListener('click', () => {
     registerNotice.classList.remove("register")
@@ -190,4 +180,43 @@ function registerModal () {
   registerClosebtn2.addEventListener('click', () => {
     registerNotice.classList.remove("register")
   })
+
+  registerSubmitbtn.addEventListener('click', () => {
+    const getlocalStorage = JSON.parse(localStorage.getItem("userInfo"))
+    const registInput = document.querySelectorAll(".regist-modal input")
+    const titleInput = document.querySelector("#title");
+    const registTextarea = document.querySelector(".regist-modal textarea")
+    let allFilled = true;
+
+    registInput.forEach((input) => {
+      if(input.value === "" || registTextarea.value === "") {
+        allFilled = false
+      }
+    })
+
+    if(allFilled) {
+      addNotice(getlocalStorage.userName, titleInput.value, registTextarea.value, getlocalStorage.userUrl)
+      registerNotice.classList.remove("register")
+    } else {
+      if (registTextarea.value === "") {
+        alert('내용을 입력해주세요.')
+      } else if (titleInput.value === "") {
+        alert('제목을 입력해주세요.')
+      }
+    }
+  })
+}
+
+function addNotice(name, title, message, img) {
+  const newNotice = {
+    userName: name,
+    title: title,
+    date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric'}),
+    content: message,
+    userImg: img
+  }
+
+  noticeList.unshift(newNotice)
+  currentPage = 1
+  createPost(noticeList)
 }

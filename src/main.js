@@ -5,7 +5,7 @@ import "./styles/home.css"
 import "./styles/footer.css"
 import { loadLogin } from "./login&signup/login.js"
 import { mainHome } from "./components/home.js"
-import { loadInquiryBoard } from "./messageBoard/InquiryBoard.js"
+import { loadInquiryBoard } from "./inquiryBoard/InquiryBoard.js"
 import { loadLeaveRequest } from "./request/leave_request.js"
 import { loadOfficialLeaveRequest } from "./request/offical_leave_request.js"
 import { loadOfficialLeaveSubmitDocument } from "./request/offical_leave_submit_document.js"
@@ -20,6 +20,7 @@ import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
 import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
+import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -109,7 +110,7 @@ export function route() {
       registerNotice() // 공지사항
       break
     case "/manager-inquiry-board":
-      // 문의 게시판
+      managerloadInquiryBoard() // 문의 게시판
       break
     case "/manager-request":
       // 행정 자료 요청

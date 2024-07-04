@@ -1,6 +1,6 @@
 import axios from "axios"
 import "./gallery.css"
-import "../messageBoard/InquiryBoard.css"
+import "../inquiryBoard/InquiryBoard.css"
 
 let cards = [];  // 전역 변수로 선언
 

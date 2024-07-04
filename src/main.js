@@ -19,6 +19,7 @@ import { createFooter, adjustFooterWidth } from "./components/footer.js"
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
 import { studentInfo } from "./studentInfoList/studentInfo.js"
+import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
@@ -118,7 +119,7 @@ export function route() {
       // 기업 공지 모음
       break
     case "/student-attendance-record":
-      // 수강생 출결 현황
+      studentAttendanceRecord() // 수강생 출결 현황
       break
     case "/manager-going-out":
       // 외출, 조퇴 관리

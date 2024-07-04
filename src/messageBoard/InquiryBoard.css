@@ -146,6 +146,12 @@ ul li.inquirylist {
   margin-right: 40px;
 }
 
+ul li.inquirylist .secret-icon {
+  color: #ababab;
+  padding-left: 10px;
+  width: 25px;
+}
+
 .comment-count {
   display: flex;
   align-items: center;
@@ -404,8 +410,9 @@ background: #9f9f9f;
  padding-top: 30px;
 }
 
-/* 수정 모달 버튼 창 */
-.password-modal {
+/* 수정삭제 모달, 비밀번호 창 모달 */
+.password-modal ,
+.secret-modal {
   display: none; 
   position: fixed; 
   z-index: 1; 
@@ -417,11 +424,13 @@ background: #9f9f9f;
   background-color: rgba(0,0,0,0.4); 
 }
 
-.password-modal-content {
-  align-items: center;
-  justify-content: center;
+.password-modal-content ,
+.secret-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #fefefe;
-  margin: 15% auto; 
   padding: 20px;
   width: 350px; 
   height: 200px;
@@ -429,18 +438,21 @@ background: #9f9f9f;
   text-align: center;
 }
 
-.password-modal-content p {
+.password-modal-content p ,
+.secret-modal-content p {
   margin-top: 40px;
   font-size: 20px;
 }
-.password-modal-content #password-input {
+.password-modal-content #password-input ,
+.secret-modal-content #secret-input {
   margin-top: 30px;
   width: 200px;
   height: 30px;
   font-size: 16px;
 }
 
-.password-modal-content #confirm-password-button {
+.password-modal-content #confirm-password-button ,
+.secret-modal-content #confirm-secret-button {
   background-color: #ed234b;
   color: #fff;
   width: 60px;
@@ -448,7 +460,8 @@ background: #9f9f9f;
   border-radius: 5px;
   margin-left: 10px;
 }
-.close-password-modal {
+.close-password-modal ,
+.close-secret-modal {
   /* color: #aaa; */
   float: right;
   font-size: 28px;
@@ -457,7 +470,9 @@ background: #9f9f9f;
 }
 
 .close-password-modal:hover,
-.close-password-modal:focus {
+.close-password-modal:focus ,
+.close-secret-modal:hover,
+.close-secret-modal:focus {
   color: #f26581;
   text-decoration: none;
   cursor: pointer;

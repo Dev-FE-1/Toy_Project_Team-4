@@ -8,6 +8,7 @@
       "profileImage": "/public/images/도형.jpg",
       "name": "김도형",
       "message": "장려금 관련 문의 어쩌구.",
+      "SecretSettings": "1234",
       "comments": [
         {
           "manager profile": "/public/images/강동원.jpg",
@@ -55,7 +56,8 @@
       "title": "문의합니다",
       "profileImage": "/public/images/도형.jpg",
       "name": "김도형",
-      "message": "장려금 관련 문의 어쩌구."
+      "message": "장려금 관련 문의 어쩌구.",
+      "SecretSettings": "1234"
     },
     {
       "id": 6,
@@ -88,6 +90,7 @@
       "profileImage": "/public/images/도형.jpg",
       "name": "김도형",
       "message": "과정 관련 문의 어쩌구.",
+      "SecretSettings": "1234",
       "comments": [
         {
           "manager profile": "/public/images/강동원.jpg",
@@ -119,7 +122,8 @@
       "title": "과정에 관련하여 문의 사항 있습니다!",
       "profileImage": "/public/images/원지.jpg",
       "name": "최원지",
-      "message": "과정 관련 문의 어쩌구."
+      "message": "과정 관련 문의 어쩌구.",
+      "SecretSettings": "1234"
     }
   ]
 }

@@ -7,7 +7,7 @@ export function createHeader() {
   header.innerHTML = `
     <div class="user-header">
       <span class="user-info">
-        <span>${getlocalStorage.userEmail} 님 안녕하세요!</span>
+        <span>${getlocalStorage.userName} 님 안녕하세요!</span>
       </span>
       <span class="user-icons">
         <a href="https://us06web.zoom.us/j/88141259246?pwd=Rt4lAS2tMOIVikKaxyshwv9B4NWe16.1" target="_blank">

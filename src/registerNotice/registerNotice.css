@@ -8,11 +8,11 @@
   position: relative;
 }
 
-#registerNotice.register {
-  overflow-y: hidden;
+#registerNotice.register ~ .regist-dimm {
+  display: block;
 }
 
-#registerNotice.register ~ .regist-dimm {
+#registerNotice.edit ~ .edit-dimm {
   display: block;
 }
 
@@ -61,6 +61,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#registerNotice .inner .p-top h4 .num {
+  position:relative;
+  z-index:1;
+  color: #fff;
+  margin-right: 13px;
+  font-weight: 500;
+}
+
+#registerNotice .inner .p-top h4 .num::after {
+  content: "";
+  position:absolute;
+  width:25px;
+  height: 25px;
+  top:48%;
+  left:50%;
+  z-index:-1;
+  transform: translate(-50%, -50%);
+  background: #F26581;
+  border-radius: 50%;
 }
 
 #registerNotice .inner .p-top h4 {
@@ -121,7 +142,7 @@
 }
 
 /* 공지글 등록 창*/
-.regist-dimm {
+.regist-dimm, .edit-dimm {
   display:none;
   width: 100%;
   height: 100%;
@@ -130,6 +151,7 @@
   left: 50%;
   transform:translate(-50%, -50%);
   background: rgba(0,0,0,0.3);
+  z-index: 2;
 }
 
 .regist-modal {
@@ -142,7 +164,7 @@
   background: #fff;
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
   border-radius: 10px;
-  z-index: 1;
+  overflow-y: auto;
 }
 
 .regist-modal .inner {
@@ -181,7 +203,7 @@
   justify-content:space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin: 10px 0;
+  margin: 10px 0 20px;
 }
 
 .regist-modal #notice-form .formlist.alignTop {
@@ -236,11 +258,6 @@
 
 .regist-modal #notice-form .form-buttons {
   justify-content:center;
-  padding-top:40px;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .regist-modal #notice-form .form-buttons .cancel-button {
@@ -254,4 +271,18 @@
 }
 .regist-modal #notice-form .form-buttons .submit-button:hover {
   background: #F26581;
+}
+
+@media screen and (max-width: 600px) {
+  .regist-modal .inner .title .material-symbols-outlined {
+    display: none;
+  }
+
+  .regist-modal #notice-form .formlist label,
+  .regist-modal #notice-form .formlist input,
+  .regist-modal #notice-form .formlist textarea {
+    width: 100%;
+    margin: 5px 0;
+  }
+
 }

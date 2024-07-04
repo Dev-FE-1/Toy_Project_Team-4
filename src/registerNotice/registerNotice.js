@@ -4,6 +4,7 @@ import "./registerNotice.css"
 let noticeList = []
 const COUNT_PAGE = 4
 let currentPage = 1
+let currentNoticeId = null; 
 
 export function registerNotice () {
   const app = document.getElementById("app")
@@ -58,6 +59,7 @@ export function registerNotice () {
         </div>
       </div>
     </div>
+    <div class="edit-dimm"></div>
   `
   const loadingContainer = document.querySelector(".loading-container")
 
@@ -90,7 +92,10 @@ const createPost = (postlist) => {
     postArea.classList.add('post-area')
     postArea.innerHTML = `
       <div class="p-top">
-        <h4>${post.title}</h4>
+        <h4> 
+          <span class="num">${post.id}</span>
+          ${post.title}
+        </h4>
         <p>작성일: <span class="wDate">${post.date}</span></p>
       </div>
       <div class="p-middle">${post.content}</div>
@@ -110,6 +115,7 @@ const createPost = (postlist) => {
     notices.appendChild(postArea)
   })
   noticePagination(postlist.length)
+  editModal()
   
 }
 
@@ -157,9 +163,10 @@ function pageArrow(direction, disabled) {
   return arrow
 }
 
+// 공지글 등록
 function registerModal () {
-  const registBtn = document.querySelector(".registbtn")
   const registerNotice = document.getElementById("registerNotice")
+  const registBtn = document.querySelector(".registbtn")
   const registerClosebtn1 = document.querySelector(".regist-modal .material-symbols-outlined")
   const registerClosebtn2 = document.querySelector(".regist-modal .cancel-button")
   const registerSubmitbtn = document.querySelector(".regist-modal .submit-button")
@@ -213,10 +220,95 @@ function addNotice(name, title, message, img) {
     title: title,
     date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric'}),
     content: message,
-    userImg: img
+    userImg: img,
+    id : noticeList.length ? noticeList[noticeList.length - 1].id + 1 : 1
   }
 
   noticeList.unshift(newNotice)
   currentPage = 1
   createPost(noticeList)
+}
+
+// 공지글 수정
+function editModal () {
+  const registerNotice = document.getElementById("registerNotice")
+  const editBtn = document.querySelectorAll("#registerNotice .edit")
+  const editDimm = document.querySelector(".edit-dimm")
+
+  editBtn.forEach((btn, idx) => {
+    btn.addEventListener("click", () => {
+      currentNoticeId = noticeList[idx].id
+      const editedNotice = noticeList.find(notice => notice.id === currentNoticeId)
+
+      if(!editedNotice) {
+        console.error("not found notice")
+        return
+      }
+
+      editDimm.innerHTML = `
+        <div class="regist-modal">
+          <div class="inner">
+            <div class="title">
+              <span class="material-symbols-outlined">arrow_back</span>
+              <h2>공지글 수정</h2>
+            </div>
+            <form id="notice-form" style="display: block;">
+              <div class="formlist">
+                <label for="writer">작성자</label>
+                <input type="text" id="writer" name="writer" required="" value="${editedNotice.userName}">
+              </div>
+              <div class="formlist">
+                <label for="title" class="required">제목</label>
+                <input type="text" id="title" name="title" required="" value="${editedNotice.title}">
+              </div>
+              <div class="formlist alignTop">
+                <label for="message" class="required">내용</label>
+                <textarea id="message" name="message" required="" value="${editedNotice.content}">${editedNotice.content}</textarea>
+              </div>
+              <div class="form-buttons">
+                <button type="button" id="cancel-button" class="cancel-button edit-cancel-button">취소</button>
+                <button type="button" id="submit-button" class="submit-button edit-submit-button">수정</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `
+      registerNotice.classList.add('edit')
+
+      const editCancelBtn = document.querySelector(".edit-dimm .cancel-button")
+      const editSubmitBtn = document.querySelector(".edit-dimm .submit-button")
+
+      editCancelBtn.addEventListener('click', () => {
+        registerNotice.classList.remove('edit')
+      })
+
+      editSubmitBtn.addEventListener('click', () => {
+        const titleInput = document.querySelector(".edit-dimm #title")
+        const messageInput = document.querySelector(".edit-dimm #message")
+
+        if (titleInput.value !== "" && messageInput.value !== "") {
+          editedNotice.title = titleInput.value
+          editedNotice.content = messageInput.value
+          createPost(noticeList)
+          registerNotice.classList.remove("edit")
+
+          const postArea = document.querySelector(`.post-area[data-id="${editedNotice.id}"]`)
+          if(postArea) {
+            const postTitle = postArea.querySelector(".p-top h4")
+            if (postTitle) {
+              postTitle.textContent = editedNotice.title
+            }
+          }
+        } else {
+          alert('모든 필드를 입력해주세요.')
+        }
+      })
+  
+    })
+  })
+
+  
+  
+ 
+    
 }

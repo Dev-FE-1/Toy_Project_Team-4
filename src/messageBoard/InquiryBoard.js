@@ -1,6 +1,5 @@
 import './InquiryBoard.css';
 import axios from 'axios';
-// import { showLoading } from '../../loading-animation/loading-animation.js';
 
 
 let inquiries = [];
@@ -11,7 +10,10 @@ let currentInquiryId = null; // 현재 수정 또는 삭제하려는 게시물�
 let currentUser = null; // 현재 사용자 정보를 저장할 변수 추가
 
 document.addEventListener('DOMContentLoaded', async () => {
-  loadInquiryBoard();
+  await loadCurrentUser(); // 현재 사용자 정보를 로드합니다.
+  if (currentUser) {
+    loadInquiryBoard();
+  }
 });
 
 
@@ -64,7 +66,8 @@ export function loadInquiryBoard() {
             <ul id="comments-list" class="comments-list"></ul>
           </div>
         </div>
-        <div id="password-modal" class="password-modal">
+      </div>
+      <div id="password-modal" class="password-modal">
           <div class="password-modal-content">
             <span class="close-password-modal" id="close-password-modal">&times;</span>
             <p id="password-modal-message"></p>
@@ -72,14 +75,22 @@ export function loadInquiryBoard() {
             <button id="confirm-password-button">확인</button>
           </div>
         </div>
-      </div>
-      <div class="loading-container" id="loadingOverlay">
+        <div id="secret-modal" class="secret-modal">
+          <div class="secret-modal-content">
+            <span class="close-secret-modal" id="close-secret-modal">&times;</span>
+            <p>비밀글 입니다.</p>
+            <input type="password" id="secret-input" placeholder="비밀번호를 입력하세요">
+            <button id="confirm-secret-button">확인</button>
+          </div>
+        </div>
+        <div class="loading-container" id="loadingOverlay">
           <div class="loading-animation">
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
           </div>
         </div>
+      </div>
     </div>
   `;
   // 글쓰기, 취소, 작성 이벤트리스너
@@ -96,11 +107,19 @@ export function loadInquiryBoard() {
   // 수정 삭제 모달창 이벤트리스너
   document.getElementById('close-password-modal').addEventListener('click', () => togglePasswordModal(false));
   document.getElementById('confirm-password-button').addEventListener('click', handlePasswordConfirmation);
-
   // 비밀번호 입력 필드에서 Enter 키를 눌렀을 때 비밀번호 확인 로직 실행
   document.getElementById('password-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       handlePasswordConfirmation();
+    }
+  });
+  // 시크릿 모달 이벤트리스너
+  document.getElementById('close-secret-modal').addEventListener('click', () => toggleSecretModal(false));
+  document.getElementById('confirm-secret-button').addEventListener('click', handleSecretConfirmation);
+  // 시크릿 입력 필드에서 Enter 키를 눌렀을 때 시크릿 확인 로직 실행
+  document.getElementById('secret-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handleSecretConfirmation();
     }
   });
   
@@ -112,13 +131,6 @@ async function loadCurrentUser() {
   try {
     // 로컬 스토리지에서 사용자 정보 가져오기
     const getuserInfo = JSON.parse(localStorage.getItem("userInfo"));
-
-    if (!getuserInfo || !getuserInfo.userEmail) {
-      console.error("User info not found in localStorage");
-      alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
-      window.location.href = '/login'; // 로그인 페이지로 리디렉션
-      return;
-    }
 
     // users.json에서 프로필 사진과 이름 가져오기
     const res = await axios.get("/api/users.json");
@@ -133,8 +145,7 @@ async function loadCurrentUser() {
       alert("사용자 정보를 찾을 수 없습니다.");
     }
   } catch (error) {
-    console.error("Error fetching users data", error);
-    alert("사용자 정보를 불러오는 중 오류가 발생했습니다.");
+    // console.error("Error fetching users data", error);
   }
 }
 
@@ -159,6 +170,10 @@ async function loadInquiries() {
 // 글 목록 불러오기
 function displayInquiries() {
   const inquiryList = document.getElementById('inquiry-list');
+  if (!inquiryList) {
+    console.error("inquiry-list element not found");
+    return;
+  }
   inquiryList.innerHTML = `
     <li class="inquiry-title">
       <div><strong>글번호</strong></div>
@@ -179,18 +194,27 @@ function displayInquiries() {
     listItem.classList.add('inquirylist');
     listItem.innerHTML = `
       <div>${inquiry.id}</div>
-      <div class="title">${inquiry.title}
+      <div class="title">
+        ${inquiry.title}
+        ${inquiry.SecretSettings ? '<div class="secret-icon"><ion-icon name="lock-closed"></ion-icon></div>' : ''}
         <div class="comment-count">
           <img src="/images/iconComment.svg" class="img" alt="댓글">
           <span>${commentCount}</span>
         </div>
       </div>
-      <div class="userprofile"><img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
+      <div class="userprofile">
+        <img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">
+        ${inquiry.name}
+      </div>
       <div>${inquiry.date}</div>
     `;
     listItem.addEventListener('click', () => {
       currentInquiryId = inquiry.id; // 현재 게시물 ID 저장
-      toggleModal(true, inquiry);
+      if (inquiry.SecretSettings) {
+        showSecretModal();
+      } else {
+        toggleModal(true, inquiry);
+      }
     });
     inquiryList.appendChild(listItem);
   }
@@ -268,12 +292,6 @@ async function handleSubmit(e) {
     return;
   }
 
-  if (!currentUser) {
-    alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
-    window.location.href = '/login'; // 로그인 페이지로 리디렉션
-    return;
-  }
-
   try {
     addInquiry(currentUser.name, title, message, currentUser);
     toggleForm(false); // 작성 후 폼 숨기기
@@ -298,11 +316,12 @@ function addInquiry(name, title, message, userInfo) {
   inquiries.push(newInquiry);
   displayInquiries();
 }
-//글 내용 보기
+
+// 글 눌렀을 때 비밀글인지 검증
 function toggleModal(show = true, inquiry = null) {
   const modal = document.getElementById('inquirymodal');
   const modalBody = document.getElementById('inquirymodal-body');
-
+  
   if (!modal || !modalBody) {
     console.error('Modal elements not found');
     return;
@@ -310,57 +329,55 @@ function toggleModal(show = true, inquiry = null) {
 
   if (show && inquiry) {
     currentInquiryId = inquiry.id; // 현재 게시물 ID 설정
-    modalBody.innerHTML = `
-      <h2>${inquiry.title}</h2>
-      <div class="inquiry-details">
-        <div class="inquiry-name">
-          <img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
-        <div class="inquiry-date"><span>${inquiry.date}</span></div>
-      </div>
-      <div class="inquiry-message"><span>${inquiry.message}</span></div>
-    `;
+      modalBody.innerHTML = `
+    <h2>${inquiry.title}</h2>
+    <div class="inquiry-details">
+      <div class="inquiry-name">
+        <img src="${inquiry.profileImage}" alt="Profile Image" class="profile-image">${inquiry.name}</div>
+      <div class="inquiry-date"><span>${inquiry.date}</span></div>
+    </div>
+    <div class="inquiry-message"><span>${inquiry.message}</span></div>
+  `;
 
-    // 댓글 데이터를 사용하여 댓글 목록을 생성합니다.
-    const commentsList = document.getElementById('comments-list');
-    commentsList.innerHTML = '';
-    const comments = inquiry.comments || [];
+  // 댓글 데이터를 사용하여 댓글 목록을 생성합니다.
+  const commentsList = document.getElementById('comments-list');
+  commentsList.innerHTML = '';
+  const comments = inquiry.comments || [];
 
-    if (comments.length === 0) {
-      commentsList.innerHTML = '<p>아직 댓글이 없습니다.</p>';
-    } else {
-      // 여러 댓글을 처리하기 위해 배열로 가정
-      // const comments = Array.isArray(inquiry.comments) ? inquiry.comments : [{ comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName }];
-      const commentCount = comments.length;
+  if (comments.length === 0) {
+    commentsList.innerHTML = '<p>아직 댓글이 없습니다.</p>';
+  } else {
+    const commentCount = comments.length;
 
-      const commentHeader = document.createElement('div');
-      commentHeader.classList.add('comment-header');
-      commentHeader.innerHTML = `<img src="/images/iconComment.svg" class="img" alt="댓글"><span>댓글 ${commentCount}</span>`;
-      commentsList.appendChild(commentHeader);
+    const commentHeader = document.createElement('div');
+    commentHeader.classList.add('comment-header');
+    commentHeader.innerHTML = `<img src="/images/iconComment.svg" class="img" alt="댓글"><span>댓글 ${commentCount}</span>`;
+    commentsList.appendChild(commentHeader);
 
-      comments.forEach(commentData => {
-        const { comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName } = commentData;
+    comments.forEach(commentData => {
+      const { comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName } = commentData;
 
-        const commentDetail = document.createElement('div');
-        commentDetail.innerHTML = `
-          <div class="comment-detail">
-            <div class="comment-name">
-            <img src="${managerprofile}" alt="manager profile" class="manager-profile">${managerName}</div>
-            <div class="comment-date"><span>${commentDate}</span></div>
-          </div>
-          <div class="comment-message"><span>${comment}</span></div>
-        `;
-        commentsList.appendChild(commentDetail);
-      });
-    }
+      const commentDetail = document.createElement('div');
+      commentDetail.innerHTML = `
+        <div class="comment-detail">
+          <div class="comment-name">
+          <img src="${managerprofile}" alt="manager profile" class="manager-profile">${managerName}</div>
+          <div class="comment-date"><span>${commentDate}</span></div>
+        </div>
+        <div class="comment-message"><span>${comment}</span></div>
+      `;
+      commentsList.appendChild(commentDetail);
+    });
   }
-  modal.style.display = show ? 'block' : 'none';
+}
+modal.style.display = show ? 'block' : 'none';
 }
 // 글 내용에 있는 수정, 삭제 버튼 누를시 비밀번호 입력창
 function showPasswordModal(action) {
   currentAction = action; // 전역 변수에 action 값 설정
   const passwordModal = document.getElementById('password-modal');
   const passwordModalMessage = document.getElementById('password-modal-message');
-
+  
   if (action === 'modify') {
     passwordModalMessage.textContent = '수정하시겠습니까?';
   } else if (action === 'delete') {
@@ -368,7 +385,7 @@ function showPasswordModal(action) {
   }
 
   passwordModal.style.display = 'block';
-}
+  }
 
 function togglePasswordModal(show) {
   const passwordModal = document.getElementById('password-modal');
@@ -379,13 +396,27 @@ function togglePasswordModal(show) {
   }
 }
 
+function showSecretModal() {
+  const secretModal = document.getElementById('secret-modal');
+  secretModal.style.display = 'block';
+}
+
+function toggleSecretModal(show) {
+  const secretModal = document.getElementById('secret-modal');
+  secretModal.style.display = show ? 'block' : 'none';
+  // 모달을 닫을 때 입력 필드를 비웁니다.
+  if (!show) {
+    document.getElementById('secret-input').value = '';
+  }
+}
+
 // 비밀번호 확인 로직
 function handlePasswordConfirmation() {
   const passwordInputElement = document.getElementById('password-input');
   const passwordInput = passwordInputElement.value;
 
   if (passwordInput === '1234') {
-    if (currentAction === 'modify') {
+        if (currentAction === 'modify') {
       togglePasswordModal(false);
       modifyContents();
     } else if (currentAction === 'delete') {
@@ -393,7 +424,7 @@ function handlePasswordConfirmation() {
         alert('게시물이 삭제되었습니다');
         togglePasswordModal(false);
         toggleModal(false);
-      }, 1000);
+      }, 500);
     }
   } else if (passwordInput === '') {
     alert('비밀번호를 입력하세요!');
@@ -401,6 +432,23 @@ function handlePasswordConfirmation() {
     alert('비밀번호가 틀렸습니다');
   }
   passwordInputElement.value = ''; // 입력 필드를 비웁니다.
+}
+
+// 시크릿 비밀번호 확인 로직
+function handleSecretConfirmation() {
+  const secretInputElement = document.getElementById('secret-input');
+  const secretInput = secretInputElement.value;
+
+  if (secretInput === '1234') {
+    toggleSecretModal(false);
+    const inquiry = inquiries.find(inquiry => inquiry.id === currentInquiryId);
+    toggleModal(true, inquiry);
+  } else if (secretInput === '') {
+    alert('비밀번호를 입력하세요!');
+  } else {
+    alert('비밀번호가 틀렸습니다');
+  }
+  secretInputElement.value = ''; // 입력 필드를 비웁니다.
 }
 
 // 게시물 수정 로직

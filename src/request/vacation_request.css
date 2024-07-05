@@ -1,91 +1,753 @@
-.vacation_request_container {
+.vacation-container-unique {
   width: 90%;
   height: 90%;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border: 1px solid #f2f2f2;
+  position: relative;
+}
+
+.vacation-container-unique h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.vacation-icon-unique {
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.both-container-unique {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
-.vacation_request_container h2 {
-  font-size: 2rem;
+.vacation-form-container-unique {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  flex: 1;
+  margin-right: 7px;
+}
+
+.vacation-process-container-unique {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 2;
+  margin-right: 20px;
+  overflow-y: auto;
+  border: 3px solid #f2f2f2;
+}
+
+.right-container-unique {
+  flex: 3;
+}
+
+.vacation-process-container-unique .process-list-unique {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.vacation-process-container-unique .process-list-unique h3 {
   color: #222;
-  margin-bottom: 20px;
-  text-align: center;
+  border-bottom: 2px solid #d6d6d6;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
-.vacation_request_container .downloads {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 40px;
-}
-
-.vacation_request_container .download-link {
-  display: block;
-  color: #ed234b;
+.vacation-process-container-unique .process-list-unique a {
+  color: rgb(20, 93, 251);
   text-decoration: none;
-}
-
-.vacation_request_container .file-subsection {
-  margin-bottom: 20px;
-}
-
-.vacation_request_container .file-input-container {
+  font-weight: 700;
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
 }
 
-#convert_to_pdf,
-#compress_to_zip {
-  flex: 1;
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #ababab;
-  border-radius: 5px;
-  box-sizing: border-box;
+.vacation-process-container-unique .process-list-unique a:hover {
+  text-decoration: underline;
 }
 
-.vacation_request_container .file-action-btn {
-  width: 100px;
-  padding: 10px;
-  background-color: #ed234b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+.vacation-process-container-unique .process-list-unique .material-symbols-outlined {
+  margin-right: 8px; 
 }
 
-.vacation_request_container .file-action-btn:hover {
-  opacity: 0.7;
-}
+.vacation-process-container-unique .process-list-unique .ex-unique {
+  color: #ed234b;
+  font-weight: 700;
+} 
 
-#all_file {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
+.vacation-process-container-unique .process-list-unique p {
+  margin-top: 10px; 
   margin-bottom: 20px;
-  border: 1px solid #ababab;
-  border-radius: 5px;
-  box-sizing: border-box;
+  line-height: 1.5;
 }
 
-.vacation_request_container button {
+.vacation-process-container-unique .process-list-unique p + p {
+  margin-top: 5px;
+}
+
+.vacation-form-container-unique h2 {
+  font-size: 1.5rem;
+  color: #222;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.vacation-process-container-unique h2 {
+  font-size: 1.5rem;
+  color: #222;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.form-group-unique {
+  margin-bottom: 20px;
+}
+
+.label-unique {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  text-align: left;
+}
+
+.submit-container-unique input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-btn-unique {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1rem;
-  background-color: #ed234b;
+  background-color: #ED234B;
   color: #fff;
   width: 50%;
   text-align: center;
   display: block;
   margin: auto;
+  margin-top: 80px;
+  margin-bottom: 30px; /* 간격 추가 */
 }
 
-.vacation_request_container button:hover {
+.vacation-btn-unique:hover {
   opacity: 0.7;
+}
+
+.vacation-status-container-unique {
+  margin-top: 40px;
+}
+
+.vacation-status-header-unique {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.vacation-status-header-unique span {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight:500;
+  position: static;
+  transform: none;
+}
+
+.vacation-status-date-range-unique {
+  position: static;
+  right: auto;
+  top: auto;
+}
+.vacation-status-date-range-unique .date-input-unique {
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.vacation-status-date-range-unique .date-input-unique:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.status-table-unique {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.status-table-unique th,
+.status-table-unique td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #efefef;
+}
+
+.status-table-unique th {
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-pending {
+  background-color: #bababa;
+  color: #fff;
+}
+
+.status-approved {
+  background-color: #D9F7E7;
+  color: #30A164;
+}
+
+.status-rejected {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+.cancel-button-unique {
+  padding: 5px 10px;
+  border: none;
+  background-color: #ed234b;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button-unique:hover {
+  opacity: 0.7;
+}
+
+.pagination-container-unique {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-button-unique {
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  background-color: #fff;
+  color: #ababab;
+  border: none;
+  cursor: pointer;
+}
+
+.page-button-active-unique {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.page-arrow-unique {
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #f26581;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.page-arrow-disabled-unique {
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
+  cursor: default;
+}
+
+/* 스크롤바의 전체 너비 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 스크롤바의 트랙 (바탕) */
+::-webkit-scrollbar-track {
+  background: #d6d6d6;
+  border-radius: 10px;
+}
+
+/* 스크롤바의 막대 */
+::-webkit-scrollbar-thumb {
+  background-color: #ed234b;
+  border-radius: 10px;
+}
+
+.file-input-container-unique {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.submit-container-unique {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#fileInput-unique,
+#wordFile-unique {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+}
+
+#fileInput-unique {
+  margin-bottom: 10px;
+}
+
+#wordFile-unique {
+  margin-bottom: 10px;
+}
+
+.convertpdf-unique,
+.createzip-unique {
+  margin-right: 0;
+  color: #222;
+  background-color: #f2f2f2;
+  width: 15%;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ababab;
+  margin-bottom: 10px;
+}
+
+.convertpdf-unique:hover,
+.createzip-unique:hover {
+  opacity: 0.7;
+}
+
+#submit_file-unique {
+  width: 100%;
+}
+
+.submit-all-section-unique label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.red-dot-unique {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ed234b;
+  border-radius: 50%;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+.download-icon-unique {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.material-symbols-outlined-unique {
+  color: rgb(20, 93, 251);
+}
+
+/* 모달 스타일 추가 */
+.modal-unique {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content-unique {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.close-btn-unique {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-btn-unique:hover,
+.close-btn-unique:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.both-container-unique {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.right-container-unique {
+  flex: 3; /* 오른쪽 컨테이너를 더 넓게 */
+}
+
+.vacation-form-container-unique {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  overflow-y: auto;
+  border: 3px solid #f2f2f2;
+}
+
+.vacation-process-container-unique .process-list-unique {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.vacation-process-container-unique .process-list-unique h3 {
+  color: #222;
+  border-bottom: 2px solid #d6d6d6;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.vacation-process-container-unique .process-list-unique a {
+  color: rgb(20, 93, 251);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.vacation-process-container-unique .process-list-unique a:hover {
+  text-decoration: underline;
+}
+
+.vacation-process-container-unique .process-list-unique .material-symbols-outlined {
+  margin-right: 8px; 
+}
+
+.vacation-process-container-unique .process-list-unique .ex-unique {
+  color: #ed234b;
+  font-weight: 700;
+} 
+
+.vacation-process-container-unique .process-list-unique p {
+  margin-top: 10px; 
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.vacation-process-container-unique .process-list-unique p + p {
+  margin-top: 5px;
+}
+
+.form-group-unique {
+  margin-bottom: 20px;
+}
+
+.label-unique {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  text-align: left;
+}
+
+.submit-container-unique input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.vacation-btn-unique {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px; /* 간격 추가 */
+}
+
+.vacation-btn-unique:hover {
+  opacity: 0.7;
+}
+
+.vacation-status-container-unique {
+  margin-top: 40px;
+}
+
+.vacation-status-header-unique {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.vacation-status-header-unique span {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight:500;
+  position: static;
+  transform: none;
+}
+
+.vacation-status-date-range-unique {
+  position: static;
+  right: auto;
+  top: auto;
+}
+.vacation-status-date-range-unique .date-input-unique {
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.vacation-status-date-range-unique .date-input-unique:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.status-table-unique {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.status-table-unique th,
+.status-table-unique td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #efefef;
+}
+
+.status-table-unique th {
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+}
+
+.status-unique {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-pending-unique {
+  background-color: #bababa;
+  color: #fff;
+}
+
+.status-approved-unique {
+  background-color: #D9F7E7;
+  color: #30A164;
+}
+
+.status-rejected-unique {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+.cancel-button-unique {
+  padding: 5px 10px;
+  border: none;
+  background-color: #ed234b;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button-unique:hover {
+  opacity: 0.7;
+}
+
+.pagination-container-unique {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-button-unique {
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  background-color: #fff;
+  color: #ababab;
+  border: none;
+  cursor: pointer;
+}
+
+.page-button-active-unique {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.page-arrow-unique {
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #f26581;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.page-arrow-disabled-unique {
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
+  cursor: default;
+}
+
+/* 스크롤바의 전체 너비 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 스크롤바의 트랙 (바탕) */
+::-webkit-scrollbar-track {
+  background: #d6d6d6;
+  border-radius: 10px;
+}
+
+/* 스크롤바의 막대 */
+::-webkit-scrollbar-thumb {
+  background-color: #ed234b;
+  border-radius: 10px;
+}
+
+.file-input-container-unique {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.submit-container-unique {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#fileInput-unique,
+#wordFile-unique {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+}
+
+#fileInput-unique {
+  margin-bottom: 10px;
+}
+
+#wordFile-unique {
+  margin-bottom: 10px;
+}
+
+.convertpdf-unique,
+.createzip-unique {
+  margin-right: 0;
+  color: #222;
+  background-color: #f2f2f2;
+  width: 15%;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ababab;
+  margin-bottom: 10px;
+}
+
+.convertpdf-unique:hover,
+.createzip-unique:hover {
+  opacity: 0.7;
+}
+
+#submit_file-unique {
+  width: 100%;
+}
+
+.submit-all-section-unique label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.red-dot-unique {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ed234b;
+  border-radius: 50%;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+.material-symbols-outlined-unique {
+  color: rgb(20, 93, 251);
 }

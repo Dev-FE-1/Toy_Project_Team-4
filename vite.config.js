@@ -8,7 +8,13 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
-      }
+      },
+      '/convert': {  
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      } // 추가된 부분
     }
   }
 })
+

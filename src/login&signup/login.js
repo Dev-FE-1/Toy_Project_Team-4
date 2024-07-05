@@ -91,7 +91,10 @@ async function handleLogin() {
               userImage: user.profileImage,
             })
           )
-          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드, user 객체 전달
+          // 로그인 성공 시 사용자 이름을 별도로 저장 (추가)
+          localStorage.setItem("userName", user.name);
+
+          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드
           return
         } else {
           alert("비밀번호를 다시 입력해주세요.")

@@ -36,12 +36,19 @@ function init() {
 }
 
 function navPage(event) {
-  const a = event.target.closest("a")
+  const a = event.target.closest("a");
   if (a && a.href !== "javascript:void(0)") {
-    event.preventDefault()
-    const path = a.getAttribute("href")
-    history.pushState(null, null, path)
-    route()
+    // 다운로드 링크는 기본 동작을 유지하도록 예외 처리(추가)
+    if (a.hasAttribute('download')) {
+      return;
+    }
+
+    if (!a.href.startsWith("blob:")) {
+      event.preventDefault();
+      const path = a.getAttribute("href");
+      history.pushState(null, null, path);
+      route();
+    }
   }
 }
 
@@ -188,3 +195,48 @@ export function onLoginSuccess() {
     }
   }
 }
+
+// PDF 변환 기능 추가
+export function convertToPDF() {
+  const fileInput = document.getElementById("wordFile")
+  if (!fileInput || fileInput.files.length === 0) {
+    alert("파일을 선택하세요.")
+    return
+  }
+
+  const formData = new FormData()
+  formData.append("wordFile", fileInput.files[0])
+
+  fetch("/convert", { // Vite 프록시 설정이 적용되어 로컬 서버로 프록시됨
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("PDF 변환에 실패했습니다.")
+      }
+      return response.blob()
+    })
+    .then((blob) => {
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = "converted.pdf"
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    })
+    .catch((error) => {
+      console.error("Error:", error)
+      alert("PDF 변환 중 오류가 발생했습니다.")
+    })
+}
+
+// 이벤트 리스너 추가 (페이지 로드 후)
+document.addEventListener("DOMContentLoaded", () => {
+  const convertButton = document.getElementById("convertButton")
+  if (convertButton) {
+    convertButton.addEventListener("click", convertToPDF)
+  }
+})

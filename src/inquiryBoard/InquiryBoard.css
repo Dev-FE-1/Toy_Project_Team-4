@@ -43,10 +43,7 @@
   color: #fff;
 }
 
-.inquiry-board .header-section button:hover {
-  background-color: #f26581;
-}
-
+/* 글쓰기 폼 */
 .inquiry-board form {
   display: none;
   position: absolute;
@@ -54,12 +51,12 @@
   width: 100%;
   height: 100%;
   background-color: #fff; /* 배경색 설정 */
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 10; /* 다른 요소 위로 올라오도록 z-index 설정 */
 }
 
 .inquiry-board .formlist {
-  padding: 0 50px 30px 50px;
+  padding: 40px 40px 30px 40px;
 }
 
 .inquiry-board .formlist button {
@@ -75,20 +72,17 @@
   justify-content: flex-end;
 }
 
-.formlist .submit-button {
-  background-color: #ed234b;
-}
-
-.formlist .cancel-button {
-  background-color: #ababab;
-}
-
 .inquiry-board label {
   font-size: 20px;
+  color: #5e5e5e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.inquiry-board input, 
-.inquiry-board textarea {
+.inquiry-board input#title, 
+.inquiry-board textarea,
+.inquirymodal-content input {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -98,20 +92,38 @@
   border-radius: 5px;
 }
 
-.inquiry-board input {
-  height: 40px;
-}
 .inquiry-board textarea {
   height: 250px;
 }
 
-.inquiry-board input:focus,
-.inquiry-board textarea:focus {
+.inquiry-board input#title:focus,
+.inquiry-board textarea:focus,
+.inquirymodal-content input:focus,
+.secret-modal-content #secret-input:focus,
+.password-modal-content #password-input:focus {
   border: 1px solid #ed234b; /* 선택되었을 때의 테두리 색상 */
   border-radius: 5px;
   outline: none; /* 기본 아웃라인 제거 */
 }
 
+.secret-content input#secret-yes,
+.secret-content input#secret-no {
+  margin-left: 20px;
+}
+
+.secret-content input#password-input-form {
+  width: 150px;
+  height: 30px;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.secret-content input#password-input-form:focus {
+  border: 1px solid #ed234b; /* 선택되었을 때의 테두리 색상 */
+  border-radius: 2px;
+  outline: none; /* 기본 아웃라인 제거 */
+  padding-left: 6px;
+}
 
 /* 문의 리스트 */
 .inquiry-board li {
@@ -146,13 +158,15 @@ ul li.inquirylist {
   margin-right: 40px;
 }
 
-ul li.inquirylist .secret-icon {
+ul li.inquirylist .secret-icon,
+.secret-content .secret-icon {
   color: #ababab;
   padding-left: 10px;
   width: 25px;
 }
 
-.comment-count {
+.comment-count,
+.formlist .secret-content {
   display: flex;
   align-items: center;
   font-size: 15px;
@@ -243,11 +257,13 @@ div .pagination {
   /* margin-top: 80px; */
 }
 
-.inquirymodal-content h1 {
+.inquirymodal-content h1,
+.inquiry-board .formlist h1 {
   /* padding: 40px; */
   font-size: 30px;
   font-weight: 800;
   margin-bottom: 40px;
+  z-index: 3;
 }
 
 #inquirymodal-body {
@@ -324,24 +340,34 @@ div .pagination {
   font-size: 14px; /* 글자 크기 */
 }
 
-.listbutton button {
+/* 버튼 색상과 호버시 색상 */
+.listbutton button,
+#submit-modify-button.submit-button,
+.formlist .submit-button {
   background-color: #ed234b;
 }
 
-.listbutton button:hover {
+.listbutton button:hover,
+.formlist .submit-button:hover,
+#submit-modify-button.submit-button:hover,
+.inquiry-board .header-section button:hover,
+.secret-modal-content #confirm-secret-button:hover {
   background-color: #f26581;
 }
 
-.deletebutton button {
+.deletebutton button,
+#cancel-modify-button.cancel-button,
+.formlist .cancel-button {
   background-color: #ababab;
 }
 
-.deletebutton button:hover {
-background: #9f9f9f;
+.deletebutton button:hover,
+.formlist .cancel-button:hover,
+#cancel-modify-button.cancel-button:hover {
+  background: #9f9f9f;
 }
 
 /* comment 댓글  */
-
 .comment-header {
   align-items: center;
   /* justify-content: center; */
@@ -456,6 +482,9 @@ background: #9f9f9f;
   width: 200px;
   height: 30px;
   font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ababab;
+  border-radius: 5px;
 }
 
 .password-modal-content #confirm-password-button ,
@@ -496,22 +525,6 @@ background: #9f9f9f;
   cursor: pointer;
   font-size: 14px;
   margin-left: 20px;
-}
-
-#cancel-modify-button.cancel-button {
-  background-color: #ababab;
-}
-
-#cancel-modify-button.cancel-button:hover {
-  background: #9f9f9f;
-}
-
-#submit-modify-button.submit-button {
-  background-color: #ed234b;
-}
-
-#submit-modify-button.submit-button:hover {
-  background-color: #f26581;
 }
 
 /* 로딩페이지 */

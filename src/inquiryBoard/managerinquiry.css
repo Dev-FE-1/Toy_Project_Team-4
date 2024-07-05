@@ -6,13 +6,10 @@
 }
 
 .comment-form textarea#comment-input{
-  height: 70px;
+  height: 60px;
   width: 80%;
   margin: 0;
-  padding: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 17px;
 }
 
 .comment-form #submit-comment-button {
@@ -23,4 +20,11 @@
   border-radius: 5px;
   margin-left: 20px;
   /* margin-top: 50px; */
+}
+
+.comment-detail .delete-icon {
+  cursor: pointer;
+  color: #ababab;
+  display: flex;
+  align-items: center;
 }

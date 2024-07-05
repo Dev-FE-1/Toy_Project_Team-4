@@ -1,0 +1,35 @@
+.managerHomeStudentList {
+  width: 100%;
+  height: 80%;
+  padding: 10px 0;
+  overflow-y: auto;
+}
+.managerHomeStudentList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 20px;
+}
+.managerHomeStudentList li div {
+  display: flex;
+  align-items: center;
+}
+
+.managerHomeStudentList li div .studentImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-right: 20px;
+}
+.managerHomeStudentList li div .toggleOn {
+  color: #2ed47a;
+  margin-right: 6px;
+}
+.managerHomeStudentList li div .toggleOff {
+  color: #ed234b;
+  margin-right: 5px;
+}

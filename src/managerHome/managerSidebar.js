@@ -161,14 +161,6 @@ function createSidebar() {
           <span class="text">수강생 리스트</span>
         </a>
       </li>
-      <li class="bottom">
-        <a href="/">
-          <span class="icon">
-            <img src="/images/iconToggle.svg" alt="로그아웃">
-          </span>
-          <span class="text">로그아웃</span>
-        </a>
-      </li>
     </div>
   `
 
@@ -177,12 +169,6 @@ function createSidebar() {
   submenus.forEach((submenu) => {
     submenu.classList.remove("visible")
   })
-
-  // 로그아웃 클릭 이벤트 추가
-  const logoutLink = sidebar.querySelector(".bottom a")
-  if (logoutLink) {
-    logoutLink.addEventListener("click", handleLogout)
-  }
 
   // 모든 링크에 클릭 이벤트 추가
   const links = sidebar.querySelectorAll("a[href]")
@@ -244,17 +230,6 @@ function closeAllSubmenus() {
   }
 }
 
-function handleLogout(event) {
-  event.preventDefault() // 기본 동작 막기
-  localStorage.removeItem("userInfo")
-
-  // 히스토리를 초기화하여 뒤로가기 시 이전 페이지로 가지 않도록 함
-  history.pushState(null, null, "/")
-  history.replaceState(null, null, "/")
-
-  window.location.href = "http://localhost:5173" // 로그인 페이지의 URL
-}
-
 function addHoverEffect(element, iconElement) {
   if (iconElement.classList.contains("hover-icon")) {
     iconElement.addEventListener("mouseover", function () {
@@ -274,9 +249,9 @@ function addHoverEffect(element, iconElement) {
 }
 
 async function createUser() {
-  const userIcon = document.querySelector(".user-icon");
-  const userName = document.querySelector(".user-item .text1");
-  const userEmail = document.querySelector(".user-item .text2");
+  const userIcon = document.querySelector(".user-icon")
+  const userName = document.querySelector(".user-item .text1")
+  const userEmail = document.querySelector(".user-item .text2")
 
   // users.json에 입력된 배경이미지, 프로필사진, 이름, 이메일 가져오기
   const res = await axios.get("/api/users.json")
@@ -294,4 +269,4 @@ async function createUser() {
       }
     }
   }
-} 
+}

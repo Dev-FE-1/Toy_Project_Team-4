@@ -21,11 +21,11 @@ export function profile() {
           </div>
           <div>
             <span class="material-symbols-outlined"> language </span>
-            <input id="userUrl" type="text" />
+            <input id="userUrl" type="text" placeholder="블로그 주소를 작성해주세요." />
           </div>
           <div>
             <span class="material-symbols-outlined"> campaign </span>
-            <textarea id="userIntro" type="text" /></textarea>
+            <textarea id="userIntro" type="text" placeholder="간단한 자기소개를 작성해주세요." /></textarea>
           </div>
           <button id="localStorageBtn">수정하기</button>
         </div>

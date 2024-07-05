@@ -67,7 +67,12 @@ const getPost = (pageNum, noticeList) => {
               <p class="post-content">${postData[i].content}</p>
             </div>
             <div class="post-bottom">
-              <p class="userName"><span class="material-symbols-outlined">account_circle</span>${postData[i].userName}</p>
+              <div class="writer">
+                <div class="img-wrap">
+                  <img src="${postData[i].userImg}" alt="매니저 이미지" />
+                </div>
+                <p class="userName">${postData[i].userName}</p>
+              </div>
               <button class="Complete">Complete</button>
             </div>
           </div>

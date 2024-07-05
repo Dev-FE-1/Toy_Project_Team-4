@@ -209,7 +209,12 @@ const setPost = (postData) => {
                 <p class="post-content">${postData[i].content}</p>
               </div>
               <div class="post-bottom">
-                <p class="userName">${postData[i].userName}</p>
+                <div class="writer">
+                  <div class="img-wrap">
+                    <img src="${postData[i].userImg}" alt="매니저 이미지" />
+                  </div>
+                  <p class="userName">${postData[i].userName}</p>
+                </div>
                 <button class="complete">Complete</button>
               </div>
             </div>

@@ -68,24 +68,7 @@
 }
 
 #registerNotice .inner .p-top h4 .num {
-  position:relative;
-  z-index:1;
-  color: #fff;
-  margin-right: 13px;
-  font-weight: 500;
-}
-
-#registerNotice .inner .p-top h4 .num::after {
-  content: "";
-  position:absolute;
-  width:25px;
-  height: 25px;
-  top:48%;
-  left:50%;
-  z-index:-1;
-  transform: translate(-50%, -50%);
-  background: #F26581;
-  border-radius: 50%;
+  display:none;
 }
 
 #registerNotice .inner .p-top h4 {

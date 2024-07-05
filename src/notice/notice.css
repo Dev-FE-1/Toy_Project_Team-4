@@ -10,7 +10,6 @@
   position: relative;
 }
 #notice-section .notice-top {
-  height: 10%;
   font-size: 30px;
   font-weight: 800;
   padding: 0 40px;
@@ -47,16 +46,10 @@
 }
 #notice-section .notice-bottom {
   width: 100%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   overflow-y: auto;
 }
 #notice-section .notice-bottom .post-list {
   width: 100%;
-  height: 90%;
   align-items: center;
   padding: 0 20px;
   margin: 20px 0;
@@ -66,7 +59,6 @@
   list-style-type: none;
 }
 #notice-section .notice-bottom .post-list li .post-container {
-  height: 150px;
   display: flex;
   align-items: center;
   border-radius: 5px;
@@ -79,7 +71,7 @@
   padding: 10px;
 }
 #notice-section .notice-bottom .post-list .post-container .post {
-  height: 140px;
+  /* height: 140px; */
   padding: 10px 0;
   width: 100%;
   display: flex;
@@ -106,6 +98,22 @@
 #notice-section .notice-bottom .post-list .post-container .post-bottom {
   height: 10%;
   align-items: center;
+}
+
+#notice-section .notice-bottom .post-list .post-container .post-bottom .writer {
+  display: flex;
+  align-items: center;
+}
+#notice-section .notice-bottom .post-list .post-container .post-bottom .img-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  margin-right:10px;
+}
+#notice-section .notice-bottom .post-list .post-container .post-bottom .img-wrap img {
+  width: 100%;
 }
 
 #notice-section .notice-bottom .post-list li .post-container .post .post-title {
@@ -166,7 +174,6 @@
 @media screen and (max-width: 950px) {
   #notice-section .notice-top {
     flex-direction: column;
-    height: auto;
   }
 }
 
@@ -175,27 +182,17 @@
     flex-direction: column;
   }
 
-  #notice-section .notice-bottom .post-list li .post-container {
-    height: auto;
-  }
   #notice-section .notice-bottom .post-list li .post-container .post-date {
     margin-top: 5px;
     text-align: right;
   }
-  #notice-section .notice-bottom .post-list .post-container .post {
-    height: auto;
-  }
+  
   #notice-section .post .post-top,
   #notice-section .post .post-bottom {
     flex-direction: column;
   }
   #notice-section .post-container .post .post-bottom .complete {
     margin-top: 10px;
-  }
-}
-@media screen and (max-height: 880px) {
-  #notice-section .notice-bottom .post-list {
-    height: auto;
   }
 }
 /* 로딩애니메이션 */

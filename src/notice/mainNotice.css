@@ -1,5 +1,5 @@
 #mainNotice {
-  height:100%;
+  height: 100%;
 }
 
 #mainNotice .calendar {
@@ -11,7 +11,7 @@
   overflow-y: auto;
 }
 #mainNotice .noticeForm .noticelist {
-  /* height: 70%; */
+  height: 90%;
   background: #fff;
   align-items: center;
   padding: 0 20px;
@@ -50,8 +50,8 @@
   color: #222;
 }
 #mainNotice .noticeForm .noticelist .post .post-top .post-date {
-  font-size:14px;
-  color:#ababab;
+  font-size: 14px;
+  color: #ababab;
 }
 #mainNotice .noticeForm .noticelist .post .post-mid {
   height: 80%;
@@ -67,7 +67,7 @@
 #mainNotice .noticeForm .noticelist .post .post-bottom .userName {
   display: flex;
   align-items: center;
-  font-size:14px;
+  font-size: 14px;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom .userName > span {
   color: #ababab;
@@ -115,16 +115,22 @@
     height: auto;
   }
   #mainNotice .noticeForm .noticelist li .post {
-    height:auto;
+    height: auto;
   }
   #mainNotice .noticeForm .noticelist .post .post-top .post-date {
     margin-top: 5px;
     text-align: right;
   }
-  #mainNotice .post .post-top, #mainNotice .post .post-bottom {
+  #mainNotice .post .post-top,
+  #mainNotice .post .post-bottom {
     flex-direction: column;
   }
   #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
     margin-top: 10px;
+  }
+}
+@media screen and (max-height: 880px) {
+  #mainNotice .noticeForm .noticelist {
+    height: auto;
   }
 }

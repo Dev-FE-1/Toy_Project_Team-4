@@ -10,10 +10,16 @@ export function mainNotice() {
   if (calendar) {
     calendar.innerHTML = `
       <section id="mainNotice">
-        <div class="calendar">
-        </div>
+        <div class="calendar"></div>
         <div class="noticeForm">
           <ul class="noticelist"></ul>
+          <div class="loading-container" id="loadingOverlay">
+          <div class="loading-animation">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+          </div>
+        </div>
           <div class="runNotice">
           <a href="/notice">Show more</a>
           </div>
@@ -46,6 +52,8 @@ const getPost = (pageNum, noticeList) => {
   const postData = noticeList.slice(start, end)
 
   if (postData.length > 0) {
+    const loadingContainer = document.querySelector("#loadingOverlay")
+    loadingContainer.classList.add("hidden")
     ul.innerHTML = ""
     for (let i = 0; i < postData.length; i++) {
       ul.innerHTML += `

@@ -85,7 +85,7 @@ const setPageButtons = () => {
     const btnFocus = document.querySelector(".btnFocus")
     btnFocus.addEventListener("click", function () {
       getPost(btnFocus.textContent)
-      changeBtn()
+      changeBtn(btnFocus.textContent)
       arrBtn()
     })
 
@@ -94,7 +94,7 @@ const setPageButtons = () => {
       numberBtn.forEach((btnItem) => {
         btnItem.addEventListener("click", function () {
           getPost(btnItem.textContent)
-          changeBtn()
+          changeBtn(btnItem.textContent)
           arrBtn()
         })
       })
@@ -124,14 +124,23 @@ function completeBtnChange(completeBtn) {
 }
 
 //페이지 번호 버튼 색상 바꾸기
-const changeBtn = () => {
+const changeBtn = (clickBtnNum) => {
   const btnFocus = document.querySelector(".btnFocus")
   const nonFocusBtn = document.querySelectorAll(".number-btn")
-
-  btnFocus.className = "pagebtn number-btn"
-  nonFocusBtn.forEach(function (nonFocusItem) {
-    nonFocusItem.className = "pagebtn btnFocus"
+  let findFocusBtn = []
+  nonFocusBtn.forEach((item) => {
+    findFocusBtn.push(item.textContent)
   })
+  for (let i = 0; i < findFocusBtn.length; i++) {
+    if (String(clickBtnNum) === findFocusBtn[i]) {
+      btnFocus.className = "pagebtn number-btn"
+      nonFocusBtn.forEach((nonFocusItem) => {
+        if (nonFocusItem.textContent === findFocusBtn[i]) {
+          nonFocusItem.className = "pagebtn btnFocus"
+        }
+      })
+    }
+  }
 }
 
 // 이전,이후 버튼 이벤트리스너
@@ -141,11 +150,11 @@ const arrToChange = (arrowType) => {
   if (arrowType == "prev") {
     const prevNum = Number(btnFocus.textContent) - 1
     getPost(prevNum)
-    changeBtn()
+    changeBtn(prevNum)
   } else {
     const nextNum = Number(btnFocus.textContent) + 1
     getPost(nextNum)
-    changeBtn()
+    changeBtn(nextNum)
   }
   arrBtn()
 }

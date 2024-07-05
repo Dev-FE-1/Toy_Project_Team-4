@@ -1,5 +1,6 @@
 import './InquiryBoard.css';
 import axios from 'axios';
+import { displayComments } from './managerinquiry.js'
 
 
 let inquiries = [];
@@ -25,13 +26,23 @@ export function loadInquiryBoard() {
           <button id="write-button">글쓰기</button>
         </div>
         <form id="inquiry-form">
-          <h1>문의 게시판</h1>
           <div id="formlist" class="formlist">
+            <h1>문의 게시판</h1>
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>
             <br>
             <label for="message">문의 내용:</label>
             <textarea id="message" name="message" required></textarea>
+            <br>
+            <div class="secret-content">
+              <label><div class="secret-icon"><ion-icon name="lock-closed"></ion-icon></div>비밀글 여부:</label>
+              <input type="radio" id="secret-yes" name="secret" value="yes">
+              <label for="secret-yes">예</label>
+              <label for="password-input-form"></label>
+              <input type="password" id="password-input-form" placeholder="비밀번호를 입력하세요" disabled>
+              <input type="radio" id="secret-no" name="secret" value="no" checked>
+              <label for="secret-no">아니오</label>
+            </div>
             <br>
             <div class="form-buttons">
               <button type="button" id="cancel-button" class="cancel-button">취소</button>
@@ -94,7 +105,10 @@ export function loadInquiryBoard() {
   `;
   // 글쓰기, 취소, 작성 이벤트리스너
   document.getElementById('write-button').addEventListener('click', async () => {
+    const loadingContainer = document.querySelector(".loading-container");
+    loadingContainer.classList.remove("hidden");
     await loadCurrentUser(); // 현재 사용자 정보를 로드합니다.
+    loadingContainer.classList.add("hidden");
     toggleForm(true);
   });
   document.getElementById('cancel-button').addEventListener('click', () => toggleForm(false));
@@ -120,6 +134,16 @@ export function loadInquiryBoard() {
     if (e.key === 'Enter') {
       handleSecretConfirmation();
     }
+  });
+
+  // 글쓰기 비밀글 작성
+  document.getElementById('secret-yes').addEventListener('change', () => {
+    document.getElementById('password-input-form').disabled = false;
+  });
+  
+  document.getElementById('secret-no').addEventListener('change', () => {
+    document.getElementById('password-input-form').disabled = true;
+    document.getElementById('password-input-form').value = '';
   });
   
   loadInquiries();
@@ -149,7 +173,7 @@ async function loadCurrentUser() {
 }
 
 // inquiry.json 데이터 가져오기
-export async function loadInquiries(forManager = false) {
+export async function loadInquiries(forManager = false, filteredInquiries = null) {
   const loadingContainer = document.querySelector(".loading-container");
   if (!loadingContainer) {
     console.error("Loading container not found");
@@ -159,7 +183,7 @@ export async function loadInquiries(forManager = false) {
   try {
     const res = await axios.get("/api/inquiry.json");
     inquiries = res.data.data;
-    displayInquiries(forManager);
+    displayInquiries(forManager, filteredInquiries);
   } catch (err) {
     console.error("error", err);
   } finally {
@@ -167,7 +191,7 @@ export async function loadInquiries(forManager = false) {
   }
 }
 // 글 목록 불러오기
-function displayInquiries(forManager = false) {
+export function displayInquiries(forManager = false, filteredInquiries = null) {
   const inquiryList = document.getElementById('inquiry-list');
   if (!inquiryList) {
     console.error("inquiry-list element not found");
@@ -182,7 +206,8 @@ function displayInquiries(forManager = false) {
     </li>
   `;
 
-  const sortedInquiries = [...inquiries].reverse(); // 배열을 역순으로 정렬
+  const inquiriesToShow = filteredInquiries || inquiries;
+  const sortedInquiries = [...inquiriesToShow].reverse(); // 배열을 역순으로 정렬
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, sortedInquiries.length);
 
@@ -212,16 +237,16 @@ function displayInquiries(forManager = false) {
       if (inquiry.SecretSettings && !forManager) {
         showSecretModal();
       } else {
-        toggleModal(true, inquiry);
+        toggleModal(true, inquiry, forManager);
       }
     });
     inquiryList.appendChild(listItem);
   }
 
-  displayPagination(inquiries.length);
+  displayPagination(inquiriesToShow.length, forManager, filteredInquiries);
 }
 
-function displayPagination(totalItems) {
+function displayPagination(totalItems, forManager, filteredInquiries = null) {
   const pagination = document.getElementById('pagination');
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   pagination.innerHTML = '';
@@ -236,7 +261,7 @@ function displayPagination(totalItems) {
     } else {
       arrow.addEventListener('click', () => {
         currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-        loadInquiries();
+        displayInquiries(forManager, filteredInquiries); // forManager 플래그 전달
       });
     }
     return arrow;
@@ -253,7 +278,7 @@ function displayPagination(totalItems) {
     }
     pageButton.addEventListener('click', () => {
       currentPage = i;
-      displayInquiries();
+      displayInquiries(forManager, filteredInquiries); // 필터된 데이터 전달
     });
     pagination.appendChild(pageButton);
   }
@@ -270,6 +295,10 @@ function toggleForm(show) {
   form.style.display = show ? 'block' : 'none';
   inquiryList.style.display = show ? 'none' : 'block';
   pagination.style.display = show ? 'none' : 'flex';
+
+  if (!show) {
+    clearForm(); // 폼을 숨길 때 입력 필드 초기화
+  }
 }
 
 // 글쓰기 작성
@@ -277,23 +306,33 @@ async function handleSubmit(e) {
   e.preventDefault();
   const titleElement = document.getElementById('title');
   const messageElement = document.getElementById('message');
+  const secretYesElement = document.getElementById('secret-yes');
+  const passwordElement = document.getElementById('password-input-form');
 
-  if (!titleElement || !messageElement) {
+  if (!titleElement || !messageElement || !secretYesElement || !passwordElement) {
     console.error("Form elements not found");
     return;
   }
 
   const title = titleElement.value.trim();
   const message = messageElement.value.trim();
+  const isSecret = secretYesElement.checked;
+  const password = passwordElement.value.trim();
   
   if (title === '' || message === '') {
     alert('모든 필드를 채워주세요.');
     return;
   }
 
+  if (isSecret && password === '') {
+    alert('비밀글의 경우 비밀번호를 입력하세요.');
+    return;
+  }
+
   try {
-    addInquiry(currentUser.name, title, message, currentUser);
+    addInquiry(currentUser.name, title, message, isSecret, password, currentUser);
     toggleForm(false); // 작성 후 폼 숨기기
+    clearForm(); // 폼 초기화
   } catch (error) {
     console.error("Error adding inquiry", error);
     alert("문의 작성 중 오류가 발생했습니다.");
@@ -301,7 +340,7 @@ async function handleSubmit(e) {
 }
 
 // 글 추가
-function addInquiry(name, title, message, userInfo) {
+function addInquiry(name, title, message, isSecret, password, userInfo) {
   const newInquiry = {
     id: inquiries.length + 1,
     title: title,
@@ -310,14 +349,34 @@ function addInquiry(name, title, message, userInfo) {
     message: message,
     comments: [],
     profileImage: userInfo ? userInfo.profileImage : '', // 사용자 프로필 이미지
+    SecretSettings: isSecret,
+    password: isSecret ? password : null // 비밀글일 경우 비밀번호 저장
   };
 
   inquiries.push(newInquiry);
   displayInquiries();
 }
 
+// 폼의 인풋 내용을 초기화하는 함수
+function clearForm() {
+  const titleElement = document.getElementById('title');
+  const messageElement = document.getElementById('message');
+  const secretYesElement = document.getElementById('secret-yes');
+  const secretNoElement = document.getElementById('secret-no');
+  const passwordElement = document.getElementById('password-input-form');
+
+  if (titleElement && messageElement && secretYesElement && secretNoElement && passwordElement) {
+    titleElement.value = '';
+    messageElement.value = '';
+    secretYesElement.checked = false;
+    secretNoElement.checked = true;
+    passwordElement.value = '';
+    passwordElement.disabled = true;
+  }
+}
+
 // 글 눌렀을 때 비밀글인지 검증
-export function toggleModal(show = true, inquiry = null) {
+export function toggleModal(show = true, inquiry = null, forManager = false) {
   const modal = document.getElementById('inquirymodal');
   const modalBody = document.getElementById('inquirymodal-body');
   
@@ -338,36 +397,8 @@ export function toggleModal(show = true, inquiry = null) {
     <div class="inquiry-message"><span>${inquiry.message}</span></div>
   `;
 
-  // 댓글 데이터를 사용하여 댓글 목록을 생성합니다.
-  const commentsList = document.getElementById('comments-list');
-  commentsList.innerHTML = '';
-  const comments = inquiry.comments || [];
-
-  if (comments.length === 0) {
-    commentsList.innerHTML = '<p>아직 댓글이 없습니다.</p>';
-  } else {
-    const commentCount = comments.length;
-
-    const commentHeader = document.createElement('div');
-    commentHeader.classList.add('comment-header');
-    commentHeader.innerHTML = `<img src="/images/iconComment.svg" class="img" alt="댓글"><span>댓글 ${commentCount}</span>`;
-    commentsList.appendChild(commentHeader);
-
-    comments.forEach(commentData => {
-      const { comment, "comment data": commentDate, "manager profile": managerprofile, "manager name": managerName } = commentData;
-
-      const commentDetail = document.createElement('div');
-      commentDetail.innerHTML = `
-        <div class="comment-detail">
-          <div class="comment-name">
-          <img src="${managerprofile}" alt="manager profile" class="manager-profile">${managerName}</div>
-          <div class="comment-date"><span>${commentDate}</span></div>
-        </div>
-        <div class="comment-message"><span>${comment}</span></div>
-      `;
-      commentsList.appendChild(commentDetail);
-    });
-  }}
+  displayComments(inquiry.comments, forManager);
+  }
   modal.style.display = show ? 'block' : 'none';
 }
 // 글 내용에 있는 수정, 삭제 버튼 누를시 비밀번호 입력창
@@ -396,6 +427,10 @@ function togglePasswordModal(show) {
 
 function showSecretModal() {
   const secretModal = document.getElementById('secret-modal');
+  if (!secretModal) {
+    console.error("secret-modal element not found");
+    return;
+  }
   secretModal.style.display = 'block';
 }
 
@@ -408,7 +443,7 @@ function toggleSecretModal(show) {
   }
 }
 
-// 비밀번호 확인 로직
+// 글 수정삭제 비밀번호 확인 로직
 function handlePasswordConfirmation() {
   const passwordInputElement = document.getElementById('password-input');
   const passwordInput = passwordInputElement.value;
@@ -420,8 +455,10 @@ function handlePasswordConfirmation() {
     } else if (currentAction === 'delete') {
       setTimeout(() => {
         alert('게시물이 삭제되었습니다');
+        deleteInquiry(currentInquiryId); // 글 삭제 함수 호출
         togglePasswordModal(false);
         toggleModal(false);
+        displayInquiries(); // 글 목록 업데이트
       }, 500);
     }
   } else if (passwordInput === '') {
@@ -432,14 +469,22 @@ function handlePasswordConfirmation() {
   passwordInputElement.value = ''; // 입력 필드를 비웁니다.
 }
 
-// 시크릿 비밀번호 확인 로직
+// 비밀글 비밀번호 확인 로직
 function handleSecretConfirmation() {
   const secretInputElement = document.getElementById('secret-input');
   const secretInput = secretInputElement.value;
+  const inquiry = inquiries.find(inquiry => inquiry.id === currentInquiryId);
 
-  if (secretInput === '1234') {
+  if (!inquiry) {
+    console.error("Inquiry not found");
+    return;
+  }
+
+  const isDefaultPassword = inquiry.password === '1234' || !inquiry.password; // 기본 비밀번호 체크
+  const isValidPassword = (isDefaultPassword && secretInput === '1234') || secretInput === inquiry.password;
+
+  if (isValidPassword) {
     toggleSecretModal(false);
-    const inquiry = inquiries.find(inquiry => inquiry.id === currentInquiryId);
     toggleModal(true, inquiry);
   } else if (secretInput === '') {
     alert('비밀번호를 입력하세요!');
@@ -495,4 +540,14 @@ function modifyContents() {
     modalButtonsContainer.style.display = 'flex'; // 수정 폼을 닫을 때 버튼 컨테이너 다시 보이기
     commentsSection.style.display = 'block'; // 수정 폼을 닫을 때 댓글 섹션 다시 보이기
   });
+}
+
+// 글 삭제 함수
+function deleteInquiry(inquiryId) {
+  const inquiryIndex = inquiries.findIndex(inquiry => inquiry.id === inquiryId);
+  if (inquiryIndex !== -1) {
+    inquiries.splice(inquiryIndex, 1); // 해당 글 삭제
+  } else {
+    console.error('글을 찾을 수 없습니다.');
+  }
 }

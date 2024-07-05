@@ -10,19 +10,14 @@ export function createHeader() {
         <span>${getlocalStorage.userName} 님 안녕하세요!</span>
       </span>
       <span class="user-icons">
-        <a href="https://us06web.zoom.us/j/88141259246?pwd=Rt4lAS2tMOIVikKaxyshwv9B4NWe16.1" target="_blank">
-          <img class="user-icon" src="/images/iconzoom.png" alt="User zoom">
-        </a>
-        <a href="#">
-          <img class="user-icon" src="/images/iconmessage.svg" alt="User message">
-        </a>
-        <a href="#">
-          <img class="user-icon" src="/images/iconbell.svg" alt="User bell">
-        </a>
+        <button class="logoutBtn">로그아웃</button>
       </span>
     </div>
   `
-
+  const logoutBtn = header.querySelector("button")
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", handleLogout)
+  }
   return header
 }
 
@@ -36,4 +31,14 @@ export function adjustHeaderWidth() {
       header.style.width = "100%" // 사이드바가 없는 경우 전체 너비로 설정합니다.
     }
   }
+}
+
+const handleLogout = () => {
+  localStorage.removeItem("userInfo")
+
+  // 히스토리를 초기화하여 뒤로가기 시 이전 페이지로 가지 않도록 함
+  history.pushState(null, null, "/")
+  history.replaceState(null, null, "/")
+
+  window.location.href = "http://localhost:5173" // 로그인 페이지의 URL
 }

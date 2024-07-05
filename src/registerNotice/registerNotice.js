@@ -4,7 +4,7 @@ import "./registerNotice.css"
 let noticeList = []
 const COUNT_PAGE = 4
 let currentPage = 1
-let currentNoticeId = null; 
+let currentNoticeId = null
 
 export function registerNotice () {
   const app = document.getElementById("app")
@@ -60,6 +60,7 @@ export function registerNotice () {
       </div>
     </div>
     <div class="edit-dimm"></div>
+    <div class="overlay delete-dimm"></div>
   `
   const loadingContainer = document.querySelector(".loading-container")
 
@@ -113,9 +114,11 @@ const createPost = (postlist) => {
       </div>
     `
     notices.appendChild(postArea)
+
   })
   noticePagination(postlist.length)
   editModal()
+  deletePost()
   
 }
 
@@ -174,12 +177,11 @@ function registerModal () {
   registBtn.addEventListener('click', () => {
     registerNotice.classList.add("register")
     const getlocalStorage = JSON.parse(localStorage.getItem("userInfo"))
-    const registUser = document.querySelector(".regist-modal #writer")
-    const registEmail = document.querySelector(".regist-modal #email")
-    registUser.value = getlocalStorage.userName
+    const writerInput = document.querySelector(".regist-dimm #writer");
+    const registEmail = document.querySelector(".regist-dimm #email")
+    writerInput.value = getlocalStorage.userName
     registEmail.value = getlocalStorage.userEmail
-    registUser.setAttribute('readonly', 'true')
-    registEmail.setAttribute('readonly', 'true')
+    
   })
   registerClosebtn1.addEventListener('click', () => {
     registerNotice.classList.remove("register")
@@ -202,7 +204,7 @@ function registerModal () {
     })
 
     if(allFilled) {
-      addNotice(getlocalStorage.userName, titleInput.value, registTextarea.value, getlocalStorage.userUrl)
+      addNotice(noticeList.length + 1,getlocalStorage.userName, titleInput.value, registTextarea.value, getlocalStorage.userImage)
       registerNotice.classList.remove("register")
     } else {
       if (registTextarea.value === "") {
@@ -214,14 +216,14 @@ function registerModal () {
   })
 }
 
-function addNotice(name, title, message, img) {
+function addNotice(id, name, title, message, img) {
   const newNotice = {
     userName: name,
     title: title,
     date: new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric'}),
     content: message,
     userImg: img,
-    id : noticeList.length ? noticeList[noticeList.length - 1].id + 1 : 1
+    id : noticeList.length + 1
   }
 
   noticeList.unshift(newNotice)
@@ -250,7 +252,7 @@ function editModal () {
           <div class="inner">
             <div class="title">
               <span class="material-symbols-outlined">arrow_back</span>
-              <h2>공지글 수정</h2>
+              <h2>공지사항 수정</h2>
             </div>
             <form id="notice-form" style="display: block;">
               <div class="formlist">
@@ -275,10 +277,17 @@ function editModal () {
       `
       registerNotice.classList.add('edit')
 
+      const EditUser = document.querySelector(".edit-dimm #writer")
+      EditUser.setAttribute('readonly', 'true')
+
       const editCancelBtn = document.querySelector(".edit-dimm .cancel-button")
+      const editCancelBtn2 = document.querySelector(".edit-dimm .material-symbols-outlined")
       const editSubmitBtn = document.querySelector(".edit-dimm .submit-button")
 
       editCancelBtn.addEventListener('click', () => {
+        registerNotice.classList.remove('edit')
+      })
+      editCancelBtn2.addEventListener('click', () => {
         registerNotice.classList.remove('edit')
       })
 
@@ -291,6 +300,9 @@ function editModal () {
           editedNotice.content = messageInput.value
           createPost(noticeList)
           registerNotice.classList.remove("edit")
+          setTimeout(() => {
+            alert("공지사항이 수정되었습니다.")
+          }, 200)
 
           const postArea = document.querySelector(`.post-area[data-id="${editedNotice.id}"]`)
           if(postArea) {
@@ -299,16 +311,62 @@ function editModal () {
               postTitle.textContent = editedNotice.title
             }
           }
+          
         } else {
           alert('모든 필드를 입력해주세요.')
         }
       })
   
     })
-  })
-
-  
-  
- 
-    
+  }) 
 }
+
+// 공지글 삭제
+function deletePost () {
+  const registerNotice = document.getElementById("registerNotice")
+  const deleteDimm = document.querySelector(".overlay")
+  const deleteBtn = document.querySelectorAll("#registerNotice .delete")
+
+  deleteDimm.innerHTML = `
+    <div class="modal">
+      <p> 공지사항을 삭제하시겠습니까?</p>
+      <div class="modal-wrap">
+        <button id="submitModal">예</button>
+        <button id="closeModal">아니오</button>
+      </div>
+    </div>
+  `
+  deleteBtn.forEach((btn, idx) => {
+    btn.setAttribute('data-id', noticeList[idx].id)
+    btn.addEventListener('click', (event) => {
+      const button = event.currentTarget
+      currentNoticeId = parseInt(button.getAttribute('data-id'))
+      const deleteNotice = noticeList.find(notice => notice.id === currentNoticeId)
+
+      if(!deleteNotice) {
+        console.error("not found notice")
+        return
+      }
+      registerNotice.classList.add("delete")
+
+      const submitModal = document.querySelector('.delete-dimm #submitModal')
+      const closeModal = document.querySelector('.delete-dimm #closeModal')
+      
+      submitModal.addEventListener('click', () => {
+        noticeList = noticeList.filter(notice => notice.id !== currentNoticeId)
+        createPost(noticeList)
+        registerNotice.classList.remove("delete")
+        setTimeout(() => {
+          alert("공지사항이 삭제되었습니다.")
+        }, 200)
+      })
+
+      closeModal.addEventListener('click', () => {
+        registerNotice.classList.remove("delete")
+      })
+    })
+      
+  })
+}
+
+

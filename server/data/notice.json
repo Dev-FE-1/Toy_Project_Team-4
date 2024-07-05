@@ -45,16 +45,16 @@
       "id": 31,
       "date": "2024-06-26",
       "title": "6월 26일 (수) 입실 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "김수민 M",
+      "userImg": "/public/images/수민.jpg",
       "content": "수요일 아침이 밝았습니다!!! 작일 취업특강으로 원하시는 정보를 얻으셨을까요?? <br/>오늘도 빠이팅입니다~ 좋은 하루 되길 바라겠습니다! <br/>10:00 ~ 13:00 토이 프로젝트 I<br/>14:00 ~ 17:00 토이 프로젝트 I<br/>17:00 ~ 19:00 김민태 강사님 - JavaScript 실시간 강의"
     },
     {
       "id": 30,
       "date": "2024-06-25",
       "title": "취업 준비 특강 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "김수민 M",
+      "userImg": "/public/images/수민.jpg",
       "content": "안녕하세요 수강생 여러분! <br/>금일 18시에서 20시까지 취업 준비 특강 진행 예정입니다~ <br/>모두 참여하셔서 여러분의 프론트엔드 개발자 취업 준비에 도움이 되었으면 좋겠습니다."
     },
     {
@@ -93,8 +93,8 @@
       "id": 25,
       "date": "2024-06-19",
       "title": "6월 19일 (수) 입실 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "최원지 M",
+      "userImg": "/public/images/원지.jpg",
       "content": "좋은아침입니다 여러분! 벌써 수요일이라는 것이 믿기지 않습니다ㅠ <br/>오늘도 화이팅 넘치는 하루가 되시길 기원합니다!!<br/>10:00 ~ 13:00 토이 프로젝트 I<br/>14:00 ~ 17:00 토이 프로젝트 I<br/>17:00 ~ 19:00 그룹별 멘토링 / 학습내용 블로깅"
     },
     {
@@ -141,8 +141,8 @@
       "id": 19,
       "date": "2024-06-12",
       "title": "6월 12일 (수) 입실 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "김수민 M",
+      "userImg": "/public/images/수민.jpg",
       "content": "오늘도 새로운 하루가 시작되었습니다! 오늘은 어제 공지해드린 대로 김민태 강사님의 JavaScript 실시간 강의가 진행될 예정입니다.<br/>공지사항 확인하시고 늦지 않게 와주시면 감사하겠습니다!<br/>10:00 ~ 13:00 토이 프로젝트 I<br/>14:00 ~ 17:00 토이 프로젝트 I<br/>17:00 ~ 19:00 김민태 강사님 - JavaScript 실시간 강의"
     },
     {
@@ -189,8 +189,8 @@
       "id": 13,
       "date": "2024-06-03",
       "title": "6월 3일 (월) 입실 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "김수민 M",
+      "userImg": "/public/images/수민.jpg",
       "content": "여러분~~ 주말 푹 쉬셨나요?? 충전의 시간을 가지셨기를 바래봅니다 오늘도 모두 화이팅 입니다요!! 그리고 5월 운영 만족도 조사 진행 부탁드립니닷! <br/>10:00 ~ 13:00 온라인 강의 수강<br/>14:00 ~ 17:00 온라인 강의 수강<br/>17:00 ~ 19:00 JavaScript 실시간 강의 - 김민태 강사님"
     },
     {
@@ -237,8 +237,8 @@
       "id": 7,
       "date": "2024-05-27",
       "title": "5월 27일 (월) 입실 공지",
-      "userName": "manager",
-      "userImg": "/public/images/user1.png",
+      "userName": "김수민 M",
+      "userImg": "/public/images/수민.jpg",
       "content": "여러분~! 주말 잘 보내셨나요?? 오늘 날이 좀 쌀쌀하니 감기 조심하세요! 저희 이번주도 다같이 화이팅 해보아요<br/>리더 지원 안내!! 리더 혜택이 다양하니 지원하시는 분은 문의게시판에 남겨주시면 감사하겠습니다!!<br/>10:00 ~ 13:00 온보딩 프로젝트 <br/>14:00 ~ 17:00 온보딩 프로젝트 <br/>17:00 ~ 20:00 HTML/CSS 실시간 강의 - 김민태 강사님"
     },
     {
@@ -286,7 +286,7 @@
       "date": "2024-05-19",
       "title": "김민태의 데브캠프 OT 참석 안내",
       "userName": "김수민 M",
-      "userImg": "/public/images/수민.png",
+      "userImg": "/public/images/수민.jpg",
       "content": "안녕하세요 수강생 여러분! 내일은 과정 OT가 진행되는 날입니다!! 여러분들을 만날 생각에 너무 설레고 기쁘네요ㅎㅎ<br/>OT는 줌을 통하여 온라인으로 진행되오니 오전 9시 50분까지 접속해 주세요!<br/>줌 프로필명은 '과정명_이름' 으로 설정해 주세요! ( ex. DFE_홍길동 )"
     }
   ]

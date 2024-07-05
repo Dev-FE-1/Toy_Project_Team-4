@@ -53,7 +53,10 @@
   z-index: -1;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 950px) {
+  #mainNotice .calendar {
+    height: auto;
+  }
   #weekCalendar .today {
     padding-bottom:30px;
   }

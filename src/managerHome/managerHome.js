@@ -3,7 +3,7 @@ import { managerHomeStudentList } from "./managerHomeStudentList.js"
 import { createHeader, adjustHeaderWidth } from "../components/header.js"
 import { loadManagerSidebar } from "./managerSidebar.js"
 import { loadLogin } from "../login&signup/login.js"
-import { mainNotice } from "../notice/mainNotice.js"
+import { todolist } from "./todolist.js"
 
 export function managerHomeContent() {
   const content = document.createElement("div")
@@ -24,7 +24,7 @@ export function managerHomeContent() {
   requestAnimationFrame(() => {
     studentAttendanceRecordChart()
     managerHomeStudentList()
-    mainNotice()
+    todolist()
   })
 
   return content

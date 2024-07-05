@@ -11,7 +11,7 @@ for (let i = 6; i >= 0; i--) {
 export function studentAttendanceRecordChart() {
   const attendance = document.querySelector("#attendance")
   attendance.innerHTML = `
-      <section id="studentAttendanceRecordChart" style="height: 100%;display: flex; justify-content: center;flex-direction:column;">
+      <section id="studentAttendanceRecordChart" style="display: flex; justify-content: center;flex-direction:column;">
       <h4 style="font-weight:500;paddign:20px30px;border-bottom:1px solid #ebeff2">출결 현황 확인</h4>
     <canvas id="lineChart"></canvas>
   </section>

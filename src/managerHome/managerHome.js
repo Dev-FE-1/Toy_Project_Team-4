@@ -1,6 +1,5 @@
-import { loadAttendRecord } from "../attendance/attendRecord.js"
-import { loadAttendCheck } from "../attendance/attendCheck.js"
-import { loadOverlay } from "../attendance/overlay.js"
+import { studentAttendanceRecordChart } from "./studentAttendChart.js"
+import { managerHomeStudentList } from "./managerHomeStudentList.js"
 import { createHeader, adjustHeaderWidth } from "../components/header.js"
 import { loadManagerSidebar } from "./managerSidebar.js"
 import { loadLogin } from "../login&signup/login.js"
@@ -23,9 +22,8 @@ export function managerHomeContent() {
 
   // 브라우저의 렌더링이 완료된 후 함수 실행
   requestAnimationFrame(() => {
-    loadAttendRecord()
-    loadAttendCheck()
-    loadOverlay()
+    studentAttendanceRecordChart()
+    managerHomeStudentList()
     mainNotice()
   })
 

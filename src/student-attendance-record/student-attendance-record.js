@@ -9,7 +9,7 @@ const today = new Date()
 for (let i = 6; i >= 0; i--) {
   const currentDate = new Date(today)
   currentDate.setDate(today.getDate() - i)
-  dates.push(currentDate.toISOString().substring(0, 10))
+  dates.push(currentDate.toISOString().substring(5, 10))
 }
 
 export function studentAttendanceRecord() {
@@ -49,7 +49,7 @@ const getChart = () => {
       datasets: [
         {
           data: [7, 9, 8, 9, 8, 8, 9],
-          label: "주간 출결 현황",
+          label: "출석 완료",
           borderColor: "#ed234b",
           fill: false,
         },

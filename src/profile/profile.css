@@ -76,12 +76,13 @@
   border: none;
   border-radius: 7px;
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
 }
 .profile-bottom div textarea {
   resize: none;
   border: none;
   height: 70px;
+  padding-top: 10px;
 }
 
 .profile-bottom div #userIntro::-webkit-scrollbar {

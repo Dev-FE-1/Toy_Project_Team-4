@@ -86,8 +86,9 @@ async function handleLogin() {
               userName: user.name,
               isLoggedIn: "true",
               userEmail: email,
-              userUrl: user.profileImage,
+              userUrl: "",
               userIntro: "",
+              userImage: user.profileImage,
             })
           )
           onLoginSuccess() // 로그인 성공 시 메인 페이지 로드, user 객체 전달

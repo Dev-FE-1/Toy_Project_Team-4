@@ -22,6 +22,7 @@ import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
 import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
+import { managerloadGallery } from "./gallery/managergallery.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -117,7 +118,7 @@ export function route() {
       // 행정 자료 요청
       break
     case "/manager-gallery":
-      // 기업 공지 모음
+      managerloadGallery() // 기업 공지 모음
       break
     case "/student-attendance-record":
       studentAttendanceRecord() // 수강생 출결 현황

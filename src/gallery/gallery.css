@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -48,13 +48,10 @@
 }
 
 .gallery_container .card-grid {
-  /* margin-top: 100px; */
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
-  /* position: relative;
-  top: 0px; */
 }
 
 .gallery_container .card {
@@ -69,6 +66,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 280px;
 }
 
 .gallery_container .card:hover {
@@ -77,24 +75,42 @@
 }
 
 .gallery_container .card img {
-  width: 60%;
-  height: auto; /* 이미지의 비율을 유지합니다 */
+  width: 100%;
+  height: 140px; /* 이미지의 비율을 유지합니다 */
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   object-fit: cover; /* 이미지가 부모 요소를 채우면서 비율을 유지합니다 */
   align-self: center; /* 가로 가운데 정렬 */
 }
 
-.gallery_container .card h3,
-.gallery_container .card p {
-  font-size: 1rem;
+.gallery_container .card h3 {
+  font-size: 18px;
+  font-weight: 500;
   color: #5e5e5e;
-  /* margin: 0 0 10px; */
+  margin-bottom: 10px;
+}
+
+.gallery_container .card p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; /* 2줄로 제한 */
+  line-clamp: 2; /* 표준 속성 */
+  max-height: 3em; /* 줄 높이에 맞게 설정 */
+  color: #ababab;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .gallery_container .card-footer {
-  justify-content: flex-end;
-  margin-top: 20px;
+  position: absolute; /* 절대적 배치 */
+  bottom: 10px; /* 카드의 패딩과 동일하게 설정 */
+  width: calc(100% - 40px); /* 좌우 패딩을 제외한 너비 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 10px; */
 }
 
 .gallery_container .card-footer .date {
@@ -102,9 +118,152 @@
   color: #ed234b;
 }
 
+.gallery_container .card-footer .material-symbols-outlined {
+  color: #ababab;
+}
+
+.gallery_container .card-footer .material-symbols-outlined:hover {
+  color: #ed234b;
+  cursor: pointer;
+}
+
 .gallery_container .pagination {
   justify-content: center;
   margin: 20px 0;
+}
+
+/* 관리자 모달 삭제 창 */
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.4); /* 불투명한 배경 */
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 50px 20px 30px;
+  width: 350px; 
+  height: 200px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.modal-content p {
+  margin-bottom: 40px;
+}
+
+.modal-content button {
+height: 40px;
+width: 80px; /* 버튼 너비 */
+padding: 10px;
+border-radius: 5px;
+color: #fff;
+border: none; /* 기본 테두리 제거 */
+cursor: pointer;
+font-size: 14px; /* 글자 크기 */
+margin-top: 30px;
+
+width: 110px;
+    height: 40px;
+    border-radius: 5px;
+    margin: 0 20px;
+    color: #fff;
+}
+
+.modal-content button#confirmDelete {
+  background-color: #ed234b;
+  margin-right: 20px;
+}
+
+.modal-content button#confirmDelete:hover {
+  background-color: #f26581;
+}
+
+.modal-content button#cancelDelete {
+  background-color: #ababab;
+}
+
+.modal-content button#cancelDelete:hover {
+  background-color: #9f9f9f;
+}
+
+/* 관리자 공지 추가 등록 게시 폼 */
+
+.galleryModal {
+  display: none; /* 숨김 처리 */
+  position: fixed; /* 고정 위치 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* 검정 배경 */
+  background-color: rgba(0,0,0,0.4); /* 불투명한 검정 배경 */
+}
+
+.galleryModal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 가운데 정렬 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* 넓이 설정 */
+  max-width: 600px; /* 최대 넓이 설정 */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#gallery-form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+#gallery-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#gallery-form input[type="text"],
+#gallery-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#gallery-form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media screen and (max-width: 600px) {

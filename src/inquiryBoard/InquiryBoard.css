@@ -232,6 +232,7 @@ div .pagination {
   color: #ababab;
   background-color: #fff;
   border: solid 0.5px #ababab;
+  cursor: auto;
 }
 
 /* 문의 내용 모달 */

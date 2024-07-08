@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
   border-radius: 10px;
   background-color: #fff;
 }
@@ -47,7 +47,7 @@
   width: 300px;
   font-size: 14px;
 }
-#loginForm .emailCheck input {
+#loginForm .emailCheck label {
   accent-color: #ed234b;
   cursor: pointer;
 }

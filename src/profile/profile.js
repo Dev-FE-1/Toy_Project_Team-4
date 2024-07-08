@@ -20,6 +20,10 @@ export function profile() {
             <input id="userEmail" type="text" readonly=true/>
           </div>
           <div>
+            <span class="material-symbols-outlined"> phone_iphone </span>
+            <input id="userPhone" type="text" />
+          </div>
+          <div>
             <span class="material-symbols-outlined"> language </span>
             <input id="userUrl" type="text" placeholder="블로그 주소를 작성해주세요." />
           </div>
@@ -54,11 +58,12 @@ async function getUserInfo() {
   const userImage = document.querySelector(".user-img")
   const userEmail = document.querySelector("#userEmail")
   const userName = document.querySelector("#userName")
+  const userPhone = document.querySelector("#userPhone")
   const userUrl = document.querySelector("#userUrl")
   const userIntro = document.querySelector("#userIntro")
   const loadingContainer = document.querySelector(".loading-container")
 
-  // users.json에 입력된 배경이미지, 프로필사진, 이름, 이메일 가져오기
+  // users.json에 입력된 배경이미지, 프로필사진 가져오기
   const res = await axios.get("/api/users.json")
   const users = res.data.data
 
@@ -69,7 +74,8 @@ async function getUserInfo() {
     if (user.email == getlocalStorage.userEmail) {
       if (userEmail != null) {
         userEmail.value = getlocalStorage.userEmail
-        userName.value = user.name
+        userName.value = getlocalStorage.userName
+        userPhone.value = getlocalStorage.userPhone
         userBgImage.setAttribute("style", `background-image : url("${user.background}")`)
         userImage.setAttribute("style", `background-image : url("${user.profileImage}")`)
         userUrl.value = getlocalStorage.userUrl

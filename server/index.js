@@ -1,7 +1,7 @@
 import express from "express"
 import morgan from "morgan"
 import fs from "fs"
-import db from "./database.js"
+import database from "./database.js"
 
 const THRESHOLD = 2000
 const port = process.env.PORT || 8080
@@ -160,42 +160,20 @@ app.get("/api/inquiry.json", (req, res) => {
   })
 })
 
-// app.get("/api/userInfo", (req, res) => {
-//   const sql = "SELECT * FROM userInfo"
+app.get("/api/users", (req, res) => {
+  const sql = "SELECT * FROM users"
 
-//   db.all(sql, [], (err, rows) => {
-//     if (err) {
-//       console.error(err.message)
-//       res.status(500).json({
-//         status: "ERROR",
-//         message: "서버 오류가 발생했습니다.",
-//       })
-//       return
-//     }
-//     res.json({
-//       status: "OK",
-//       data: rows,
-//     })
-//   })
-// })
+  database.all(sql, (err, rows) => {
+    if (err) {
+      return console.log(err)
+    }
 
-// app.get("/api/userInfo", (req, res) => {
-//   const sql = "SELECT * FROM userInfo"
-
-//   db.all(sql, [], (err, rows) => {
-//     if (err) {
-//       return res.status(500).json({
-//         status: "Error",
-//         error: err.message,
-//       })
-//     }
-
-//     res.json({
-//       status: "OK",
-//       data: rows,
-//     })
-//   })
-// })
+    res.json({
+      status: "OK",
+      data: rows,
+    })
+  })
+})
 
 app.listen(port, () => {
   console.log(`ready to ${port}`)

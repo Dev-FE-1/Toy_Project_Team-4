@@ -21,6 +21,10 @@ export function loadNotice() {
           </div>
         </div>
         <div class="notice-bottom">
+        <div class="text">
+        <span class="material-symbols-outlined">campaign</span>
+        <h4>공지사항 클릭해서 펼쳐보기</h4>
+        </div>
         <ul class="post-list"></ul>
         <div class="loading-container" id="loadingOverlay">
           <div class="loading-animation">
@@ -29,11 +33,11 @@ export function loadNotice() {
             <div class="loading-dot"></div>
           </div>
         </div>
-          <div class="pagination-container">
-            <button class="prev-button"><</button>
-            <div class="number-btn-wrapper"></div>
-            <button class="next-button class">></button>
-          </div>
+        </div>
+        <div class="pagination-container">
+          <button class="prev-button"><</button>
+          <div class="number-btn-wrapper"></div>
+          <button class="next-button class">></button>
         </div>
       </section>
   `
@@ -177,6 +181,9 @@ const arrBtn = () => {
   } else if (Number(btnFocus.textContent) == maxNum) {
     nextBtn.classList.remove("color")
     prevBtn.classList.add("color")
+  } else {
+    nextBtn.classList.add("color")
+    prevBtn.classList.add("color")
   }
 }
 
@@ -232,11 +239,25 @@ const setPost = (postData) => {
           `
     }
   }
-
   const completeBtns = document.querySelectorAll(".complete")
   completeBtns.forEach((completeBtn) => {
     completeBtn.addEventListener("click", () => {
       completeBtnChange(completeBtn)
     })
   })
+
+  document.querySelectorAll(".post-content").forEach((item) => {
+    item.addEventListener("click", () => {
+      findClickedP(item)
+    })
+  })
+}
+
+// 공지사항 열고 닫기
+export const findClickedP = (item) => {
+  if (item.classList.length < 2) {
+    item.classList.add("changeDisplay")
+  } else {
+    item.classList.remove("changeDisplay")
+  }
 }

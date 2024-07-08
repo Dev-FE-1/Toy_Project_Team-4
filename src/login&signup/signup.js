@@ -14,6 +14,7 @@ export class SignupPage {
     this.usersNameValidation = false
     this.consentValidation = false
     this.codeValidation = false
+    this.phoneValidation = false
   }
 
   render() {
@@ -62,6 +63,14 @@ export class SignupPage {
             />
             <span class="doNotPw">비밀번호가 일치하지 않습니다.</span>
           </div>
+          <div class="phone">
+            <input
+              type="text"
+              id="phone"
+              placeholder="전화번호 입력"
+            />
+            <span class="phoneForm">010-0000-0000 형태로 입력해주세요.</span>
+          </div>
           <label class="consent">개인정보 수집·이용 동의서</label>
           <div class="consentText">
             이와 관련하여 아래와 같이 귀하의 개인정보를 수집 및 이용 내용을
@@ -77,13 +86,8 @@ export class SignupPage {
             제공되는 헤택을 받을 수 없습니다.
           </div>
           <div class="consentCheck">
-            <input
-              type="radio"
-              name="consent"
-              id="notConsent"
-              checked
-            />동의하지 않음
-            <input type="radio" name="consent" id="consent" />동의함
+            <label for="notConsent"><input type="radio" name="consent" id="notConsent" checked/> 동의하지 않음</label>
+            <label for="consent"><input type="radio" name="consent" id="consent" /> 동의함</label>
           </div>
           <div class="submitBtnArea">
             <button class="submitBtn" type="submit">가입하기</button>
@@ -131,10 +135,12 @@ export class SignupPage {
         this.emailValidation = false
       }
     })
+
+    // 이메일 중복확인 버튼 클릭시 database에 저장된 이메일 값과 비교하는 유효성검사
     const checkEmail = async (event) => {
       event.preventDefault()
       if (this.emailRegexValidation) {
-        const res = await axios.get("/api/users.json")
+        const res = await axios.get("/api/users")
         const users = res.data.data
 
         for (let user of users) {
@@ -184,6 +190,22 @@ export class SignupPage {
       this.pwEqual(usersPw, usersPw2, doNotPw)
     })
 
+    // 전화번호 유효성 검사
+    const userPhone = document.querySelector("#phone")
+    const phoneFormText = document.querySelector(".phoneForm")
+    userPhone.addEventListener("input", () => {
+      const phoneValue = userPhone.value
+      const phoneRegex = /^010-\d{3,4}-\d{4}$/
+      if (phoneRegex.test(phoneValue)) {
+        phoneFormText.textContent = "확인되었습니다."
+        phoneFormText.setAttribute("style", "color : green")
+        this.phoneValidation = true
+      } else {
+        phoneFormText.textContent = "010-0000-0000 형태로 입력해주세요."
+        phoneFormText.setAttribute("style", "color : #ed234b")
+      }
+    })
+
     // 개인정보 동의 여부 검사
     const notConsent = document.querySelector("#notConsent")
     const consent = document.querySelector("#consent")
@@ -203,7 +225,13 @@ export class SignupPage {
     const signupBtn = document.querySelector(".submitBtn")
     signupBtn.addEventListener("click", (event) => {
       event.preventDefault()
-      if (this.emailValidation && this.pwValidation && this.usersNameValidation && this.consentValidation) {
+      if (
+        this.emailValidation &&
+        this.pwValidation &&
+        this.usersNameValidation &&
+        this.consentValidation &&
+        this.phoneValidation
+      ) {
         alert("가입이 완료되었습니다. 로그인 화면으로 이동합니다.")
         loadLogin()
       } else {
@@ -212,7 +240,7 @@ export class SignupPage {
     })
   }
 
-  // 비밀번호 유효성 검사 함수
+  // 비밀번호 1차와 2차가 같은지 유효성 검사 함수
   pwEqual(usersPw, usersPw2, doNotPw) {
     if (usersPw.value != "" && usersPw2.value != "") {
       if (usersPw.value === usersPw2.value) {
@@ -243,12 +271,14 @@ export class SignupPage {
     }
     // 사내 인증코드 유효성 검사
     const code = document.querySelector("#code")
-    code.addEventListener("input", () => {
-      if (code.value === "team4") {
-        this.codeValidation = true
-      } else {
-        this.codeValidation = false
-      }
-    })
+    if (code != null) {
+      code.addEventListener("input", () => {
+        if (code.value === "team4") {
+          this.codeValidation = true
+        } else {
+          this.codeValidation = false
+        }
+      })
+    }
   }
 }

@@ -99,7 +99,10 @@ const createPost = (postlist) => {
         </h4>
         <p>작성일: <span class="wDate">${post.date}</span></p>
       </div>
-      <div class="p-middle">${post.content}</div>
+      <div class="p-middle">
+        <div class="content">${post.content}</div>
+        
+      </div>
       <div class="p-bottom">
         <div class="writer">
           <div class="img-wrap">
@@ -119,7 +122,10 @@ const createPost = (postlist) => {
   noticePagination(postlist.length)
   editModal()
   deletePost()
-  
+
+  updateDropArrows()
+
+  window.addEventListener('resize', updateDropArrows)
 }
 
 function noticePagination(totalItems) {
@@ -164,6 +170,43 @@ function pageArrow(direction, disabled) {
     })
   }
   return arrow
+}
+// 내용 넘치면 화살표 표시
+function updateDropArrows() {
+  const contentWrappers = document.querySelectorAll("#registerNotice .inner .p-middle");
+
+  contentWrappers.forEach((wrapper) => {
+    const content = wrapper.querySelector(".content");
+    if (!content) return;
+
+    const isOverflown = content.scrollHeight > content.clientHeight;
+
+    let dropArrow = wrapper.querySelector(".material-symbols-outlined");
+
+    if (isOverflown) {
+      if (!dropArrow) {
+        dropArrow = document.createElement("span");
+        dropArrow.classList.add("material-symbols-outlined");
+        dropArrow.textContent = "arrow_drop_down";
+        dropArrow.style.cursor = "pointer";
+        dropArrow.style.color = "#5e5e5e";
+        dropArrow.style.transition = ".1s";
+        wrapper.appendChild(dropArrow);
+
+        dropArrow.addEventListener("click", () => {
+          if (content.classList.contains("drop")) {
+            content.classList.remove("drop");
+            dropArrow.style.transform = "rotate(0deg)";
+          } else {
+            content.classList.add("drop");
+            dropArrow.style.transform = "rotate(180deg)";
+          }
+        });
+      }
+    } else if (dropArrow) {
+      dropArrow.remove();
+    }
+  });
 }
 
 // 공지글 등록

@@ -85,9 +85,40 @@
 }
 
 #registerNotice .inner .p-middle {
-  line-height: 22px;
-  font-size: 15px;
   margin: 20px 0 30px;
+  display:flex;
+  justify-content: space-between;
+  align-items:flex-end;
+}
+
+#registerNotice .inner .p-middle .content {
+  width: 90%;
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4.5em;
+  line-height: 1.5em;
+  position: relative;
+}
+
+#registerNotice .inner .p-middle .content.drop {
+  -webkit-line-clamp: unset;
+  height: auto;
+}
+
+#registerNotice .inner .p-middle .material-symbols-outlined {
+  cursor: pointer;
+  color: #5e5e5e;
+  transition: .1s;
+  display:block;
+}
+
+#registerNotice .inner .p-middle .material-symbols-outlined:hover {
+  cursor: pointer;
+  color: #222;
 }
 
 #registerNotice .inner .p-bottom .writer {

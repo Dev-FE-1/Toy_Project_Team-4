@@ -1,6 +1,7 @@
 import axios from "axios"
 import "./mainNotice.css"
 import { loadCalendar } from "../calendar/calendar.js"
+import { findClickedP } from "./notice.js"
 
 let noticeList = []
 const COUNT_PAGE = 3
@@ -12,6 +13,10 @@ export function mainNotice() {
       <section id="mainNotice">
         <div class="calendar"></div>
         <div class="noticeForm">
+                <div class="text">
+        <span class="material-symbols-outlined">campaign</span>
+        <h4>공지사항 클릭해서 펼쳐보기</h4>
+        </div>
           <ul class="noticelist"></ul>
           <div class="loading-container" id="loadingOverlay">
           <div class="loading-animation">
@@ -20,9 +25,9 @@ export function mainNotice() {
             <div class="loading-dot"></div>
           </div>
         </div>
-          <div class="runNotice">
-          <a href="/notice">Show more</a>
-          </div>
+        </div>
+        <div class="runNotice">
+        <a href="/notice">Show more</a>
         </div>
       </section>
     `
@@ -35,8 +40,6 @@ async function getNoticeList() {
   try {
     const res = await axios.get("/api/notice.json")
     noticeList = res.data.data
-    // const getTotalPageCount = Math.ceil(noticeList.length / COUNT_PAGE)
-    // setPageButtons(getTotalPageCount)
     if (document.querySelector(".noticelist") != null && document.querySelector(".noticelist").children.length < 3) {
       getPost(1, noticeList)
     }
@@ -84,6 +87,12 @@ const getPost = (pageNum, noticeList) => {
   CompleteBtns.forEach((CompleteBtn) => {
     CompleteBtn.addEventListener("click", () => {
       CompleteBtnChange(CompleteBtn)
+    })
+  })
+
+  document.querySelectorAll(".post-content").forEach((item) => {
+    item.addEventListener("click", () => {
+      findClickedP(item)
     })
   })
 }

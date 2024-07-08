@@ -203,13 +203,13 @@
     },
     {
       "id": 21,
-      "name": "배윤정",
+      "name": "고윤정",
       "email": "yoonj@gmail.com",
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "student",
       "background": "/public/images/backgroundimages4.jpg",
-      "profileImage": "/public/images/배윤정.jpg"
+      "profileImage": "/public/images/고윤정.jpg"
     },
     {
       "id": 22,

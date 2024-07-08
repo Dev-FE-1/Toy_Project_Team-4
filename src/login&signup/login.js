@@ -31,7 +31,8 @@ export function loadLogin() {
         </div>
         <div class="emailCheck">
           <label for="emailCheck">
-            <input type="checkbox" id="emailCheck" /> 이메일 기억하기</label >
+            <input type="checkbox" id="emailCheck" checked/> 자동 로그인
+            </label >
         </div>
         <div class="pageMove">
           <button id="pwFind">비밀번호 찾기</button>
@@ -45,7 +46,6 @@ export function loadLogin() {
     signupPageOpen.addEventListener("click", (event) => {
       event.preventDefault()
       const signupPageInstance = new SignupPage()
-      signupPageInstance.loadSignup()
     })
 
     const loginForm = document.querySelector("#loginForm")
@@ -89,9 +89,10 @@ async function handleLogin() {
               userUrl: "",
               userIntro: "",
               userImage: user.profileImage,
+              userPhone: user.phone,
             })
           )
-          onLoginSuccess() // 로그인 성공 시 메인 페이지 로드, user 객체 전달
+          onLoginSuccess()
           return
         } else {
           alert("비밀번호를 다시 입력해주세요.")

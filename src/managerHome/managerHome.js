@@ -5,7 +5,7 @@ import { loadManagerSidebar } from "./managerSidebar.js"
 import { loadLogin } from "../login&signup/login.js"
 import { todolist } from "./todolist.js"
 
-export function managerHomeContent() {
+function managerHomeContent() {
   const content = document.createElement("div")
   content.id = "content"
   content.classList.add("content")

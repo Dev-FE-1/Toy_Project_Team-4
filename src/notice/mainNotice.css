@@ -3,18 +3,30 @@
 }
 
 #mainNotice .calendar {
-  height: 25%;
+  height: 20%;
 }
 #mainNotice .noticeForm {
   height: 75%;
   border-top: 1px solid #e6e6e6;
   overflow-y: auto;
 }
+#mainNotice .noticeForm .text {
+  display: flex;
+  align-items: center;
+  padding: 3px 30px;
+  font-size: 14px;
+}
+#mainNotice .noticeForm .text * {
+  color: #ed234b;
+  margin-right: 3px;
+}
+#mainNotice .noticeForm .text h4 {
+  padding-top: 4px;
+}
 #mainNotice .noticeForm .noticelist {
   background: #fff;
   align-items: center;
   padding: 0 20px;
-  margin-top: 20px;
   color: #777;
 }
 #mainNotice .noticeForm .noticelist li {
@@ -26,10 +38,9 @@
   flex-direction: column;
   border-radius: 5px;
   box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
-  margin: 10px;
-  padding: 20px;
+  margin: 0 10px 15px;
+  padding: 20px 20px 10px;
 }
-
 #mainNotice .post div {
   width: 100%;
   margin-top: 10px;
@@ -55,11 +66,20 @@
   height: 80%;
 }
 #mainNotice .noticeForm .noticelist .post .post-mid .post-content {
-  line-height: 22px;
   font-size: 15px;
+  line-height: 21px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  max-height: 6em;
+  position: relative;
 }
+#mainNotice .noticeForm .noticelist .post .post-mid .post-content.changeDisplay {
+  display: contents;
+}
+
 #mainNotice .noticeForm .noticelist .post .post-bottom {
-  height: 10%;
   align-items: center;
 }
 
@@ -73,8 +93,8 @@
   border-radius: 50%;
   text-align: center;
   overflow: hidden;
-  margin-right:10px;
-  margin-top: 0 !important;
+  margin-right: 10px;
+  margin-top: -3px !important;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom .img-wrap img {
   width: 100%;
@@ -86,7 +106,6 @@
   font-size: 14px;
 }
 #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
-  margin-bottom: 10px;
   width: 130px;
   height: 30px;
   border: none;
@@ -98,13 +117,13 @@
 #mainNotice .noticeForm .noticelist .post .post-bottom .Complete:hover {
   background-color: #f26581;
 }
-#mainNotice .noticeForm .runNotice {
+#mainNotice .runNotice {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 5%;
 }
-#mainNotice .noticeForm .runNotice a {
+#mainNotice .runNotice a {
   display: block;
   width: 150px;
   height: 40px;

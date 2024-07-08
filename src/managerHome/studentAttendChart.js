@@ -9,21 +9,21 @@ for (let i = 6; i >= 0; i--) {
 }
 
 export function studentAttendanceRecordChart() {
-  const attendance = document.querySelector("#attendance")
-  attendance.innerHTML = `
-      <section id="studentAttendanceRecordChart" style="display: flex; justify-content: center;flex-direction:column;">
-      <h4 style="font-weight:500;paddign:20px30px;border-bottom:1px solid #ebeff2">출결 현황 확인</h4>
-    <canvas id="lineChart"></canvas>
-  </section>
+  const studentAttendanceChart = document.querySelector("#attendance")
+  studentAttendanceChart.innerHTML = `
+      <section id="studentAttendanceRecordChart" style="height: 100%;display: flex; justify-content: center;flex-direction:column;">
+        <h4 style="font-weight:500;paddign:20px30px;border-bottom:1px solid #ebeff2">출결 현황 확인</h4>
+        <canvas id="homeLineChart"></canvas>
+      </section>
     `
-  getChart()
+  getHomeChart()
 
-  return attendance
+  return studentAttendanceChart
 }
 
 // 주간 출결현황 그래프
-const getChart = () => {
-  const lineChart = document.querySelector("#lineChart")
+const getHomeChart = () => {
+  const lineChart = document.querySelector("#homeLineChart")
   new Chart(lineChart, {
     type: "line",
     data: {

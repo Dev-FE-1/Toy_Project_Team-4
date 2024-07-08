@@ -16,7 +16,7 @@
 }
 #profile-section .profileArea .profile-top {
   width: 100%;
-  height: 100%;
+  height: 90%;
   min-height: 300px;
   max-height: 400px;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@
   padding-top: 80px;
 }
 .profile-bottom * {
-  margin: 5px;
+  margin: 4px;
 }
 .profile-bottom div {
   display: flex;
@@ -61,12 +61,13 @@
   height: 80px;
 }
 .profile-bottom div:nth-last-child(2):hover,
-.profile-bottom div:nth-last-child(3):hover {
+.profile-bottom div:nth-last-child(3):hover,
+.profile-bottom div:nth-last-child(4):hover {
   box-shadow: 0 0 5px rgba(246, 34, 87, 0.8);
 }
 .profile-bottom div span {
   color: #ababab;
-  font-size: 28px;
+  font-size: 24px;
 }
 .profile-bottom div input,
 .profile-bottom div textarea {

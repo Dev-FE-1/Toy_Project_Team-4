@@ -19,6 +19,13 @@ const __dirname = dirname(__filename)
 const leaveRequestFilePath = path.join(__dirname, "data", "leave_request.json")
 const vacationRequestFilePath = path.join(__dirname, "data", "vacation_request.json")
 
+// LibreOffice 경로 설정
+if (process.platform === "win32") {
+  process.env.SOFFICE_PATH = "C:\\Program Files\\LibreOffice\\program\\soffice.exe"
+} else {
+  process.env.SOFFICE_PATH = "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+}
+
 // 미들웨어
 app.use(cors())
 app.use(fileUpload())

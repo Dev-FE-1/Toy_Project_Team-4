@@ -1,6 +1,7 @@
 import axios from "axios"
 import "./gallery.css"
 import "../inquiryBoard/InquiryBoard.css"
+import { addDeleteEventListeners } from "./managergallery.js";
 
 export let cards = [] // 전역 변수로 선언
 export let currentPage = 1
@@ -47,19 +48,20 @@ export function loadGallery() {
   getgalleryList().then(cardsData => {
     if (cardsData && cardsData.length > 0) {
       cards = cardsData; // cards 변수를 업데이트
-      sortCards(cards)
+      const sortElement = document.getElementById("sort")
+      sortCards(cards, sortElement.value) // 초기 정렬 옵션에 맞게 정렬
     } else {
       console.error("No cards available to sort")
     }
   }).catch(err => {
-    console.error("Error loading gallery list:", err)
+    // console.error("Error loading gallery list:", err)
   })
 }
 
 export function initializeSortElement() {
   const sortElement = document.getElementById("sort")
 
-  sortElement.addEventListener("change", () => sortCards(cards))
+  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value))
   sortElement.addEventListener("focus", function () {
     this.style.border = "2px solid #ED234B"
   })
@@ -74,7 +76,7 @@ export async function getgalleryList() {
   loadingContainer.classList.remove("hidden");
 
   try {
-    const res = await axios.get("/api/gallery.json")
+    const res = await axios.get("/api/gallery.json");
 
     // res.data가 배열인지 확인
     if (Array.isArray(res.data)) {
@@ -96,24 +98,27 @@ const cardsPerPage = 8
 let currentSort = "latest"
 
 export function displayCards(cards, page, forManager = false) {
-  const cardGrid = document.getElementById("card-grid")
-  cardGrid.innerHTML = ""
-  const start = (page - 1) * cardsPerPage
-  const end = page * cardsPerPage
-  const paginatedCards = cards.slice(start, end)
+  const cardGrid = document.getElementById("card-grid");
+  cardGrid.innerHTML = "";
+  const start = (page - 1) * cardsPerPage;
+  const end = page * cardsPerPage;
+  const paginatedCards = cards.slice(start, end);
   paginatedCards.forEach((card, index) => {
     cardGrid.innerHTML += `
-            <div class="card">
-                <img src="${card.img}" alt="${card.title}">
-                <h3>${card.title}</h3>
-                <p>${card.desc}</p>
-                <div class="card-footer">
-                    <span class="date">${card.date}</span>
-                    ${forManager ? `<span class="material-symbols-outlined delete-icon" data-card-index="${index + start}">delete</span>` : ''}
-                </div>
-            </div>
-        `
-  })
+      <div class="card">
+        <img src="${card.img}" alt="${card.title}" onerror="this.onerror=null;this.src='/uploads/default_image.jpg';">
+        <h3>${card.title}</h3>
+        <p>${card.desc}</p>
+        <div class="card-footer">
+          <span class="date">${card.date}</span>
+          ${forManager ? `<span class="material-symbols-outlined delete-icon" data-card-index="${index + start}">delete</span>` : ''}
+        </div>
+      </div>
+    `;
+  });
+  if (forManager) {
+    addDeleteEventListeners(); // 관리자 모드일 때만 이벤트 리스너 추가
+  }
 }
 
 export function setupPagination(cards, currentPage, forManager = false) {
@@ -161,26 +166,18 @@ function createArrow(direction, disabled, cards, currentPage, forManager) {
   return arrow
 }
 
-function sortCards(cards) {
+export function sortCards(cards, sortBy = "latest") {
   if (!cards || cards.length === 0) {
     console.error("No cards available to sort")
     return
   }
-  const sortElement = document.getElementById("sort")
 
-  // document.getElementById("sort") 값이 null인지 확인
-  if (!sortElement) {
-    // console.error("Sort element not found")
-    return
-  }
-
-  const sortValue = sortElement.value
-  if (sortValue === "latest") {
+  if (sortBy === "latest") {
     cards.sort((a, b) => b.date.localeCompare(a.date))
-  } else if (sortValue === "popular") {
+  } else if (sortBy === "popular") {
     cards.sort((a, b) => b.popularity - a.popularity)
   }
-  currentSort = sortValue
+
   displayCards(cards, currentPage)
   setupPagination(cards, currentPage)
 }

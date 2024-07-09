@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .header-section {
@@ -149,6 +149,10 @@
   margin-right: 40px;
 }
 
+ul#inquiry-list {
+  height: 80%;
+  overflow-y: auto;
+}
 ul li.inquirylist {
   height: 100px;
   align-items: center;
@@ -246,7 +250,7 @@ div .pagination {
   top: 50%;
   left: 50%;
   border-radius: 10px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   transform: translate(-50%, -50%); /* 중앙으로 이동 */
   background-color: #fff;
   position: absolute;

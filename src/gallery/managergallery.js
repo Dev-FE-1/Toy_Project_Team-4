@@ -1,13 +1,11 @@
 import "./gallery.css"
 import "../inquiryBoard/InquiryBoard.css"
-import { getgalleryList, displayCards, setupPagination, currentPage, cards } from "./gallery.js"
+import { getgalleryList, displayCards, setupPagination, currentPage, cards, sortCards } from "./gallery.js"
 
 // DOMContentLoaded 이벤트 핸들러 내에서 초기화
 document.addEventListener("DOMContentLoaded", () => {
   managerloadGallery()
 })
-
-// let currentPage = 1 // currentPage 변수를 이 파일 내에서 정의
 
 export function managerloadGallery() {
   const app = document.getElementById("app")
@@ -16,7 +14,7 @@ export function managerloadGallery() {
         <div class="gallery_container">
             <div class="gallery_header">
                 <h2>기업 공지 모음</h2>
-                <button id="write-button">공지 등록</button>
+                <button id="write-button">새 공지 등록</button>
             </div>
             <div class="card-grid" id="card-grid">
                 <!-- 카드 내용은 JavaScript를 통해 추가됨 -->
@@ -67,11 +65,12 @@ export function managerloadGallery() {
   getgalleryList().then(cardsData => {
     cards.length = 0; // 기존 cards 배열 초기화
     cards.push(...cardsData); // 새로운 데이터로 cards 배열 갱신
-    displayCards(cardsData, currentPage, true)
-    setupPagination(cardsData, currentPage, true)
-    addDeleteEventListeners() // 삭제 버튼 이벤트 리스너 추가
+    sortCards(cards, "latest"); // 최신순으로 정렬
+    displayCards(cards, currentPage, true);
+    setupPagination(cards, currentPage, true);
+    addDeleteEventListeners(); // 삭제 버튼 이벤트 리스너 추가
   }).catch(err => {
-    // console.error("Error loading gallery list:", err)
+    // console.error("Error loading gallery list:", err);
   })
   setupModalEvents();
   setupFormEvents();
@@ -102,7 +101,6 @@ function setupFormEvents() {
 
 // 폼 제출 이벤트 핸들러
 async function handleFormSubmit() {
-  // const galleryModal = document.getElementById('galleryModal');
   const title = document.getElementById('title').value;
   const desc = document.getElementById('desc').value;
   const image = document.getElementById('image').files[0];
@@ -138,13 +136,13 @@ async function handleFormSubmit() {
 }
 
 // 삭제 버튼 이벤트 리스너 추가 함수
-function addDeleteEventListeners() {
+export function addDeleteEventListeners() {
   document.querySelectorAll('.delete-icon').forEach(icon => {
     icon.addEventListener('click', (event) => {
       const cardIndex = event.target.getAttribute('data-card-index');
       showDeleteModal(cardIndex);
-    })
-  })
+    });
+  });
 }
 
 // 삭제버튼 모달 관련 이벤트 설정
@@ -177,9 +175,9 @@ function confirmDelete() {
 }
 
 // 삭제 함수
-window.deleteCard = function (index) {
-  cards.splice(index, 1)
-  displayCards(cards, currentPage, true)
-  setupPagination(cards, currentPage, true)
-  addDeleteEventListeners() // 삭제 후 이벤트 리스너 다시 추가
+function deleteCard(index) {
+  cards.splice(index, 1);
+  displayCards(cards, currentPage, true);
+  setupPagination(cards, currentPage, true);
+  addDeleteEventListeners(); // 삭제 후 이벤트 리스너 다시 추가
 }

@@ -23,34 +23,36 @@ app.use((req, res, next) => {
 app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.json())
-app.use(express.urlencoded({ extended: true })) //추가된 코드
+app.use(express.urlencoded({ extended: true })); // 추가된 코드
 
 // __dirname 설정 (7.7 임효정/사진업로드 기능 관련 추가된 코드입니다)
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // -------기업공지모음 갤러리 관리자 글작성 multer--------
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, './uploads'),
+  destination: path.join(__dirname, "./uploads"),
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}_${file.originalname}`);
-  }
+  },
 });
 
 const upload = multer({ storage });
 
-// 임시 데이터 저장소
-const galleryDataFilePath = path.join(__dirname, './data/gallery.json');
+// JSON 파일 경로
+const galleryDataFilePath = path.join(__dirname, "./data/gallery.json");
 
 // JSON 파일에서 데이터 읽기
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
+      console.log("gallery.json file does not exist, creating new one.");
       fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
     }
     const data = fs.readFileSync(galleryDataFilePath, 'utf8');
     const parsedData = JSON.parse(data);
-    return Array.isArray(parsedData) ? parsedData : [];
+    console.log("Read gallery data:", parsedData);
+    return Array.isArray(parsedData.data) ? parsedData.data : [];
   } catch (error) {
     console.error("Error reading gallery data:", error);
     return [];
@@ -60,7 +62,8 @@ function readGalleryData() {
 // JSON 파일에 데이터 저장
 function writeGalleryData(data) {
   try {
-    fs.writeFileSync(galleryDataFilePath, JSON.stringify(data, null, 2), 'utf8');
+    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
   } catch (error) {
     console.error("Error writing gallery data:", error);
   }
@@ -70,34 +73,40 @@ function writeGalleryData(data) {
 app.post('/upload', upload.single('image'), (req, res) => {
   try {
     const newEntry = {
-      img: `/uploads/${req.file.filename}`,
+      img: `/server/uploads/${req.file.filename}`,  // 경로 앞에 /server 추가
       title: req.body.title,
       desc: req.body.desc,
-      date: new Date().toISOString().split('T')[0], // 현재 날짜
-      popularity: 0 // 초기 인기 수치
+      date: new Date().toISOString().split('T')[0],
+      popularity: 0
     };
     const galleryData = readGalleryData();
-    if (Array.isArray(galleryData)) {
-      galleryData.push(newEntry);
-      writeGalleryData(galleryData);
-      res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${req.file.filename}` });
-    } else {
-      throw new Error('Gallery data is not an array');
-    }
+    galleryData.push(newEntry);
+    writeGalleryData(galleryData);
+    console.log("File uploaded:", req.file); // 로그 추가
+    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${req.file.filename}` });
   } catch (error) {
-    console.error("File upload failed:", error);  // 오류 메시지 출력
+    console.error("File upload failed:", error);
     res.status(500).json({ message: 'File upload failed', error });
   }
 });
 
 // 공지 목록을 반환하는 API
-app.get('/api/gallery', (req, res) => {
+app.get("/api/gallery", (req, res) => {
   const galleryData = readGalleryData();
+  console.log("Sending gallery data:", galleryData);
   res.status(200).json(galleryData);
 });
 
 // 정적 파일 제공
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
+
+// 기존의 /api/gallery.json 엔드포인트 유지
+app.get("/api/gallery.json", (req, res) => {
+  const galleryData = readGalleryData();
+  console.log("Sending gallery data via /api/gallery.json:", galleryData);
+  res.status(200).json(galleryData);
+});
 // --------multer--------
 
 
@@ -192,30 +201,30 @@ app.get("/api/attendance.json", (req, res) => {
   })
 })
 
-app.get("/api/gallery.json", (req, res) => {
-  fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading JSON file:", err)
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: err,
-        data: null,
-      })
-    }
+// app.get("/api/gallery.json", (req, res) => {
+//   fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
+//     if (err) {
+//       console.error("Error reading JSON file:", err)
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: err,
+//         data: null,
+//       })
+//     }
 
-    try {
-      const json = JSON.parse(data)
-      res.json(json)
-    } catch (parseErr) {
-      console.error("Error parsing JSON file:", parseErr)
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: parseErr,
-        data: null,
-      })
-    }
-  })
-})
+//     try {
+//       const json = JSON.parse(data)
+//       res.json(json)
+//     } catch (parseErr) {
+//       console.error("Error parsing JSON file:", parseErr)
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: parseErr,
+//         data: null,
+//       })
+//     }
+//   })
+// })
 
 app.get("/api/inquiry.json", (req, res) => {
   fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {

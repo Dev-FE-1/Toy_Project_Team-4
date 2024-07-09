@@ -131,11 +131,19 @@ function createSidebar() {
             </a>
           </li>
           <li>
+              <a href="/status">
+                <span class="sub-icon">
+                  <img src="/images/category.svg" alt="출결 정정 요청">
+                </span>
+                <span class="sub-text">출결 정정 요청</span>
+              </a>
+          </li>
+          <li>
             <a href="/going-out">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="외출/조퇴 신청">
+                <img src="/images/category.svg" alt="외출 신청">
               </span>
-              <span class="sub-text">외출/조퇴 신청</span>
+              <span class="sub-text">외출 신청</span>
             </a>
           </li>
           <li>
@@ -172,17 +180,9 @@ function createSidebar() {
               </li>
             </ul>
           </li>
-          <li>
-            <a href="/status">
-              <span class="sub-icon">
-                <img src="/images/category.svg" alt="신청 현황">
-              </span>
-              <span class="sub-text">신청 현황</span>
-            </a>
-          </li>
         </ul>
-      </li>
-    </div>
+        </li>
+      </div>
   `
 
   // 모든 서브메뉴에서 visible 클래스 제거

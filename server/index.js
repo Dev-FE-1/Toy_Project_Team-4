@@ -7,10 +7,7 @@ import cors from "cors"
 import { fileURLToPath } from "url"
 import { dirname } from "path"
 import libre from "libreoffice-convert"
-import path from "path" //추가된 코드
 import multer from "multer" //추가된 코드
-import cors from "cors" // 추가된 코드
-import { fileURLToPath } from "url" // 추가된 코드
 import database from "./database.js"
 
 const THRESHOLD = 2000

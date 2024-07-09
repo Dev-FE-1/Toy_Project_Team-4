@@ -1,0 +1,17 @@
+{
+  "request": [
+    {
+      "id": 1720501728335,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-27",
+      "status": "rejected",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-27_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-10",
+      "submitTime": "14:08",
+      "userId": "undefined",
+      "rejectReason": "서류 미비"
+    }
+  ]
+}

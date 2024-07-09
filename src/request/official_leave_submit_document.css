@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 
-.vacation-container {
+.official_leave_submit_document-container {
   width: 90%;
   height: 90%;
   background-color: #fff;
@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.vacation-container .vacation-icon {
+.official-leave-icon {
   width: 80px;
   height: 80px;
   vertical-align: middle;
@@ -22,7 +22,7 @@
   margin-right: 40px;
 }
 
-.vacation-container h1 {
+.official_leave_submit_document-container h1 {
   font-size: 2rem;
   font-weight: 500;
   color: #222;
@@ -31,13 +31,13 @@
   text-align: left;
 }
 
-.vacation-both-container {
+.official_leave_submit_document-both-container {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
 
-.vacation-process-container {
+.official_leave_submit_document-process-container {
   flex: 2;
   background-color: #fff;
   padding: 20px;
@@ -46,7 +46,7 @@
   margin-right: 20px;
 }
 
-.vacation-process-container h2 {
+.official_leave_submit_document-process-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -54,21 +54,20 @@
   margin-bottom: 20px;
 }
 
-.vacation-process-list {
+.official_leave_submit_document-process-list {
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 10px;
   text-align: left;
-  /* height: 515px; */
 }
 
-.vacation-process-list h3 {
+.official_leave_submit_document-process-list h3 {
   color: #222;
   border-bottom: 2px solid #d6d6d6;
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 15px; 
-  margin-top: 20px; 
+  margin-bottom: 15px;
+  margin-top: 20px;
   padding-bottom: 5px;
 }
 
@@ -80,7 +79,7 @@
   margin-top: 20px;
 }
 
-.vacation-process-list a {
+.official_leave_submit_document-process-list a {
   color: rgb(20, 93, 251);
   text-decoration: none;
   font-weight: 700;
@@ -89,60 +88,29 @@
   margin-bottom: 10px;
 }
 
-.vacation-process-list a:hover {
+.official_leave_submit_document-process-list a:hover {
   text-decoration: underline;
 }
 
-.vacation-process-list .material-symbols-outlined {
+.official_leave_submit_document-process-list .material-symbols-outlined {
   color: rgb(20, 93, 251);
   margin-right: 8px;
   vertical-align: middle;
   margin-bottom: 13px;
 }
 
-.vacation-process-list .ex {
+.official_leave_submit_document-process-list .ex {
   color: #ed234b;
   font-weight: 500;
 }
 
-.vacation-process-list p {
+.official_leave_submit_document-process-list p {
   margin-top: 10px;
-  margin-bottom: 10px; 
-  line-height: 1.5; 
-}
-
-.vacation-process-list a {
-  display: block; 
-  margin-top: 0; 
-  margin-bottom: 10px; 
-  font-weight: 500;
-}
-
-.vacation-date-container {
-  margin-bottom: 20px; 
-  display: flex;
-  flex-direction: column;
-}
-
-.vacation-date-container label {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #222;
-  display: block;
-  margin: 20px 0 10px;
-  text-align: left;
-  margin-top: 20px;
   margin-bottom: 10px;
+  line-height: 1.5;
 }
 
-.vacation-date-container input[type="date"] {
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.vacation-status-container {
+.official_leave_submit_document-status-container {
   flex: 3;
   background-color: #fff;
   padding: 20px;
@@ -151,13 +119,7 @@
   flex-direction: column;
 }
 
-.vacation-status-container .vacation-status-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.vacation-status-header {
+.official_leave_submit_document-status-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -176,7 +138,7 @@
   opacity: 0.7;
 }
 
-.vacation-status-header span {
+.official_leave_submit_document-status-header span {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -185,20 +147,20 @@
   margin-left: 10px;
 }
 
-.vacation-status-date-range {
+.official_leave_submit_document-status-date-range {
   position: static;
   right: auto;
   top: auto;
 }
 
-.vacation-status-date-range .date-input {
+.official_leave_submit_document-status-date-range .date-input {
   border: 1px solid #d6d6d6;
   border-radius: 5px;
   padding: 5px;
   margin: 0 5px;
 }
 
-.vacation-status-date-range .date-input:focus {
+.official_leave_submit_document-status-date-range .date-input:focus {
   border-color: #ED234B;
   outline: none;
 }
@@ -209,23 +171,23 @@
   min-height: 300px;
 }
 
-.vacation-status-container .status-table {
+.official_leave_submit_document-container .status-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; 
+  table-layout: fixed;
 }
 
-.vacation-status-container .status-table th,
-.vacation-status-container .status-table td {
+.official_leave_submit_document-container .status-table th,
+.official_leave_submit_document-container .status-table td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #efefef;
-  height: 50px; 
-  overflow: hidden; 
-  white-space: nowrap; 
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.vacation-status-container .status-table th {
+.official_leave_submit_document-container .status-table th {
   border-top: 1px solid #efefef;
   font-size: 14px;
   font-weight: normal;
@@ -234,42 +196,41 @@
   background-color: #f2f2f2;
 }
 
-.vacation-status-container .status-pending,
-.vacation-status-container .status-approved,
-.vacation-status-container .status-rejected,
-.vacation-status-container .cancel-button {
+.official_leave_submit_document-container .status-pending,
+.official_leave_submit_document-container .status-approved,
+.official_leave_submit_document-container .status-rejected,
+.official_leave_submit_document-container .cancel-button {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
 
-.vacation-status-container .status-pending {
+.official_leave_submit_document-container .status-pending {
   background-color: #bababa;
   color: #fff;
 }
 
-.vacation-status-container .status-approved {
+.official_leave_submit_document-container .status-approved {
   background-color: #D9F7E7;
   color: #30A164;
 }
 
-.vacation-status-container .status-rejected {
+.official_leave_submit_document-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
 }
 
-.vacation-status-container .cancel-button {
+.official_leave_submit_document-container .cancel-button {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.vacation-status-container .cancel-button:hover {
+.official_leave_submit_document-container .cancel-button:hover {
   opacity: 0.5;
 }
-
 
 .pagination {
   display: flex;
@@ -313,11 +274,11 @@
   cursor: default;
 }
 
-.vacation-modal-btn-container {
+.official_leave_submit_document-modal-btn-container {
   margin-top: 0;
 }
 
-.vacation-modal-btn {
+.official_leave_submit_document-modal-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -332,20 +293,20 @@
   margin-top: 40px;
 }
 
-.vacation-modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
+.official_leave_submit_document-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
-.vacation-modal-content {
+.official_leave_submit_document-modal-content {
   background-color: #fff;
   padding: 40px;
   width: 35%;
@@ -357,7 +318,7 @@
   transform: translate(-50%, -50%);
 }
 
-.vacation-modal-close-btn {
+.official_leave_submit_document-modal-close-btn {
   color: #ababab;
   float: right;
   font-size: 30px;
@@ -367,14 +328,14 @@
   right: 15px;
 }
 
-.vacation-modal-close-btn:hover,
-.vacation-modal-close-btn:focus {
+.official_leave_submit_document-modal-close-btn:hover,
+.official_leave_submit_document-modal-close-btn:focus {
   color: #ed234b;
   text-decoration: none;
   cursor: pointer;
 }
 
-.vacation-form-container h2 {
+.official_leave_submit_document-form-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -382,20 +343,8 @@
   margin-bottom: 20px;
 }
 
-.vacation-form-container .vacation-date-container input[type="date"] {
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.vacation-form-container .vacation-date-container input[type="date"]:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.vacation-form-container .vacation-submit-section .vacation-pdf-container input[type="file"],
-.vacation-form-container .vacation-submit-section .vacation-zip-container input[type="file"]{
+.official_leave_submit_document-submit-all-section input[type="date"],
+.official_leave_submit_document-reason textarea {
   width: 100%;
   padding: 10px;
   margin: auto;
@@ -404,81 +353,24 @@
   box-sizing: border-box;
 }
 
-.vacation-form-container .vacation-submit-all-section input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  margin: auto;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.vacation-form-container .vacation-submit-all-section input[type="file"]:focus {
+.official_leave_submit_document-submit-all-section input[type="date"]:focus,
+.official_leave_submit_document-reason textarea:focus {
   border-color: #ED234B;
   outline: none;
 }
 
-.vacation-form-container .convert-press-container label {
+.official_leave_submit_document-submit-all-section label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;
   margin: 20px 0 10px;
   text-align: left;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.vacation-form-container .vacationSubmitForm label {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #222;
-  display: block;
-  margin: 20px 0 10px;
-  text-align: left;
-}
-
-.vacation-form-container .convert-press-container .vacation-pdf-container,
-.vacation-form-container .convert-press-container .vacation-zip-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-#fileInput,
-#wordFile {
-  flex: 1;
-  width: 70%;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-#fileInput:focus,
-#wordFile:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.convertpdf,
-.createzip {
-  margin-right: 0;
-  color: #fff;
-  background-color: #ed234b;
-  width: 20%;
-  height: 35px;
-  border-radius: 10px;
-  border: 1px solid #ed234b;
-  margin-bottom: 10px;
-  padding: 2px 8px 4px;
-}
-
-.convertpdf:hover,
-.createzip:hover {
-  opacity: 0.7;
-}
-
-.vacationSubmitForm .vacation-btn {
+.official_leave_submit_document-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -491,11 +383,6 @@
   display: block;
   margin: auto;
   margin-top: 40px;
-}
-
-.vacation-modal-btn:hover,
-.vacationSubmitForm .vacation-btn:hover {
-  opacity: 0.7;
 }
 
 ::-webkit-scrollbar {
@@ -511,3 +398,4 @@
   background-color: #ed234b;
   border-radius: 10px;
 }
+

@@ -12,23 +12,23 @@ export function todolist () {
           <h4>오늘의 업무</h4>
           <div class="todolist-wrap">
             <div class="todo">
-              <a href="javascript:void(0)"></a>
+              <a href="/manager-going-out"></a>
               <div class="img-wrap">
-                <img src="" alt="외출/조퇴"/>
+                <img src="" alt="외출/조퇴" />
               </div>
               <p>대기 중인 외출/조퇴 신청 건이 <span class="case">03</span> 건 입니다.</p>
             </div>
             <div class="todo">
-              <a href="javascript:void(0)"></a>
+              <a href="/manager-vacation"></a>
               <div class="img-wrap">
-                <img src="" alt="외출/조퇴"/>
+                <img src="" alt="휴가" />
               </div>
               <p>대기 중인 휴가 신청 건이 <span class="case"></span> 건 입니다.</p>
             </div>
             <div class="todo">
-              <a href="javascript:void(0)"> </a>
+              <a href="/manager-public-house"> </a>
               <div class="img-wrap">
-                <img src="" alt="외출/조퇴"/>
+                <img src="" alt="공가" />
               </div>
               <p>대기 중인 공가 신청 건이 <span class="case"></span> 건 입니다.</p>
             </div>

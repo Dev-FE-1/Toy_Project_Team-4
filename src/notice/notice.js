@@ -21,6 +21,10 @@ export function loadNotice() {
           </div>
         </div>
         <div class="notice-bottom">
+        <div class="text">
+        <span class="material-symbols-outlined">campaign</span>
+        <h4>공지사항 클릭해서 펼쳐보기</h4>
+        </div>
         <ul class="post-list"></ul>
         <div class="loading-container" id="loadingOverlay">
           <div class="loading-animation">
@@ -29,11 +33,11 @@ export function loadNotice() {
             <div class="loading-dot"></div>
           </div>
         </div>
-          <div class="pagination-container">
-            <button class="prev-button"><</button>
-            <div class="number-btn-wrapper"></div>
-            <button class="next-button class">></button>
-          </div>
+        </div>
+        <div class="pagination-container">
+          <button class="prev-button"><</button>
+          <div class="number-btn-wrapper"></div>
+          <button class="next-button class">></button>
         </div>
       </section>
   `
@@ -85,7 +89,7 @@ const setPageButtons = () => {
     const btnFocus = document.querySelector(".btnFocus")
     btnFocus.addEventListener("click", function () {
       getPost(btnFocus.textContent)
-      changeBtn()
+      changeBtn(btnFocus.textContent)
       arrBtn()
     })
 
@@ -94,7 +98,7 @@ const setPageButtons = () => {
       numberBtn.forEach((btnItem) => {
         btnItem.addEventListener("click", function () {
           getPost(btnItem.textContent)
-          changeBtn()
+          changeBtn(btnItem.textContent)
           arrBtn()
         })
       })
@@ -124,14 +128,23 @@ function completeBtnChange(completeBtn) {
 }
 
 //페이지 번호 버튼 색상 바꾸기
-const changeBtn = () => {
+const changeBtn = (clickBtnNum) => {
   const btnFocus = document.querySelector(".btnFocus")
   const nonFocusBtn = document.querySelectorAll(".number-btn")
-
-  btnFocus.className = "pagebtn number-btn"
-  nonFocusBtn.forEach(function (nonFocusItem) {
-    nonFocusItem.className = "pagebtn btnFocus"
+  let findFocusBtn = []
+  nonFocusBtn.forEach((item) => {
+    findFocusBtn.push(item.textContent)
   })
+  for (let i = 0; i < findFocusBtn.length; i++) {
+    if (String(clickBtnNum) === findFocusBtn[i]) {
+      btnFocus.className = "pagebtn number-btn"
+      nonFocusBtn.forEach((nonFocusItem) => {
+        if (nonFocusItem.textContent === findFocusBtn[i]) {
+          nonFocusItem.className = "pagebtn btnFocus"
+        }
+      })
+    }
+  }
 }
 
 // 이전,이후 버튼 이벤트리스너
@@ -141,11 +154,11 @@ const arrToChange = (arrowType) => {
   if (arrowType == "prev") {
     const prevNum = Number(btnFocus.textContent) - 1
     getPost(prevNum)
-    changeBtn()
+    changeBtn(prevNum)
   } else {
     const nextNum = Number(btnFocus.textContent) + 1
     getPost(nextNum)
-    changeBtn()
+    changeBtn(nextNum)
   }
   arrBtn()
 }
@@ -167,6 +180,9 @@ const arrBtn = () => {
     prevBtn.classList.remove("color")
   } else if (Number(btnFocus.textContent) == maxNum) {
     nextBtn.classList.remove("color")
+    prevBtn.classList.add("color")
+  } else {
+    nextBtn.classList.add("color")
     prevBtn.classList.add("color")
   }
 }
@@ -209,7 +225,12 @@ const setPost = (postData) => {
                 <p class="post-content">${postData[i].content}</p>
               </div>
               <div class="post-bottom">
-                <p class="userName">${postData[i].userName}</p>
+                <div class="writer">
+                  <div class="img-wrap">
+                    <img src="${postData[i].userImg}" alt="매니저 이미지" />
+                  </div>
+                  <p class="userName">${postData[i].userName}</p>
+                </div>
                 <button class="complete">Complete</button>
               </div>
             </div>
@@ -218,11 +239,25 @@ const setPost = (postData) => {
           `
     }
   }
-
   const completeBtns = document.querySelectorAll(".complete")
   completeBtns.forEach((completeBtn) => {
     completeBtn.addEventListener("click", () => {
       completeBtnChange(completeBtn)
     })
   })
+
+  document.querySelectorAll(".post-content").forEach((item) => {
+    item.addEventListener("click", () => {
+      findClickedP(item)
+    })
+  })
+}
+
+// 공지사항 열고 닫기
+export const findClickedP = (item) => {
+  if (item.classList.length < 2) {
+    item.classList.add("changeDisplay")
+  } else {
+    item.classList.remove("changeDisplay")
+  }
 }

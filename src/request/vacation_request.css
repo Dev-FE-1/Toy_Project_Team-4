@@ -1,91 +1,513 @@
-.vacation_request_container {
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+.vacation-container {
   width: 90%;
   height: 90%;
   background-color: #fff;
-  padding: 40px;
+  padding: 20px 40px;
   border-radius: 10px;
-  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border: 1px solid #f2f2f2;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow-y: auto;
 }
 
-.vacation_request_container h2 {
+.vacation-container .vacation-icon {
+  width: 80px;
+  height: 80px;
+  vertical-align: middle;
+  margin-left: 30px;
+  margin-right: 40px;
+}
+
+.vacation-container h1 {
   font-size: 2rem;
+  font-weight: 500;
   color: #222;
+  margin-top: 0;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 
-.vacation_request_container .downloads {
+.vacation-both-container {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
-.vacation_request_container .download-link {
-  display: block;
-  color: #ed234b;
-  text-decoration: none;
+.vacation-process-container {
+  flex: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #f2f2f2;
+  margin-right: 20px;
 }
 
-.vacation_request_container .file-subsection {
+.vacation-process-container h2 {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.vacation_request_container .file-input-container {
+.vacation-process-list {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  /* height: 515px; */
+}
+
+.vacation-process-list h3 {
+  color: #222;
+  border-bottom: 2px solid #d6d6d6;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 15px; 
+  margin-top: 20px; 
+  padding-bottom: 5px;
+}
+
+.download-link-container {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 20px;
 }
 
-#convert_to_pdf,
-#compress_to_zip {
-  flex: 1;
+.vacation-process-list a {
+  color: rgb(20, 93, 251);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.vacation-process-list a:hover {
+  text-decoration: underline;
+}
+
+.vacation-process-list .material-symbols-outlined {
+  color: rgb(20, 93, 251);
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-bottom: 13px;
+}
+
+.vacation-process-list .ex {
+  color: #ed234b;
+  font-weight: 500;
+}
+
+.vacation-process-list p {
+  margin-top: 10px;
+  margin-bottom: 10px; 
+  line-height: 1.5; 
+}
+
+.vacation-process-list a {
+  display: block; 
+  margin-top: 0; 
+  margin-bottom: 10px; 
+  font-weight: 500;
+}
+
+.vacation-date-container {
+  margin-bottom: 20px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-date-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.vacation-date-container input[type="date"] {
   padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #ababab;
+  border: 1px solid #ABABAB;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-.vacation_request_container .file-action-btn {
-  width: 100px;
-  padding: 10px;
-  background-color: #ed234b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+.vacation-status-container {
+  flex: 3;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
-.vacation_request_container .file-action-btn:hover {
+.vacation-status-container .vacation-status-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.red-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ed234b;
+  border-radius: 50%;
+  margin-right: 20px;
+  vertical-align: middle;
   opacity: 0.7;
 }
 
-#all_file {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  border: 1px solid #ababab;
-  border-radius: 5px;
-  box-sizing: border-box;
+.vacation-status-header span {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  position: static;
+  transform: none;
+  margin-left: 10px;
 }
 
-.vacation_request_container button {
+.vacation-status-date-range {
+  position: static;
+  right: auto;
+  top: auto;
+}
+
+.vacation-status-date-range .date-input {
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.vacation-status-date-range .date-input:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.status-table-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 300px;
+}
+
+.vacation-status-container .status-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+.vacation-status-container .status-table th,
+.vacation-status-container .status-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #efefef;
+  height: 50px; 
+  overflow: hidden; 
+  white-space: nowrap; 
+}
+
+.vacation-status-container .status-table th {
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+  vertical-align: middle;
+  background-color: #f2f2f2;
+}
+
+.vacation-status-container .status-pending,
+.vacation-status-container .status-approved,
+.vacation-status-container .status-rejected,
+.vacation-status-container .cancel-button {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.vacation-status-container .status-pending {
+  background-color: #bababa;
+  color: #fff;
+}
+
+.vacation-status-container .status-approved {
+  background-color: #D9F7E7;
+  color: #30A164;
+}
+
+.vacation-status-container .status-rejected {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+.vacation-status-container .cancel-button {
+  background-color: #ed234b;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.vacation-status-container .cancel-button:hover {
+  opacity: 0.5;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  min-height: 40px;
+}
+
+.page-button {
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  background-color: #fff;
+  color: #ababab;
+  border: none;
+  cursor: pointer;
+}
+
+.page-button-active {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.page-arrow {
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #f26581;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.page-arrow-disabled {
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
+  cursor: default;
+}
+
+.vacation-modal-btn-container {
+  margin-top: 0;
+}
+
+.vacation-modal-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 1rem;
-  background-color: #ed234b;
+  background-color: #ED234B;
   color: #fff;
   width: 50%;
   text-align: center;
   display: block;
   margin: auto;
+  margin-top: 40px;
 }
 
-.vacation_request_container button:hover {
+.vacation-modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4);
+}
+
+.vacation-modal-content {
+  background-color: #fff;
+  padding: 40px;
+  width: 35%;
+  height: 60%;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vacation-modal-close-btn {
+  color: #ababab;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.vacation-modal-close-btn:hover,
+.vacation-modal-close-btn:focus {
+  color: #ed234b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vacation-form-container h2 {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.vacation-form-container .vacation-date-container input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.vacation-form-container .vacation-date-container input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-form-container .vacation-submit-section .vacation-pdf-container input[type="file"],
+.vacation-form-container .vacation-submit-section .vacation-zip-container input[type="file"]{
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.vacation-form-container .vacation-submit-all-section input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.vacation-form-container .vacation-submit-all-section input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-form-container .convert-press-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.vacation-form-container .vacationSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-form-container .convert-press-container .vacation-pdf-container,
+.vacation-form-container .convert-press-container .vacation-zip-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#fileInput,
+#wordFile {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#fileInput:focus,
+#wordFile:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.convertpdf,
+.createzip {
+  margin-right: 0;
+  color: #fff;
+  background-color: #ed234b;
+  width: 20%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #ed234b;
+  margin-bottom: 10px;
+  padding: 2px 8px 4px;
+}
+
+.convertpdf:hover,
+.createzip:hover {
   opacity: 0.7;
+}
+
+.vacationSubmitForm .vacation-btn {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.vacation-modal-btn:hover,
+.vacationSubmitForm .vacation-btn:hover {
+  opacity: 0.7;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d6d6d6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ed234b;
+  border-radius: 10px;
 }

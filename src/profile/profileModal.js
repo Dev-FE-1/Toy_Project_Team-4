@@ -36,6 +36,7 @@ const setlocalStorage = () => {
   const profilemodal = document.querySelector(".profilemodalpage")
   profilemodal.classList.remove("active")
   const userProfileInfo = {
+    userPhone: document.querySelector("#userPhone").value,
     userUrl: document.querySelector("#userUrl").value,
     userIntro: document.querySelector("#userIntro").value,
   }

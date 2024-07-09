@@ -88,7 +88,7 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages3.jpg",
+      "background": "/public/images/backgroundimages5.jpeg",
       "profileImage": "/public/images/강동원.jpg"
     },
     {
@@ -98,7 +98,7 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages4.jpg",
+      "background": "/public/images/backgroundimages6.jpeg",
       "profileImage": "/public/images/변요한.jpg"
     },
     {
@@ -108,7 +108,7 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages2.jpg",
+      "background": "/public/images/backgroundimages7.jpeg",
       "profileImage": "/public/images/비숑.jpg"
     },
     {
@@ -118,18 +118,188 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages1.jpg",
+      "background": "/public/images/backgroundimages8.jpg",
       "profileImage": "/public/images/공유.jpg"
     },
     {
       "id": 13,
-      "name": "김태희",
-      "email": "th12@gmail.com",
+      "name": "팜하니",
+      "email": "hani12@gmail.com",
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
+      "background": "/public/images/backgroundimages9.jpg",
+      "profileImage": "/public/images/팜하니.jpg"
+    },
+    {
+      "id": 14,
+      "name": "김수현",
+      "email": "tngus22@gmail.com",
+      "pw": "1234",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages10.jpg",
+      "profileImage": "/public/images/김수현.jpg"
+    },
+    {
+      "id": 15,
+      "name": "구교환",
+      "email": "gyoh@gmail.com",
+      "pw": "1234",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages11.jpg",
+      "profileImage": "/public/images/구교환.jpg"
+    },
+    {
+      "id": 16,
+      "name": "김지수",
+      "email": "blackpink@gmail.com",
+      "pw": "1234",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages12.jpg",
+      "profileImage": "/public/images/김지수.jpg"
+    },
+    {
+      "id": 17,
+      "name": "김지원",
+      "email": "jiwonkim@gmail.com",
+      "pw": "1234",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages13.jpg",
+      "profileImage": "/public/images/김지원.jpg"
+    },
+    {
+      "id": 18,
+      "name": "도경수",
+      "email": "dododo@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages14.jpg",
+      "profileImage": "/public/images/도경수.jpg"
+    },
+    {
+      "id": 19,
+      "name": "박보검",
+      "email": "boggg@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages15.jpg",
+      "profileImage": "/public/images/박보검.jpg"
+    },
+    {
+      "id": 20,
+      "name": "배수지",
+      "email": "sujiji@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages3.jpg",
+      "profileImage": "/public/images/배수지.jpg"
+    },
+    {
+      "id": 21,
+      "name": "고윤정",
+      "email": "yoonj@gmail.com",
+      "pw": "1111",
+      "phone": "010-1234-5678",
+      "userType": "student",
       "background": "/public/images/backgroundimages4.jpg",
-      "profileImage": "/public/images/user1.png"
+      "profileImage": "/public/images/고윤정.jpg"
+    },
+    {
+      "id": 22,
+      "name": "변우석",
+      "email": "wooooos@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages6.jpeg",
+      "profileImage": "/public/images/변우석.jpg"
+    },
+    {
+      "id": 23,
+      "name": "손석구",
+      "email": "vvvvvv@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages1.jpg",
+      "profileImage": "/public/images/손석구.jpg"
+    },
+    {
+      "id": 24,
+      "name": "신세경",
+      "email": "sssssssin@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages2.jpg",
+      "profileImage": "/public/images/신세경.jpg"
+    },
+    {
+      "id": 25,
+      "name": "이도현",
+      "email": "lovejiyeon@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages5.jpeg",
+      "profileImage": "/public/images/이도현.jpg"
+    },
+    {
+      "id": 26,
+      "name": "임지연",
+      "email": "lovedohyeon@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages7.jpeg",
+      "profileImage": "/public/images/임지연.jpg"
+    },
+    {
+      "id": 27,
+      "name": "정해인",
+      "email": "jeong11@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages8.jpg",
+      "profileImage": "/public/images/정해인.jpg"
+    },
+    {
+      "id": 28,
+      "name": "차은우",
+      "email": "namsin@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages10.jpg",
+      "profileImage": "/public/images/차은우.jpg"
+    },
+    {
+      "id": 29,
+      "name": "최우식",
+      "email": "giyom2@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages9.jpg",
+      "profileImage": "/public/images/최우식.jpg"
+    },
+    {
+      "id": 30,
+      "name": "카리나",
+      "email": "aespa@gmail.com",
+      "pw": "0000",
+      "phone": "010-1234-5678",
+      "userType": "student",
+      "background": "/public/images/backgroundimages14.jpg",
+      "profileImage": "/public/images/카리나.jpg"
     }
   ]
 }

@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
 #signup-main {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.wrapper {
+#signup-main .wrapper {
   width: 500px;
-  height: 800px;
   place-items: center;
   display: flex;
   align-items: center;
@@ -15,12 +16,12 @@
   background-color: #fff;
 }
 /* 상단 */
-.wrapper .signupTop {
+#signup-main .wrapper .signupTop {
   width: 500px;
   height: 80px;
-  margin: 30px 0 0 90px;
+  margin: 10px 0 0 90px;
 }
-.logoNtext {
+#signup-main .logoNtext {
   display: flex;
 }
 .signupTop img {
@@ -45,12 +46,12 @@
   font-size: 14px;
 }
 #signupForm .choice input {
-  margin: 30px 10px 20px;
+  margin: 20px 10px 20px;
   accent-color: #ed234b;
   cursor: pointer;
 }
 #signupForm .choice #managerCode #code {
-  height: 35px;
+  height: 30px;
   width: 100px;
   margin: 0 0 0 30px;
   border: 1px solid #ababab;
@@ -60,7 +61,7 @@
 }
 
 #signupForm div .name {
-  margin: 15px 0 25px;
+  margin: 10px 0 20px;
   height: 42px;
   width: 400px;
   border: 1px solid #ababab;
@@ -101,32 +102,31 @@
   display: block;
   color: #ed234b;
 }
-#signupForm .newUsersPw {
+#signupForm .newUsersPw,
+#signupForm .newUsersPw2,
+#signupForm .phone {
   display: flex;
   flex-direction: column;
 }
 #signupForm .newUsersPw input,
-#signupForm .newUsersPw2 input {
+#signupForm .newUsersPw2 input,
+#signupForm .phone input {
   height: 42px;
   padding: 0 25px;
-  margin: 25px 0 5px;
+  margin: 20px 0 5px;
   outline: none;
   border: 1px solid #ababab;
   border-radius: 5px;
-}
-#signupForm .newUsersPw2 {
-  display: flex;
-  flex-direction: column;
 }
 /* 개인정보 */
 #signupForm .consent {
   color: #222;
   display: block;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 #signupForm .consentText {
   width: 400px;
-  height: 120px;
+  height: 110px;
   border: 1px solid #ababab;
   box-sizing: border-box;
   padding: 10px;
@@ -147,13 +147,13 @@
   display: flex;
   color: #222;
 }
-#signupForm .consentCheck input {
-  margin: 0 5px;
+#signupForm .consentCheck label {
+  margin: 2px 5px;
   accent-color: #ed234b;
   cursor: pointer;
 }
 #signupForm .submitBtnArea {
-  height: 100px;
+  height: 90px;
   display: flex;
   justify-content: center;
   align-items: center;

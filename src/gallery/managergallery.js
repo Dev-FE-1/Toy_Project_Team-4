@@ -1,7 +1,6 @@
-
 import "./gallery.css"
 import "../inquiryBoard/InquiryBoard.css"
-import { getgalleryList, displayCards, setupPagination, currentPage, cards, sortCards, initializeSortElement } from "./gallery.js"
+import { getgalleryList, displayCards, setupPagination, currentPage, cards, sortCards } from "./gallery.js"
 
 // DOMContentLoaded 이벤트 핸들러 내에서 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,11 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export function managerloadGallery() {
   const app = document.getElementById("app")
-
-  if (!app) {
-    console.error("App element not found");
-    return;
-  }
 
   app.innerHTML = `
         <div class="gallery_container">
@@ -69,7 +63,6 @@ export function managerloadGallery() {
 
   // 초기 카드 정렬 및 표시
   getgalleryList().then(cardsData => {
-    console.log("Gallery Data:", cardsData); // 확인용 로그
     cards.length = 0; // 기존 cards 배열 초기화
     cards.push(...cardsData); // 새로운 데이터로 cards 배열 갱신
     sortCards(cards, "latest"); // 최신순으로 정렬
@@ -77,13 +70,11 @@ export function managerloadGallery() {
     setupPagination(cards, currentPage, true);
     addDeleteEventListeners(); // 삭제 버튼 이벤트 리스너 추가
   }).catch(err => {
-    console.error("Error loading gallery list:", err);
+    // console.error("Error loading gallery list:", err);
   })
   setupModalEvents();
   setupFormEvents();
-  initializeSortElement(); // 정렬 요소 초기화
 }
-
 
 // 폼 관련 이벤트 설정 함수
 function setupFormEvents() {

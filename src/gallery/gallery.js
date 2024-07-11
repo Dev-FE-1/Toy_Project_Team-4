@@ -59,20 +59,15 @@ export function loadGallery() {
 }
 
 export function initializeSortElement() {
-  const sortElement = document.getElementById("sort");
+  const sortElement = document.getElementById("sort")
 
-  if (!sortElement) {
-    console.error("Sort element not found");
-    return;
-  }
-
-  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value));
+  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value))
   sortElement.addEventListener("focus", function () {
-    this.style.border = "2px solid #ED234B";
-  });
+    this.style.border = "2px solid #ED234B"
+  })
   sortElement.addEventListener("blur", function () {
-    this.style.border = "1px solid #ABABAB";
-  });
+    this.style.border = "1px solid #ABABAB"
+  })
 }
 
 // gallery.json 데이터 가져오기
@@ -85,10 +80,8 @@ export async function getgalleryList() {
 
     // res.data가 배열인지 확인
     if (Array.isArray(res.data)) {
-      console.log("Gallery Data:", res.data); // 콘솔 로그 추가
       return res.data
     } else if (res.data.data && Array.isArray(res.data.data)) {
-      console.log("Gallery Data:", res.data.data); // 콘솔 로그 추가
       return res.data.data
     } else {
       throw new Error("Invalid data format")
@@ -106,12 +99,6 @@ let currentSort = "latest"
 
 export function displayCards(cards, page, forManager = false) {
   const cardGrid = document.getElementById("card-grid");
-
-  if (!cardGrid) {
-    console.error("Card grid element not found");
-    return;
-  }
-
   cardGrid.innerHTML = "";
   const start = (page - 1) * cardsPerPage;
   const end = page * cardsPerPage;

@@ -11,10 +11,8 @@ export function profile() {
       <div class="profileArea">
         <div class="profile-top">
           <div class="user-img"></div>
-          <button id="uploadButton"><span class="material-symbols-outlined">
-photo_camera
-</span></button>
-<input type="file" id="fileInput" style="display: none;">
+          <button id="uploadButton"><span class="material-symbols-outlined">photo_camera</span></button>
+          <input type="file" id="profileInput" style="display: none;">
         </div>
         <div class="profile-bottom">
           <div>
@@ -57,9 +55,9 @@ photo_camera
     loadprofilemodal()
   })
   document.getElementById("uploadButton").addEventListener("click", () => {
-    document.getElementById("fileInput").click()
+    document.getElementById("profileInput").click()
   })
-  document.getElementById("fileInput").addEventListener("change", () => {
+  document.getElementById("profileInput").addEventListener("change", () => {
     profileEdit()
   })
 
@@ -101,7 +99,7 @@ async function getUserInfo() {
 }
 
 async function profileEdit() {
-  const fileInput = document.getElementById("fileInput")
+  const fileInput = document.getElementById("profileInput")
   const file = fileInput.files[0]
   const res = await axios.get("/api/users.json")
   const users = res.data.data
@@ -111,7 +109,7 @@ async function profileEdit() {
       userId = user.id
     }
   }
-  //////////////
+
   if (userId) {
     if (file) {
       const formData = new FormData()

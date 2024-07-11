@@ -2,6 +2,8 @@ import "./profile.css"
 import axios from "axios"
 import { loadModal, loadprofilemodal } from "./profileModal"
 
+const getlocalStorage = JSON.parse(localStorage.getItem("userInfo"))
+
 export function profile() {
   const app = document.querySelector("#app")
   app.innerHTML = `
@@ -9,6 +11,10 @@ export function profile() {
       <div class="profileArea">
         <div class="profile-top">
           <div class="user-img"></div>
+          <button id="uploadButton"><span class="material-symbols-outlined">
+photo_camera
+</span></button>
+<input type="file" id="fileInput" style="display: none;">
         </div>
         <div class="profile-bottom">
           <div>
@@ -31,9 +37,6 @@ export function profile() {
             <span class="material-symbols-outlined"> campaign </span>
             <textarea id="userIntro" type="text" placeholder="간단한 자기소개를 작성해주세요." /></textarea>
           </div>
-          <input type="file" id="fileUpload" />
-          <button id="uploadBtn">사진 업로드</button>
-          <button id="deleteBtn">사진 삭제</button>
           <button id="localStorageBtn">수정하기</button>
         </div>
         <div class="profilemodal"></div>
@@ -53,9 +56,12 @@ export function profile() {
   setlocalStorageBtn.addEventListener("click", () => {
     loadprofilemodal()
   })
-
-  document.getElementById('uploadBtn').addEventListener('click', uploadFile);
-  document.getElementById('deleteBtn').addEventListener('click', deleteFile);
+  document.getElementById("uploadButton").addEventListener("click", () => {
+    document.getElementById("fileInput").click()
+  })
+  document.getElementById("fileInput").addEventListener("change", () => {
+    profileEdit()
+  })
 
   return app
 }
@@ -75,7 +81,6 @@ async function getUserInfo() {
   const users = res.data.data
 
   // 로그인시 저장된 로컬스토리지 값 가져오기
-  const getlocalStorage = JSON.parse(localStorage.getItem("userInfo"))
 
   for (let user of users) {
     if (user.email == getlocalStorage.userEmail) {
@@ -95,35 +100,34 @@ async function getUserInfo() {
   }
 }
 
-async function uploadFile() {
-  const fileInput = document.getElementById('fileUpload');
-  const formData = new FormData();
-  formData.append('file', fileInput.files[0]);
+async function profileEdit() {
+  const fileInput = document.getElementById("fileInput")
+  const file = fileInput.files[0]
+  const res = await axios.get("/api/users.json")
+  const users = res.data.data
+  let userId = ""
+  for (let user of users) {
+    if (user.email == getlocalStorage.userEmail) {
+      userId = user.id
+    }
+  }
+  //////////////
+  if (userId) {
+    if (file) {
+      const formData = new FormData()
+      formData.append("profileImage", file)
 
-  try {
-      const res = await axios.post('/upload', formData, {
-          headers: {
-              'Content-Type': 'multipart/form-data'
-          }
-      });
-      alert('File uploaded successfully!');
-  } catch (err) {
-      console.error('Upload failed:', err);
-      alert('Failed to upload file.');
+      fetch(`http://localhost:8080/profileImgs/${userId}`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.text())
+        .then(() => {
+          location.reload(true)
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
+    }
   }
 }
-
-async function deleteFile() {
-  const filename = prompt('Enter the filename to delete:');
-  if (!filename) return;
-
-  try {
-      const res = await axios.delete(`/delete/${filename}`);
-      alert('File deleted successfully!');
-  } catch (err) {
-      console.error('Delete failed:', err);
-      alert('Failed to delete file.');
-  }
-}
-
-

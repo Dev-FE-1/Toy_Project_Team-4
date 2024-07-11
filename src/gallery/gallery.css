@@ -144,7 +144,7 @@
 
 /* 관리자 모달 삭제 창 */
 
-.modal {
+div#deleteModal.modal {
   display: none; 
   position: fixed; 
   z-index: 1; 

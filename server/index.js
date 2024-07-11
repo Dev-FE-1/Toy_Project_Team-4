@@ -39,6 +39,7 @@ app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use((req, res, next) => {
   const delayTime = Math.floor(Math.random() * THRESHOLD)
@@ -734,7 +735,7 @@ app.post("/convert", async (req, res) => {
 })
 
 //---------공지모음갤러리 사진업로드----------
-app.post('/upload-gallery', (req, res) => {
+app.post('/upload', (req, res) => {
   if (!req.files || !req.files.image) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -744,7 +745,8 @@ app.post('/upload-gallery', (req, res) => {
 
   image.mv(uploadPath, (err) => {
     if (err) {
-      return res.status(500).send(err);
+      console.error("File upload failed:", err);
+      return res.status(500).json({ message: 'File upload failed', error: err });
     }
 
     const newEntry = {
@@ -755,34 +757,49 @@ app.post('/upload-gallery', (req, res) => {
       popularity: 0
     };
 
-    let galleryData;
-    try {
-      const data = fs.readFileSync(galleryDataFilePath, 'utf8');
-      galleryData = JSON.parse(data);
-    } catch (err) {
-      galleryData = { data: [] };
-    }
-
-    galleryData.data.push(newEntry);
-
-    try {
-      fs.writeFileSync(galleryDataFilePath, JSON.stringify(galleryData, null, 2), 'utf8');
-      res.status(200).json({ message: 'File uploaded successfully', filePath: newEntry.img });
-    } catch (err) {
-      res.status(500).json({ message: 'Failed to save entry', error: err.message });
-    }
+    const galleryData = readGalleryData();
+    galleryData.push(newEntry);
+    writeGalleryData(galleryData);
+    console.log("File uploaded:", image); // 로그 추가
+    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${path.basename(uploadPath)}` });
   });
 });
 
+// JSON 파일 경로
+// const galleryDataFilePath = path.join(__dirname, "./data/gallery.json");
+
+// JSON 파일에서 데이터 읽기
+function readGalleryData() {
+  try {
+    if (!fs.existsSync(galleryDataFilePath)) {
+      console.log("gallery.json file does not exist, creating new one.");
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
+    }
+    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+    const parsedData = JSON.parse(data);
+    console.log("Read gallery data:", parsedData);
+    return Array.isArray(parsedData.data) ? parsedData.data : [];
+  } catch (error) {
+    console.error("Error reading gallery data:", error);
+    return [];
+  }
+}
+
+// JSON 파일에 데이터 저장
+function writeGalleryData(data) {
+  try {
+    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
+  } catch (error) {
+    console.error("Error writing gallery data:", error);
+  }
+}
+
 // 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
-  try {
-    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
-    const galleryData = JSON.parse(data);
-    res.status(200).json(galleryData);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to read data", details: err.message });
-  }
+  const galleryData = readGalleryData();
+  console.log("Sending gallery data:", galleryData);
+  res.status(200).json(galleryData);
 });
 
 // 정적 파일 제공
@@ -791,13 +808,9 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 // 기존의 /api/gallery.json 엔드포인트 유지
 app.get("/api/gallery.json", (req, res) => {
-  try {
-    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
-    const galleryData = JSON.parse(data);
-    res.status(200).json(galleryData);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to read data", details: err.message });
-  }
+  const galleryData = readGalleryData();
+  console.log("Sending gallery data via /api/gallery.json:", galleryData);
+  res.status(200).json(galleryData);
 });
 //---------공지모음갤러리 사진업로드----------
 

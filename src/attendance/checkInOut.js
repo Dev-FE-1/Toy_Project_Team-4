@@ -1,58 +1,41 @@
-// export function loadCheckInOut() {
-//   requestAnimationFrame(() => {
-//     const toggleBtns = document.querySelectorAll("#attendance .toggle-btn")
-//     const overlay = document.querySelector(".overlay")
-//     const submitModalYesBtn = document.getElementById("submitModal")
-//     const closeModalNoBtn = document.getElementById("closeModal")
-//     const checkText = document.querySelector(".overlay .check")
+import axios from "axios"
 
-//     checkText.textContent = "입실"
+async function sendAttendanceData(type) {
+  const currentDate = new Date()
+  const date = currentDate.toISOString().split('T')[0]
+  const time = currentDate.toTimeString().split(' ')[0]
 
-//     toggleBtns.forEach((btn) => {
-//       btn.addEventListener("click", () => {
-//         // overlay 표시
-//         overlay.classList.add("active")
+  const data = {
+    date: date,
+    type: type,
+    time: time
+  }
 
-//         // .check의 텍스트 변경
-//         if (btn.classList.contains("checkin")) {
-//           checkText.textContent = "입실"
-//         } else if (btn.classList.contains("checkout")) {
-//           checkText.textContent = "퇴실"
-//         }
-//       })
-//     })
+  console.log("Sending request:", data);
 
-//     submitModalYesBtn.addEventListener("click", () => {
-//       toggleBtns.forEach((btn) => {
-//         // 현재 active 클래스를 가진 버튼의 active 클래스 제거
-//         if (btn.classList.contains("active")) {
-//           btn.classList.remove("active")
-//         } else {
-//           // 다른 버튼에 active 클래스 추가
-//           btn.classList.add("active")
-//         }
-//       })
+  try {
+    const response = await axios.post('/api/attendance', data)
+    return response.data
+  } catch (error) {
+    console.error('Error:', error)
+    return null;
+  } 
+}
 
-//       // overlay 닫기
-//       overlay.classList.remove("active")
-//     })
-
-//     closeModalNoBtn.addEventListener("click", () => {
-//       overlay.classList.remove("active")
-//     })
-    
-//   })
-// }
 export function loadCheckInOut() {
   const toggleBtns = document.querySelectorAll("#attendance .toggle-btn")
   const overlay = document.querySelector(".overlay")
   const submitModalYesBtn = document.getElementById("submitModal")
   const closeModalNoBtn = document.getElementById("closeModal")
   const checkText = document.querySelector(".overlay .check")
+  const messageElement = document.createElement("p")
+  messageElement.classList.add("message")
+  overlay.appendChild(messageElement)
 
   toggleBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       overlay.classList.add("active")
+      messageElement.textContent = "" // 메시지 초기화
 
       if (btn.classList.contains("checkin")) {
         checkText.textContent = "입실"
@@ -62,29 +45,38 @@ export function loadCheckInOut() {
     })
   })
 
-  submitModalYesBtn.addEventListener("click", () => {
-    toggleBtns.forEach(btn => {
-      if (btn.classList.contains("active")) {
-        btn.classList.remove("active")
+  submitModalYesBtn.addEventListener("click", async () => {
+    const type = checkText.textContent === "입실" ? "in" : "out"
+    submitModalYesBtn.disabled = true;  // 버튼 비활성화
+    const result = await sendAttendanceData(type)
+    submitModalYesBtn.disabled = false;  // 버튼 다시 활성화
+
+    if (result.status === "ok") {
+      toggleBtns.forEach(btn => {
+        if (btn.classList.contains("active")) {
+          btn.classList.remove("active")
+        }
+      })
+
+      const checkinBtn = document.querySelector(".checkin")
+      const checkoutBtn = document.querySelector(".checkout")
+
+      if (type === "in") {
+        checkinBtn.classList.remove("active")
+        checkoutBtn.classList.add("active")
+      } else {
+        checkoutBtn.classList.remove("active")
+        checkinBtn.classList.add("active")
       }
-    })
 
-    const checkinBtn = document.querySelector(".checkin")
-    const checkoutBtn = document.querySelector(".checkout")
-
-    if (checkText.textContent === "입실") {
-      checkinBtn.classList.remove("active")
-      checkoutBtn.classList.add("active")
-    } else if (checkText.textContent === "퇴실") {
-      checkoutBtn.classList.remove("active")
-      checkinBtn.classList.add("active")
+      overlay.classList.remove("active")
+    } else {
+      messageElement.textContent = result.message || "오류가 발생했습니다."
+      messageElement.style.color = "red"
     }
-
-    overlay.classList.remove("active")
   })
 
   closeModalNoBtn.addEventListener("click", () => {
     overlay.classList.remove("active")
   })
 }
-

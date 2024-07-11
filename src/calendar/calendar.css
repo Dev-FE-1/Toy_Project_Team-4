@@ -3,14 +3,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding:20px 0;
+  padding:1rem 0;
 }
 
 #weekCalendar .today {
   padding-left: 30px;
-    font-weight: bold;
-    padding-top: 10px;
-    color: #222;
+  padding-bottom:1rem;
+  font-weight: bold;
+  color: #222;
 }
 
 #weekCalendar table {
@@ -57,9 +57,7 @@
   #mainNotice .calendar {
     height: auto;
   }
-  #weekCalendar .today {
-    padding-bottom:30px;
-  }
+
   #weekCalendar tr th {
     font-size: 14px;
   }

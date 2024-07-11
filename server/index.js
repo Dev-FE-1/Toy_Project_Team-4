@@ -777,28 +777,66 @@ app.get("/api/notice.json", (req, res) => {
   })
 })
 
-app.get("/api/attendance.json", (req, res) => {
-  fs.readFile("./server/data/attendance.json", "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: err,
-        data: null,
-      })
+app.post("/api/attendance", async (req, res) => {
+  try {
+    const { date, type, time } = req.body
+    const filePath = path.join(__dirname, 'data', 'attendance.json')
+    
+    let data = await fs.promises.readFile(filePath, 'utf8')
+    data = JSON.parse(data)
+
+    const existingEntryIndex = data.data.findIndex(entry => 
+      entry.date === date 
+    )
+
+    if (existingEntryIndex !== -1) {
+      if (type === "in" && data.data[existingEntryIndex].in === "-") {
+        data.data[existingEntryIndex].in = time
+      } else if (type === "out" && data.data[existingEntryIndex].out === "-") {
+        data.data[existingEntryIndex].out = time
+        data.data[existingEntryIndex].time = calculateTime(data.data[existingEntryIndex].in, time)
+        data.data[existingEntryIndex].status = "정상처리"
+      } else {
+        return res.status(400).json({ status: "error", message: "이미 기록이 존재합니다." })
+      }
+    } else {
+      const newEntry = {
+        id: data.data.length + 1,
+        date,
+        in: type === "in" ? time : "-",
+        out: type === "out" ? time : "-",
+        time: "-",
+        status: "미처리"
+      };
+      data.data.push(newEntry)
     }
 
-    try {
-      const json = JSON.parse(data)
-      res.json(json)
-    } catch (parseErr) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: parseErr,
-        data: null,
-      })
-    }
-  })
+    await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2))
+
+    res.json({ status: "ok" })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ status: "error", message: error.message })
+  }
 })
+
+function calculateTime(inTime, outTime) {
+  const [inHours, inMinutes, inSeconds] = inTime.split(':').map(Number)
+  const [outHours, outMinutes, outSeconds] = outTime.split(':').map(Number)
+  
+  let totalSeconds = (outHours * 3600 + outMinutes * 60 + outSeconds) - 
+                     (inHours * 3600 + inMinutes * 60 + inSeconds)
+  
+  if (totalSeconds < 0) {
+    totalSeconds += 24 * 3600; // 날짜가 바뀐 경우
+  }
+  
+  const hours = Math.floor(totalSeconds / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+  
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+}
 
 app.get("/api/gallery.json", (req, res) => {
   fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {

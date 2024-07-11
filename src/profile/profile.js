@@ -37,9 +37,6 @@ photo_camera
             <span class="material-symbols-outlined"> campaign </span>
             <textarea id="userIntro" type="text" placeholder="간단한 자기소개를 작성해주세요." /></textarea>
           </div>
-          <input type="file" id="fileUpload" />
-          <button id="uploadBtn">사진 업로드</button>
-          <button id="deleteBtn">사진 삭제</button>
           <button id="localStorageBtn">수정하기</button>
         </div>
         <div class="profilemodal"></div>

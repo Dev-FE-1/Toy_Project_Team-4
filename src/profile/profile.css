@@ -29,8 +29,8 @@
 }
 
 #profile-section .profileArea .user-img {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,7 +41,7 @@
 }
 #profile-section .profileArea #uploadButton {
   position: absolute;
-  transform: translate(50px, 230px);
+  transform: translate(100px, 220px);
   color: #888;
   background-color: transparent;
   border: 2px solid #888;
@@ -54,7 +54,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding-top: 80px;
+  padding-top: 90px;
 }
 .profile-bottom * {
   margin: 4px;

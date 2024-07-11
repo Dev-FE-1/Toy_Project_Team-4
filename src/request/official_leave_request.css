@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.official-leave-icon {
+.official-leave-container .official-leave-icon {
   width: 80px;
   height: 80px;
   vertical-align: middle;
@@ -29,14 +29,18 @@
   margin-top: 0;
   margin-bottom: 20px;
   text-align: left;
+  display: flex;
+  align-items: center;
 }
 
+/* Both Container */
 .official-leave-both-container {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
 
+/* Process Container */
 .official-leave-process-container {
   flex: 2;
   background-color: #fff;
@@ -46,6 +50,7 @@
   margin-right: 20px;
 }
 
+/* Process Container Header */
 .official-leave-process-container h2 {
   font-size: 1.5rem;
   color: #222;
@@ -54,6 +59,7 @@
   margin-bottom: 20px;
 }
 
+/* Process List */
 .official-leave-process-list {
   background-color: #f2f2f2;
   padding: 20px;
@@ -71,50 +77,24 @@
   padding-bottom: 5px;
 }
 
-.download-link-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 0;
-  margin-top: 20px;
-}
-
-.official-leave-process-list a {
-  color: rgb(20, 93, 251);
-  text-decoration: none;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.official-leave-process-list a:hover {
-  text-decoration: underline;
-}
-
-.official-leave-process-list .material-symbols-outlined {
-  color: rgb(20, 93, 251);
-  margin-right: 8px;
-  vertical-align: middle;
-  margin-bottom: 13px;
-}
-
-.official-leave-process-list .ex {
-  color: #ed234b;
-  font-weight: 500;
-}
-
 .official-leave-process-list p {
   margin-top: 10px;
   margin-bottom: 10px;
   line-height: 1.5;
 }
 
+/* Status Container */
 .official-leave-status-container {
   flex: 3;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.official-leave-status-container .official-leave-status-content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
@@ -165,20 +145,21 @@
   outline: none;
 }
 
+/* Status Table */
 .status-table-container {
   flex-grow: 1;
   overflow-y: auto;
   min-height: 300px;
 }
 
-.official-leave-container .status-table {
+.official-leave-status-container .status-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-.official-leave-container .status-table th,
-.official-leave-container .status-table td {
+.official-leave-status-container .status-table th,
+.official-leave-status-container .status-table td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #efefef;
@@ -187,7 +168,7 @@
   white-space: nowrap;
 }
 
-.official-leave-container .status-table th {
+.official-leave-status-container .status-table th {
   border-top: 1px solid #efefef;
   font-size: 14px;
   font-weight: normal;
@@ -196,39 +177,51 @@
   background-color: #f2f2f2;
 }
 
-.official-leave-container .status-pending,
-.official-leave-container .status-approved,
-.official-leave-container .status-rejected,
-.official-leave-container .cancel-button {
+.official-leave-status-container .status-pending,
+.official-leave-status-container .status-approved,
+.official-leave-status-container .status-rejected,
+.official-leave-status-container .cancel-button,
+.submit-document-btn {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
 
-.official-leave-container .status-pending {
+.official-leave-status-container .status-pending {
   background-color: #bababa;
   color: #fff;
 }
 
-.official-leave-container .status-approved {
+.official-leave-status-container .status-approved {
   background-color: #D9F7E7;
   color: #30A164;
 }
 
-.official-leave-container .status-rejected {
+.official-leave-status-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
 }
 
-.official-leave-container .cancel-button {
+.status-completed {
+  background-color: #D9F7E7;
+  color: #30A164;
+}
+
+.submit-document-btn {
+  background-color: #ed234b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.official-leave-status-container .cancel-button {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.official-leave-container .cancel-button:hover {
+.official-leave-status-container .cancel-button:hover {
   opacity: 0.5;
 }
 
@@ -240,7 +233,7 @@
   min-height: 40px;
 }
 
-.pagination .page-button {
+.page-button {
   width: 40px;
   height: 30px;
   margin: 0 5px;
@@ -251,12 +244,12 @@
   cursor: pointer;
 }
 
-.pagination .page-button-active {
+.page-button-active {
   color: #ed234b;
   font-weight: 800;
 }
 
-.pagination .page-arrow {
+.page-arrow {
   color: #fff;
   width: 30px;
   height: 30px;
@@ -267,7 +260,7 @@
   cursor: pointer;
 }
 
-.pagination .page-arrow-disabled {
+.page-arrow-disabled {
   color: #ababab;
   background-color: #fff;
   border: solid 0.5px #ababab;
@@ -294,15 +287,15 @@
 }
 
 .official-leave-modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4);
 }
 
@@ -335,7 +328,7 @@
   cursor: pointer;
 }
 
-.official-leave-form-container h2 {
+.official-leave-modal-content h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -343,34 +336,36 @@
   margin-bottom: 20px;
 }
 
-.official-leave-submit-all-section input[type="date"],
-.official-leave-reason textarea {
-  width: 100%;
-  padding: 10px;
-  margin: auto;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
+.official-leave-all-section {
+  margin-bottom: 15px;
 }
 
-.official-leave-submit-all-section input[type="date"]:focus,
-.official-leave-reason textarea:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.official-leave-submit-all-section label {
+.official-leave-all-section label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;
   margin: 20px 0 10px;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 
-.official-leave-btn {
+.official-leave-all-section input[type="date"],
+.official-leave-all-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.official-leave-all-section input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+#officialLeaveForm .official-leave-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -385,16 +380,109 @@
   margin-top: 40px;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
+.convert-press-container input[type="file"],
+.zip-container input[type="file"],
+.document-submit-all-section input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
 }
 
-::-webkit-scrollbar-track {
-  background: #d6d6d6;
-  border-radius: 10px;
+.official-leave-all-section input[type="date"]:focus,
+.official-leave-all-section textarea:focus,
+.convert-press-container input[type="file"]:focus,
+.zip-container input[type="file"]:focus,
+.document-submit-all-section input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
 }
 
-::-webkit-scrollbar-thumb {
+.official-leave-modal-content label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+#documentSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.official-leave-form-container .convert-press-container .official-leave-pdf-container,
+.official-leave-form-container .convert-press-container .official-leave-zip-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#fileInput,
+#wordFile {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#fileInput:focus,
+#wordFile:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.convertpdf,
+.createzip {
+  margin-right: 0;
+  color: #fff;
   background-color: #ed234b;
+  width: 20%;
+  height: 35px;
   border-radius: 10px;
+  border: 1px solid #ed234b;
+  margin-bottom: 10px;
+  padding: 2px 8px 4px;
+}
+
+.convertpdf:hover,
+.createzip:hover {
+  opacity: 0.7;
+}
+
+#documentSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+#documentSubmitForm .document-submit-btn {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+}
+
+#documentSubmitForm .document-submit-btn:hover {
+  opacity: 0.7;
 }

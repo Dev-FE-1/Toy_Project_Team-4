@@ -139,7 +139,6 @@
   padding: 10px;
   border: 1px solid #ABABAB;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .vacation-status-container {
@@ -386,7 +385,6 @@
   padding: 10px;
   border: 1px solid #ABABAB;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .vacation-form-container .vacation-date-container input[type="date"]:focus {
@@ -401,7 +399,6 @@
   margin: auto;
   border: 1px solid #ABABAB;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .vacation-form-container .vacation-submit-all-section input[type="file"] {
@@ -410,7 +407,6 @@
   margin: auto;
   border: 1px solid #ABABAB;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .vacation-form-container .vacation-submit-all-section input[type="file"]:focus {
@@ -496,18 +492,4 @@
 .vacation-modal-btn:hover,
 .vacationSubmitForm .vacation-btn:hover {
   opacity: 0.7;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #d6d6d6;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #ed234b;
-  border-radius: 10px;
 }

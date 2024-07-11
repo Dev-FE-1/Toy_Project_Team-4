@@ -128,6 +128,14 @@ function createSidebar() {
             </a>
           </li>
           <li>
+            <a href="/manager-attendance-correction">
+              <span class="sub-icon">
+                <img src="/images/category.svg" alt="출결 정정 요청">
+              </span>
+              <span class="sub-text">출결 정정 요청</span>
+            </a>
+          </li>
+          <li>
             <a href="/manager-going-out">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="외출/조퇴 관리">

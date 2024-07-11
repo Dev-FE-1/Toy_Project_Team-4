@@ -155,32 +155,13 @@ function createSidebar() {
             </a>
           </li>
           <li>
-          <a href="javascript:void(0);" class="has-submenu">
+            <a href="/application-form">
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="공가 신청">
               </span>
               <span class="sub-text">공가 신청</span>
-            </a>
-            <ul class="submenu visible">
-              <li>
-                <a href="/application-form">
-                  <span class="subsub-icon">
-                    <img src="/images/category2.svg" alt="신청서 제출">
-                  </span>
-                  <span class="subsub-text">신청서 제출</span>
-                </a>
-              </li>
-              <li>
-                <a href="/document">
-                  <span class="subsub-icon">
-                    <img src="/images/category2.svg" alt="서류 제출">
-                  </span>
-                  <span class="subsub-text">서류 제출</span>
-                </a>
-              </li>
-            </ul>
+            </a>  
           </li>
-        </ul>
         </li>
       </div>
   `

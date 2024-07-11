@@ -5,7 +5,7 @@ export function createFooter() {
     footer.innerHTML = `
       <div class="footer-container">
         <div class="footer-center">
-          <p>© 2024 FASTNET. All rights reserved.</p>
+          <p>© 2024 FASTNET. 김도형, 김수민, 임효정, 최원지 All rights reserved.</p>
         </div>
       </div>
     `;

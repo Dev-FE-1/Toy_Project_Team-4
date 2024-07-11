@@ -21,11 +21,11 @@ import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
 import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
-import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"; 
-import { loadManagerVacationRequests } from "./requestManager/managerVacation.js"; 
-import { loadManagerOfficialLeaveRequests } from "./requestManager/managerofficialLeave.js";
-import { loadManagerAttendanceCorrectionRequests } from "./requestManager/managerAttendanceCorrection.js";
-import { loadManagerDocumentRequests } from "./requestManager/managerdocumentRequest.js";
+import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"
+import { loadManagerVacationRequests } from "./requestManager/managerVacation.js"
+import { loadManagerOfficialLeaveRequests } from "./requestManager/managerofficialLeave.js"
+import { loadManagerAttendanceCorrectionRequests } from "./requestManager/managerAttendanceCorrection.js"
+import { loadManagerDocumentRequests } from "./requestManager/managerdocumentRequest.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -40,19 +40,18 @@ function init() {
 }
 
 function navPage(event) {
-  const a = event.target.closest("a");
+  const a = event.target.closest("a")
   if (a && a.href !== "javascript:void(0)") {
     // 다운로드 링크는 기본 동작을 유지하도록 예외 처리
-    if (a.hasAttribute('download')) {
-      return;
+    if (a.hasAttribute("download")) {
+      return
     }
 
     if (!a.href.startsWith("blob:")) {
-      event.preventDefault();
-      const path = a.getAttribute("href");
-      console.log("Navigating to:", path); // 로그 추가
-      history.pushState(null, null, path);
-      route();
+      event.preventDefault()
+      const path = a.getAttribute("href")
+      history.pushState(null, null, path)
+      route()
     }
   }
 }
@@ -132,19 +131,19 @@ export function route() {
       studentAttendanceRecord() // 수강생 출결 현황
       break
     case "/manager-going-out":
-      loadManagerLeaveRequests()// 외출, 조퇴 관리
+      loadManagerLeaveRequests() // 외출, 조퇴 관리
       break
     case "/manager-vacation":
-      loadManagerVacationRequests()// 휴가 관리
+      loadManagerVacationRequests() // 휴가 관리
       break
     case "/manager-public-house":
-      loadManagerOfficialLeaveRequests()// 공가 관리
+      loadManagerOfficialLeaveRequests() // 공가 관리
       break
     case "/student-info":
       studentInfo() // 수강생 리스트
       break
     case "/manager-attendance-correction":
-      loadManagerAttendanceCorrectionRequests()// 출결 정정 관리
+      loadManagerAttendanceCorrectionRequests() // 출결 정정 관리
       break
     default:
       if (userInfo.userType === "student") {
@@ -212,7 +211,8 @@ export function convertToPDF() {
   const formData = new FormData()
   formData.append("wordFile", fileInput.files[0])
 
-  fetch("/convert", { // Vite 프록시 설정이 적용되어 로컬 서버로 프록시됨
+  fetch("/convert", {
+    // Vite 프록시 설정이 적용되어 로컬 서버로 프록시됨
     method: "POST",
     body: formData,
   })
@@ -245,4 +245,3 @@ document.addEventListener("DOMContentLoaded", () => {
     convertButton.addEventListener("click", convertToPDF)
   }
 })
-

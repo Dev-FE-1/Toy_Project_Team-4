@@ -43,7 +43,7 @@ export function loadVacationRequest() {
           </div>
         </div>
         <div class="vacation-status-container">
-          <div class="content">
+          <div class="vacation-status-content">
             <div class="vacation-status-header">
               <span><span class="red-dot"></span>신청 현황</span>
               <div class="vacation-status-date-range">
@@ -149,6 +149,7 @@ export function loadVacationRequest() {
       displayData();
     } catch (error) {
       console.error('Error loading vacation request:', error);
+      alert('휴가 신청 데이터를 불러오는 데 실패했습니다. 오류: ' + error.message);
     }
   }
 

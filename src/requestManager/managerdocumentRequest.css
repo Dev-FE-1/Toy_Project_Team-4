@@ -1,0 +1,174 @@
+.manager-document-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0.4rem 3rem -0.8rem rgba(10, 10, 20, 0.2);
+  }
+  
+  .manager-document-container h1 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 20px;
+  }
+  
+  .manager-document-search {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .manager-document-search input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .manager-document-search .filter-button {
+    padding: 10px 20px;
+    background-color: #ED234B;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+  
+  .manager-document-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .manager-document-table th,
+  .manager-document-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .manager-document-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+  }
+  
+  .status-pending {
+    background-color: #FEF3C7;
+    color: #92400E;
+  }
+  
+  .status-approved {
+    background-color: #D1FAE5;
+    color: #065F46;
+  }
+  
+  .status-completed {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+  }
+  
+  .status-rejected {
+    background-color: #FEE2E2;
+    color: #991B1B;
+  }
+  
+  .manager-document-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .document-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  
+  .document-btn.approve {
+    background-color: #10B981;
+    color: white;
+  }
+  
+  .document-btn.reject {
+    background-color: #EF4444;
+    color: white;
+  }
+  
+  .document-btn.complete {
+    background-color: #3B82F6;
+    color: white;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .page-button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .page-button.active {
+    background-color: #ED234B;
+    color: white;
+  }
+  
+  .reason-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .manager-document-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 10px;
+  }
+  
+  .manager-document-modal-close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .reason-form-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  #reasonText {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  .submit-reason-btn {
+    background-color: #ED234B;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

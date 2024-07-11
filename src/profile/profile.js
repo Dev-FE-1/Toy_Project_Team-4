@@ -31,6 +31,9 @@ export function profile() {
             <span class="material-symbols-outlined"> campaign </span>
             <textarea id="userIntro" type="text" placeholder="간단한 자기소개를 작성해주세요." /></textarea>
           </div>
+          <input type="file" id="fileUpload" />
+          <button id="uploadBtn">사진 업로드</button>
+          <button id="deleteBtn">사진 삭제</button>
           <button id="localStorageBtn">수정하기</button>
         </div>
         <div class="profilemodal"></div>
@@ -39,17 +42,21 @@ export function profile() {
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
-        </div>
+          </div>
         </div>
       </div>
     </section>
-    `
+  `
   getUserInfo()
   loadModal()
   const setlocalStorageBtn = document.querySelector("#localStorageBtn")
   setlocalStorageBtn.addEventListener("click", () => {
     loadprofilemodal()
   })
+
+  document.getElementById('uploadBtn').addEventListener('click', uploadFile);
+  document.getElementById('deleteBtn').addEventListener('click', deleteFile);
+
   return app
 }
 
@@ -87,3 +94,36 @@ async function getUserInfo() {
     }
   }
 }
+
+async function uploadFile() {
+  const fileInput = document.getElementById('fileUpload');
+  const formData = new FormData();
+  formData.append('file', fileInput.files[0]);
+
+  try {
+      const res = await axios.post('/upload', formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+      });
+      alert('File uploaded successfully!');
+  } catch (err) {
+      console.error('Upload failed:', err);
+      alert('Failed to upload file.');
+  }
+}
+
+async function deleteFile() {
+  const filename = prompt('Enter the filename to delete:');
+  if (!filename) return;
+
+  try {
+      const res = await axios.delete(`/delete/${filename}`);
+      alert('File deleted successfully!');
+  } catch (err) {
+      console.error('Delete failed:', err);
+      alert('Failed to delete file.');
+  }
+}
+
+

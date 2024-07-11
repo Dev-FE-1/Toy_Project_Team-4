@@ -8,7 +8,7 @@ import { fileURLToPath } from "url"
 import { dirname } from "path"
 import libre from "libreoffice-convert"
 import database from "./database.js"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 const THRESHOLD = 2000
 const port = process.env.PORT || 8080
@@ -22,8 +22,6 @@ const vacationRequestFilePath = path.join(__dirname, "data", "vacation_request.j
 const officialLeaveRequestFilePath = path.join(__dirname, "data", "official_leave_request.json")
 const attendanceCorrectionRequestFilePath = path.join(__dirname, "data", "attendance_correction_request.json")
 const documentRequestFilePath = path.join(__dirname, "data", "document_request.json")
-
-
 
 // LibreOffice 경로 설정
 if (process.platform === "win32") {
@@ -39,7 +37,7 @@ app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
 app.use(express.json())
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use((req, res, next) => {
   const delayTime = Math.floor(Math.random() * THRESHOLD)
   setTimeout(() => {
@@ -68,33 +66,32 @@ if (!fs.existsSync(documentRequestFilePath)) {
   fs.writeFileSync(documentRequestFilePath, JSON.stringify({ request: [] }))
 }
 
-
 // 출결 정정 신청
 app.post("/upload-attendance-correction-request", async (req, res) => {
   if (!req.files || !req.files.correctionFile) {
-    return res.status(400).json({ error: "No files were uploaded." });
+    return res.status(400).json({ error: "No files were uploaded." })
   }
 
-  const correctionFile = req.files.correctionFile;
-  const { name, date, courseName, userId } = req.body;
+  const correctionFile = req.files.correctionFile
+  const { name, date, courseName, userId } = req.body
 
   if (!name || !date || !courseName || !userId) {
-    return res.status(400).json({ error: "Missing required fields." });
+    return res.status(400).json({ error: "Missing required fields." })
   }
 
-  const now = new Date();
-  const formattedDate = new Date(date).toISOString().split('T')[0];
-  const submitDate = now.toISOString().split('T')[0];
-  const submitTime = now.toTimeString().split(':').slice(0, 2).join(':');
-  const fileName = `${formattedDate}_${courseName}_${name}(출결정정).zip`;
-  const filePath = path.join(__dirname, "uploads", fileName);
+  const now = new Date()
+  const formattedDate = new Date(date).toISOString().split("T")[0]
+  const submitDate = now.toISOString().split("T")[0]
+  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
+  const fileName = `${formattedDate}_${courseName}_${name}(출결정정).zip`
+  const filePath = path.join(__dirname, "uploads", fileName)
 
   if (!fs.existsSync(path.join(__dirname, "uploads"))) {
-    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true });
+    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true })
   }
 
   try {
-    await correctionFile.mv(filePath);
+    await correctionFile.mv(filePath)
 
     const newRequest = {
       id: Date.now(),
@@ -106,60 +103,60 @@ app.post("/upload-attendance-correction-request", async (req, res) => {
       filePath,
       submitDate,
       submitTime,
-      userId
-    };
-
-    let requests;
-    try {
-      const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, 'utf8');
-      requests = JSON.parse(data);
-    } catch (err) {
-      requests = { request: [] };
+      userId,
     }
 
-    requests.request.push(newRequest);
+    let requests
+    try {
+      const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, "utf8")
+      requests = JSON.parse(data)
+    } catch (err) {
+      requests = { request: [] }
+    }
+
+    requests.request.push(newRequest)
 
     try {
-      await fs.promises.writeFile(attendanceCorrectionRequestFilePath, JSON.stringify(requests, null, 2));
-      res.json({ message: "File uploaded successfully", request: newRequest });
+      await fs.promises.writeFile(attendanceCorrectionRequestFilePath, JSON.stringify(requests, null, 2))
+      res.json({ message: "File uploaded successfully", request: newRequest })
     } catch (err) {
-      res.status(500).json({ error: "Failed to save request", details: err.message });
+      res.status(500).json({ error: "Failed to save request", details: err.message })
     }
   } catch (err) {
-    res.status(500).json({ error: "File upload failed", details: err.message });
+    res.status(500).json({ error: "File upload failed", details: err.message })
   }
 })
 
 app.get("/get-attendance-correction-request", async (req, res) => {
-  const { userName } = req.query;
+  const { userName } = req.query
 
   try {
-    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, 'utf8');
-    let requests = JSON.parse(data).request;
+    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, "utf8")
+    let requests = JSON.parse(data).request
 
     if (userName) {
-      requests = requests.filter(request => request.name === userName);
+      requests = requests.filter((request) => request.name === userName)
     }
 
-    requests = requests.map(request => ({
+    requests = requests.map((request) => ({
       ...request,
-      fileUrl: request.filePath ? `http://localhost:8080/uploads/${path.basename(request.filePath)}` : null
-    }));
+      fileUrl: request.filePath ? `http://localhost:8080/uploads/${path.basename(request.filePath)}` : null,
+    }))
 
-    res.json(requests);
+    res.json(requests)
   } catch (err) {
-    console.error('Failed to read data:', err);
-    res.status(500).json({ error: "Failed to read data", details: err.message });
+    console.error("Failed to read data:", err)
+    res.status(500).json({ error: "Failed to read data", details: err.message })
   }
-});
+})
 
 app.post("/update-attendance-correction-status", async (req, res) => {
   const { id, status, rejectReason } = req.body
 
   try {
-    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -168,7 +165,7 @@ app.post("/update-attendance-correction-status", async (req, res) => {
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       status: status,
-      rejectReason: status === 'rejected' ? rejectReason : undefined
+      rejectReason: status === "rejected" ? rejectReason : undefined,
     }
 
     await fs.promises.writeFile(attendanceCorrectionRequestFilePath, JSON.stringify(requests, null, 2))
@@ -182,9 +179,9 @@ app.post("/delete-attendance-correction-request", async (req, res) => {
   const { id } = req.body
 
   try {
-    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(attendanceCorrectionRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -207,10 +204,10 @@ app.post("/upload-leave-request", async (req, res) => {
     return res.status(400).json({ error: "Missing required fields." })
   }
 
-  const formattedDate = new Date(leaveDate).toISOString().split('T')[0]
+  const formattedDate = new Date(leaveDate).toISOString().split("T")[0]
   const now = new Date()
-  const submitDate = now.toISOString().split('T')[0]
-  const submitTime = now.toTimeString().split(':').slice(0, 2).join(':') // HH:MM 형식으로 저장
+  const submitDate = now.toISOString().split("T")[0]
+  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":") // HH:MM 형식으로 저장
 
   const newRequest = {
     id: Date.now(),
@@ -222,11 +219,11 @@ app.post("/upload-leave-request", async (req, res) => {
     status: "pending",
     reason,
     submitDate,
-    submitTime
+    submitTime,
   }
 
   try {
-    const data = await fs.promises.readFile(leaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(leaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
     requests.request.push(newRequest)
 
@@ -239,14 +236,14 @@ app.post("/upload-leave-request", async (req, res) => {
 })
 
 app.get("/get-leave-request", async (req, res) => {
-  const { userName } = req.query;
+  const { userName } = req.query
 
   try {
-    const data = await fs.promises.readFile(leaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(leaveRequestFilePath, "utf8")
     let requests = JSON.parse(data).request
 
     if (userName) {
-      requests = requests.filter(request => request.name === userName)
+      requests = requests.filter((request) => request.name === userName)
     }
 
     res.json(requests)
@@ -259,9 +256,9 @@ app.post("/update-leave-status", async (req, res) => {
   const { id, status, rejectReason } = req.body
 
   try {
-    const data = await fs.promises.readFile(leaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(leaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -270,7 +267,7 @@ app.post("/update-leave-status", async (req, res) => {
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       status: status,
-      rejectReason: status === 'rejected' ? rejectReason : undefined
+      rejectReason: status === "rejected" ? rejectReason : undefined,
     }
 
     await fs.promises.writeFile(leaveRequestFilePath, JSON.stringify(requests, null, 2))
@@ -284,9 +281,9 @@ app.post("/delete-leave-request", async (req, res) => {
   const { id } = req.body
 
   try {
-    const data = await fs.promises.readFile(leaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(leaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -301,33 +298,32 @@ app.post("/delete-leave-request", async (req, res) => {
   }
 })
 
-
 // 휴가 신청
 app.post("/upload-vacation-request", async (req, res) => {
   if (!req.files || !req.files.vacationFile) {
-    return res.status(400).json({ error: "No files were uploaded." });
+    return res.status(400).json({ error: "No files were uploaded." })
   }
 
-  const vacationFile = req.files.vacationFile;
-  const { name, date, courseName, userId } = req.body;
+  const vacationFile = req.files.vacationFile
+  const { name, date, courseName, userId } = req.body
 
   if (!name || !date || !courseName || !userId) {
-    return res.status(400).json({ error: "Missing required fields." });
+    return res.status(400).json({ error: "Missing required fields." })
   }
 
-  const now = new Date();
-  const formattedDate = new Date(date).toISOString().split('T')[0];
-  const submitDate = new Date(now.setDate(now.getDate() + 1)).toISOString().split("T")[0];
-  const submitTime = now.toTimeString().split(':').slice(0, 2).join(':');
-  const fileName = `${formattedDate}_${courseName}_${name}(휴가).zip`;
-  const filePath = path.join(__dirname, "uploads", fileName);
+  const now = new Date()
+  const formattedDate = new Date(date).toISOString().split("T")[0]
+  const submitDate = new Date(now.setDate(now.getDate() + 1)).toISOString().split("T")[0]
+  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
+  const fileName = `${formattedDate}_${courseName}_${name}(휴가).zip`
+  const filePath = path.join(__dirname, "uploads", fileName)
 
   if (!fs.existsSync(path.join(__dirname, "uploads"))) {
-    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true });
+    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true })
   }
 
   try {
-    await vacationFile.mv(filePath);
+    await vacationFile.mv(filePath)
 
     const newRequest = {
       id: Date.now(),
@@ -339,51 +335,51 @@ app.post("/upload-vacation-request", async (req, res) => {
       filePath,
       submitDate,
       submitTime,
-      userId
-    };
-
-    const data = await fs.promises.readFile(vacationRequestFilePath, 'utf8');
-    const requests = JSON.parse(data);
-    requests.request.push(newRequest);
-
-    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2));
-
-    res.json({ message: "File uploaded successfully", request: newRequest });
-  } catch (err) {
-    res.status(500).json({ error: "File upload failed", details: err.message });
-  }
-});
-
-app.get("/get-vacation-request", async (req, res) => {
-  const { userName } = req.query;
-
-  try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, 'utf8');
-    let requests = JSON.parse(data).request;
-
-    if (userName) {
-      requests = requests.filter(request => request.name === userName);
+      userId,
     }
 
-    requests = requests.map(request => ({
-      ...request,
-      fileUrl: request.filePath ? `http://localhost:8080/uploads/${path.basename(request.filePath)}` : null
-    }));
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
+    const requests = JSON.parse(data)
+    requests.request.push(newRequest)
 
-    res.json(requests);
+    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2))
+
+    res.json({ message: "File uploaded successfully", request: newRequest })
   } catch (err) {
-    console.error('Failed to read data:', err);
-    res.status(500).json({ error: "Failed to read data", details: err.message });
+    res.status(500).json({ error: "File upload failed", details: err.message })
   }
-});
+})
+
+app.get("/get-vacation-request", async (req, res) => {
+  const { userName } = req.query
+
+  try {
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
+    let requests = JSON.parse(data).request
+
+    if (userName) {
+      requests = requests.filter((request) => request.name === userName)
+    }
+
+    requests = requests.map((request) => ({
+      ...request,
+      fileUrl: request.filePath ? `http://localhost:8080/uploads/${path.basename(request.filePath)}` : null,
+    }))
+
+    res.json(requests)
+  } catch (err) {
+    console.error("Failed to read data:", err)
+    res.status(500).json({ error: "Failed to read data", details: err.message })
+  }
+})
 
 app.post("/update-vacation-status", async (req, res) => {
   const { id, status, rejectReason } = req.body
 
   try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -392,7 +388,7 @@ app.post("/update-vacation-status", async (req, res) => {
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       status: status,
-      rejectReason: status === 'rejected' ? rejectReason : undefined
+      rejectReason: status === "rejected" ? rejectReason : undefined,
     }
 
     await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2))
@@ -406,9 +402,9 @@ app.post("/delete-vacation-request", async (req, res) => {
   const { id } = req.body
 
   try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id == id)
+    const requestIndex = requests.request.findIndex((req) => req.id == id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -425,36 +421,36 @@ app.post("/delete-vacation-request", async (req, res) => {
 
 // 공가 신청 목록 조회
 app.get("/get-official-leave-request", async (req, res) => {
-  const { userName } = req.query;
+  const { userName } = req.query
 
   try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, 'utf8');
-    let requests = JSON.parse(data).request;
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
+    let requests = JSON.parse(data).request
 
     if (userName) {
-      requests = requests.filter(request => request.name === userName);
+      requests = requests.filter((request) => request.name === userName)
     }
 
-    requests = requests.map(request => ({
+    requests = requests.map((request) => ({
       ...request,
-      fileUrl: request.documentPath ? `http://localhost:8080/uploads/${path.basename(request.documentPath)}` : null
-    }));
+      fileUrl: request.documentPath ? `http://localhost:8080/uploads/${path.basename(request.documentPath)}` : null,
+    }))
 
-    res.json(requests);
+    res.json(requests)
   } catch (err) {
-    console.error('Failed to read data:', err);
-    res.status(500).json({ error: "Failed to read data", details: err.message });
+    console.error("Failed to read data:", err)
+    res.status(500).json({ error: "Failed to read data", details: err.message })
   }
-});
+})
 
 // 공가 신청 상태 업데이트
 app.post("/update-official-leave-status", async (req, res) => {
   const { id, status, documentSubmitted, rejectReason } = req.body
 
   try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id === id)
+    const requestIndex = requests.request.findIndex((req) => req.id === id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -464,7 +460,7 @@ app.post("/update-official-leave-status", async (req, res) => {
       ...requests.request[requestIndex],
       status: status,
       documentSubmitted: documentSubmitted || requests.request[requestIndex].documentSubmitted,
-      rejectReason: status === 'rejected' ? rejectReason : undefined
+      rejectReason: status === "rejected" ? rejectReason : undefined,
     }
 
     await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
@@ -479,15 +475,15 @@ app.post("/cancel-official-leave-request", async (req, res) => {
   const { id } = req.body
 
   try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id === id)
+    const requestIndex = requests.request.findIndex((req) => req.id === id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
     }
 
-    if (requests.request[requestIndex].status !== 'pending') {
+    if (requests.request[requestIndex].status !== "pending") {
       return res.status(400).json({ error: "Can only cancel pending requests" })
     }
 
@@ -503,58 +499,58 @@ app.post("/cancel-official-leave-request", async (req, res) => {
 // 공가 신청서 제출 및 서류 제출
 app.post("/upload-official-leave-request", async (req, res) => {
   if (req.files && req.files.documents) {
-    const { id } = req.body;
-    const documents = req.files.documents;
+    const { id } = req.body
+    const documents = req.files.documents
 
     try {
-      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
-      const requests = JSON.parse(data);
-      const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id));
+      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
+      const requests = JSON.parse(data)
+      const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id))
 
       if (requestIndex === -1) {
-        return res.status(404).json({ error: "Request not found" });
+        return res.status(404).json({ error: "Request not found" })
       }
 
-      const request = requests.request[requestIndex];
-      const fileName = `${request.submitDate}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${request.name}(공가).zip`;
-      const filePath = path.join(__dirname, "uploads", fileName);
+      const request = requests.request[requestIndex]
+      const fileName = `${request.submitDate}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${request.name}(공가).zip`
+      const filePath = path.join(__dirname, "uploads", fileName)
 
       if (!fs.existsSync(path.dirname(filePath))) {
-        fs.mkdirSync(path.dirname(filePath), { recursive: true });
+        fs.mkdirSync(path.dirname(filePath), { recursive: true })
       }
 
-      await documents.mv(filePath);
+      await documents.mv(filePath)
 
       requests.request[requestIndex] = {
         ...request,
         documentSubmitted: true,
         documentPath: path.relative(__dirname, filePath),
         fileName: fileName,
-      };
+      }
 
-      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
-      
-      const fileUrl = new URL(`/uploads/${fileName}`, `http://${req.headers.host}`).toString();
-      
+      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
+
+      const fileUrl = new URL(`/uploads/${fileName}`, `http://${req.headers.host}`).toString()
+
       res.json({
         message: "서류가 제출되었습니다.",
         fileName: fileName,
         fileUrl: `http://localhost:8080/uploads/${fileName}`,
-      });
+      })
     } catch (err) {
-      console.error('Error in document submission:', err);
-      res.status(500).json({ error: "Failed to submit documents", details: err.message });
+      console.error("Error in document submission:", err)
+      res.status(500).json({ error: "Failed to submit documents", details: err.message })
     }
   } else {
-    const { name, startDate, endDate, reason } = req.body;
+    const { name, startDate, endDate, reason } = req.body
 
     if (!name || !startDate || !endDate || !reason) {
-      return res.status(400).json({ error: "Missing required fields." });
+      return res.status(400).json({ error: "Missing required fields." })
     }
 
-    const now = new Date();
-    const submitDate = now.toISOString().split("T")[0];
-    const submitTime = now.toTimeString().split(":").slice(0, 2).join(":");
+    const now = new Date()
+    const submitDate = now.toISOString().split("T")[0]
+    const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
 
     const newRequest = {
       id: uuidv4(),
@@ -567,36 +563,36 @@ app.post("/upload-official-leave-request", async (req, res) => {
       submitDate,
       submitTime,
       documentSubmitted: false,
-    };
+    }
 
     try {
-      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
-      const requests = JSON.parse(data);
-      requests.request.push(newRequest);
+      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
+      const requests = JSON.parse(data)
+      requests.request.push(newRequest)
 
-      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
+      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
       res.json({
         message: "Request submitted successfully",
         request: newRequest,
-      });
+      })
     } catch (err) {
-      console.error('Error in request submission:', err);
-      res.status(500).json({ error: "Request submission failed", details: err.message });
+      console.error("Error in request submission:", err)
+      res.status(500).json({ error: "Request submission failed", details: err.message })
     }
   }
-});
+})
 
 // 문서 발급 요청 제출
 app.post("/upload-document-request", async (req, res) => {
-  const { name, documentType, startDate, endDate, reason, email, requiredDocument } = req.body;
+  const { name, documentType, startDate, endDate, reason, email, requiredDocument } = req.body
 
   if (!name || !documentType || !startDate || !endDate || !email) {
-    return res.status(400).json({ error: "Missing required fields." });
+    return res.status(400).json({ error: "Missing required fields." })
   }
 
-  const now = new Date();
-  const submitDate = now.toISOString().split("T")[0];
-  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":");
+  const now = new Date()
+  const submitDate = now.toISOString().split("T")[0]
+  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
 
   const newRequest = {
     id: uuidv4(),
@@ -610,51 +606,51 @@ app.post("/upload-document-request", async (req, res) => {
     status: "pending",
     submitDate,
     submitTime,
-  };
+  }
 
   try {
-    const data = await fs.promises.readFile(documentRequestFilePath, "utf8");
-    const requests = JSON.parse(data);
-    requests.request.push(newRequest);
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
+    const requests = JSON.parse(data)
+    requests.request.push(newRequest)
 
-    await fs.promises.writeFile(documentRequestFilePath, JSON.stringify(requests, null, 2));
+    await fs.promises.writeFile(documentRequestFilePath, JSON.stringify(requests, null, 2))
     res.json({
       message: "Request submitted successfully",
       request: newRequest,
-    });
+    })
   } catch (err) {
-    console.error('Error in request submission:', err);
-    res.status(500).json({ error: "Request submission failed", details: err.message });
+    console.error("Error in request submission:", err)
+    res.status(500).json({ error: "Request submission failed", details: err.message })
   }
-});
+})
 
 // 문서 발급 요청 목록 조회
 app.get("/get-document-request", async (req, res) => {
-  const { userName } = req.query;
+  const { userName } = req.query
 
   try {
-    const data = await fs.promises.readFile(documentRequestFilePath, 'utf8');
-    let requests = JSON.parse(data).request;
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
+    let requests = JSON.parse(data).request
 
     if (userName) {
-      requests = requests.filter(request => request.name === userName);
+      requests = requests.filter((request) => request.name === userName)
     }
 
-    res.json(requests);
+    res.json(requests)
   } catch (err) {
-    console.error('Failed to read data:', err);
-    res.status(500).json({ error: "Failed to read data", details: err.message });
+    console.error("Failed to read data:", err)
+    res.status(500).json({ error: "Failed to read data", details: err.message })
   }
-});
+})
 
 // 문서 발급 요청 상태 업데이트
 app.post("/update-document-request-status", async (req, res) => {
   const { id, status, rejectReason } = req.body
 
   try {
-    const data = await fs.promises.readFile(documentRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id === id)
+    const requestIndex = requests.request.findIndex((req) => req.id === id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -663,7 +659,7 @@ app.post("/update-document-request-status", async (req, res) => {
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       status: status,
-      rejectReason: status === 'rejected' ? rejectReason : undefined
+      rejectReason: status === "rejected" ? rejectReason : undefined,
     }
 
     await fs.promises.writeFile(documentRequestFilePath, JSON.stringify(requests, null, 2))
@@ -678,15 +674,15 @@ app.post("/cancel-document-request", async (req, res) => {
   const { id } = req.body
 
   try {
-    const data = await fs.promises.readFile(documentRequestFilePath, 'utf8')
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex(req => req.id === id)
+    const requestIndex = requests.request.findIndex((req) => req.id === id)
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
     }
 
-    if (requests.request[requestIndex].status !== 'pending') {
+    if (requests.request[requestIndex].status !== "pending") {
       return res.status(400).json({ error: "Can only cancel pending requests" })
     }
 
@@ -701,15 +697,13 @@ app.post("/cancel-document-request", async (req, res) => {
 
 // PDF 변환
 app.post("/convert", async (req, res) => {
-  if (!req.files?.wordFile)
-    return res.status(400).send("No files were uploaded.")
+  if (!req.files?.wordFile) return res.status(400).send("No files were uploaded.")
 
   const wordFile = req.files.wordFile
   const filePath = path.join(__dirname, "uploads", wordFile.name)
   const pdfPath = filePath.replace(/\.docx?$/, ".pdf")
 
-  if (!fs.existsSync(path.join(__dirname, "uploads")))
-    fs.mkdirSync(path.join(__dirname, "uploads"))
+  if (!fs.existsSync(path.join(__dirname, "uploads"))) fs.mkdirSync(path.join(__dirname, "uploads"))
 
   wordFile.mv(filePath, async (err) => {
     if (err) return res.status(500).send(err)

@@ -21,11 +21,10 @@ async function getLeaveList() {
   }
 }
 
- async function getVacationList() {
+async function getVacationList() {
   try {
     const res = await axios.get("/server/data/vacation_request.json")
     let vacationRequestList = res.data.request
-    console.log(vacationRequestList)
 
     const holidayCaseElement = document.querySelector(".case-holiday")
     if (holidayCaseElement) {
@@ -34,6 +33,63 @@ async function getLeaveList() {
         holidayCaseElement.textContent = '0' + vacationRequestList.length
       } else {
         holidayCaseElement.textContent = vacationRequestList.length
+      }
+    }
+  } catch (err) {
+    console.error("error", err)
+  }
+}
+
+async function getOfficialList() {
+  try {
+    const res = await axios.get("/server/data/official_leave_request.json")
+    let officialRequestList = res.data.request
+
+    const holidayCaseElement = document.querySelector(".case-official")
+    if (holidayCaseElement) {
+      if(officialRequestList.length < 10) {
+
+        holidayCaseElement.textContent = '0' + officialRequestList.length
+      } else {
+        holidayCaseElement.textContent = officialRequestList.length
+      }
+    }
+  } catch (err) {
+    console.error("error", err)
+  }
+}
+
+async function getCorrectionList() {
+  try {
+    const res = await axios.get("/server/data/attendance_correction_request.json")
+    let correctionRequestList = res.data.request
+
+    const holidayCaseElement = document.querySelector(".case-revise")
+    if (holidayCaseElement) {
+      if(correctionRequestList.length < 10) {
+
+        holidayCaseElement.textContent = '0' + correctionRequestList.length
+      } else {
+        holidayCaseElement.textContent = correctionRequestList.length
+      }
+    }
+  } catch (err) {
+    console.error("error", err)
+  }
+}
+
+async function getDocumentList() {
+  try {
+    const res = await axios.get("/server/data/document_request.json")
+    let documentRequestList = res.data.request
+
+    const holidayCaseElement = document.querySelector(".case-document")
+    if (holidayCaseElement) {
+      if(documentRequestList.length < 10) {
+
+        holidayCaseElement.textContent = '0' + documentRequestList.length
+      } else {
+        holidayCaseElement.textContent = documentRequestList.length
       }
     }
   } catch (err) {
@@ -93,6 +149,10 @@ export function todolist () {
     loadCalendar()
     getLeaveList()
     getVacationList()
+    getOfficialList()
+    getCorrectionList()
+    getDocumentList()
+
     return calendar
     
   }

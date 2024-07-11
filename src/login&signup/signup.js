@@ -233,7 +233,7 @@ export class SignupPage {
         this.phoneValidation
       ) {
         alert("가입이 완료되었습니다. 로그인 화면으로 이동합니다.")
-        loadLogin()
+        location.reload(true)
       } else {
         alert("양식의 검증이 완료되지 않았습니다. 회원가입 정보를 확인해주십시오.")
       }

@@ -11,8 +11,6 @@ async function sendAttendanceData(type) {
     time: time
   }
 
-  console.log("Sending request:", data);
-
   try {
     const response = await axios.post('/api/attendance', data)
     return response.data

@@ -22,6 +22,8 @@ const vacationRequestFilePath = path.join(__dirname, "data", "vacation_request.j
 const officialLeaveRequestFilePath = path.join(__dirname, "data", "official_leave_request.json")
 const attendanceCorrectionRequestFilePath = path.join(__dirname, "data", "attendance_correction_request.json")
 const documentRequestFilePath = path.join(__dirname, "data", "document_request.json")
+const galleryDataFilePath = path.join(__dirname, "data", "gallery.json")
+
 
 // LibreOffice 경로 설정
 if (process.platform === "win32") {
@@ -37,6 +39,7 @@ app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use((req, res, next) => {
   const delayTime = Math.floor(Math.random() * THRESHOLD)
@@ -731,6 +734,86 @@ app.post("/convert", async (req, res) => {
   })
 })
 
+//---------공지모음갤러리 사진업로드----------
+app.post('/upload', (req, res) => {
+  if (!req.files || !req.files.image) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  const image = req.files.image;
+  const uploadPath = path.join(__dirname, 'uploads', `${uuidv4()}_${image.name}`);
+
+  image.mv(uploadPath, (err) => {
+    if (err) {
+      console.error("File upload failed:", err);
+      return res.status(500).json({ message: 'File upload failed', error: err });
+    }
+
+    const newEntry = {
+      img: `server/uploads/${path.basename(uploadPath)}`,
+      title: req.body.title,
+      desc: req.body.desc,
+      date: new Date().toISOString().split('T')[0],
+      popularity: 0
+    };
+
+    const galleryData = readGalleryData();
+    galleryData.push(newEntry);
+    writeGalleryData(galleryData);
+    console.log("File uploaded:", image); // 로그 추가
+    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${path.basename(uploadPath)}` });
+  });
+});
+
+// JSON 파일 경로
+// const galleryDataFilePath = path.join(__dirname, "./data/gallery.json");
+
+// JSON 파일에서 데이터 읽기
+function readGalleryData() {
+  try {
+    if (!fs.existsSync(galleryDataFilePath)) {
+      console.log("gallery.json file does not exist, creating new one.");
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
+    }
+    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+    const parsedData = JSON.parse(data);
+    console.log("Read gallery data:", parsedData);
+    return Array.isArray(parsedData.data) ? parsedData.data : [];
+  } catch (error) {
+    console.error("Error reading gallery data:", error);
+    return [];
+  }
+}
+
+// JSON 파일에 데이터 저장
+function writeGalleryData(data) {
+  try {
+    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
+  } catch (error) {
+    console.error("Error writing gallery data:", error);
+  }
+}
+
+// 공지 목록을 반환하는 API
+app.get("/api/gallery", (req, res) => {
+  const galleryData = readGalleryData();
+  console.log("Sending gallery data:", galleryData);
+  res.status(200).json(galleryData);
+});
+
+// 정적 파일 제공
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
+
+// 기존의 /api/gallery.json 엔드포인트 유지
+app.get("/api/gallery.json", (req, res) => {
+  const galleryData = readGalleryData();
+  console.log("Sending gallery data via /api/gallery.json:", galleryData);
+  res.status(200).json(galleryData);
+});
+//---------공지모음갤러리 사진업로드----------
+
 app.get("/api/users.json", (req, res) => {
   fs.readFile("./server/data/users.json", "utf8", (err, data) => {
     if (err) {
@@ -861,28 +944,28 @@ function calculateTime(inTime, outTime) {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 }
 
-app.get("/api/gallery.json", (req, res) => {
-  fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: err,
-        data: null,
-      })
-    }
+// app.get("/api/gallery.json", (req, res) => {
+//   fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
+//     if (err) {
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: err,
+//         data: null,
+//       })
+//     }
 
-    try {
-      const json = JSON.parse(data)
-      res.json(json)
-    } catch (parseErr) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: parseErr,
-        data: null,
-      })
-    }
-  })
-})
+//     try {
+//       const json = JSON.parse(data)
+//       res.json(json)
+//     } catch (parseErr) {
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: parseErr,
+//         data: null,
+//       })
+//     }
+//   })
+// })
 
 app.get("/api/inquiry.json", (req, res) => {
   fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {

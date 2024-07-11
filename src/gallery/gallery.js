@@ -1,8 +1,10 @@
 import axios from "axios"
 import "./gallery.css"
 import "../inquiryBoard/InquiryBoard.css"
+import { addDeleteEventListeners } from "./managergallery.js";
 
-let cards = [] // 전역 변수로 선언
+export let cards = [] // 전역 변수로 선언
+export let currentPage = 1
 
 // DOMContentLoaded 이벤트 핸들러 내에서 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,6 +31,13 @@ export function loadGallery() {
             <div class="pagination" id="pagination">
                 <!-- 페이지네이션 버튼이 여기에 추가됨 -->
             </div>
+            <div class="loading-container" id="loadingOverlay">
+              <div class="loading-animation">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+              </div>
+            </div>
         </div>
     `
 
@@ -36,14 +45,23 @@ export function loadGallery() {
   initializeSortElement()
 
   // 초기 카드 정렬 및 표시
-  getgalleryList()
-  return app
+  getgalleryList().then(cardsData => {
+    if (cardsData && cardsData.length > 0) {
+      cards = cardsData; // cards 변수를 업데이트
+      const sortElement = document.getElementById("sort")
+      sortCards(cards, sortElement.value) // 초기 정렬 옵션에 맞게 정렬
+    } else {
+      console.error("No cards available to sort")
+    }
+  }).catch(err => {
+    // console.error("Error loading gallery list:", err)
+  })
 }
 
-function initializeSortElement() {
+export function initializeSortElement() {
   const sortElement = document.getElementById("sort")
 
-  sortElement.addEventListener("change", () => sortCards(cards))
+  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value))
   sortElement.addEventListener("focus", function () {
     this.style.border = "2px solid #ED234B"
   })
@@ -53,59 +71,63 @@ function initializeSortElement() {
 }
 
 // gallery.json 데이터 가져오기
-async function getgalleryList() {
+export async function getgalleryList() {
+  const loadingContainer = document.querySelector(".loading-container");
+  loadingContainer.classList.remove("hidden");
+
   try {
-    const res = await axios.get("/api/gallery.json")
+    const res = await axios.get("/api/gallery.json");
 
     // res.data가 배열인지 확인
     if (Array.isArray(res.data)) {
-      cards = res.data
+      return res.data
     } else if (res.data.data && Array.isArray(res.data.data)) {
-      cards = res.data.data
+      return res.data.data
     } else {
       throw new Error("Invalid data format")
     }
-
-    // 데이터가 로드된 후에 sortCards 호출
-    document.addEventListener("DOMContentLoaded", () => {
-      sortCards(cards)
-    })
   } catch (err) {
     console.error("Error fetching gallery list:", err)
+    return []
+  } finally {
+    loadingContainer.classList.add("hidden")
   }
 }
 
 const cardsPerPage = 8
-let currentPage = 1
 let currentSort = "latest"
 
-function displayCards(cards, page) {
-  const cardGrid = document.getElementById("card-grid")
-  cardGrid.innerHTML = ""
-  const start = (page - 1) * cardsPerPage
-  const end = page * cardsPerPage
-  const paginatedCards = cards.slice(start, end)
-  paginatedCards.forEach((card) => {
+export function displayCards(cards, page, forManager = false) {
+  const cardGrid = document.getElementById("card-grid");
+  cardGrid.innerHTML = "";
+  const start = (page - 1) * cardsPerPage;
+  const end = page * cardsPerPage;
+  const paginatedCards = cards.slice(start, end);
+  paginatedCards.forEach((card, index) => {
     cardGrid.innerHTML += `
-            <div class="card">
-                <img src="${card.img}" alt="${card.title}">
-                <h3>${card.title}</h3>
-                <p>${card.desc}</p>
-                <div class="card-footer">
-                    <span class="date">${card.date}</span>
-                </div>
-            </div>
-        `
-  })
+      <div class="card">
+        <img src="${card.img}" alt="${card.title}" onerror="this.onerror=null;this.src='/uploads/default_image.jpg';">
+        <h3>${card.title}</h3>
+        <p>${card.desc}</p>
+        <div class="card-footer">
+          <span class="date">${card.date}</span>
+          ${forManager ? `<span class="material-symbols-outlined delete-icon" data-card-index="${index + start}">delete</span>` : ''}
+        </div>
+      </div>
+    `;
+  });
+  if (forManager) {
+    addDeleteEventListeners(); // 관리자 모드일 때만 이벤트 리스너 추가
+  }
 }
 
-function setupPagination() {
+export function setupPagination(cards, currentPage, forManager = false) {
   const pagination = document.getElementById("pagination")
   pagination.innerHTML = ""
   const pageCount = Math.ceil(cards.length / cardsPerPage)
 
   // 왼쪽 화살표 추가
-  const leftArrow = createArrow("left", currentPage === 1)
+  const leftArrow = createArrow("left", currentPage === 1, cards, currentPage, forManager)
   pagination.appendChild(leftArrow)
 
   for (let i = 1; i <= pageCount; i++) {
@@ -117,18 +139,18 @@ function setupPagination() {
     }
     pageButton.addEventListener("click", () => {
       currentPage = i
-      displayCards(cards, currentPage)
-      setupPagination()
+      displayCards(cards, currentPage, forManager)
+      setupPagination(cards, currentPage, forManager) // currentPage를 인자로 전달
     })
     pagination.appendChild(pageButton)
   }
 
   // 오른쪽 화살표 추가
-  const rightArrow = createArrow("right", currentPage === pageCount)
+  const rightArrow = createArrow("right", currentPage === pageCount, cards, currentPage, forManager)
   pagination.appendChild(rightArrow)
 }
 
-function createArrow(direction, disabled) {
+function createArrow(direction, disabled, cards, currentPage, forManager) {
   const arrow = document.createElement("button")
   arrow.textContent = direction === "left" ? "<" : ">"
   arrow.classList.add("page-arrow")
@@ -137,35 +159,31 @@ function createArrow(direction, disabled) {
   } else {
     arrow.addEventListener("click", () => {
       currentPage = direction === "left" ? currentPage - 1 : currentPage + 1
-      displayCards(cards, currentPage)
-      setupPagination()
+      displayCards(cards, currentPage, forManager)
+      setupPagination(cards, currentPage, forManager) // currentPage를 인자로 전달
     })
   }
   return arrow
 }
 
-function sortCards(cards) {
-  const sortElement = document.getElementById("sort")
-
-  // document.getElementById("sort") 값이 null인지 확인
-  if (!sortElement) {
-    console.error("Sort element not found")
+export function sortCards(cards, sortBy = "latest") {
+  if (!cards || cards.length === 0) {
+    console.error("No cards available to sort")
     return
   }
 
-  const sortValue = sortElement.value
-  if (sortValue === "latest") {
+  if (sortBy === "latest") {
     cards.sort((a, b) => b.date.localeCompare(a.date))
-  } else if (sortValue === "popular") {
+  } else if (sortBy === "popular") {
     cards.sort((a, b) => b.popularity - a.popularity)
   }
-  currentSort = sortValue
+
   displayCards(cards, currentPage)
-  setupPagination()
+  setupPagination(cards, currentPage)
 }
 
 window.goToPage = function (page) {
   currentPage = page
   displayCards(cards, currentPage)
-  setupPagination()
+  setupPagination(cards, currentPage)
 }

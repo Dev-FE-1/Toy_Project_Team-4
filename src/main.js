@@ -26,6 +26,7 @@ import { loadManagerVacationRequests } from "./requestManager/managerVacation.js
 import { loadManagerOfficialLeaveRequests } from "./requestManager/managerofficialLeave.js"
 import { loadManagerAttendanceCorrectionRequests } from "./requestManager/managerAttendanceCorrection.js"
 import { loadManagerDocumentRequests } from "./requestManager/managerdocumentRequest.js"
+import { managerloadGallery } from "./gallery/managergallery.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -125,7 +126,7 @@ export function route() {
       loadManagerDocumentRequests() //문서 발급
       break
     case "/manager-gallery":
-      // 기업 공지 모음
+      managerloadGallery()// 기업 공지 모음
       break
     case "/student-attendance-record":
       studentAttendanceRecord() // 수강생 출결 현황

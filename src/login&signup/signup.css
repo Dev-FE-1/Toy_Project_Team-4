@@ -1,11 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
 #signup-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  padding-top: calc(50vh - 400px);
+  box-sizing: border-box;
 }
 #signup-main .wrapper {
+  height: 800px;
   width: 500px;
+  margin: 0 auto;
   place-items: center;
   display: flex;
   align-items: center;
@@ -17,9 +22,9 @@
 }
 /* 상단 */
 #signup-main .wrapper .signupTop {
-  width: 500px;
+  width: 100%;
   height: 80px;
-  margin: 10px 0 0 90px;
+  padding: 15px 0 0 40px;
 }
 #signup-main .logoNtext {
   display: flex;
@@ -45,8 +50,11 @@
 #signupForm {
   font-size: 14px;
 }
+#signupForm .choice {
+  padding-top: 10px;
+}
 #signupForm .choice input {
-  margin: 20px 10px 20px;
+  margin: 20px 10px 15px;
   accent-color: #ed234b;
   cursor: pointer;
 }

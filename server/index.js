@@ -776,7 +776,6 @@ function readGalleryData() {
     }
     const data = fs.readFileSync(galleryDataFilePath, "utf8")
     const parsedData = JSON.parse(data)
-    console.log("Read gallery data:", parsedData)
     return Array.isArray(parsedData.data) ? parsedData.data : []
   } catch (error) {
     console.error("Error reading gallery data:", error)
@@ -986,24 +985,19 @@ const profileImgUploadPath = path.join(__dirname, "profileImgs")
 if (!fs.existsSync(profileImgUploadPath)) {
   fs.mkdirSync(profileImgUploadPath)
 }
-
 const userJsonPath = path.join(__dirname, "data", "users.json")
 
 app.post("/profileImgs/:id", (req, res) => {
   const userId = parseInt(req.params.id)
-
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("No files were uploaded.")
   }
-
   const profileImage = req.files.profileImage
   const uploadFilePath = path.join(profileImgUploadPath, profileImage.name) //업로드한 파일 경로
-
   profileImage.mv(uploadFilePath, (err) => {
     if (err) {
       return res.status(500).send(err)
     }
-
     fs.readFile(userJsonPath, "utf8", (err, data) => {
       if (err) {
         return res.status(500).send("유저 정보를 불러오지 못했습니다.")
@@ -1016,15 +1010,12 @@ app.post("/profileImgs/:id", (req, res) => {
           return item.id === userId
         })
       }
-
       const oldProfileImagePath = users.data[userIdx].profileImage
       users.data[userIdx].profileImage = path.join("/server/profileImgs/", profileImage.name)
-
       fs.writeFile(userJsonPath, JSON.stringify(users, null, 2), (err) => {
         if (err) {
           return res.status(500).send("프로필 이미지 업데이트 실패")
         }
-
         if (oldProfileImagePath && fs.existsSync(oldProfileImagePath)) {
           fs.unlink(oldProfileImagePath, (err) => {
             if (err) {
@@ -1032,7 +1023,6 @@ app.post("/profileImgs/:id", (req, res) => {
             }
           })
         }
-
         res.send("프로필 이미지 수정 성공.")
       })
     })

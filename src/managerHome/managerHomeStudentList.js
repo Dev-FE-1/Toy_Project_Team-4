@@ -7,6 +7,13 @@ export function managerHomeStudentList() {
   const managerHomeStudentList = document.querySelector("#attendance-Check")
   managerHomeStudentList.innerHTML = `
   <h4>강의장 접속 현황</h4>
+    <div class="loading-container" id="loadingOverlay">
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
   <ul class='managerHomeStudentList'></ul>
 
     `
@@ -16,6 +23,8 @@ export function managerHomeStudentList() {
 }
 // 수강생 리스트 가져오기
 const studentList = async () => {
+  const loadingContainer = document.querySelector(".loading-container")
+
   const ul = document.querySelector(".managerHomeStudentList")
   const res = await axios.get("/api/users.json")
   const studentData = res.data.data
@@ -27,6 +36,7 @@ const studentList = async () => {
   students = studentData.filter(userType)
 
   ul.innerHTML = ""
+  loadingContainer.classList.add("hidden")
   for (let i = 0; i < students.length; i++) {
     let randomPercent = Math.floor(Math.random() * 100)
     let randomText =

@@ -9,7 +9,7 @@ let currentPage = 1
 
 export async function loadAttendConfirm() {
   try {
-    const res = await axios.get('/api/attendance.json')
+    const res = await axios.get('/server/data/attendance.json')
     attends = res.data.data
     filteredAttends = attends
     renderAttendConfirm()

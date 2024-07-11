@@ -24,7 +24,6 @@ const attendanceCorrectionRequestFilePath = path.join(__dirname, "data", "attend
 const documentRequestFilePath = path.join(__dirname, "data", "document_request.json")
 const galleryDataFilePath = path.join(__dirname, "data", "gallery.json")
 
-
 // LibreOffice 경로 설정
 if (process.platform === "win32") {
   process.env.SOFFICE_PATH = "C:\\Program Files\\LibreOffice\\program\\soffice.exe"
@@ -39,7 +38,7 @@ app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use((req, res, next) => {
   const delayTime = Math.floor(Math.random() * THRESHOLD)
@@ -735,35 +734,35 @@ app.post("/convert", async (req, res) => {
 })
 
 //---------공지모음갤러리 사진업로드----------
-app.post('/upload', (req, res) => {
+app.post("/upload", (req, res) => {
   if (!req.files || !req.files.image) {
-    return res.status(400).send('No files were uploaded.');
+    return res.status(400).send("No files were uploaded.")
   }
 
-  const image = req.files.image;
-  const uploadPath = path.join(__dirname, 'uploads', `${uuidv4()}_${image.name}`);
+  const image = req.files.image
+  const uploadPath = path.join(__dirname, "uploads", `${uuidv4()}_${image.name}`)
 
   image.mv(uploadPath, (err) => {
     if (err) {
-      console.error("File upload failed:", err);
-      return res.status(500).json({ message: 'File upload failed', error: err });
+      console.error("File upload failed:", err)
+      return res.status(500).json({ message: "File upload failed", error: err })
     }
 
     const newEntry = {
       img: `server/uploads/${path.basename(uploadPath)}`,
       title: req.body.title,
       desc: req.body.desc,
-      date: new Date().toISOString().split('T')[0],
-      popularity: 0
-    };
+      date: new Date().toISOString().split("T")[0],
+      popularity: 0,
+    }
 
-    const galleryData = readGalleryData();
-    galleryData.push(newEntry);
-    writeGalleryData(galleryData);
-    console.log("File uploaded:", image); // 로그 추가
-    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${path.basename(uploadPath)}` });
-  });
-});
+    const galleryData = readGalleryData()
+    galleryData.push(newEntry)
+    writeGalleryData(galleryData)
+    console.log("File uploaded:", image) // 로그 추가
+    res.status(200).json({ message: "File uploaded successfully", filePath: `/uploads/${path.basename(uploadPath)}` })
+  })
+})
 
 // JSON 파일 경로
 // const galleryDataFilePath = path.join(__dirname, "./data/gallery.json");
@@ -772,46 +771,46 @@ app.post('/upload', (req, res) => {
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
-      console.log("gallery.json file does not exist, creating new one.");
-      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
+      console.log("gallery.json file does not exist, creating new one.")
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), "utf8")
     }
-    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
-    const parsedData = JSON.parse(data);
-    console.log("Read gallery data:", parsedData);
-    return Array.isArray(parsedData.data) ? parsedData.data : [];
+    const data = fs.readFileSync(galleryDataFilePath, "utf8")
+    const parsedData = JSON.parse(data)
+    console.log("Read gallery data:", parsedData)
+    return Array.isArray(parsedData.data) ? parsedData.data : []
   } catch (error) {
-    console.error("Error reading gallery data:", error);
-    return [];
+    console.error("Error reading gallery data:", error)
+    return []
   }
 }
 
 // JSON 파일에 데이터 저장
 function writeGalleryData(data) {
   try {
-    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
-    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
+    const dataToWrite = { status: "OK", data: data } // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), "utf8")
   } catch (error) {
-    console.error("Error writing gallery data:", error);
+    console.error("Error writing gallery data:", error)
   }
 }
 
 // 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
-  const galleryData = readGalleryData();
-  console.log("Sending gallery data:", galleryData);
-  res.status(200).json(galleryData);
-});
+  const galleryData = readGalleryData()
+  console.log("Sending gallery data:", galleryData)
+  res.status(200).json(galleryData)
+})
 
 // 정적 파일 제공
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+app.use("/public", express.static(path.join(__dirname, "public")))
 
 // 기존의 /api/gallery.json 엔드포인트 유지
 app.get("/api/gallery.json", (req, res) => {
-  const galleryData = readGalleryData();
-  console.log("Sending gallery data via /api/gallery.json:", galleryData);
-  res.status(200).json(galleryData);
-});
+  const galleryData = readGalleryData()
+  console.log("Sending gallery data via /api/gallery.json:", galleryData)
+  res.status(200).json(galleryData)
+})
 //---------공지모음갤러리 사진업로드----------
 
 app.get("/api/users.json", (req, res) => {
@@ -886,14 +885,12 @@ app.get("/api/attendance.json", (req, res) => {
 app.post("/api/attendance", async (req, res) => {
   try {
     const { date, type, time } = req.body
-    const filePath = path.join(__dirname, 'data', 'attendance.json')
-    
-    let data = await fs.promises.readFile(filePath, 'utf8')
+    const filePath = path.join(__dirname, "data", "attendance.json")
+
+    let data = await fs.promises.readFile(filePath, "utf8")
     data = JSON.parse(data)
 
-    const existingEntryIndex = data.data.findIndex(entry => 
-      entry.date === date 
-    )
+    const existingEntryIndex = data.data.findIndex((entry) => entry.date === date)
 
     if (existingEntryIndex !== -1) {
       if (type === "in" && data.data[existingEntryIndex].in === "-") {
@@ -912,8 +909,8 @@ app.post("/api/attendance", async (req, res) => {
         in: type === "in" ? time : "-",
         out: type === "out" ? time : "-",
         time: "-",
-        status: "미처리"
-      };
+        status: "미처리",
+      }
       data.data.push(newEntry)
     }
 
@@ -921,51 +918,27 @@ app.post("/api/attendance", async (req, res) => {
 
     res.json({ status: "ok" })
   } catch (error) {
-    console.error('Error:', error)
+    console.error("Error:", error)
     res.status(500).json({ status: "error", message: error.message })
   }
 })
 
 function calculateTime(inTime, outTime) {
-  const [inHours, inMinutes, inSeconds] = inTime.split(':').map(Number)
-  const [outHours, outMinutes, outSeconds] = outTime.split(':').map(Number)
-  
-  let totalSeconds = (outHours * 3600 + outMinutes * 60 + outSeconds) - 
-                     (inHours * 3600 + inMinutes * 60 + inSeconds)
-  
+  const [inHours, inMinutes, inSeconds] = inTime.split(":").map(Number)
+  const [outHours, outMinutes, outSeconds] = outTime.split(":").map(Number)
+
+  let totalSeconds = outHours * 3600 + outMinutes * 60 + outSeconds - (inHours * 3600 + inMinutes * 60 + inSeconds)
+
   if (totalSeconds < 0) {
-    totalSeconds += 24 * 3600; // 날짜가 바뀐 경우
+    totalSeconds += 24 * 3600 // 날짜가 바뀐 경우
   }
-  
+
   const hours = Math.floor(totalSeconds / 3600)
   const minutes = Math.floor((totalSeconds % 3600) / 60)
   const seconds = totalSeconds % 60
-  
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
 }
-
-// app.get("/api/gallery.json", (req, res) => {
-//   fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
-//     if (err) {
-//       return res.status(500).send({
-//         status: "Internal Server Error",
-//         message: err,
-//         data: null,
-//       })
-//     }
-
-//     try {
-//       const json = JSON.parse(data)
-//       res.json(json)
-//     } catch (parseErr) {
-//       return res.status(500).send({
-//         status: "Internal Server Error",
-//         message: parseErr,
-//         data: null,
-//       })
-//     }
-//   })
-// })
 
 app.get("/api/inquiry.json", (req, res) => {
   fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {

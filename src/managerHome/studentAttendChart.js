@@ -30,7 +30,7 @@ const getHomeChart = () => {
       labels: [dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6]],
       datasets: [
         {
-          data: [7, 9, 8, 9, 8, 8, 9],
+          data: [28, 30, 29, 30, 27, 28, 30],
           label: "출석 완료",
           borderColor: "#ed234b",
           fill: false,
@@ -40,8 +40,8 @@ const getHomeChart = () => {
     options: {
       scales: {
         y: {
-          min: 0,
-          max: 10,
+          min: 20,
+          max: 32,
         },
       },
       title: {

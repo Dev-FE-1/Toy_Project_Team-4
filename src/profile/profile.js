@@ -11,12 +11,10 @@ export function profile() {
       <div class="profileArea">
         <div class="profile-top">
           <div class="user-img"></div>
-          <button id="uploadButton"><span class="material-symbols-outlined">
-photo_camera
-</span></button>
-<input type="file" id="fileInput" style="display: none;">
+          <button id="uploadButton"><span class="material-symbols-outlined">photo_camera</span></button>
+          <input type="file" id="fileInput" style="displays: none;">
         </div>
-        <div class="profile-bottom">
+        <div class="profile-bottom">s
           <div>
             <span class="material-symbols-outlined"> person </span>
             <input id="userName" type="text" readonly=true/>
@@ -111,7 +109,7 @@ async function profileEdit() {
       userId = user.id
     }
   }
-  //////////////
+
   if (userId) {
     if (file) {
       const formData = new FormData()

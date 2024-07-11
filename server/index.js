@@ -22,7 +22,7 @@ const vacationRequestFilePath = path.join(__dirname, "data", "vacation_request.j
 const officialLeaveRequestFilePath = path.join(__dirname, "data", "official_leave_request.json")
 const attendanceCorrectionRequestFilePath = path.join(__dirname, "data", "attendance_correction_request.json")
 const documentRequestFilePath = path.join(__dirname, "data", "document_request.json")
-
+const galleryDataFilePath = path.join(__dirname, "data", "gallery.json")
 
 
 // LibreOffice 경로 설정
@@ -737,6 +737,74 @@ app.post("/convert", async (req, res) => {
   })
 })
 
+//---------공지모음갤러리 사진업로드----------
+app.post('/upload-gallery', (req, res) => {
+  if (!req.files || !req.files.image) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  const image = req.files.image;
+  const uploadPath = path.join(__dirname, 'uploads', `${uuidv4()}_${image.name}`);
+
+  image.mv(uploadPath, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    const newEntry = {
+      img: `server/uploads/${path.basename(uploadPath)}`,
+      title: req.body.title,
+      desc: req.body.desc,
+      date: new Date().toISOString().split('T')[0],
+      popularity: 0
+    };
+
+    let galleryData;
+    try {
+      const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+      galleryData = JSON.parse(data);
+    } catch (err) {
+      galleryData = { data: [] };
+    }
+
+    galleryData.data.push(newEntry);
+
+    try {
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify(galleryData, null, 2), 'utf8');
+      res.status(200).json({ message: 'File uploaded successfully', filePath: newEntry.img });
+    } catch (err) {
+      res.status(500).json({ message: 'Failed to save entry', error: err.message });
+    }
+  });
+});
+
+// 공지 목록을 반환하는 API
+app.get("/api/gallery", (req, res) => {
+  try {
+    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+    const galleryData = JSON.parse(data);
+    res.status(200).json(galleryData);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to read data", details: err.message });
+  }
+});
+
+// 정적 파일 제공
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
+
+// 기존의 /api/gallery.json 엔드포인트 유지
+app.get("/api/gallery.json", (req, res) => {
+  try {
+    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+    const galleryData = JSON.parse(data);
+    res.status(200).json(galleryData);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to read data", details: err.message });
+  }
+});
+//---------공지모음갤러리 사진업로드----------
+
 app.get("/api/users.json", (req, res) => {
   fs.readFile("./server/data/users.json", "utf8", (err, data) => {
     if (err) {
@@ -806,28 +874,28 @@ app.get("/api/attendance.json", (req, res) => {
   })
 })
 
-app.get("/api/gallery.json", (req, res) => {
-  fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: err,
-        data: null,
-      })
-    }
+// app.get("/api/gallery.json", (req, res) => {
+//   fs.readFile("./server/data/gallery.json", "utf8", (err, data) => {
+//     if (err) {
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: err,
+//         data: null,
+//       })
+//     }
 
-    try {
-      const json = JSON.parse(data)
-      res.json(json)
-    } catch (parseErr) {
-      return res.status(500).send({
-        status: "Internal Server Error",
-        message: parseErr,
-        data: null,
-      })
-    }
-  })
-})
+//     try {
+//       const json = JSON.parse(data)
+//       res.json(json)
+//     } catch (parseErr) {
+//       return res.status(500).send({
+//         status: "Internal Server Error",
+//         message: parseErr,
+//         data: null,
+//       })
+//     }
+//   })
+// })
 
 app.get("/api/inquiry.json", (req, res) => {
   fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {

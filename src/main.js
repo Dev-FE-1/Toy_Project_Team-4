@@ -8,11 +8,10 @@ import { mainHome } from "./components/home.js"
 import { loadInquiryBoard } from "./inquiryBoard/InquiryBoard.js"
 import { loadLeaveRequest } from "./request/leave_request.js"
 import { loadOfficialLeaveRequest } from "./request/official_leave_request.js"
-import { loadOfficialLeaveSubmitDocument } from "./request/official_leave_submit_document.js"
-import { loadStatus } from "./request/attendance_correction_request.js"
+import { loadAttendanceCorrectionRequest } from "./request/attendance_correction_request.js"
 import { loadVacationRequest } from "./request/vacation_request.js"
 import { loadGallery } from "./gallery/gallery.js"
-import { loadDocumentRequestForm } from "./document/document.js"
+import { loadDocumentRequest } from "./request/document_request.js"
 import { profile } from "./profile/profile.js"
 import { loadNotice } from "./notice/notice.js"
 import { createFooter, adjustFooterWidth } from "./components/footer.js"
@@ -22,9 +21,11 @@ import { studentInfo } from "./studentInfoList/studentInfo.js"
 import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
 import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
-import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"; // 추가
-import { loadManagerVacationRequests } from "./requestManager/managerVacation.js"; // 추가
-
+import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"; 
+import { loadManagerVacationRequests } from "./requestManager/managerVacation.js"; 
+import { loadManagerOfficialLeaveRequests } from "./requestManager/managerofficialLeave.js";
+import { loadManagerAttendanceCorrectionRequests } from "./requestManager/managerAttendanceCorrection.js";
+import { loadManagerDocumentRequests } from "./requestManager/managerdocumentRequest.js";
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -86,7 +87,7 @@ export function route() {
       loadInquiryBoard() // 문의 게시판
       break
     case "/request":
-      loadDocumentRequestForm() // 행정 자료 요청
+      loadDocumentRequest() // 문서 발급 요청
       break
     case "/gallery":
       loadGallery() // 기업 공지 모음 갤러리
@@ -103,11 +104,8 @@ export function route() {
     case "/application-form":
       loadOfficialLeaveRequest() // 공가 신청
       break
-    case "/document":
-      loadOfficialLeaveSubmitDocument() // 서류 제출
-      break
     case "/status":
-      loadStatus() // 신청 현황
+      loadAttendanceCorrectionRequest() // 출결 정정 요청
       break
 
     /* =================== 관리자 페이지 라우팅 =================== */
@@ -125,7 +123,7 @@ export function route() {
       managerloadInquiryBoard() // 문의 게시판
       break
     case "/manager-request":
-      // 행정 자료 요청
+      loadManagerDocumentRequests() //문서 발급
       break
     case "/manager-gallery":
       // 기업 공지 모음
@@ -140,10 +138,13 @@ export function route() {
       loadManagerVacationRequests()// 휴가 관리
       break
     case "/manager-public-house":
-      // 공가 관리
+      loadManagerOfficialLeaveRequests()// 공가 관리
       break
     case "/student-info":
       studentInfo() // 수강생 리스트
+      break
+    case "/manager-attendance-correction":
+      loadManagerAttendanceCorrectionRequests()// 출결 정정 관리
       break
     default:
       if (userInfo.userType === "student") {

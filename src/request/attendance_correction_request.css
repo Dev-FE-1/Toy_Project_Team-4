@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 
-.attendance_correction_request-container {
+.correction-container {
   width: 90%;
   height: 90%;
   background-color: #fff;
@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.attendance_correction_request-icon {
+.correction-container .attendance_correction_request-icon {
   width: 80px;
   height: 80px;
   vertical-align: middle;
@@ -22,7 +22,7 @@
   margin-right: 40px;
 }
 
-.attendance_correction_request-container h1 {
+.correction-container h1 {
   font-size: 2rem;
   font-weight: 500;
   color: #222;
@@ -31,13 +31,13 @@
   text-align: left;
 }
 
-.attendance_correction_request-both-container {
+.correction-both-container {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
 
-.attendance_correction_request-process-container {
+.correction-process-container {
   flex: 2;
   background-color: #fff;
   padding: 20px;
@@ -46,7 +46,7 @@
   margin-right: 20px;
 }
 
-.attendance_correction_request-process-container h2 {
+.correction-process-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -54,20 +54,20 @@
   margin-bottom: 20px;
 }
 
-.attendance_correction_request-process-list {
+.correction-process-list {
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 10px;
   text-align: left;
 }
 
-.attendance_correction_request-process-list h3 {
+.correction-process-list h3 {
   color: #222;
   border-bottom: 2px solid #d6d6d6;
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 15px;
-  margin-top: 20px;
+  margin-bottom: 15px; 
+  margin-top: 20px; 
   padding-bottom: 5px;
 }
 
@@ -79,7 +79,7 @@
   margin-top: 20px;
 }
 
-.attendance_correction_request-process-list a {
+.correction-process-list a {
   color: rgb(20, 93, 251);
   text-decoration: none;
   font-weight: 700;
@@ -88,29 +88,36 @@
   margin-bottom: 10px;
 }
 
-.attendance_correction_request-process-list a:hover {
+.correction-process-list a:hover {
   text-decoration: underline;
 }
 
-.attendance_correction_request-process-list .material-symbols-outlined {
+.correction-process-list .material-symbols-outlined {
   color: rgb(20, 93, 251);
   margin-right: 8px;
   vertical-align: middle;
   margin-bottom: 13px;
 }
 
-.attendance_correction_request-process-list .ex {
+.correction-process-list .ex {
   color: #ed234b;
   font-weight: 500;
 }
 
-.attendance_correction_request-process-list p {
+.correction-process-list p {
   margin-top: 10px;
-  margin-bottom: 10px;
-  line-height: 1.5;
+  margin-bottom: 10px; 
+  line-height: 1.5; 
 }
 
-.attendance_correction_request-status-container {
+.correction-process-list a {
+  display: block; 
+  margin-top: 0; 
+  margin-bottom: 10px; 
+  font-weight: 500;
+}
+
+.correction-status-container {
   flex: 3;
   background-color: #fff;
   padding: 20px;
@@ -119,7 +126,13 @@
   flex-direction: column;
 }
 
-.attendance_correction_request-status-header {
+.correction-status-container .correction-status-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.correction-status-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -138,7 +151,7 @@
   opacity: 0.7;
 }
 
-.attendance_correction_request-status-header span {
+.correction-status-header span {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -147,20 +160,20 @@
   margin-left: 10px;
 }
 
-.attendance_correction_request-status-date-range {
+.correction-status-date-range {
   position: static;
   right: auto;
   top: auto;
 }
 
-.attendance_correction_request-status-date-range .date-input {
+.correction-status-date-range .date-input {
   border: 1px solid #d6d6d6;
   border-radius: 5px;
   padding: 5px;
   margin: 0 5px;
 }
 
-.attendance_correction_request-status-date-range .date-input:focus {
+.correction-status-date-range .date-input:focus {
   border-color: #ED234B;
   outline: none;
 }
@@ -171,23 +184,23 @@
   min-height: 300px;
 }
 
-.attendance_correction_request-container .status-table {
+.correction-status-container .status-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: fixed; 
 }
 
-.attendance_correction_request-container .status-table th,
-.attendance_correction_request-container .status-table td {
+.correction-status-container .status-table th,
+.correction-status-container .status-table td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #efefef;
-  height: 50px;
-  overflow: hidden;
-  white-space: nowrap;
+  height: 50px; 
+  overflow: hidden; 
+  white-space: nowrap; 
 }
 
-.attendance_correction_request-container .status-table th {
+.correction-status-container .status-table th {
   border-top: 1px solid #efefef;
   font-size: 14px;
   font-weight: normal;
@@ -196,39 +209,39 @@
   background-color: #f2f2f2;
 }
 
-.attendance_correction_request-container .status-pending,
-.attendance_correction_request-container .status-approved,
-.attendance_correction_request-container .status-rejected,
-.attendance_correction_request-container .cancel-button {
+.correction-status-container .status-pending,
+.correction-status-container .status-approved,
+.correction-status-container .status-rejected,
+.correction-status-container .cancel-button {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
 
-.attendance_correction_request-container .status-pending {
+.correction-status-container .status-pending {
   background-color: #bababa;
   color: #fff;
 }
 
-.attendance_correction_request-container .status-approved {
+.correction-status-container .status-approved {
   background-color: #D9F7E7;
   color: #30A164;
 }
 
-.attendance_correction_request-container .status-rejected {
+.correction-status-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
 }
 
-.attendance_correction_request-container .cancel-button {
+.correction-status-container .cancel-button {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.attendance_correction_request-container .cancel-button:hover {
+.correction-status-container .cancel-button:hover {
   opacity: 0.5;
 }
 
@@ -274,11 +287,11 @@
   cursor: default;
 }
 
-.attendance_correction_request-modal-btn-container {
+.correction-modal-btn-container {
   margin-top: 0;
 }
 
-.attendance_correction_request-modal-btn {
+.correction-modal-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -293,20 +306,20 @@
   margin-top: 40px;
 }
 
-.attendance_correction_request-modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
+.correction-modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4);
 }
 
-.attendance_correction_request-modal-content {
+.correction-modal-content {
   background-color: #fff;
   padding: 40px;
   width: 35%;
@@ -318,7 +331,7 @@
   transform: translate(-50%, -50%);
 }
 
-.attendance_correction_request-modal-close-btn {
+.correction-modal-close-btn {
   color: #ababab;
   float: right;
   font-size: 30px;
@@ -328,14 +341,14 @@
   right: 15px;
 }
 
-.attendance_correction_request-modal-close-btn:hover,
-.attendance_correction_request-modal-close-btn:focus {
+.correction-modal-close-btn:hover,
+.correction-modal-close-btn:focus {
   color: #ed234b;
   text-decoration: none;
   cursor: pointer;
 }
 
-.attendance_correction_request-form-container h2 {
+.correction-form-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -343,34 +356,100 @@
   margin-bottom: 20px;
 }
 
-.attendance_correction_request-submit-section input[type="date"],
-.attendance_correction_request-reason textarea {
+.correction-form-container .correction-date-container input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.correction-form-container .correction-date-container input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.correction-form-container .correction-submit-section .correction-pdf-container input[type="file"],
+.correction-form-container .correction-submit-section .correction-zip-container input[type="file"]{
   width: 100%;
   padding: 10px;
   margin: auto;
   border: 1px solid #ABABAB;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
-.attendance_correction_request-submit-section input[type="date"]:focus,
-.attendance_correction_request-reason textarea:focus {
+.correction-form-container .correction-submit-all-section input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.correction-form-container .correction-submit-all-section input[type="file"]:focus {
   border-color: #ED234B;
   outline: none;
 }
 
-.attendance_correction_request-submit-section label {
+.correction-form-container .convert-press-container label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;
   margin: 20px 0 10px;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 
-.attendance_correction_request-btn {
+.correction-form-container .correctionSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.correction-form-container .convert-press-container .correction-pdf-container,
+.correction-form-container .convert-press-container .correction-zip-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#fileInput,
+#wordFile {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#fileInput:focus,
+#wordFile:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.convertpdf,
+.createzip {
+  margin-right: 0;
+  color: #fff;
+  background-color: #ed234b;
+  width: 20%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #ed234b;
+  margin-bottom: 10px;
+  padding: 2px 8px 4px;
+}
+
+.convertpdf:hover,
+.createzip:hover {
+  opacity: 0.7;
+}
+
+.correctionSubmitForm .correction-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -385,16 +464,7 @@
   margin-top: 40px;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #d6d6d6;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #ed234b;
-  border-radius: 10px;
+.correction-modal-btn:hover,
+.correctionSubmitForm .correction-btn:hover {
+  opacity: 0.7;
 }

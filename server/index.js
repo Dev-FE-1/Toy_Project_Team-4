@@ -846,22 +846,6 @@ app.get("/api/inquiry.json", (req, res) => {
   })
 })
 
-app.get("/api/counter", (req, res) => {
-  const counter = Number(req.query.latest)
-
-  if (Math.floor(Math.random() * 10) <= 3) {
-    res.status(400).send({
-      status: "Error",
-      data: null,
-    })
-  } else {
-    res.status(200).send({
-      status: "OK",
-      data: counter + 1,
-    })
-  }
-})
-
 app.get("/api/users", (req, res) => {
   const sql = "SELECT * FROM users"
 
@@ -876,6 +860,64 @@ app.get("/api/users", (req, res) => {
     res.json({
       status: "OK",
       data: rows,
+    })
+  })
+})
+
+// 마이페이지 프로필사진 업로드
+const profileImgUploadPath = path.join(__dirname, "profileImgs")
+if (!fs.existsSync(profileImgUploadPath)) {
+  fs.mkdirSync(profileImgUploadPath)
+}
+
+const userJsonPath = path.join(__dirname, "data", "users.json")
+
+app.post("/profileImgs/:id", (req, res) => {
+  const userId = parseInt(req.params.id)
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.")
+  }
+
+  const profileImage = req.files.profileImage
+  const uploadFilePath = path.join(profileImgUploadPath, profileImage.name) //업로드한 파일 경로
+
+  profileImage.mv(uploadFilePath, (err) => {
+    if (err) {
+      return res.status(500).send(err)
+    }
+
+    fs.readFile(userJsonPath, "utf8", (err, data) => {
+      if (err) {
+        return res.status(500).send("유저 정보를 불러오지 못했습니다.")
+      }
+
+      let users = JSON.parse(data)
+      let userIdx = 0
+      if (Array.isArray(users.data)) {
+        userIdx = users.data.findIndex((item) => {
+          return item.id === userId
+        })
+      }
+
+      const oldProfileImagePath = users.data[userIdx].profileImage
+      users.data[userIdx].profileImage = path.join("/server/profileImgs/", profileImage.name)
+
+      fs.writeFile(userJsonPath, JSON.stringify(users, null, 2), (err) => {
+        if (err) {
+          return res.status(500).send("프로필 이미지 업데이트 실패")
+        }
+
+        if (oldProfileImagePath && fs.existsSync(oldProfileImagePath)) {
+          fs.unlink(oldProfileImagePath, (err) => {
+            if (err) {
+              console.log("이전 프로필사진 삭제 실패 사유 :", err)
+            }
+          })
+        }
+
+        res.send("프로필 이미지 수정 성공.")
+      })
     })
   })
 })

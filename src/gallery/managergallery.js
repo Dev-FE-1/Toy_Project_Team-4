@@ -1,6 +1,6 @@
-import "./gallery.css"
-import "../inquiryBoard/InquiryBoard.css"
-import { getgalleryList, displayCards, setupPagination, currentPage, cards, sortCards } from "./gallery.js"
+import "./gallery.css";
+import "../inquiryBoard/InquiryBoard.css";
+import { getgalleryList, displayCards, setupPagination, currentPage, cards, sortCards, initializeSortElement } from "./gallery.js";
 
 // DOMContentLoaded 이벤트 핸들러 내에서 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export function managerloadGallery() {
   const app = document.getElementById("app")
+
+  if (!app) {
+    console.error("App element not found")
+    return
+  }
 
   app.innerHTML = `
         <div class="gallery_container">
@@ -22,7 +27,7 @@ export function managerloadGallery() {
             <div class="pagination" id="pagination">
                 <!-- 페이지네이션 버튼이 여기에 추가됨 -->
             </div>
-            <div class="loading-container" id="loadingOverlay">
+            <div class="loading-container hidden" id="loadingOverlay">
               <div class="loading-animation">
                 <div class="loading-dot"></div>
                 <div class="loading-dot"></div>
@@ -59,21 +64,30 @@ export function managerloadGallery() {
                 <button id="cancelDelete">아니오</button>
             </div>
         </div>
-    `
+    `;
+
+    console.log("HTML content added to app element");
+
+  // 요소가 추가된 후 이벤트 리스너 등록
+  initializeSortElement()
+  setupModalEvents()
+  setupFormEvents()
 
   // 초기 카드 정렬 및 표시
   getgalleryList().then(cardsData => {
-    cards.length = 0; // 기존 cards 배열 초기화
-    cards.push(...cardsData); // 새로운 데이터로 cards 배열 갱신
-    sortCards(cards, "latest"); // 최신순으로 정렬
-    displayCards(cards, currentPage, true);
-    setupPagination(cards, currentPage, true);
-    addDeleteEventListeners(); // 삭제 버튼 이벤트 리스너 추가
+    if (cardsData && cardsData.length > 0) {
+      cards.length = 0; // 기존 cards 배열 초기화
+      cards.push(...cardsData); // 새로운 데이터로 cards 배열 갱신
+      sortCards(cards, "latest", true); // 최신순으로 정렬, 관리자 모드로 표시
+      displayCards(cards, currentPage, true);
+      setupPagination(cards, currentPage, true);
+      addDeleteEventListeners(); // 삭제 버튼 이벤트 리스너 추가
+    } else {
+      console.error("No cards available to sort");
+    }
   }).catch(err => {
-    // console.error("Error loading gallery list:", err);
+    console.error("Error loading gallery list:", err);
   })
-  setupModalEvents();
-  setupFormEvents();
 }
 
 // 폼 관련 이벤트 설정 함수
@@ -116,7 +130,7 @@ async function handleFormSubmit() {
   formData.append('image', image);
 
   try {
-    const response = await fetch('http://localhost:8080/upload', { // 서버 URL을 명확하게 지정
+    const response = await fetch('http://localhost:8080/upload-gallery', { // 서버 URL을 명확하게 지정
       method: 'POST',
       body: formData,
     });

@@ -54,21 +54,27 @@ export function loadGallery() {
       console.error("No cards available to sort")
     }
   }).catch(err => {
-    // console.error("Error loading gallery list:", err)
+    console.error("Error loading gallery list:", err)
   })
 }
 
 export function initializeSortElement() {
-  const sortElement = document.getElementById("sort")
+  const sortElement = document.getElementById("sort");
 
-  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value))
+  if (!sortElement) {
+    console.error("Sort element not found");
+    return;
+  }
+
+  sortElement.addEventListener("change", () => sortCards(cards, sortElement.value));
   sortElement.addEventListener("focus", function () {
-    this.style.border = "2px solid #ED234B"
-  })
+    this.style.border = "2px solid #ED234B";
+  });
   sortElement.addEventListener("blur", function () {
-    this.style.border = "1px solid #ABABAB"
-  })
+    this.style.border = "1px solid #ABABAB";
+  });
 }
+
 
 // gallery.json 데이터 가져오기
 export async function getgalleryList() {
@@ -94,11 +100,16 @@ export async function getgalleryList() {
   }
 }
 
-const cardsPerPage = 8
-let currentSort = "latest"
+const cardsPerPage = 8;
+let currentSort = "latest";
 
 export function displayCards(cards, page, forManager = false) {
   const cardGrid = document.getElementById("card-grid");
+  if (!cardGrid) {
+    console.error("Card grid element not found");
+    return;
+  }
+  
   cardGrid.innerHTML = "";
   const start = (page - 1) * cardsPerPage;
   const end = page * cardsPerPage;
@@ -120,6 +131,7 @@ export function displayCards(cards, page, forManager = false) {
     addDeleteEventListeners(); // 관리자 모드일 때만 이벤트 리스너 추가
   }
 }
+
 
 export function setupPagination(cards, currentPage, forManager = false) {
   const pagination = document.getElementById("pagination")
@@ -176,6 +188,12 @@ export function sortCards(cards, sortBy = "latest") {
     cards.sort((a, b) => b.date.localeCompare(a.date))
   } else if (sortBy === "popular") {
     cards.sort((a, b) => b.popularity - a.popularity)
+  }
+
+  const cardGrid = document.getElementById("card-grid");
+  if (!cardGrid) {
+    console.error("Card grid element not found");
+    return;
   }
 
   displayCards(cards, currentPage)

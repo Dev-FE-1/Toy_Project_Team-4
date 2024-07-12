@@ -48,7 +48,7 @@ export function loadCheckInOut() {
     submitModalYesBtn.disabled = true;  // 버튼 비활성화
     const result = await sendAttendanceData(type)
     submitModalYesBtn.disabled = false;  // 버튼 다시 활성화
-
+    console.log(result)
     if (result.status === "ok") {
       toggleBtns.forEach(btn => {
         if (btn.classList.contains("active")) {
@@ -71,7 +71,7 @@ export function loadCheckInOut() {
     } else {
       messageElement.textContent = result.message || "오류가 발생했습니다."
       messageElement.style.color = "red"
-    }
+     }
   })
 
   closeModalNoBtn.addEventListener("click", () => {

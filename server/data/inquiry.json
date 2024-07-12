@@ -1,0 +1,129 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "id": 1,
+      "date": "6월 24일",
+      "title": "토이프로젝트 중간결과물 제출 문의",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "토이프로젝트 중간결과물 제출이 오늘까지인데 , 프로젝트 참여안하는 수강생은 어떻게 해야하나요?",
+      "SecretSettings": "1234",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "6월 26일",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다! 현재 프로젝트 미참여로 진행되시는 분들은 개인프로젝트를 받을 예정입니다! 이에 관련하여 안내는 금주 내로 안내해 드리도록 하겠습니다!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "6월 25일",
+      "title": "깃허브 프로젝트 관련 문의",
+      "profileImage": "/public/images/수민.jpg",
+      "name": "김수민",
+      "message": "안녕하세요! 저희는 github action을 사용해서 이슈와 깃허브 프로젝트를 연결하려고 하는데, 액션으로 프로젝트를 연결하려면 관리자의 토큰이 있어야되거나 프로젝트가 공개 상태여야 하는 것 같습니다. 토큰을 요청드리기엔 너무 번거로울 것 같으니 저희 조 프로젝트를 공개로 바꿔주실 수 있나요?",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "6월 26일",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다! 시간이 되신다면 잠시 16번 소회의실로 와주실수 있으실까요? 정확한 해결을 위해 화면공유하며 진행하려 합니다!"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "6월 26일",
+      "title": "기존 노션 자료 문의합니다",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "안녕하세요, 매니저님! 혹시 토이프로젝트 3조의 노션 갤러리에서 일정 전에 원래 기입되어있던 팀원소개 부분이 삭제되어 확인 요청드립니다..!"
+    },
+    {
+      "id": 4,
+      "date": "6월 27일",
+      "title": "중간제출 관련 문의 사항",
+      "profileImage": "/public/images/원지.jpg",
+      "name": "최원지",
+      "message": "질문1 리드미 상세설명 문서는 md 파일을 어떻게 제출하면 될까요?<br>질문2 팀 역할분담 의 답변과 깃헙주소를 하단의 답안으로 작성해서 제출<br>LMS에 스크린샷 합쳐서 pdf 파일 1개로 제출<br>이렇게 하는게 맞을까요?"
+    },
+    {
+      "id": 5,
+      "date": "6월 28일",
+      "title": "예비군 출석 정정 기간 문의합니다",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "예비군으로 인한 hrdnet 출석정정은 제출 후 언제쯤 이뤄지나요?",
+      "SecretSettings": "1234"
+    },
+    {
+      "id": 6,
+      "date": "6월 28일",
+      "title": "오늘 특강 내용 공유될까요?",
+      "profileImage": "/public/images/수민.jpg",
+      "name": "김수민",
+      "message": "안녕하세요 매니저님. 오늘 특강내용 녹화본 올려주시나요?",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "6월 28일",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다! 해당 부분은 강사님과 논의중에있습니다! 논의가 끝나면 말씀드리도록 하겠습니다!"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "6월 29일",
+      "title": "패리포터 기자단 관련 문의",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "안녕하세요 패리포터 기자단 관련 문의드립니다. 기존에 작성된 블로그도 같이 합산될까요?"
+    },
+    {
+      "id": 8,
+      "date": "6월 30일",
+      "title": "6/30 시간표 문의 사항",
+      "profileImage": "/public/images/도형.jpg",
+      "name": "김도형",
+      "message": "오늘 구글캘린더에 5시~7시는 어떤 시간일까요?",
+      "SecretSettings": "1234",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "6월 30일",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다! 해당 시간은 할당 되신 분들에게 DM을 드렸습니다. dm을 받지 않으신 분들은 프로젝트 계속 진행해주시면 될것 같습니다!"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "6월 30일",
+      "title": "온라인 강의 진도 문의",
+      "profileImage": "/public/images/효정.jpg",
+      "name": "임효정",
+      "message": "안녕하세요. 온라인강의 진도를 못맞추면 어떻게 될까요? 이제 스타벅스 예제 마무리했는데 문제가 생길까요?",
+      "comments": [
+        {
+          "manager profile": "/public/images/강동원.jpg",
+          "manager name": "manager1",
+          "comment data": "7월 1일",
+          "comment": "안녕하세요. 문의하신 내용 답변드립니다! 주차별 온라인 강의를 미리 먼저 듣는 것은 문제 없으나, 밀려서 한 번에 수강하는 것은 문제가 됩니다. 고용노동부 측에서 주차별 학습을 트래킹하기 때문입니다. 또한, 수강 진도를 맞추지 못하면 강사님 실시간 강의나 프로젝트 진행 시 어려움이 있기 때문에 진도에 맞게 수강해주세요!"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "date": "7월 2일",
+      "title": "취업 상담 과정에 관련하여 문의 사항 있습니다!",
+      "profileImage": "/public/images/원지.jpg",
+      "name": "최원지",
+      "message": "취업상담을 신청하기 위해서는 자소서를 제출해야하나요? 이 분야가 처음이라 자소서가 없어서 질문드립니다.",
+      "SecretSettings": "1234"
+    }
+  ]
+}

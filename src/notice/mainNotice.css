@@ -1,0 +1,167 @@
+#mainNotice {
+  height: 100%;
+}
+
+#mainNotice .calendar {
+  height: 20%;
+}
+#mainNotice .noticeForm {
+  height: 75%;
+  border-top: 1px solid #e6e6e6;
+  overflow-y: auto;
+}
+#mainNotice .noticeForm .text {
+  display: flex;
+  align-items: center;
+  padding: 3px 30px;
+  font-size: 14px;
+}
+#mainNotice .noticeForm .text * {
+  color: #ed234b;
+  margin-right: 3px;
+}
+#mainNotice .noticeForm .text h4 {
+  padding-top: 4px;
+}
+#mainNotice .noticeForm .noticelist {
+  background: #fff;
+  align-items: center;
+  padding: 0 20px;
+  color: #777;
+}
+#mainNotice .noticeForm .noticelist li {
+  list-style-type: none;
+}
+#mainNotice .noticeForm .noticelist li .post {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
+  margin: 0 10px 15px;
+  padding: 20px 20px 10px;
+}
+#mainNotice .post div {
+  width: 100%;
+  margin-top: 10px;
+}
+#mainNotice .post .post-top,
+#mainNotice .post .post-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+#mainNotice .noticeForm .noticelist .post .post-top {
+  height: 10%;
+}
+#mainNotice .noticeForm .noticelist .post .post-top .post-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #222;
+}
+#mainNotice .noticeForm .noticelist .post .post-top .post-date {
+  font-size: 14px;
+  color: #ababab;
+}
+#mainNotice .noticeForm .noticelist .post .post-mid {
+  height: 80%;
+}
+#mainNotice .noticeForm .noticelist .post .post-mid .post-content {
+  font-size: 15px;
+  line-height: 21px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  max-height: 6em;
+  position: relative;
+}
+#mainNotice .noticeForm .noticelist .post .post-mid .post-content.changeDisplay {
+  display: contents;
+}
+
+#mainNotice .noticeForm .noticelist .post .post-bottom {
+  align-items: center;
+}
+
+#mainNotice .noticeForm .noticelist .post .post-bottom .writer {
+  display: flex;
+  align-items: center;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .img-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-top: -3px !important;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .img-wrap img {
+  width: 100%;
+}
+
+#mainNotice .noticeForm .noticelist .post .post-bottom .userName {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
+  width: 130px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  color: #f2f2f2;
+  background-color: #ed234b;
+  cursor: pointer;
+}
+#mainNotice .noticeForm .noticelist .post .post-bottom .Complete:hover {
+  background-color: #f26581;
+}
+#mainNotice .runNotice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5%;
+}
+#mainNotice .runNotice a {
+  display: block;
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ed234b;
+  background-color: transparent;
+  text-align: center;
+  padding-top: 10px;
+}
+
+@media screen and (max-width: 950px) {
+  #mainNotice .noticeForm {
+    overflow-y: inherit;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #mainNotice .calendar {
+    height: auto;
+  }
+  #mainNotice .noticeForm .noticelist li .post {
+    height: auto;
+  }
+  #mainNotice .noticeForm .noticelist .post .post-top .post-date {
+    margin-top: 5px;
+    text-align: right;
+  }
+  #mainNotice .post .post-top,
+  #mainNotice .post .post-bottom {
+    flex-direction: column;
+  }
+  #mainNotice .noticeForm .noticelist .post .post-bottom .Complete {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-height: 880px) {
+  #mainNotice .noticeForm .noticelist {
+    height: auto;
+  }
+}

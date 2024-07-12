@@ -1,0 +1,34 @@
+.comments-section .comment-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.comment-form textarea#comment-input{
+  height: 60px;
+  width: 80%;
+  margin: 0;
+  padding: 17px;
+}
+
+.comment-form #submit-comment-button {
+  color: #fff;
+  background-color: #ed234b;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 20px;
+  /* margin-top: 50px; */
+}
+
+.comment-detail .delete-icon {
+  cursor: pointer;
+  color: #ababab;
+  display: flex;
+  align-items: center;
+}
+
+.comment-detail .delete-icon:hover {
+  color: #ed234b;
+}

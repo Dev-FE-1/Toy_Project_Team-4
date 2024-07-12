@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
+#signup-main {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  padding-top: calc(50vh - 400px);
+  box-sizing: border-box;
+}
+#signup-main .wrapper {
+  height: 800px;
+  width: 500px;
+  margin: 0 auto;
+  place-items: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0.4rem 3rem -0.8rem #0a0a1433;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #fff;
+}
+/* 상단 */
+#signup-main .wrapper .signupTop {
+  width: 100%;
+  height: 80px;
+  padding: 15px 0 0 40px;
+}
+#signup-main .logoNtext {
+  display: flex;
+}
+.signupTop img {
+  display: block;
+  margin: 20px 10px;
+  width: 110px;
+  height: 23px;
+}
+.signupTop .signupText1 {
+  font-size: 20px;
+  margin-top: 24px;
+  font-weight: 400;
+  color: #222;
+}
+.signupText2 {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #222;
+}
+/* 폼 내부 */
+#signupForm {
+  font-size: 14px;
+}
+#signupForm .choice {
+  padding-top: 10px;
+}
+#signupForm .choice input {
+  margin: 20px 10px 15px;
+  accent-color: #ed234b;
+  cursor: pointer;
+}
+#signupForm .choice #managerCode #code {
+  height: 30px;
+  width: 100px;
+  margin: 0 0 0 30px;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+  outline: none;
+  text-align: center;
+}
+
+#signupForm div .name {
+  margin: 10px 0 20px;
+  height: 42px;
+  width: 400px;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+  padding-left: 10px;
+  outline: none;
+  color: #222;
+  padding-left: 25px;
+}
+
+#signupForm .newUsersEmail {
+  display: flex;
+  align-items: center;
+}
+#signupForm .newUsersEmail input {
+  height: 42px;
+  padding: 0 25px;
+  margin: 5px 26px 5px 0;
+  width: 230px;
+  outline: none;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+}
+#signupForm .newUsersEmail .emailbtn {
+  height: 35px;
+  width: 100px;
+  background-color: #ed234b;
+  border: none;
+  border-radius: 5px;
+  color: #f2f2f2;
+  font-size: 12px;
+  cursor: pointer;
+}
+#signupForm .newUsersEmail .emailbtn:hover {
+  background-color: #ed234bc4;
+}
+#signupForm span {
+  display: block;
+  color: #ed234b;
+}
+#signupForm .newUsersPw,
+#signupForm .newUsersPw2,
+#signupForm .phone {
+  display: flex;
+  flex-direction: column;
+}
+#signupForm .newUsersPw input,
+#signupForm .newUsersPw2 input,
+#signupForm .phone input {
+  height: 42px;
+  padding: 0 25px;
+  margin: 20px 0 5px;
+  outline: none;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+}
+/* 개인정보 */
+#signupForm .consent {
+  color: #222;
+  display: block;
+  margin-top: 20px;
+}
+#signupForm .consentText {
+  width: 400px;
+  height: 110px;
+  border: 1px solid #ababab;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-y: scroll;
+  font-size: 12px;
+  margin: 5px 0;
+}
+#signupForm .consentText::-webkit-scrollbar {
+  width: 10px;
+}
+#signupForm .consentText::-webkit-scrollbar-thumb {
+  background-color: rgba(99, 98, 98, 0.2);
+  overflow: hidden;
+  border-radius: 5px;
+}
+#signupForm .consentCheck {
+  display: flex;
+  color: #222;
+}
+#signupForm .consentCheck label {
+  margin: 2px 5px;
+  accent-color: #ed234b;
+  cursor: pointer;
+}
+#signupForm .submitBtnArea {
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#signupForm .submitBtnArea .submitBtn {
+  height: 45px;
+  width: 160px;
+  background-color: #ed234b;
+  border: none;
+  border-radius: 5px;
+  color: #f2f2f2;
+  cursor: pointer;
+  font-size: 14px;
+}
+#signupForm .submitBtnArea .submitBtn:hover {
+  background-color: #ed234bc4;
+}

@@ -1,0 +1,264 @@
+.attendConfirmWrap {
+  width: 90%;
+  height:90%;
+
+}
+
+.attend-Confirm {
+  background: #fff;
+  height: 100%;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border-radius: 10px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.attend-Confirm .title-wrap {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.attend-Confirm .title-wrap .search-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.attend-Confirm .title-wrap .search-wrap .move-btn {
+  display: inline-block;
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  background: #ED234B;
+  color:#fff;
+  padding-left: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: .3s;
+}
+
+.attend-Confirm .title-wrap .search-wrap .move-btn:hover {
+  background: #F26581;
+}
+
+.attend-Confirm .summary-wrap {
+  /* box-shadow: 5px 0 40px #d7d7d7; */
+  box-shadow: 0 0.4rem 1.5rem -0.4rem rgba(10, 10, 20, 0.2);
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  border-radius: 7px;
+  padding: 20px;
+  background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px/16%;
+}
+
+.attend-Confirm .summary-wrap h4 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-size:14px;
+  color:#555;
+}
+
+.attend-Confirm .summary-wrap .summary-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  flex-wrap:wrap;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn {
+  display: flex;
+  align-items: center;
+  border:1px solid #E7E7E7;
+  background:#fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 24%;
+  min-height:77px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn:hover {
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .icon {
+  padding: 10px;
+  background: #F0F0F0;
+  border-radius: 10px;
+  margin-right: 10px;
+
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .icon .material-symbols-outlined {
+  color: #ababab;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt {
+  font-size: 15px;
+  color: #5E5E5E;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p {
+  word-break:break-all;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p:last-child {
+  color:#999;
+  margin-top:5px;
+  margin-left:3px;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn .txt p .num {
+  font-weight:bold;
+  font-size:20px;
+  color: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active {
+  border:1px solid #E7E7E7;
+  background: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .icon {
+  background: #FFB8B8;
+}
+ 
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .icon .material-symbols-outlined {
+  color: #ED234B;
+}
+
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt,
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p:last-child,
+.attend-Confirm .summary-wrap .summary-btns .s-btn.active .txt p .num {
+  color: #fff;  
+}
+
+.attend-Confirm #table-wrap {
+  width:100%;
+  margin-top:30px;
+}
+
+.attend-Confirm #table-wrap tr {
+  border-bottom: 2px solid #efefef;
+}
+
+.attend-Confirm #table-wrap tr th {
+  border-top: 2px solid #efefef;
+  font-size:14px;
+  padding: 8px 0;
+}
+
+.attend-Confirm #table-wrap tr td {
+  font-size:14px;
+  text-align: center;
+  padding: 32px 0;
+}
+
+.attend-Confirm #table-wrap tr td span {
+  display: inline-block;
+  width:85px;
+  height:35px;
+  line-height:35px;
+  background: #D9F7E7;
+  border-radius: 20px;
+  color: #30A164;
+}
+
+.attend-Confirm #table-wrap tr td span.notyet {
+  background: #bababa;
+  color: #fff;
+}
+
+/*PC*/
+@media screen and (max-width:1005px) {
+  .attend-Confirm .summary-wrap {
+    background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px / 70%;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn {
+    width:48%;
+    margin:5px 0;
+  }
+}
+
+/*Tablet*/
+@media screen and (max-width: 640px) {
+  .attend-Confirm .summary-wrap {
+    background:none;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns {
+    justify-content: center;
+    width:100%;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn {
+    width:90%;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 550px) {
+  .attend-Confirm .title-wrap {
+    flex-direction: column;
+    padding: 30px 30px 15px;
+  }
+
+  .attend-Confirm .title-wrap h2 {
+    margin-bottom:30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .attend-Confirm .summary-wrap .summary-btns .s-btn .txt {
+    font-size:14px;
+  }
+
+  .attend-Confirm .summary-wrap .summary-btns .s-btn .txt p .num {
+    font-size:18px;
+  }
+
+  .attend-Confirm #table-wrap thead {
+    clip: rect(0 0 0 0);
+    height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+    border:none;
+  }
+
+  .attend-Confirm #table-wrap tr th {
+    font-size:13px;
+    display:block;
+  }
+
+  .attend-Confirm #table-wrap tr td {
+    display:block;
+    border-bottom:1px solid #efefef;
+    text-align:right;
+    padding: 20px 10px;
+  }
+
+  .attend-Confirm #table-wrap tr td::before {
+    content:attr(data-label);
+    float:left;
+    font-weight:800;
+  }
+   
+  .attend-Confirm #table-wrap tr td span {
+    text-align: center;
+  }
+}
+
+

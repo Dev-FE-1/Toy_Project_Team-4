@@ -1,0 +1,64 @@
+#weekCalendar {
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:1rem 0;
+}
+
+#weekCalendar .today {
+  padding-left: 30px;
+  padding-bottom:1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+#weekCalendar table {
+  width: 100%;
+}
+
+#weekCalendar tr th {
+  padding-bottom: 10px;
+  color:#ababab;
+  font-weight:700;
+  width: calc(100% / 7);
+}
+
+#weekCalendar tr th.todayDate {
+  color: #ED234B
+}
+
+#weekCalendar tr td {
+  text-align: center;
+  color:#ababab;
+  width: calc(100% / 7);
+}
+
+#weekCalendar tr td.todayDate {
+  position: relative;
+  color: #fff;
+  z-index: 1;
+}
+
+#weekCalendar tr td.todayDate::before {
+  content:"";
+  position:absolute;
+  width: 26px;
+  height:26px;
+  border-radius: 50%;
+  background: #ED234B;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  z-index: -1;
+}
+
+@media screen and (max-width: 950px) {
+  #mainNotice .calendar {
+    height: auto;
+  }
+
+  #weekCalendar tr th {
+    font-size: 14px;
+  }
+}

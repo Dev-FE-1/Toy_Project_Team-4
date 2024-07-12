@@ -1,0 +1,187 @@
+.manager-official-leave-container {
+  width: 90%;
+  height: 90%;
+  background-color: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border: 1px solid #f2f2f2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.manager-official-leave-container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.manager-official-leave-container-header h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #222;
+  margin-top: 0;
+  text-align: left;
+}
+
+.manager-official-leave-container {
+  display: flex;
+  align-items: center;
+}
+
+.manager-official-leave-container input {
+  padding: 8px 16px;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.manager-official-leave-container input:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.manager-official-leave-container .filter-button {
+  background-color: #ed234b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.manager-official-leave-container .filter-button:hover {
+  opacity: 0.7;
+}
+
+
+.manager-official-leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.manager-official-leave-table th,
+.manager-official-leave-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #efefef;
+  vertical-align: middle;
+  height: 50px;
+  font-size: 14px;
+}
+
+.manager-official-leave-table th {
+  background-color: #f2f2f2;
+  font-weight: normal;
+  color: #666;
+}
+
+.official-leave-container .status-pending,
+.official-leave-container .status-finalPending {
+  background-color: #f2f2f2;
+  color: #6e6e6e;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.official-leave-container .status-approved,
+.official-leave-container .status-finalApproved,
+.official-leave-container .status-completed {
+  background-color: #D9F7E7;
+  color: #30A164;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.official-leave-container .status-rejected {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.manager-official-leave-actions {
+  gap: 5px;
+}
+
+.manager-official-leave-table .official-leave-btn {
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  border: none;
+  color: #fff;
+}
+
+.manager-official-leave-actions .approve,
+.manager-official-leave-actions .final-approve {
+  background-color: rgb(0, 185, 0);
+}
+
+.manager-official-leave-actions .reject {
+  background-color: #ea4163;
+}
+
+.manager-official-leave-actions .download-documents {
+  background-color: #0059ff;
+}
+
+.manager-official-leave-container .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.manager-official-leave-container .page-button {
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  background-color: transparent;
+  color: #ababab;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.manager-official-leave-container .page-button-active {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.manager-official-leave-container .page-arrow {
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #f26581;
+  border: none;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.manager-official-leave-container .page-arrow-disabled {
+  color: #ababab;
+  background-color: #fff;
+  border: solid 0.5px #ababab;
+  cursor: default;
+}

@@ -1,0 +1,28 @@
+{
+  "request": [
+    {
+      "id": "d6241ca5-acd5-4bed-add1-0133bb952d73",
+      "name": "최원지",
+      "type": "공가",
+      "startDate": "2024-07-11",
+      "endDate": "2024-07-12",
+      "status": "approved",
+      "reason": "예비군 참석",
+      "submitDate": "2024-07-12",
+      "submitTime": "11:42",
+      "documentSubmitted": false
+    },
+    {
+      "id": "c5035fb7-bfac-48e1-9507-1b6852259768",
+      "name": "최원지",
+      "type": "공가",
+      "startDate": "2024-07-15",
+      "endDate": "2024-07-15",
+      "status": "pending",
+      "reason": "예비군 출석",
+      "submitDate": "2024-07-12",
+      "submitTime": "12:19",
+      "documentSubmitted": false
+    }
+  ]
+}

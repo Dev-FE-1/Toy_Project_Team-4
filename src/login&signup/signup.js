@@ -91,6 +91,7 @@ export class SignupPage {
           </div>
           <div class="submitBtnArea">
             <button class="submitBtn" type="submit">가입하기</button>
+            <button class="reloadBtn">로그인 페이지로 돌아가기</button>
           </div>
         </form>
       </div>
@@ -237,6 +238,11 @@ export class SignupPage {
       } else {
         alert("양식의 검증이 완료되지 않았습니다. 회원가입 정보를 확인해주십시오.")
       }
+    })
+
+    // 뒤로가기 버튼 & 로그인페이지로 새로고침
+    document.querySelector(".reloadBtn").addEventListener("click", () => {
+      location.reload(true)
     })
   }
 

@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 #signup-main .wrapper {
-  height: 800px;
+  height: 810px;
   width: 500px;
   margin: 0 auto;
   place-items: center;
@@ -161,10 +161,11 @@
   cursor: pointer;
 }
 #signupForm .submitBtnArea {
-  height: 90px;
+  height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 #signupForm .submitBtnArea .submitBtn {
   height: 45px;
@@ -178,4 +179,13 @@
 }
 #signupForm .submitBtnArea .submitBtn:hover {
   background-color: #ed234bc4;
+}
+#signupForm .submitBtnArea .reloadBtn {
+  height: 15px;
+  margin-top: 20px;
+  background-color: transparent;
+  color: #ed234b;
+}
+#signupForm .submitBtnArea .reloadBtn:hover {
+  border-bottom: 1px solid #ed234b;
 }

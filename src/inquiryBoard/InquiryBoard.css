@@ -198,7 +198,7 @@ ul li.inquirylist .secret-icon,
 }
 
 /* 페이지네이션 */
-div .pagination {
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -217,7 +217,7 @@ div .pagination {
 }
 
 .page-button.active {
-  color: #ed234b;
+  background-color: #ed234b;
   font-weight: 800;
 }
 

@@ -129,35 +129,58 @@ export function loadOfficialLeaveRequest() {
 
   let requestData = []
   let currentPage = 1
-  const itemsPerPage = 5
+  const itemsPerPage = 4
+
+  function getKoreanDate() {
+    const now = new Date();
+    now.setHours(now.getHours() + 9);
+    return now.toISOString().split('T')[0];
+  }
 
   async function loadRequestData() {
     try {
-      const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-      const response = await fetch(`/get-official-leave-request?userName=${userInfo.userName}`)
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      const startDate = document.getElementById('search-start-date').value;
+      const endDate = document.getElementById('search-end-date').value;
+      
+      let url = `/get-official-leave-request?userName=${userInfo.userName}`;
+      if (startDate) url += `&startDate=${startDate}`;
+      if (endDate) url += `&endDate=${endDate}`;
+      
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json()
+      const data = await response.json();
       if (!Array.isArray(data)) {
-        throw new Error('Received data is not an array')
+        throw new Error('Received data is not an array');
       }
-      requestData = data
-      displayData()
+      requestData = data.filter(item => {
+        if (startDate && item.submitDate < startDate) return false;
+        if (endDate && item.submitDate > endDate) return false;
+        return true;
+      });
+      displayData();
     } catch (error) {
-      alert('공가 신청 데이터를 불러오는 데 실패했습니다.')
+      console.error('Error:', error);
+      alert('공가 신청 데이터를 불러오는 데 실패했습니다: ' + error.message);
     }
   }
 
   function displayData() {
     const tableBody = document.getElementById("status-table-body")
-    
-    requestData.sort((a, b) => new Date(b.submitDate) - new Date(a.submitDate))
+    const pagination = document.getElementById("pagination");
 
+    requestData.sort((a, b) => {
+      const dateA = new Date(a.submitDate + 'T' + a.submitTime);
+      const dateB = new Date(b.submitDate + 'T' + b.submitTime);
+      return dateB - dateA; // 내림차순 정렬 (최신 순)
+    });
+  
     const start = (currentPage - 1) * itemsPerPage
     const end = start + itemsPerPage
     const pageData = requestData.slice(start, end)
-
+  
     tableBody.innerHTML = ''
     pageData.forEach((item, index) => {
       const row = document.createElement('tr')
@@ -168,16 +191,16 @@ export function loadOfficialLeaveRequest() {
         <td>
           ${item.status === 'rejected' ? `${item.rejectReason || ''}` : ''}
           ${item.status === 'pending' ? `<button class="cancel-btn" data-id="${item.id}">취소</button>` : ''}
-          ${item.status === 'approved' && !item.documentSubmitted ? `<button class="submit-document-btn" data-id="${item.id}">서류 제출</button>` : ''}
+          ${(item.status === 'approved' && !item.documentSubmitted) || (item.status === 'rejected' && !item.documentSubmitted) ? `<button class="submit-document-btn" data-id="${item.id}">서류 제출</button>` : ''}
           ${item.status === 'completed' ? '승인 완료' : ''}
         </td>
       `
       tableBody.appendChild(row)
     })
 
-    document.querySelectorAll('.cancel-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        cancelRequest(this.getAttribute('data-id'))
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        cancelRequest(this.getAttribute('data-id'));
       })
     })
 
@@ -187,50 +210,104 @@ export function loadOfficialLeaveRequest() {
       })
     })
 
-    displayPagination()
+    displayPagination(requestData.length)
   }
 
-  function displayPagination() {
-    const pagination = document.getElementById("pagination")
-    const totalPages = Math.ceil(requestData.length / itemsPerPage)
-    
-    pagination.innerHTML = ''
-    for (let i = 1; i <= totalPages; i++) {
-      const btn = document.createElement('button')
-      btn.innerText = i
-      btn.classList.add('page-btn')
-      if (i === currentPage) btn.classList.add('active')
-      btn.addEventListener('click', () => {
-        currentPage = i
-        displayData()
-      })
-      pagination.appendChild(btn)
+  function displayPagination(totalItems) {
+    const pagination = document.getElementById("pagination");
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    pagination.innerHTML = '';
+
+    const createArrow = (direction, disabled) => {
+      const arrow = document.createElement('button');
+      arrow.textContent = direction === 'left' ? '<' : '>';
+      arrow.classList.add('page-arrow');
+      if (disabled) {
+        arrow.classList.add('page-arrow-disabled');
+      } else {
+        arrow.addEventListener('click', async () => {
+          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
+          await loadRequestData();
+          displayData();
+        });
+      }
+      return arrow;
     }
+
+    pagination.appendChild(createArrow('left', currentPage === 1));
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('page-button');
+      if (i === currentPage) {
+        pageButton.classList.add('page-button-active');
+      }
+      pageButton.addEventListener('click', async () => {
+        currentPage = i;
+        await loadRequestData();
+        displayData();
+      });
+      pagination.appendChild(pageButton);
+    }
+
+    pagination.appendChild(createArrow('right', currentPage === totalPages));
   }
 
   function getStatusText(item) {
-    if (item.status === 'pending') return '승인 대기'
-    if (item.status === 'approved' && !item.documentSubmitted) return '서류 제출 대기'
-    if (item.status === 'approved' && item.documentSubmitted) return '최종 승인 대기'
-    if (item.status === 'completed') return '승인 완료'
-    if (item.status === 'rejected') return '반려'
-    return '알 수 없음'
+    if (item.status === "pending") return "임시 승인 대기중"
+    if (item.status === "approved" && !item.documentSubmitted) return "임시 승인"
+    if (item.status === "finalPending") return "최종 승인 대기중"
+    if (item.status === "finalApproved") return "최종 승인"
+    if (item.status === "completed") return "승인 완료"
+    if (item.status === "rejected") return "반려"
+    return "알 수 없음"
   }
+  
+  document.getElementById('documentSubmitForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const id = e.target.getAttribute('data-id');
+    formData.append('id', id);
+    try {
+      const response = await fetch('/upload-official-leave-request', {
+        method: 'POST',
+        body: formData
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      alert(result.message || '서류가 제출되었습니다. 최종 승인 대기중입니다.');
+      documentModal.style.display = "none";
+      await loadRequestData();
+    } catch (error) {
+      console.error('Error:', error);
+      alert('서류 제출 중 오류가 발생했습니다: ' + error.message);
+    }
+  };
 
   async function cancelRequest(id) {
     try {
-      const response = await fetch('/cancel-official-leave-request', {
+      const response = await fetch('/delete-official-leave-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
       })
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      }
 
       alert('공가 신청이 취소되었습니다.')
       await loadRequestData()
     } catch (error) {
-      alert('공가 신청 취소 중 오류가 발생했습니다.')
+      console.error('Error:', error)
+      alert('공가 신청 취소 중 오류가 발생했습니다: ' + error.message)
     }
   }
 
@@ -252,45 +329,23 @@ export function loadOfficialLeaveRequest() {
         body: JSON.stringify(data)
       })
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      }
 
       alert('공가 신청서가 제출되었습니다.')
       modal.style.display = "none"
       await loadRequestData()
     } catch (error) {
-      alert('공가 신청서 제출 중 오류가 발생했습니다.')
+      console.error('Error:', error)
+      alert('공가 신청서 제출 중 오류가 발생했습니다: ' + error.message)
     }
   }
 
-  document.getElementById('documentSubmitForm').onsubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const id = e.target.getAttribute('data-id');
-    formData.append('id', id);
-    try {
-      const response = await fetch('/upload-official-leave-request', {
-        method: 'POST',
-        body: formData
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      alert(result.message || '서류가 제출되었습니다.');
-      documentModal.style.display = "none";
-      await loadRequestData();
-    } catch (error) {
-      console.error('Error:', error);
-      alert('서류 제출 중 오류가 발생했습니다: ' + error.message);
-    }
-  };
-
   document.getElementById("convertToPDFBtn").addEventListener("click", () => {
     const file = document.getElementById("wordFile").files[0]
-    const today = new Date().toISOString().split('T')[0]
+    const today = getKoreanDate()
 
     const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
 
@@ -313,58 +368,71 @@ export function loadOfficialLeaveRequest() {
         method: "POST",
         body: formData,
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok')
-          }
-          return response.blob()
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = fileName
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-          URL.revokeObjectURL(url)
-        })
-        .catch(error => {
-          alert("파일 업로드 중 오류가 발생했습니다.")
-        })
-    }
-  })
-
-  document.getElementById("createZipBtn").addEventListener("click", async () => {
-    const files = document.getElementById('fileInput').files
-    const today = new Date().toISOString().split('T')[0]
-
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
-
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-    if (!userInfo || !userInfo.userName) {
-      alert("로그인된 사용자 정보를 찾을 수 없습니다.")
-      return
-    }
-
-    const userName = userInfo.userName
-
-    const fileName = `${today}_${courseName}_${userName}(공가).zip`
-
-    const zip = new JSZip()
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      zip.file(file.name, file)
-    }
-
-    zip.generateAsync({ type: 'blob' })
-      .then(function(content) {
-        saveAs(content, fileName)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.blob()
       })
-      .catch(function(error) {
-        alert("ZIP 파일 생성 중 오류가 발생했습니다.")
+      .then(blob => {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = fileName
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
       })
-  })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("파일 업로드 중 오류가 발생했습니다: " + error.message)
+      })
+  }
+})
 
-  loadRequestData()
+document.getElementById("createZipBtn").addEventListener("click", async () => {
+  const files = document.getElementById('fileInput').files
+  const today = getKoreanDate()
+
+  const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
+
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  if (!userInfo || !userInfo.userName) {
+    alert("로그인된 사용자 정보를 찾을 수 없습니다.")
+    return
+  }
+
+  const userName = userInfo.userName
+
+  const fileName = `${today}_${courseName}_${userName}(공가).zip`
+
+  const zip = new JSZip()
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    zip.file(file.name, file)
+  }
+
+  zip.generateAsync({ type: 'blob' })
+    .then(function(content) {
+      saveAs(content, fileName)
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      alert("ZIP 파일 생성 중 오류가 발생했습니다: " + error.message)
+    })
+})
+
+const searchStartDate = document.getElementById('search-start-date');
+const searchEndDate = document.getElementById('search-end-date');
+const filterButton = document.createElement('button');
+filterButton.textContent = '검색';
+filterButton.classList.add('filter-button');
+document.querySelector('.official-leave-status-date-range').appendChild(filterButton);
+
+filterButton.addEventListener('click', () => {
+  loadRequestData();
+});
+
+loadRequestData()
 }

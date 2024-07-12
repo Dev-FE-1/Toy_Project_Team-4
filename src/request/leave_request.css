@@ -119,8 +119,7 @@
 
 .leave-status-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 20px;
   position: relative;
 }
@@ -142,7 +141,7 @@
   font-weight: 500;
   position: static;
   transform: none;
-  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .leave-status-date-range {

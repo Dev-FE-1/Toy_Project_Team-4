@@ -94,8 +94,7 @@
 
 .official-leave-status-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 20px;
   position: relative;
 }
@@ -117,7 +116,7 @@
   font-weight: 500;
   position: static;
   transform: none;
-  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .official-leave-status-date-range {
@@ -136,6 +135,9 @@
 .official-leave-status-date-range .date-input:focus {
   border-color: #ED234B;
   outline: none;
+}
+.official-leave-status-date-range .filter-button {
+  display:none;
 }
 
 .status-table-container {

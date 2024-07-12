@@ -16,7 +16,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width:100%;
 }
 
@@ -45,7 +45,7 @@
   outline: none;
 }
 
-.manager-leave-search .filter-button {
+.manager-leave-search #filter-button {
   background-color: #ed234b;
   color: #fff;
   border: none;
@@ -54,7 +54,7 @@
   padding: 8px 16px;
 }
 
-.manager-leave-search .filter-button:hover {
+.manager-leave-search #filter-button:hover {
   opacity: 0.7;
 }
 
@@ -67,10 +67,12 @@
 .manager-leave-table th,
 .manager-leave-table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
   vertical-align: middle;
   height: 50px; /* 모든 셀의 높이를 통일 */
+  line-height: 1.1rem;
+  word-break: keep-all;
 }
 
 .manager-leave-table th {
@@ -83,11 +85,12 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  margin-bottom:3px;
+  margin:1px 0;
+  width: 70%;
 }
 
 .manager-leave-actions .approve {
-  background-color: rgb(0, 185, 0);
+  background-color: rgb(11, 192, 11);
   color: #fff;
 }
 

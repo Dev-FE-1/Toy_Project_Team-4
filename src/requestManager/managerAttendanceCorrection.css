@@ -133,13 +133,13 @@
   opacity: 0.7;
 }
 
-.pagination {
+.manager-correction-container .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
-.page-button {
+.manager-correction-container .page-button {
   width: 40px;
   height: 30px;
   margin: 0 5px;
@@ -150,12 +150,12 @@
   cursor: pointer;
 }
 
-.page-button.active {
+.manager-correction-container .page-button.active {
   background-color: #ed234b;
   font-weight: 800;
 }
 
-.page-arrow {
+.manager-correction-container .page-arrow {
   color: #fff;
   width: 30px;
   height: 30px;
@@ -166,7 +166,7 @@
   cursor: pointer;
 }
 
-.page-arrow-disabled {
+.manager-correction-container .page-arrow-disabled {
   color: #ababab;
   background-color: #fff;
   border: solid 0.5px #ababab;

@@ -217,7 +217,8 @@ ul li.inquirylist .secret-icon,
 }
 
 .page-button.active {
-  background-color: #ed234b;
+  /* background-color: #ed234b; */
+  color: #ed234b;
   font-weight: 800;
 }
 

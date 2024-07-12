@@ -1,3 +1,16 @@
 {
-  "request": []
+  "request": [
+    {
+      "id": 1720752093275,
+      "name": "최원지",
+      "type": "출결정정",
+      "date": "2024-07-11",
+      "status": "approved",
+      "reason": "",
+      "filePath": "/Users/wonji/Desktop/패스트캠퍼스/Project/Toy_Project_Team-4/server/uploads/2024-07-11_데브캠프:프론트엔드 개발 4기(DEV_FE1)_최원지(출결정정).zip",
+      "submitDate": "2024-07-12",
+      "submitTime": "11:41",
+      "userId": "undefined"
+    }
+  ]
 }

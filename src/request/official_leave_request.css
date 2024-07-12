@@ -216,7 +216,7 @@
   opacity: 0.7;
 }
 
-.official-leave-status-container .cancel-button {
+.official-leave-status-container .cancel-btn {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
@@ -227,7 +227,7 @@
   font-size: 14px;
 }
 
-.official-leave-status-container .cancel-button:hover {
+.official-leave-status-container .cancel-btn:hover {
   opacity: 0.5;
 }
 
@@ -314,6 +314,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-y:auto;
 }
 
 .official-leave-modal-close-btn {

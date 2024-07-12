@@ -68,6 +68,13 @@
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+.manager-correction-table td.manager-correction-actions {
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: center; */
+  flex-direction: column;
 }
 
 .manager-correction-table th {
@@ -78,7 +85,7 @@
 
 .status {
   display: inline-block;
-  padding: 6px 10px;
+  padding: 10px 13px;
   border-radius: 20px;
   font-size: 14px;
 }
@@ -86,6 +93,7 @@
 .status-pending {
   background-color: #bababa;
   color: #fff;
+
 }
 
 .status-approved {
@@ -99,7 +107,7 @@
 }
 
 .manager-correction-actions .correction-btn {
-  margin-right: 10px;
+  margin-bottom: 2px;
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -131,46 +139,6 @@
 
 .manager-correction-actions .download:hover {
   opacity: 0.7;
-}
-
-.manager-correction-container .pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.manager-correction-container .page-button {
-  width: 40px;
-  height: 30px;
-  margin: 0 5px;
-  text-align: center;
-  background-color: #fff;
-  color: #ababab;
-  border: none;
-  cursor: pointer;
-}
-
-.manager-correction-container .page-button.active {
-  background-color: #ed234b;
-  font-weight: 800;
-}
-
-.manager-correction-container .page-arrow {
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  background-color: #f26581;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.manager-correction-container .page-arrow-disabled {
-  color: #ababab;
-  background-color: #fff;
-  border: solid 0.5px #ababab;
-  cursor: default;
 }
 
 .reason-modal {

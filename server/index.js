@@ -783,7 +783,7 @@ app.post('/upload', (req, res) => {
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
-      console.log("gallery.json file does not exist, creating new one.");
+      // console.log("gallery.json file does not exist, creating new one.");
       fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
     }
     const data = fs.readFileSync(galleryDataFilePath, 'utf8');

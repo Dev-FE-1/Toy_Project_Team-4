@@ -16,7 +16,7 @@
 
 #attendance-Check .chart-section {
   height: calc(100% - 57px);
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -134,10 +134,6 @@
 
   #attendance-Check {
     height:auto;
-  }
-
-  #attendance-Check .chart-section {
-    overflow-y: inherit;
   }
 }
 

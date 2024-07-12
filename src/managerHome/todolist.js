@@ -129,14 +129,14 @@ export function todolist () {
               <p>대기 중인 공가 신청 건이 <span class="case case-official"></span> 건 입니다.</p>
             </div>
             <div class="todo">
-              <a href="javascript:void(0)"> </a>
+              <a href="/manager-attendance-correction"> </a>
               <div class="img-wrap">
                 <img src="../public/images/todolist-4.png" alt="출결 정정" />
               </div>
               <p>대기 중인 출결 정정 요청 건이 <span class="case case-revise"></span> 건 입니다.</p>
             </div>
             <div class="todo">
-              <a href="javascript:void(0)"> </a>
+              <a href="/manager-request"> </a>
               <div class="img-wrap">
                 <img src="../public/images/todolist-5.png" alt="문서 발급" />
               </div>

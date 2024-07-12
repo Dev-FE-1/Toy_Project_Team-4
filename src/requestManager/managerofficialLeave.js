@@ -5,10 +5,12 @@ export function loadManagerOfficialLeaveRequests() {
 
   app.innerHTML = `
     <div class="manager-official-leave-container">
-      <h1>공가 신청 관리</h1>
-      <div class="manager-official-leave-search">
-        <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
-        <button class="filter-button">검색</button>
+      <div class="manager-leave-header">
+        <h1>공가 신청 관리</h1>
+        <div class="manager-official-leave-search">
+          <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
+          <button class="filter-button">검색</button>
+        </div>
       </div>
       <table class="manager-official-leave-table">
         <thead>
@@ -41,7 +43,7 @@ export function loadManagerOfficialLeaveRequests() {
         </div>
       </div>
     </div>
-  `;
+  `
 
   const tableBody = document.getElementById('manager-official-leave-table-body');
   const reasonModal = document.getElementById('reasonModal');
@@ -97,66 +99,111 @@ export function loadManagerOfficialLeaveRequests() {
     });
 
     addEventListeners();
-    updatePagination();
+    displayPagination();
+  }
+
+  function displayPagination() {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    paginationContainer.innerHTML = '';
+  
+    const createArrow = (direction, disabled) => {
+      const arrow = document.createElement('button');
+      arrow.textContent = direction === 'left' ? '<' : '>';
+      arrow.classList.add('page-arrow');
+      if (disabled) {
+        arrow.classList.add('page-arrow-disabled');
+      } else {
+        arrow.addEventListener('click', () => {
+          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
+          displayPage(currentPage);
+        });
+      }
+      return arrow;
+    };
+  
+    paginationContainer.appendChild(createArrow('left', currentPage === 1));
+  
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('page-button');
+      if (i === currentPage) {
+        pageButton.classList.add('page-button-active');
+      }
+      pageButton.addEventListener('click', () => {
+        currentPage = i;
+        displayPage(currentPage);
+      });
+      paginationContainer.appendChild(pageButton);
+    }
+  
+    paginationContainer.appendChild(createArrow('right', currentPage === totalPages));
   }
 
   function getStatusText(item) {
-    if (item.status === 'pending') return '승인 대기';
-    if (item.status === 'approved' && !item.documentSubmitted) return '서류 제출 대기';
-    if (item.status === 'completed') return '완료';
-    if (item.status === 'rejected') return '반려';
-    if (item.status === 'approved' && item.documentSubmitted) return '서류 제출 완료';
-    return '알 수 없음';
+    if (item.status === "pending" && !item.documentSubmitted) return "임시 승인 대기중";
+    if (item.status === "approved" && !item.documentSubmitted) return "임시 승인";
+    if (item.status === "finalPending") return "최종 승인 대기중";
+    if (item.status === "finalApproved") return "최종 승인";
+    if (item.status === "completed") return "승인 완료";
+    if (item.status === "rejected") return "반려";
+    return "알 수 없음";
   }
 
   function getActionButtons(item) {
-    if (item.status === 'pending') {
+    if (item.status === "pending") {
       return `
         <button class="official-leave-btn approve" data-id="${item.id}">승인</button>
         <button class="official-leave-btn reject" data-id="${item.id}">반려</button>
       `;
     }
-    if (item.status === 'approved' && item.documentSubmitted) {
+    if (item.status === "finalPending") {
       return `
-        <button class="official-leave-btn confirm-documents" data-id="${item.id}">서류 확인</button>
+        <button class="official-leave-btn final-approve" data-id="${item.id}">최종 승인</button>
+        <button class="official-leave-btn reject" data-id="${item.id}">반려</button>
+        <button class="official-leave-btn download-documents" data-id="${item.id}">서류 다운로드</button>
       `;
     }
-    if (item.status === 'completed' || (item.status === 'approved' && item.documentSubmitted)) {
+    if (item.status === "finalApproved" || item.status === "completed") {
       return `
         <button class="official-leave-btn download-documents" data-id="${item.id}">서류 다운로드</button>
       `;
     }
-    return '';
+    return "";
   }
 
   function addEventListeners() {
     document.querySelectorAll('.approve').forEach(button => {
       button.addEventListener('click', approveRequest);
     });
+    document.querySelectorAll('.final-approve').forEach(button => {
+      button.addEventListener('click', finalApproveRequest);
+    });
     document.querySelectorAll('.reject').forEach(button => {
       button.addEventListener('click', openReasonModal);
-    });
-    document.querySelectorAll('.confirm-documents').forEach(button => {
-      button.addEventListener('click', confirmDocuments);
     });
     document.querySelectorAll('.download-documents').forEach(button => {
       button.addEventListener('click', downloadDocuments);
     });
   }
-
-  function updatePagination() {
-    paginationContainer.innerHTML = '';
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
-    for (let page = 1; page <= totalPages; page++) {
-      const button = document.createElement('button');
-      button.classList.add('page-button');
-      if (page === currentPage) {
-        button.classList.add('active');
+  
+  async function updateRequestStatus(id, status, reason = '') {
+    try {
+      console.log(`Updating status: id=${id}, status=${status}, reason=${reason}`);
+      const response = await fetch('/update-official-leave-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status, rejectReason: reason })
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      button.innerText = page;
-      button.addEventListener('click', () => displayPage(page));
-      paginationContainer.appendChild(button);
+  
+      console.log('Status updated successfully');
+      loadTableData(document.getElementById('student-name').value);
+    } catch (error) {
+      console.error('Error updating request status:', error);
     }
   }
 
@@ -165,9 +212,9 @@ export function loadManagerOfficialLeaveRequests() {
     await updateRequestStatus(id, 'approved');
   }
 
-  async function confirmDocuments(event) {
+  async function finalApproveRequest(event) {
     const id = event.target.dataset.id;
-    await updateRequestStatus(id, 'completed');
+    await updateRequestStatus(id, 'finalApproved');
   }
 
   async function downloadDocuments(event) {
@@ -178,34 +225,14 @@ export function loadManagerOfficialLeaveRequests() {
   
       const data = await response.json();
       const request = data.find(item => String(item.id) === String(id));
-      if (!request) {
-        throw new Error('Request not found');
+      if (!request || !request.fileUrl) {
+        throw new Error('File URL not found');
       }
-      const downloadUrl = request.fileUrl || `http://localhost:8080/uploads/${request.fileName}`;
-      const fileName = request.fileName || 'document.zip';
-        
-      fetch(downloadUrl)
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.blob();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        })
-        .catch(error => {
-          console.error('Download error:', error);
-          alert('파일 다운로드 중 오류가 발생했습니다.');
-        });
+      
+      window.open(request.fileUrl, '_blank');
     } catch (error) {
-      console.error('Error getting document info:', error);
-      alert('서류 정보를 가져오는 중 오류가 발생했습니다.');
+      console.error('Error downloading document:', error);
+      alert('파일 다운로드 중 오류가 발생했습니다.');
     }
   }
   
@@ -228,17 +255,17 @@ export function loadManagerOfficialLeaveRequests() {
 
   submitReasonBtn.onclick = async function() {
     const reason = document.getElementById('reasonText').value;
-    await updateRequestStatus(currentRequestId, 'rejected', false, reason);
+    await updateRequestStatus(currentRequestId, 'rejected', reason);
     reasonModal.style.display = 'none';
     document.getElementById('reasonText').value = '';
   };
 
-  async function updateRequestStatus(id, status, documentSubmitted = false, reason = '') {
+  async function updateRequestStatus(id, status, reason = '') {
     try {
       const response = await fetch('/update-official-leave-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status, documentSubmitted, rejectReason: reason })
+        body: JSON.stringify({ id, status, rejectReason: reason })
       });
 
       if (!response.ok) {

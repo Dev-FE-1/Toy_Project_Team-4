@@ -16,7 +16,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .manager-leave-header h1 {
@@ -44,15 +44,16 @@
   outline: none;
 }
 
-.manager-leave-search #filter-button {
+.manager-leave-search .filter-button {
   background-color: #ed234b;
   color: #fff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   padding: 8px 16px;
 }
 
-.manager-leave-search #filter-button:hover {
+.manager-leave-search .filter-button:hover {
   opacity: 0.7;
 }
 
@@ -62,25 +63,18 @@
   table-layout: fixed;
 }
 
-.manager-leave-table th {
-  padding: 20px;
-  text-align: center;
-  height: 50px;
-  overflow: hidden;
-  white-space: nowrap;
+.manager-leave-table th,
+.manager-leave-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
   vertical-align: middle;
-  font-size: 1.1rem;
-  color: #222;
-  background-color: #f2f2f2;
+  height: 50px; /* 모든 셀의 높이를 통일 */
 }
 
-.manager-leave-table td {
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #efefef;
-  height: 50px;
-  overflow: hidden;
-  white-space: nowrap;
+.manager-leave-table th {
+  background-color: #f2f2f2;
+  color: #222;
 }
 
 .status {
@@ -88,6 +82,8 @@
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
+  line-height: 1;
+  height: 20px; /* 상태 표시의 높이 고정 */
 }
 
 .status-pending {
@@ -131,29 +127,13 @@
   opacity: 0.7;
 }
 
-.manager-leave-actions .download {
-  background-color: #0059ff;
-  color: #fff;
-}
-
-.manager-leave-actions .download:hover {
-  opacity: 0.7;
-}
-
-.manager-leave-container .pagination {
+.pagination {
   display: flex;
   justify-content: center;
-  margin-top: 16px;
-  padding: 10px 0;
-  background-color: #fff;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+  margin-top: 20px;
 }
 
-.pagination .page-button {
+.page-button {
   width: 40px;
   height: 30px;
   margin: 0 5px;
@@ -164,12 +144,12 @@
   cursor: pointer;
 }
 
-.pagination .page-button.active {
-  color: #ed234b;
+.page-button.active {
+  background-color: #ed234b;
   font-weight: 800;
 }
 
-.pagination .page-arrow {
+.page-arrow {
   color: #fff;
   width: 30px;
   height: 30px;
@@ -180,7 +160,7 @@
   cursor: pointer;
 }
 
-.pagination .page-arrow-disabled {
+.page-arrow-disabled {
   color: #ababab;
   background-color: #fff;
   border: solid 0.5px #ababab;
@@ -196,94 +176,50 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
 .manager-leave-modal-content {
   background-color: #fff;
-  padding: 40px;
-  width: 35%;
-  height: 60%;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
   border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .manager-leave-modal-close-btn {
-  color: #ababab;
+  color: #aaa;
   float: right;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: bold;
-  position: absolute;
-  top: 15px;
-  right: 15px;
+  cursor: pointer;
 }
 
 .manager-leave-modal-close-btn:hover,
 .manager-leave-modal-close-btn:focus {
-  color: #ed234b;
+  color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
 .reason-form-container h2 {
-  font-size: 1.5rem;
-  color: #222;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.reason-form-container textarea {
+#reasonText {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-  box-sizing: border-box;
-  resize: none;
-  font-size: 1rem;
-  height: 300px;
-  margin-top: 40px;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
-.reason-form-container textarea:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.reason-form-container .submit-reason-btn {
-  padding: 15px 30px;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 1rem;
+.submit-reason-btn {
   background-color: #ED234B;
-  color: #fff;
-  width: 50%;
-  text-align: center;
-  display: block;
-  margin: auto;
-  margin-top: 40px;
-}
-
-.submit-reason-btn:hover {
-  opacity: 0.7;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #d6d6d6;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #ed234b;
-  border-radius: 10px;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 

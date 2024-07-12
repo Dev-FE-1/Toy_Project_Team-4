@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.official-leave-container .official-leave-icon {
+.official-leave-icon {
   width: 80px;
   height: 80px;
   vertical-align: middle;
@@ -29,18 +29,14 @@
   margin-top: 0;
   margin-bottom: 20px;
   text-align: left;
-  display: flex;
-  align-items: center;
 }
 
-/* Both Container */
 .official-leave-both-container {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
 
-/* Process Container */
 .official-leave-process-container {
   flex: 2;
   background-color: #fff;
@@ -50,7 +46,6 @@
   margin-right: 20px;
 }
 
-/* Process Container Header */
 .official-leave-process-container h2 {
   font-size: 1.5rem;
   color: #222;
@@ -59,7 +54,6 @@
   margin-bottom: 20px;
 }
 
-/* Process List */
 .official-leave-process-list {
   background-color: #f2f2f2;
   padding: 20px;
@@ -83,7 +77,6 @@
   line-height: 1.5;
 }
 
-/* Status Container */
 .official-leave-status-container {
   flex: 3;
   background-color: #fff;
@@ -145,7 +138,6 @@
   outline: none;
 }
 
-/* Status Table */
 .status-table-container {
   flex-grow: 1;
   overflow-y: auto;
@@ -177,41 +169,51 @@
   background-color: #f2f2f2;
 }
 
-.official-leave-status-container .status-pending,
-.official-leave-status-container .status-approved,
-.official-leave-status-container .status-rejected,
-.official-leave-status-container .cancel-button,
-.submit-document-btn {
-  display: inline-block;
+.official-leave-container .status-pending,
+.official-leave-container .status-finalPending {
+  background-color: #f2f2f2;
+  color: #6e6e6e;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
 }
 
-.official-leave-status-container .status-pending {
-  background-color: #bababa;
-  color: #fff;
-}
-
-.official-leave-status-container .status-approved {
+.official-leave-container .status-approved,
+.official-leave-container .status-finalApproved,
+.official-leave-container .status-completed {
   background-color: #D9F7E7;
   color: #30A164;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
 }
 
-.official-leave-status-container .status-rejected {
+.official-leave-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
-}
-
-.status-completed {
-  background-color: #D9F7E7;
-  color: #30A164;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
 }
 
 .submit-document-btn {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.submit-document-btn:hover {
+  opacity: 0.7;
 }
 
 .official-leave-status-container .cancel-button {
@@ -219,37 +221,40 @@
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
 }
 
 .official-leave-status-container .cancel-button:hover {
   opacity: 0.5;
 }
 
-.pagination {
+.official-leave-container .pagination {
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  min-height: 40px;
 }
 
-.page-button {
+.official-leave-container .page-button {
   width: 40px;
   height: 30px;
   margin: 0 5px;
   text-align: center;
-  background-color: #fff;
+  background-color: transparent;
   color: #ababab;
   border: none;
   cursor: pointer;
 }
 
-.page-button-active {
+.official-leave-container .page-button-active {
   color: #ed234b;
   font-weight: 800;
 }
 
-.page-arrow {
+.official-leave-container .page-arrow {
   color: #fff;
   width: 30px;
   height: 30px;
@@ -260,14 +265,14 @@
   cursor: pointer;
 }
 
-.page-arrow-disabled {
+.official-leave-container .page-arrow.disabled {
   color: #ababab;
   background-color: #fff;
   border: solid 0.5px #ababab;
   cursor: default;
 }
 
-.official-leave-modal-btn-container {
+.official-leave-container .official-leave-modal-btn-container {
   margin-top: 0;
 }
 
@@ -328,7 +333,7 @@
   cursor: pointer;
 }
 
-.official-leave-modal-content h2 {
+.official-leave-form-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -347,8 +352,6 @@
   display: block;
   margin: 20px 0 10px;
   text-align: left;
-  margin-top: 30px;
-  margin-bottom: 10px;
 }
 
 .official-leave-all-section input[type="date"],
@@ -360,7 +363,8 @@
   border-radius: 5px;
 }
 
-.official-leave-all-section input[type="date"]:focus {
+.official-leave-all-section input[type="date"]:focus,
+.official-leave-all-section textarea:focus {
   border-color: #ED234B;
   outline: none;
 }
@@ -406,8 +410,6 @@
   display: block;
   margin: 20px 0 10px;
   text-align: left;
-  margin-top: 30px;
-  margin-bottom: 10px;
 }
 
 #documentSubmitForm label {

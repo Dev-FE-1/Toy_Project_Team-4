@@ -206,8 +206,8 @@ app.post("/upload-leave-request", async (req, res) => {
     return res.status(400).json({ error: "Missing required fields." })
   }
 
-  const formattedDate = new Date(leaveDate).toISOString().split("T")[0]
   const now = new Date()
+  const formattedDate = new Date(leaveDate).toISOString().split("T")[0]
   const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":") // HH:MM 형식으로 저장
 
@@ -315,7 +315,7 @@ app.post("/upload-vacation-request", async (req, res) => {
 
   const now = new Date()
   const formattedDate = new Date(date).toISOString().split("T")[0]
-  const submitDate = new Date(now.setDate(now.getDate() + 1)).toISOString().split("T")[0]
+  const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
   const fileName = `${formattedDate}_${courseName}_${name}(휴가).zip`
   const filePath = path.join(__dirname, "uploads", fileName)
@@ -447,7 +447,7 @@ app.get("/get-official-leave-request", async (req, res) => {
 
 // 공가 신청 상태 업데이트
 app.post("/update-official-leave-status", async (req, res) => {
-  const { id, status, documentSubmitted, rejectReason } = req.body
+  const { id, status, rejectReason } = req.body
 
   try {
     const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
@@ -458,11 +458,18 @@ app.post("/update-official-leave-status", async (req, res) => {
       return res.status(404).json({ error: "Request not found" })
     }
 
-    requests.request[requestIndex] = {
-      ...requests.request[requestIndex],
-      status: status,
-      documentSubmitted: documentSubmitted || requests.request[requestIndex].documentSubmitted,
-      rejectReason: status === "rejected" ? rejectReason : undefined,
+    if (status === "rejected") {
+      requests.request[requestIndex] = {
+        ...requests.request[requestIndex],
+        status: "rejected",
+        rejectReason: rejectReason,
+        documentSubmitted: false, // 서류 재제출을 위해 false로 설정
+      }
+    } else {
+      requests.request[requestIndex] = {
+        ...requests.request[requestIndex],
+        status: status,
+      }
     }
 
     await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
@@ -473,13 +480,13 @@ app.post("/update-official-leave-status", async (req, res) => {
 })
 
 // 공가 신청 취소
-app.post("/cancel-official-leave-request", async (req, res) => {
+app.post("/delete-official-leave-request", async (req, res) => {
   const { id } = req.body
 
   try {
     const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex((req) => req.id === id)
+    const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id))
 
     if (requestIndex === -1) {
       return res.status(404).json({ error: "Request not found" })
@@ -514,7 +521,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
       }
 
       const request = requests.request[requestIndex]
-      const fileName = `${request.submitDate}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${request.name}(공가).zip`
+      const fileName = `${new Date().toISOString().split('T')[0]}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${request.name}(공가).zip`
       const filePath = path.join(__dirname, "uploads", fileName)
 
       if (!fs.existsSync(path.dirname(filePath))) {
@@ -528,6 +535,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
         documentSubmitted: true,
         documentPath: path.relative(__dirname, filePath),
         fileName: fileName,
+        status: "finalPending" // 서류 제출 후 최종 승인 대기중 상태로 변경
       }
 
       await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
@@ -535,7 +543,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
       const fileUrl = new URL(`/uploads/${fileName}`, `http://${req.headers.host}`).toString()
 
       res.json({
-        message: "서류가 제출되었습니다.",
+        message: "서류가 제출되었습니다. 최종 승인 대기중입니다.",
         fileName: fileName,
         fileUrl: `http://localhost:8080/uploads/${fileName}`,
       })
@@ -560,7 +568,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
       type: "공가",
       startDate,
       endDate,
-      status: "pending",
+      status: "pending", // 초기 상태는 임시 승인 대기중
       reason,
       submitDate,
       submitTime,
@@ -593,7 +601,7 @@ app.post("/upload-document-request", async (req, res) => {
   }
 
   const now = new Date()
-  const submitDate = now.toISOString().split("T")[0]
+  const submitDate = now.toISOString().split("T")[0] 
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
 
   const newRequest = {
@@ -764,9 +772,6 @@ app.post("/upload", (req, res) => {
   })
 })
 
-// JSON 파일 경로
-// const galleryDataFilePath = path.join(__dirname, "./data/gallery.json");
-
 // JSON 파일에서 데이터 읽기
 function readGalleryData() {
   try {
@@ -793,7 +798,6 @@ function writeGalleryData(data) {
   }
 }
 
-// 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
   const galleryData = readGalleryData()
   console.log("Sending gallery data:", galleryData)

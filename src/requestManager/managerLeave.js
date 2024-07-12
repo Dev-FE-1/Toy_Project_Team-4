@@ -24,7 +24,7 @@ export function loadManagerLeaveRequests() {
             <th>사유</th>
             <th>상태</th>
             <th>관리</th>
-          </th>
+          </tr>
         </thead>
         <tbody id="manager-leave-table-body">
           <!-- 자바스크립트로 내용 추가 -->

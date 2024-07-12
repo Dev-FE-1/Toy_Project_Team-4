@@ -16,7 +16,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -73,6 +73,8 @@
   vertical-align: middle;
   height: 50px;
   font-size: 14px;
+  line-height: 1.1rem;
+  word-break: keep-all;
 }
 
 .manager-official-leave-table th {
@@ -90,6 +92,7 @@
   font-size: 14px;
   display: inline-block;
   font-weight: 500;
+  word-break: break-all;
 }
 
 .official-leave-container .status-approved,
@@ -122,14 +125,16 @@
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   border: none;
   color: #fff;
+  width: 70%;
+  margin: 1px 0;
 }
 
 .manager-official-leave-actions .approve,
 .manager-official-leave-actions .final-approve {
-  background-color: rgb(0, 185, 0);
+  background-color: rgb(11, 192, 11);
 }
 
 .manager-official-leave-actions .reject {
@@ -137,7 +142,7 @@
 }
 
 .manager-official-leave-actions .download-documents {
-  background-color: #0059ff;
+  background-color: rgb(35, 131, 226);
 }
 
 .manager-official-leave-container .pagination {

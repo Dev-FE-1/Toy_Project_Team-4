@@ -134,8 +134,7 @@
 
 .correction-status-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 20px;
   position: relative;
 }
@@ -157,7 +156,7 @@
   font-weight: 500;
   position: static;
   transform: none;
-  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .correction-status-date-range {
@@ -348,7 +347,7 @@
   outline: none;
 }
 
-.correction-form-container .convert-press-container label {
+.correction-date-container label, .correction-form-container .convert-press-container label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
@@ -396,7 +395,7 @@
   color: #fff;
   background-color: #ed234b;
   width: 20%;
-  height: 35px;
+  height: 44px;
   border-radius: 10px;
   border: 1px solid #ed234b;
   margin-bottom: 10px;

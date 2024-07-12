@@ -1,28 +1,32 @@
 {
   "request": [
     {
-      "id": "d6241ca5-acd5-4bed-add1-0133bb952d73",
-      "name": "최원지",
+      "id": "67273b21-1afd-4733-9eb7-6c17fce8a8a7",
+      "name": "김도형",
       "type": "공가",
-      "startDate": "2024-07-11",
-      "endDate": "2024-07-12",
-      "status": "approved",
-      "reason": "예비군 참석",
+      "startDate": "2024-07-19",
+      "endDate": "2024-07-26",
+      "status": "finalApproved",
+      "reason": "병가",
       "submitDate": "2024-07-12",
-      "submitTime": "11:42",
-      "documentSubmitted": false
-    },
-    {
-      "id": "c5035fb7-bfac-48e1-9507-1b6852259768",
-      "name": "최원지",
-      "type": "공가",
-      "startDate": "2024-07-15",
-      "endDate": "2024-07-15",
-      "status": "pending",
-      "reason": "예비군 출석",
-      "submitDate": "2024-07-12",
-      "submitTime": "12:19",
-      "documentSubmitted": false
+      "submitTime": "13:34",
+      "documentSubmitted": true,
+      "documentPath": "uploads\\2024-07-12_데브캠프_프론트엔드 개발 4기(DEV_FE1)_김도형(공가).zip",
+      "fileName": "2024-07-12_데브캠프_프론트엔드 개발 4기(DEV_FE1)_김도형(공가).zip"
     }
   ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

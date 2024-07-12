@@ -16,7 +16,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .manager-vacation-header h1 {
@@ -66,9 +66,11 @@
 .manager-vacation-table th,
 .manager-vacation-table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
   vertical-align: middle;
+  line-height: 1.1rem;
+  word-break: keep-all;
 }
 
 .manager-vacation-table th {
@@ -99,23 +101,18 @@
   color: #B91C1C;
 }
 
-.manager-vacation-actions {
-  display: flex;
-  justify-content: flex-start;
-  /* align-items: center; */
-  flex-direction: column;
-}
-
 .manager-vacation-actions .vacation-btn {
   margin-bottom: 3px;
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  width: 70%;
+  margin: 1px 0;
 }
 
 .manager-vacation-actions .approve {
-  background-color: rgb(0, 185, 0);
+  background-color:  rgb(11, 192, 11);
   color: #fff;
 }
 
@@ -133,8 +130,10 @@
 }
 
 .manager-vacation-actions .download {
-  background-color: #0059ff;
+  background-color: rgb(35, 131, 226);
   color: #fff;
+  width: 80%;
+  word-break: keep-all;
 }
 
 .manager-vacation-actions .download:hover {

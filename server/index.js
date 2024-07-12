@@ -742,78 +742,84 @@ app.post("/convert", async (req, res) => {
 })
 
 //---------공지모음갤러리 사진업로드----------
-app.post("/upload", (req, res) => {
+app.post('/upload', (req, res) => {
+
   if (!req.files || !req.files.image) {
-    return res.status(400).send("No files were uploaded.")
+    console.error("No files were uploaded.");
+    return res.status(400).send('No files were uploaded.');
   }
 
-  const image = req.files.image
-  const uploadPath = path.join(__dirname, "uploads", `${uuidv4()}_${image.name}`)
+  const image = req.files.image;
+  const sanitizedFileName = `${uuidv4()}_${image.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+  const uploadPath = path.join(__dirname, 'uploads', sanitizedFileName);
+
+  if (!fs.existsSync(path.dirname(uploadPath))) {
+    fs.mkdirSync(path.dirname(uploadPath), { recursive: true });
+  }
 
   image.mv(uploadPath, (err) => {
     if (err) {
-      console.error("File upload failed:", err)
-      return res.status(500).json({ message: "File upload failed", error: err })
+      return res.status(500).send(err);
     }
 
     const newEntry = {
-      img: `server/uploads/${path.basename(uploadPath)}`,
+      img: `server/uploads/${path.basename(uploadPath)}`,  // 경로 수정
       title: req.body.title,
       desc: req.body.desc,
-      date: new Date().toISOString().split("T")[0],
-      popularity: 0,
-    }
+      date: new Date().toISOString().split('T')[0],
+      popularity: 0
+    };
 
-    const galleryData = readGalleryData()
-    galleryData.push(newEntry)
-    writeGalleryData(galleryData)
-    console.log("File uploaded:", image) // 로그 추가
-    res.status(200).json({ message: "File uploaded successfully", filePath: `/uploads/${path.basename(uploadPath)}` })
-  })
-})
+    const galleryData = readGalleryData();
+    galleryData.push(newEntry);
+    writeGalleryData(galleryData);
+
+    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${path.basename(uploadPath)}` });
+  });
+});
+
 
 // JSON 파일에서 데이터 읽기
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
-      console.log("gallery.json file does not exist, creating new one.")
-      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), "utf8")
+      console.log("gallery.json file does not exist, creating new one.");
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
     }
-    const data = fs.readFileSync(galleryDataFilePath, "utf8")
-    const parsedData = JSON.parse(data)
-    return Array.isArray(parsedData.data) ? parsedData.data : []
+    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
+    const parsedData = JSON.parse(data);
+    return Array.isArray(parsedData.data) ? parsedData.data : [];
   } catch (error) {
-    console.error("Error reading gallery data:", error)
-    return []
+    console.error("Error reading gallery data:", error);
+    return [];
   }
 }
 
 // JSON 파일에 데이터 저장
 function writeGalleryData(data) {
   try {
-    const dataToWrite = { status: "OK", data: data } // 상태와 데이터를 함께 저장
-    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), "utf8")
+    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
   } catch (error) {
-    console.error("Error writing gallery data:", error)
+    console.error("Error writing gallery data:", error);
   }
 }
 
+// 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
-  const galleryData = readGalleryData()
-  console.log("Sending gallery data:", galleryData)
-  res.status(200).json(galleryData)
-})
+  const galleryData = readGalleryData();
+  res.status(200).json(galleryData);
+});
 
 // 정적 파일 제공
-app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-app.use("/public", express.static(path.join(__dirname, "public")))
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 // 기존의 /api/gallery.json 엔드포인트 유지
 app.get("/api/gallery.json", (req, res) => {
-  const galleryData = readGalleryData()
-  console.log("Sending gallery data via /api/gallery.json:", galleryData)
-  res.status(200).json(galleryData)
-})
+  const galleryData = readGalleryData();
+  res.status(200).json(galleryData);
+});
 //---------공지모음갤러리 사진업로드----------
 
 app.get("/api/users.json", (req, res) => {

@@ -12,6 +12,19 @@
       "status": "approved",
       "submitDate": "2024-07-12",
       "submitTime": "11:47"
+    },
+    {
+      "id": "318f35e4-29c5-4212-8cfa-02b2e1f541b7",
+      "name": "최원지",
+      "documentType": "attendance-record",
+      "startDate": "2024-07-12",
+      "endDate": "2024-07-12",
+      "reason": "",
+      "email": "wonjichoe@gmail.com",
+      "requiredDocument": "",
+      "status": "pending",
+      "submitDate": "2024-07-12",
+      "submitTime": "12:16"
     }
   ]
 }

@@ -12,6 +12,18 @@
       "submitDate": "2024-07-12",
       "submitTime": "11:41",
       "rejectReason": "서류 미비"
+    },
+    {
+      "id": 1720754325229,
+      "name": "최원지",
+      "type": "외출",
+      "date": "2024-07-19",
+      "startTime": "12:17",
+      "endTime": "13:17",
+      "status": "pending",
+      "reason": "국민취업제도 상담 외출",
+      "submitDate": "2024-07-12",
+      "submitTime": "12:18"
     }
   ]
 }

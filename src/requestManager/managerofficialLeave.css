@@ -17,6 +17,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .manager-official-leave-container-header h1 {
@@ -114,7 +115,6 @@
 }
 
 .manager-official-leave-actions {
-  display: flex;
   gap: 5px;
 }
 
@@ -129,11 +129,11 @@
 
 .manager-official-leave-actions .approve,
 .manager-official-leave-actions .final-approve {
-  background-color: #30A164;
+  background-color: rgb(0, 185, 0);
 }
 
 .manager-official-leave-actions .reject {
-  background-color: #B91C1C;
+  background-color: #ea4163;
 }
 
 .manager-official-leave-actions .download-documents {

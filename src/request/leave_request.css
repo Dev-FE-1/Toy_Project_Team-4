@@ -272,6 +272,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-y: auto;
 }
 
 .leave-modal-close-btn {
@@ -327,7 +328,7 @@
   margin-bottom: 10px;
 }
 
-.leave-btn {
+.leave-container .leave-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;

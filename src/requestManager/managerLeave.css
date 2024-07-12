@@ -17,6 +17,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width:100%;
 }
 
 .manager-leave-header h1 {
@@ -77,36 +78,12 @@
   color: #222;
 }
 
-.status {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 1;
-  height: 20px; /* 상태 표시의 높이 고정 */
-}
-
-.status-pending {
-  background-color: #bababa;
-  color: #fff;
-}
-
-.status-approved {
-  background-color: #D9F7E7;
-  color: #30A164;
-}
-
-.status-rejected {
-  background-color: #FEE2E2;
-  color: #B91C1C;
-}
-
 .manager-leave-actions .leave-btn {
-  margin-right: 10px;
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  margin-bottom:3px;
 }
 
 .manager-leave-actions .approve {

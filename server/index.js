@@ -521,7 +521,9 @@ app.post("/upload-official-leave-request", async (req, res) => {
       }
 
       const request = requests.request[requestIndex]
-      const fileName = `${new Date().toISOString().split('T')[0]}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${request.name}(공가).zip`
+      const fileName = `${new Date().toISOString().split("T")[0]}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${
+        request.name
+      }(공가).zip`
       const filePath = path.join(__dirname, "uploads", fileName)
 
       if (!fs.existsSync(path.dirname(filePath))) {
@@ -535,7 +537,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
         documentSubmitted: true,
         documentPath: path.relative(__dirname, filePath),
         fileName: fileName,
-        status: "finalPending" // 서류 제출 후 최종 승인 대기중 상태로 변경
+        status: "finalPending", // 서류 제출 후 최종 승인 대기중 상태로 변경
       }
 
       await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
@@ -601,7 +603,7 @@ app.post("/upload-document-request", async (req, res) => {
   }
 
   const now = new Date()
-  const submitDate = now.toISOString().split("T")[0] 
+  const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
 
   const newRequest = {
@@ -783,12 +785,21 @@ app.post('/upload', (req, res) => {
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
+
       // console.log("gallery.json file does not exist, creating new one.");
       fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
     }
     const data = fs.readFileSync(galleryDataFilePath, 'utf8');
     const parsedData = JSON.parse(data);
     return Array.isArray(parsedData.data) ? parsedData.data : [];
+
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), "utf8")
+    }
+    const data = fs.readFileSync(galleryDataFilePath, "utf8")
+    const parsedData = JSON.parse(data)
+
+    return Array.isArray(parsedData.data) ? parsedData.data : []
+
   } catch (error) {
     console.error("Error reading gallery data:", error);
     return [];
@@ -807,6 +818,7 @@ function writeGalleryData(data) {
 
 // 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
+
   const galleryData = readGalleryData();
   res.status(200).json(galleryData);
 });
@@ -817,9 +829,11 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 // 기존의 /api/gallery.json 엔드포인트 유지
 app.get("/api/gallery.json", (req, res) => {
+
   const galleryData = readGalleryData();
   res.status(200).json(galleryData);
 });
+
 //---------공지모음갤러리 사진업로드----------
 
 app.get("/api/users.json", (req, res) => {
@@ -995,19 +1009,20 @@ const profileImgUploadPath = path.join(__dirname, "profileImgs")
 if (!fs.existsSync(profileImgUploadPath)) {
   fs.mkdirSync(profileImgUploadPath)
 }
+
 const userJsonPath = path.join(__dirname, "data", "users.json")
 
 app.post("/profileImgs/:id", (req, res) => {
   const userId = parseInt(req.params.id)
+
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send("No files were uploaded.")
+    return res.status(400).send("업로드된 파일이 존재하지 않습니다.")
   }
+
   const profileImage = req.files.profileImage
   const uploadFilePath = path.join(profileImgUploadPath, profileImage.name) //업로드한 파일 경로
-  profileImage.mv(uploadFilePath, (err) => {
-    if (err) {
-      return res.status(500).send(err)
-    }
+
+  profileImage.mv(uploadFilePath, () => {
     fs.readFile(userJsonPath, "utf8", (err, data) => {
       if (err) {
         return res.status(500).send("유저 정보를 불러오지 못했습니다.")
@@ -1020,12 +1035,15 @@ app.post("/profileImgs/:id", (req, res) => {
           return item.id === userId
         })
       }
+
       const oldProfileImagePath = users.data[userIdx].profileImage
       users.data[userIdx].profileImage = path.join("/server/profileImgs/", profileImage.name)
+
       fs.writeFile(userJsonPath, JSON.stringify(users, null, 2), (err) => {
         if (err) {
           return res.status(500).send("프로필 이미지 업데이트 실패")
         }
+
         if (oldProfileImagePath && fs.existsSync(oldProfileImagePath)) {
           fs.unlink(oldProfileImagePath, (err) => {
             if (err) {

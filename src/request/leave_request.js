@@ -8,13 +8,12 @@ export function loadLeaveRequest() {
       <h1><img src="./images/leave.png" alt="Leave Icon" class="leave-icon">외출 신청</h1>
       <div class="leave-both-container">
         <div class="leave-process-container">
-          <h2>외출 사용 프로세스</h2>
           <div class="leave-process-list">
             <h3>1. 외출 신청서 제출</h3>
-            <p>외출 예정 1주일 전 신청서 제출</p>
+            <p>외출 예정 1주일 전 신청서 제출</p><br>
             <h3>2. 외출 당일 QR 진행</h3>
             <p>4회 진행</p>
-            <p>입실 - 외출 - 복귀 - 퇴실</p>
+            <p>입실 - 외출 - 복귀 - 퇴실</p><br>
             <h3>3. 외출 당일 ZOOM 캡쳐</h3>
             <p>2회 진행</p>
             <p>입실/퇴실 - 운영진 진행</p>
@@ -24,12 +23,7 @@ export function loadLeaveRequest() {
         <div class="leave-status-container">
           <div class="leave-status-content">
             <div class="leave-status-header">
-              <span><span class="red-dot"></span>신청 현황</span>
-              <div class="leave-status-date-range">
-                <input type="date" id="search-start-date" class="date-input">
-                ~
-                <input type="date" id="search-end-date" class="date-input">
-              </div>
+              <span><span class="red-dot"></span>신청 현황</span>    
             </div>
             <div class="status-table-container">
               <table class="status-table">
@@ -46,8 +40,10 @@ export function loadLeaveRequest() {
                 </tbody>
               </table>
             </div>
-            <div id="pagination" class="pagination">
-              <!-- 자바스크립트로 페이지네이션 추가 -->
+            <div class="leave-pagination-container">
+              <button class="prev-button"><</button>
+              <div class="number-btn-wrapper"></div>
+              <button class="next-button">></button>
             </div>
             <div class="leave-modal-btn-container">
               <button id="leaveModalBtn" class="leave-modal-btn">외출 신청</button>
@@ -74,7 +70,7 @@ export function loadLeaveRequest() {
               <input type="time" id="endTime" name="endTime" required>
               
               <label for="reason">사유</label>
-              <textarea id="reason" rows="6" name="reason" required></textarea>
+              <textarea id="reason" rows="2" name="reason" required></textarea>
             </div>
             <button type="submit" class="leave-btn">제출</button>
           </form>
@@ -103,7 +99,7 @@ export function loadLeaveRequest() {
 
   let requestData = [];
   let currentPage = 1;
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
 
   async function loadRequestData() {
     try {
@@ -123,7 +119,6 @@ export function loadLeaveRequest() {
       if (!Array.isArray(data)) {
         throw new Error('Received data is not an array');
       }
-      // 현재 로그인한 사용자의 데이터만 필터링
       requestData = data.filter(item => item.name === userInfo.userName);
       displayData();
     } catch (error) {
@@ -133,8 +128,7 @@ export function loadLeaveRequest() {
 
   function displayData() {
     const tableBody = document.getElementById("status-table-body");
-    const pagination = document.getElementById("pagination");
-  
+
     requestData.sort((a, b) => {
       const dateA = new Date(a.submitDate + 'T' + a.submitTime);
       const dateB = new Date(b.submitDate + 'T' + b.submitTime);
@@ -168,46 +162,58 @@ export function loadLeaveRequest() {
       });
     });
   
-    displayPagination(requestData.length);
+    setPageButtons();
   }
 
-  function displayPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = '';
+  function setPageButtons() {
+    const totalPageCount = Math.ceil(requestData.length / itemsPerPage);
 
-    const createArrow = (direction, disabled) => {
-      const arrow = document.createElement('button');
-      arrow.textContent = direction === 'left' ? '<' : '>';
-      arrow.classList.add('page-arrow');
-      if (disabled) {
-        arrow.classList.add('page-arrow-disabled');
-      } else {
-        arrow.addEventListener('click', () => {
-          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-          displayData();
-        });
+    const numberBtnWrapper = document.querySelector(".number-btn-wrapper");
+    numberBtnWrapper.innerHTML = "";
+    for (let i = 0; i < totalPageCount; i++) {
+      const button = document.createElement('button');
+      button.textContent = i + 1;
+      button.classList.add('pagebtn');
+      if (i === currentPage - 1) {
+        button.classList.add('btnFocus');
       }
-      return arrow;
-    };
-
-    pagination.appendChild(createArrow('left', currentPage === 1));
-
-    for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.classList.add('page-button');
-      if (i === currentPage) {
-        pageButton.classList.add('page-button-active');
-      }
-      pageButton.addEventListener('click', () => {
-        currentPage = i;
+      button.addEventListener('click', function() {
+        currentPage = parseInt(this.textContent);
         displayData();
+        changeBtn(this.textContent);
+        arrBtn();
       });
-      pagination.appendChild(pageButton);
+      numberBtnWrapper.appendChild(button);
+    }
+    arrBtn();
+  }
+
+  function arrBtn() {
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+    const btnFocus = document.querySelector(".btnFocus");
+    const pageNumberBtn = document.querySelectorAll(".pagebtn");
+
+    if (!btnFocus || pageNumberBtn.length === 0) {
+      if (prevBtn) prevBtn.classList.remove("color");
+      if (nextBtn) nextBtn.classList.remove("color");
+      return;
     }
 
-    pagination.appendChild(createArrow('right', currentPage === totalPages));
+    let btnNum = Array.from(pageNumberBtn).map(btn => btn.textContent);
+    let maxNum = Math.max(...btnNum);
+    let minNum = Math.min(...btnNum);
+
+    if (Number(btnFocus.textContent) == minNum) {
+      nextBtn.classList.add("color");
+      prevBtn.classList.remove("color");
+    } else if (Number(btnFocus.textContent) == maxNum) {
+      nextBtn.classList.remove("color");
+      prevBtn.classList.add("color");
+    } else {
+      nextBtn.classList.add("color");
+      prevBtn.classList.add("color");
+    }
   }
 
   async function cancelRequest(id) {
@@ -224,6 +230,17 @@ export function loadLeaveRequest() {
     } catch (error) {
       alert("요청 취소 중 오류가 발생했습니다: " + error.message);
     }
+  }
+
+  function changeBtn(clickBtnNum) {
+    const buttons = document.querySelectorAll('.pagebtn');
+    buttons.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
   }
 
   function getStatusText(status) {
@@ -255,7 +272,7 @@ export function loadLeaveRequest() {
       return;
     }
 
-    const submitDate = new Date().toISOString().split('T')[0]; // 현재 날짜를 ISO 형식으로
+    const submitDate = new Date().toISOString().split('T')[0];
 
     const requestData = {
       name: userInfo.userName,
@@ -290,4 +307,23 @@ export function loadLeaveRequest() {
   });
 
   loadRequestData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(requestData.length / itemsPerPage)) {
+      currentPage++;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }

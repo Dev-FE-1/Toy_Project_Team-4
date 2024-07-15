@@ -1,30 +1,30 @@
 {
   "request": [
     {
-      "id": "0af91157-46e2-45ff-a0b3-d97bb2e98703",
-      "name": "최원지",
+      "id": "f3509e56-a492-4aff-b494-e6e2acf2417d",
+      "name": "김도형",
       "documentType": "certificate-of-attendance",
-      "startDate": "2024-07-11",
-      "endDate": "2024-07-12",
-      "reason": "",
-      "email": "wonjichoe@gmail.com",
+      "startDate": "2024-07-01",
+      "endDate": "2024-07-15",
+      "reason": "필요하니까",
+      "email": "ddhkim11@gmail.com",
       "requiredDocument": "",
       "status": "approved",
-      "submitDate": "2024-07-12",
-      "submitTime": "11:47"
+      "submitDate": "2024-07-14",
+      "submitTime": "00:39"
     },
     {
-      "id": "318f35e4-29c5-4212-8cfa-02b2e1f541b7",
-      "name": "최원지",
-      "documentType": "attendance-record",
-      "startDate": "2024-07-12",
-      "endDate": "2024-07-12",
-      "reason": "",
-      "email": "wonjichoe@gmail.com",
-      "requiredDocument": "",
-      "status": "pending",
-      "submitDate": "2024-07-12",
-      "submitTime": "12:16"
+      "id": "da917943-3a0c-45e4-a172-ae4aebac4bb7",
+      "name": "김도형",
+      "documentType": "other",
+      "startDate": "2024-07-01",
+      "endDate": "2024-07-15",
+      "reason": "필요하니까",
+      "email": "ddhkim11@gmail.com",
+      "requiredDocument": "예비군 연기 서류",
+      "status": "approved",
+      "submitDate": "2024-07-14",
+      "submitTime": "00:39"
     }
   ]
 }

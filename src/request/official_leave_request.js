@@ -8,14 +8,13 @@ export function loadOfficialLeaveRequest() {
       <h1><img src="./images/official-leave.png" alt="Official Leave Icon" class="official-leave-icon">공가 신청</h1>
       <div class="official-leave-both-container">
         <div class="official-leave-process-container">
-          <h2>공가 신청 프로세스</h2>
           <div class="official-leave-process-list">
             <h3>1. 공가 신청서 작성 및 제출</h3>
-            <p>공가 신청서를 작성하여 제출합니다.</p>
+            <p>공가 신청서를 작성하여 제출합니다.</p><br>
             <h3>2. 관리자 승인 대기</h3>
-            <p>관리자의 승인을 기다립니다.</p>
+            <p>관리자의 승인을 기다립니다.</p><br>
             <h3>3. 서류 준비 및 제출</h3>
-            <p>승인 후, 필요한 서류를 준비하여 제출합니다.</p>
+            <p>승인 후, 필요한 서류를 준비하여 제출합니다.</p><br>
             <h3>4. 최종 승인</h3>
             <p>관리자의 최종 승인을 받습니다.</p>
           </div>
@@ -24,12 +23,7 @@ export function loadOfficialLeaveRequest() {
           <div class="official-leave-status-content">
             <div class="official-leave-status-header">
               <span><span class="red-dot"></span>신청 현황</span>
-              <div class="official-leave-status-date-range">
-                <input type="date" id="search-start-date" class="date-input">
-                ~
-                <input type="date" id="search-end-date" class="date-input">
-              </div>
-            </div> 
+            </div>
             <div class="status-table-container">
               <table class="status-table">
                 <thead>
@@ -45,8 +39,10 @@ export function loadOfficialLeaveRequest() {
                 </tbody>
               </table>
             </div>
-            <div id="pagination" class="pagination">
-              <!-- 자바스크립트로 페이지네이션 추가 -->
+            <div class="official-leave-pagination-container">
+              <button class="prev-button"><</button>
+              <div class="number-btn-wrapper"></div>
+              <button class="next-button">></button>
             </div>
             <div class="official-leave-modal-btn-container">
               <button id="officialLeaveRequestBtn" class="official-leave-modal-btn">공가 신청</button>
@@ -129,7 +125,7 @@ export function loadOfficialLeaveRequest() {
 
   let requestData = []
   let currentPage = 1
-  const itemsPerPage = 4
+  const itemsPerPage = 5
 
   function getKoreanDate() {
     const now = new Date();
@@ -140,12 +136,8 @@ export function loadOfficialLeaveRequest() {
   async function loadRequestData() {
     try {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      const startDate = document.getElementById('search-start-date').value;
-      const endDate = document.getElementById('search-end-date').value;
-      
+
       let url = `/get-official-leave-request?userName=${userInfo.userName}`;
-      if (startDate) url += `&startDate=${startDate}`;
-      if (endDate) url += `&endDate=${endDate}`;
       
       const response = await fetch(url);
       if (!response.ok) {
@@ -155,11 +147,7 @@ export function loadOfficialLeaveRequest() {
       if (!Array.isArray(data)) {
         throw new Error('Received data is not an array');
       }
-      requestData = data.filter(item => {
-        if (startDate && item.submitDate < startDate) return false;
-        if (endDate && item.submitDate > endDate) return false;
-        return true;
-      });
+      requestData = data;
       displayData();
     } catch (error) {
       console.error('Error:', error);
@@ -169,7 +157,6 @@ export function loadOfficialLeaveRequest() {
 
   function displayData() {
     const tableBody = document.getElementById("status-table-body")
-    const pagination = document.getElementById("pagination");
 
     requestData.sort((a, b) => {
       const dateA = new Date(a.submitDate + 'T' + a.submitTime);
@@ -210,48 +197,92 @@ export function loadOfficialLeaveRequest() {
       })
     })
 
-    displayPagination(requestData.length)
+    setPageButtons()
   }
 
-  function displayPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = '';
+  function setPageButtons() {
+    const totalPageCount = Math.ceil(requestData.length / itemsPerPage)
 
-    const createArrow = (direction, disabled) => {
-      const arrow = document.createElement('button');
-      arrow.textContent = direction === 'left' ? '<' : '>';
-      arrow.classList.add('page-arrow');
-      if (disabled) {
-        arrow.classList.add('page-arrow-disabled');
+    const numberBtnWrapper = document.querySelector(".number-btn-wrapper")
+    if (numberBtnWrapper != null) {
+      numberBtnWrapper.innerHTML = ""
+      for (let i = 0; i < totalPageCount; i++) {
+        const button = document.createElement('button')
+        button.textContent = i + 1
+        button.classList.add('pagebtn')
+        if (i === currentPage - 1) {
+          button.classList.add('btnFocus')
+        }
+        button.addEventListener('click', function() {
+          currentPage = parseInt(this.textContent)
+          displayData()
+          changeBtn(this.textContent)
+          arrBtn()
+        })
+        numberBtnWrapper.appendChild(button)
+      }
+    }
+    arrBtn()
+  }
+
+  function arrBtn() {
+    const prevBtn = document.querySelector(".prev-button")
+    const nextBtn = document.querySelector(".next-button")
+    const btnFocus = document.querySelector(".btnFocus")
+    const pageNumberBtn = document.querySelectorAll(".pagebtn")
+
+    if (!btnFocus || pageNumberBtn.length === 0) {
+      if (prevBtn) prevBtn.classList.remove("color")
+      if (nextBtn) nextBtn.classList.remove("color")
+      return
+    }
+
+    let btnNum = Array.from(pageNumberBtn).map(btn => btn.textContent)
+    let maxNum = Math.max(...btnNum)
+    let minNum = Math.min(...btnNum)
+
+    if (Number(btnFocus.textContent) == minNum) {
+      nextBtn.classList.add("color")
+      prevBtn.classList.remove("color")
+    } else if (Number(btnFocus.textContent) == maxNum) {
+      nextBtn.classList.remove("color")
+      prevBtn.classList.add("color")
+    } else {
+      nextBtn.classList.add("color")
+      prevBtn.classList.add("color")
+    }
+  }
+
+  async function cancelRequest(id) {
+    try {
+      const response = await fetch('/delete-official-leave-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      }
+
+      alert('공가 신청이 취소되었습니다.')
+      await loadRequestData()
+    } catch (error) {
+      console.error('Error:', error)
+      alert('공가 신청 취소 중 오류가 발생했습니다: ' + error.message)
+    }
+  }
+
+  function changeBtn(clickBtnNum) {
+    const buttons = document.querySelectorAll('.pagebtn')
+    buttons.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus')
       } else {
-        arrow.addEventListener('click', async () => {
-          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-          await loadRequestData();
-          displayData();
-        });
+        button.classList.remove('btnFocus')
       }
-      return arrow;
-    }
-
-    pagination.appendChild(createArrow('left', currentPage === 1));
-
-    for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.classList.add('page-button');
-      if (i === currentPage) {
-        pageButton.classList.add('page-button-active');
-      }
-      pageButton.addEventListener('click', async () => {
-        currentPage = i;
-        await loadRequestData();
-        displayData();
-      });
-      pagination.appendChild(pageButton);
-    }
-
-    pagination.appendChild(createArrow('right', currentPage === totalPages));
+    })
   }
 
   function getStatusText(item) {
@@ -289,32 +320,6 @@ export function loadOfficialLeaveRequest() {
       alert('서류 제출 중 오류가 발생했습니다: ' + error.message);
     }
   };
-
-  async function cancelRequest(id) {
-    try {
-      const response = await fetch('/delete-official-leave-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
-      }
-
-      alert('공가 신청이 취소되었습니다.')
-      await loadRequestData()
-    } catch (error) {
-      console.error('Error:', error)
-      alert('공가 신청 취소 중 오류가 발생했습니다: ' + error.message)
-    }
-  }
-
-  function openDocumentSubmitModal(id) {
-    documentModal.style.display = "block"
-    document.getElementById('documentSubmitForm').setAttribute('data-id', id)
-  }
 
   document.getElementById('officialLeaveForm').onsubmit = async (e) => {
     e.preventDefault()
@@ -423,16 +428,25 @@ document.getElementById("createZipBtn").addEventListener("click", async () => {
     })
 })
 
-const searchStartDate = document.getElementById('search-start-date');
-const searchEndDate = document.getElementById('search-end-date');
-const filterButton = document.createElement('button');
-filterButton.textContent = '검색';
-filterButton.classList.add('filter-button');
-document.querySelector('.official-leave-status-date-range').appendChild(filterButton);
-
-filterButton.addEventListener('click', () => {
-  loadRequestData();
-});
-
 loadRequestData()
+
+const prevBtn = document.querySelector(".prev-button")
+const nextBtn = document.querySelector(".next-button")
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--
+    displayData()
+    changeBtn(currentPage.toString())
+    arrBtn()
+  }
+})
+nextBtn.addEventListener("click", () => {
+  if (currentPage < Math.ceil(requestData.length / itemsPerPage)) {
+    currentPage++
+    displayData()
+    changeBtn(currentPage.toString())
+    arrBtn()
+  }
+})
+
 }

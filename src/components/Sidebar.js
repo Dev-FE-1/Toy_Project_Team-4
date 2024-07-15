@@ -101,7 +101,7 @@ function createSidebar() {
                 <span class="sub-icon">
                   <img src="/images/category.svg" alt="문서 발급">
                 </span>
-                <span class="sub-text">문서 발급</span>
+                <span class="sub-text">문서 발급 요청</span>
               </a>
             </li>
             <li>

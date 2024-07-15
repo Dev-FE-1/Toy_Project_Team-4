@@ -133,6 +133,78 @@
       "submitDate": "2024-07-12",
       "submitTime": "16:08",
       "userId": "undefined"
+    },
+    {
+      "id": 1720952357264,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-24",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-24_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:19",
+      "userId": "undefined"
+    },
+    {
+      "id": 1720953717172,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-31",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-31_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:41",
+      "userId": "undefined"
+    },
+    {
+      "id": 1720953721982,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-31",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-31_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:42",
+      "userId": "undefined"
+    },
+    {
+      "id": 1720953725614,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-31",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-31_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:42",
+      "userId": "undefined"
+    },
+    {
+      "id": 1720953729966,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-31",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-31_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:42",
+      "userId": "undefined"
+    },
+    {
+      "id": 1720953736043,
+      "name": "김도형",
+      "type": "휴가",
+      "date": "2024-07-31",
+      "status": "pending",
+      "reason": "",
+      "filePath": "C:\\Users\\dhkim\\Desktop\\Toy_Project_Team-4\\server\\uploads\\2024-07-31_데브캠프:프론트엔드 개발 4기(DEV_FE1)_김도형(휴가).zip",
+      "submitDate": "2024-07-14",
+      "submitTime": "19:42",
+      "userId": "undefined"
     }
   ]
 }

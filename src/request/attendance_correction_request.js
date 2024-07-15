@@ -7,10 +7,9 @@ export function loadAttendanceCorrectionRequest() {
 
   app.innerHTML = `
     <div class="correction-container">
-      <h1><img src="/images/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 신청</h1>
+      <h1><img src="/images/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 요청</h1>
       <div class="correction-both-container">
         <div class="correction-process-container">
-          <h2>출결 정정 신청 방법</h2>
           <div class="correction-process-list">
             <h3>1. 기본 정보</h3>
             <p>
@@ -51,14 +50,9 @@ export function loadAttendanceCorrectionRequest() {
           </div>
         </div>
         <div class="correction-status-container">
-          <div class="content">
+          <div class="correction-status-content">
             <div class="correction-status-header">
               <span><span class="red-dot"></span>신청 현황</span>
-              <div class="correction-status-date-range">
-                <input type="date" id="search-start-date" class="date-input">
-                ~
-                <input type="date" id="search-end-date" class="date-input">
-              </div>
             </div>
             <div class="status-table-container">
               <table class="status-table">
@@ -75,11 +69,13 @@ export function loadAttendanceCorrectionRequest() {
                 </tbody>
               </table>
             </div>
-            <div id="pagination" class="pagination">
-              <!-- 자바스크립트로 페이지네이션 추가 -->
+            <div class="correction-pagination-container">
+              <button class="prev-button"><</button>
+              <div class="number-btn-wrapper"></div>
+              <button class="next-button">></button>
             </div>
             <div class="correction-modal-btn-container">
-              <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 신청</button>
+              <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 요청</button>
             </div>
           </div>
         </div>
@@ -90,7 +86,7 @@ export function loadAttendanceCorrectionRequest() {
       <div class="correction-modal-content">
         <span class="correction-modal-close-btn">&times;</span>
         <div class="correction-form-container" id="correctionFormContainer">
-          <h2>출결 정정 신청</h2>
+          <h2>출결 정정 요청</h2>
           <div class="correction-submit-section">
             <div class="correction-date-container">
               <label for="correctionDate">정정 요청 날짜</label>
@@ -335,7 +331,7 @@ export function loadAttendanceCorrectionRequest() {
   // 신청 현황 데이터 로드 및 표시 함수
   let requestData = [];
   let currentPage = 1;
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
 
   async function loadRequestData() {
     try {
@@ -357,18 +353,17 @@ export function loadAttendanceCorrectionRequest() {
 
   function displayData() {
     const tableBody = document.getElementById("status-table-body");
-    const pagination = document.getElementById("pagination");
-
+  
     requestData.sort((a, b) => {
       const dateA = new Date(a.submitDate + 'T' + a.submitTime);
       const dateB = new Date(b.submitDate + 'T' + b.submitTime);
       return dateB - dateA; // 내림차순 정렬 (최신 순)
     });
-
+  
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const pageData = requestData.slice(start, end);
-
+  
     tableBody.innerHTML = '';
     pageData.forEach((item, index) => {
       const row = document.createElement('tr');
@@ -377,60 +372,72 @@ export function loadAttendanceCorrectionRequest() {
         <td>${item.type}</td>
         <td>${item.submitDate}</td>
         <td>
-        ${item.status === 'rejected' ? `${item.rejectReason || ''}` : ''}
+          ${item.status === 'rejected' ? `${item.rejectReason || ''}` : ''}
           ${item.status === 'pending' ? `<button class="cancel-button" data-index="${start + index}">취소</button>` : ''}
         </td>
       `;
       tableBody.appendChild(row);
     });
-
+  
     document.querySelectorAll('.cancel-button').forEach(button => {
       button.addEventListener('click', function() {
         const index = parseInt(this.getAttribute('data-index'));
         cancelRequest(requestData[index].id);
       });
     });
-
-    displayPagination(requestData.length);
+  
+    setPageButtons();
   }
 
-  function displayPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = '';
+  function setPageButtons() {
+    const totalPageCount = Math.ceil(requestData.length / itemsPerPage);
 
-    const createArrow = (direction, disabled) => {
-      const arrow = document.createElement('button');
-      arrow.textContent = direction === 'left' ? '<' : '>';
-      arrow.classList.add('page-arrow');
-      if (disabled) {
-        arrow.classList.add('page-arrow-disabled');
-      } else {
-        arrow.addEventListener('click', () => {
-          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-          displayData();
-        });
+    const numberBtnWrapper = document.querySelector(".number-btn-wrapper");
+    numberBtnWrapper.innerHTML = "";
+    for (let i = 0; i < totalPageCount; i++) {
+      const button = document.createElement('button');
+      button.textContent = i + 1;
+      button.classList.add('pagebtn');
+      if (i === currentPage - 1) {
+        button.classList.add('btnFocus');
       }
-      return arrow;
-    }
-
-    pagination.appendChild(createArrow('left', currentPage === 1));
-
-    for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.classList.add('page-button');
-      if (i === currentPage) {
-        pageButton.classList.add('page-button-active');
-      }
-      pageButton.addEventListener('click', () => {
-        currentPage = i;
+      button.addEventListener('click', function() {
+        currentPage = parseInt(this.textContent);
         displayData();
+        changeBtn(this.textContent);
+        arrBtn();
       });
-      pagination.appendChild(pageButton);
+      numberBtnWrapper.appendChild(button);
+    }
+    arrBtn();
+  }
+
+  function arrBtn() {
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+    const btnFocus = document.querySelector(".btnFocus");
+    const pageNumberBtn = document.querySelectorAll(".pagebtn");
+
+    if (!btnFocus || pageNumberBtn.length === 0) {
+      if (prevBtn) prevBtn.classList.remove("color");
+      if (nextBtn) nextBtn.classList.remove("color");
+      return;
     }
 
-    pagination.appendChild(createArrow('right', currentPage === totalPages));
+    let btnNum = Array.from(pageNumberBtn).map(btn => btn.textContent);
+    let maxNum = Math.max(...btnNum);
+    let minNum = Math.min(...btnNum);
+
+    if (Number(btnFocus.textContent) == minNum) {
+      nextBtn.classList.add("color");
+      prevBtn.classList.remove("color");
+    } else if (Number(btnFocus.textContent) == maxNum) {
+      nextBtn.classList.remove("color");
+      prevBtn.classList.add("color");
+    } else {
+      nextBtn.classList.add("color");
+      prevBtn.classList.add("color");
+    }
   }
 
   async function cancelRequest(id) {
@@ -449,6 +456,17 @@ export function loadAttendanceCorrectionRequest() {
     }
   }
 
+  function changeBtn(clickBtnNum) {
+    const buttons = document.querySelectorAll('.pagebtn');
+    buttons.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
   function getStatusText(status) {
     switch(status) {
       case 'pending': return '대기중';
@@ -459,4 +477,23 @@ export function loadAttendanceCorrectionRequest() {
   }
 
   loadRequestData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(requestData.length / itemsPerPage)) {
+      currentPage++;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }

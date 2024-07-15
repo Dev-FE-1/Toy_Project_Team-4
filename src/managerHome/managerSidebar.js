@@ -98,7 +98,7 @@ function createSidebar() {
                 <span class="sub-icon">
                   <img src="/images/category.svg" alt="행정 자료 요청">
                 </span>
-                <span class="sub-text">행정 자료 요청</span>
+                <span class="sub-text">문서 발급 요청</span>
               </a>
             </li>
             <li>
@@ -140,7 +140,7 @@ function createSidebar() {
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="외출/조퇴 관리">
               </span>
-              <span class="sub-text">외출/조퇴 관리</span>
+              <span class="sub-text">외출 신청</span>
             </a>
           </li>
           <li>
@@ -148,7 +148,7 @@ function createSidebar() {
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="휴가 관리">
               </span>
-              <span class="sub-text">휴가 관리</span>
+              <span class="sub-text">휴가 신청</span>
             </a>
           </li>
           <li>
@@ -156,7 +156,7 @@ function createSidebar() {
               <span class="sub-icon">
                 <img src="/images/category.svg" alt="공가 관리">
               </span>
-              <span class="sub-text">공가 관리</span>
+              <span class="sub-text">공가 신청</span>
             </a>
           </li>
         </ul>

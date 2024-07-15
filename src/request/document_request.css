@@ -9,7 +9,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .document-icon {
@@ -42,6 +41,8 @@
   border-radius: 10px;
   border: 2px solid #f2f2f2;
   margin-right: 20px;
+  height: 500px;
+  overflow-y: auto;
 }
 
 .document-process-container h2 {
@@ -84,9 +85,16 @@
   flex-direction: column;
 }
 
-.document-status-header {
+.document-status-container .document-status-content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+.document-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   position: relative;
 }
@@ -109,24 +117,6 @@
   position: static;
   transform: none;
   margin-bottom: 10px;
-}
-
-.document-status-date-range {
-  position: static;
-  right: auto;
-  top: auto;
-}
-
-.document-status-date-range .date-input {
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-}
-
-.document-status-date-range .date-input:focus {
-  border-color: #ED234B;
-  outline: none;
 }
 
 .status-table-container {
@@ -197,7 +187,7 @@
 }
 
 .document-modal-btn-container {
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .document-modal-btn {
@@ -212,7 +202,6 @@
   text-align: center;
   display: block;
   margin: auto;
-  margin-top: 40px;
 }
 
 .document-modal {
@@ -318,9 +307,61 @@
 }
 
 .date-range input[type="date"] {
-  width: 45%;
+  width: 100%;
+}
+
+#start-date {
+  margin-right: 5px;
+}
+
+#end-date {
+  margin-left: 5px;
 }
 
 #other-document-fields {
   margin-top: 20px;
+}
+
+.document-container .document-both-container .document-status-container .document-status-content .document-pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.document-container .document-pagination-container button {
+  padding: 10px;
+  margin: 5px;
+  color: #ababab;
+  background-color: transparent;
+}
+
+.document-container .document-pagination-container .prev-button,
+.document-container .document-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.document-container .document-pagination-container .prev-button.color,
+.document-container .document-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.document-container .document-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.document-container .document-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.document-container .document-pagination-container .number-btn-wrapper .btnFocus {
+  color: #ed234b;
+  font-weight: 800;
 }

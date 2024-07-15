@@ -11,15 +11,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-}
-
-.vacation-container .vacation-icon {
-  width: 80px;
-  height: 80px;
-  vertical-align: middle;
-  margin-left: 30px;
-  margin-right: 40px;
 }
 
 .vacation-container h1 {
@@ -31,48 +22,49 @@
   text-align: left;
 }
 
-.vacation-both-container {
+.vacation-container h1 .vacation-icon {
+  width: 80px;
+  height: 80px;
+  vertical-align: middle;
+  margin-left: 30px;
+  margin-right: 40px;
+}
+
+.vacation-container .vacation-both-container {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
 }
 
-.vacation-process-container {
+.vacation-container .vacation-both-container .vacation-process-container {
   flex: 2;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #f2f2f2;
   margin-right: 20px;
+  overflow-y: scroll;
+  height: 500px;
 }
 
-.vacation-process-container h2 {
-  font-size: 1.5rem;
-  color: #222;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.vacation-process-list {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list {
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 10px;
   text-align: left;
-  /* height: 515px; */
 }
 
-.vacation-process-list h3 {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list h3 {
   color: #222;
   border-bottom: 2px solid #d6d6d6;
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 15px; 
-  margin-top: 20px; 
+  margin-bottom: 15px;
+  margin-top: 20px;
   padding-bottom: 5px;
 }
 
-.download-link-container {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container {
   display: flex;
   align-items: center;
   width: 100%;
@@ -80,7 +72,7 @@
   margin-top: 20px;
 }
 
-.vacation-process-list a {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container a {
   color: rgb(20, 93, 251);
   text-decoration: none;
   font-weight: 700;
@@ -89,59 +81,29 @@
   margin-bottom: 10px;
 }
 
-.vacation-process-list a:hover {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container a:hover {
   text-decoration: underline;
 }
 
-.vacation-process-list .material-symbols-outlined {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container .material-symbols-outlined {
   color: rgb(20, 93, 251);
   margin-right: 8px;
   vertical-align: middle;
   margin-bottom: 13px;
 }
 
-.vacation-process-list .ex {
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .ex {
   color: #ed234b;
   font-weight: 500;
 }
 
-.vacation-process-list p {
-  margin-top: 10px;
-  margin-bottom: 10px; 
-  line-height: 1.5; 
-}
-
-.vacation-process-list a {
-  display: block; 
-  margin-top: 0; 
-  margin-bottom: 10px; 
-  font-weight: 500;
-}
-
-.vacation-date-container {
-  margin-bottom: 20px; 
-  display: flex;
-  flex-direction: column;
-}
-
-.vacation-date-container label {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #222;
-  display: block;
-  margin: 20px 0 10px;
-  text-align: left;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.vacation-date-container input[type="date"] {
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-}
-
-.vacation-status-container {
+.vacation-container .vacation-both-container .vacation-status-container {
   flex: 3;
   background-color: #fff;
   padding: 20px;
@@ -150,20 +112,30 @@
   flex-direction: column;
 }
 
-.vacation-status-container .vacation-status-content {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.vacation-status-header {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   position: relative;
 }
 
-.red-dot {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header span {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  position: static;
+  transform: none;
+  margin-left: 10px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header .red-dot {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -174,56 +146,29 @@
   opacity: 0.7;
 }
 
-.vacation-status-header span {
-  font-size: 1.5rem;
-  color: #222;
-  font-weight: 500;
-  position: static;
-  transform: none;
-  margin-bottom: 10px;
-}
-
-.vacation-status-date-range {
-  position: static;
-  right: auto;
-  top: auto;
-}
-
-.vacation-status-date-range .date-input {
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 0 5px;
-}
-
-.vacation-status-date-range .date-input:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.status-table-container {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container {
   flex-grow: 1;
   overflow-y: auto;
   min-height: 300px;
 }
 
-.vacation-status-container .status-table {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; 
+  table-layout: fixed;
 }
 
-.vacation-status-container .status-table th,
-.vacation-status-container .status-table td {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table th,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #efefef;
-  height: 50px; 
-  overflow: hidden; 
-  white-space: nowrap; 
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.vacation-status-container .status-table th {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table th {
   border-top: 1px solid #efefef;
   font-size: 14px;
   font-weight: normal;
@@ -232,47 +177,92 @@
   background-color: #f2f2f2;
 }
 
-.vacation-status-container .status-pending,
-.vacation-status-container .status-approved,
-.vacation-status-container .status-rejected,
-.vacation-status-container .cancel-button {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-pending,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-approved,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-rejected,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .cancel-button {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
+  font-weight: 500;
 }
 
-.vacation-status-container .status-pending {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-pending {
   background-color: #bababa;
   color: #fff;
 }
 
-.vacation-status-container .status-approved {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-approved {
   background-color: #D9F7E7;
   color: #30A164;
 }
 
-.vacation-status-container .status-rejected {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
 }
 
-.vacation-status-container .cancel-button {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .cancel-button {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
 }
 
-.vacation-status-container .cancel-button:hover {
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .cancel-button:hover {
   opacity: 0.5;
 }
 
-.vacation-modal-btn-container {
-  margin-top: 0;
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
-.vacation-modal-btn {
+.vacation-container .vacation-pagination-container button {
+  padding: 10px;
+  margin: 5px;
+  color: #ababab;
+  background-color: transparent;
+}
+
+.vacation-container .vacation-pagination-container .prev-button,
+.vacation-container .vacation-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.vacation-container .vacation-pagination-container .prev-button.color,
+.vacation-container .vacation-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper .btnFocus {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container {
+  margin-top: 20px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container .vacation-modal-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -284,23 +274,26 @@
   text-align: center;
   display: block;
   margin: auto;
-  margin-top: 40px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container .vacation-modal-btn:hover {
+  opacity: 0.7;
 }
 
 .vacation-modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
-.vacation-modal-content {
+.vacation-modal .vacation-modal-content {
   background-color: #fff;
   padding: 40px;
   width: 35%;
@@ -313,7 +306,7 @@
   overflow-y: auto;
 }
 
-.vacation-modal-close-btn {
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn {
   color: #ababab;
   float: right;
   font-size: 30px;
@@ -323,14 +316,14 @@
   right: 15px;
 }
 
-.vacation-modal-close-btn:hover,
-.vacation-modal-close-btn:focus {
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn:hover,
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn:focus {
   color: #ed234b;
   text-decoration: none;
   cursor: pointer;
 }
 
-.vacation-form-container h2 {
+.vacation-modal .vacation-modal-content .vacation-form-container h2 {
   font-size: 1.5rem;
   color: #222;
   font-weight: 500;
@@ -338,51 +331,13 @@
   margin-bottom: 20px;
 }
 
-.vacation-form-container .vacation-date-container input[type="date"] {
-  padding: 10px;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.vacation-form-container .vacation-date-container input[type="date"]:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.vacation-form-container .vacation-submit-section .vacation-pdf-container input[type="file"],
-.vacation-form-container .vacation-submit-section .vacation-zip-container input[type="file"]{
-  width: 100%;
-  padding: 10px;
-  margin: auto;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-}
-
-.vacation-form-container .vacation-submit-all-section input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  margin: auto;
-  border: 1px solid #ABABAB;
-  border-radius: 5px;
-}
-
-.vacation-form-container .vacation-submit-all-section input[type="file"]:focus {
-  border-color: #ED234B;
-  outline: none;
-}
-
-.vacation-form-container .convert-press-container label {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #222;
-  display: block;
-  margin: 20px 0 10px;
-  text-align: left;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-.vacation-form-container .vacationSubmitForm label {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
@@ -391,30 +346,53 @@
   text-align: left;
 }
 
-.vacation-form-container .convert-press-container .vacation-pdf-container,
-.vacation-form-container .convert-press-container .vacation-zip-container {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-#fileInput,
-#wordFile {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container input[type="file"],
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container input[type="file"] {
   flex: 1;
   width: 70%;
   margin-right: 10px;
   margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
 }
 
-#fileInput:focus,
-#wordFile:focus {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container input[type="file"]:focus,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container input[type="file"]:focus {
   border-color: #ED234B;
   outline: none;
 }
 
-.convertpdf,
-.createzip {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container .convertpdf,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container .createzip {
   margin-right: 0;
   color: #fff;
   background-color: #ed234b;
@@ -424,14 +402,41 @@
   border: 1px solid #ed234b;
   margin-bottom: 10px;
   padding: 2px 8px 4px;
+  cursor: pointer;
 }
 
-.convertpdf:hover,
-.createzip:hover {
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container .convertpdf:hover,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container .createzip:hover {
   opacity: 0.7;
 }
 
-.vacationSubmitForm .vacation-btn {
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm {
+  margin-top: 20px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-submit-all-section input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-submit-all-section input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-btn {
   padding: 15px 30px;
   border: none;
   cursor: pointer;
@@ -446,7 +451,6 @@
   margin-top: 40px;
 }
 
-.vacation-modal-btn:hover,
-.vacationSubmitForm .vacation-btn:hover {
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-btn:hover {
   opacity: 0.7;
 }

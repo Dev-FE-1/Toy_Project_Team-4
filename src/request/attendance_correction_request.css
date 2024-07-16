@@ -204,8 +204,8 @@
 }
 
 .correction-status-container .status-pending {
-  background-color: #bababa;
-  color: #fff;
+  background-color: #f2f2f2;
+  color: #6e6e6e;
 }
 
 .correction-status-container .status-approved {
@@ -381,7 +381,7 @@
   color: #fff;
   background-color: #ed234b;
   width: 20%;
-  height: 44px;
+  height: 35px;
   border-radius: 10px;
   border: 1px solid #ed234b;
   margin-bottom: 10px;

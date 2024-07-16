@@ -75,7 +75,7 @@
 .vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container a {
   color: rgb(20, 93, 251);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 500;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -189,8 +189,8 @@
 }
 
 .vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-pending {
-  background-color: #bababa;
-  color: #fff;
+  background-color: #f2f2f2;
+  color: #6e6e6e;
 }
 
 .vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-approved {

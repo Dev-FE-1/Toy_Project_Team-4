@@ -11,42 +11,24 @@ export function loadAttendanceCorrectionRequest() {
       <div class="correction-both-container">
         <div class="correction-process-container">
           <div class="correction-process-list">
-            <h3>1. 기본 정보</h3>
-            <p>
-              <strong>가능 사유:</strong> HRD 오류, 수강생 소유한 기기 오류, 기타 훈련생의 불가피한 사정 등<br>
-              <strong>가능 조건:</strong> 입실 및 퇴실 zoom 스크린샷 참여 수강생 한정<br>
-              <strong>가능 시간:</strong> 영업일 기준 다음날 16시까지만 요청 가능<br>
-              - 예시:<br>
-              &nbsp;&nbsp;6월 20일 (목)요일의 정정 신청은 6월 21일 (금)요일 오후 4시까지<br>
-              &nbsp;&nbsp;6월 21일 (금)요일의 정정 신청은 6월 24일 (월)요일 오후 4시까지
-            </p>
-            <h3>2. 유의사항</h3>
-            <p>
-              <strong>출결 체크 불가 예시:</strong><br>
-              - 이목구비 확인 필수<br>
-              - 이동시/외부 참여시 인정 불가 (ex. 전철 안, 차 안, 버스 안)<br>
-              - 모바일, 테블릿 참여시 인정 불가<br>
-              - 실명 확인 필수
-            </p>
-            <h3>3. 정정 프로세스</h3>
-            <p>
-              1. 운영 매니저에게 스크린샷 요청 (입/퇴실 2개의 사진)<br>
-              &nbsp;&nbsp;- 외출 정정시: 외출/복귀시 훈련생이 진행한 스크린샷 포함 필요 (총 4개의 스크린샷)<br>
-              2. 얼굴전체/이름/당일 날짜&시간 <strong>하이라이트</strong> 표기<br>
-              3. 출석 입력 대장 작성
-            </p>
-            <div class="download-link-container">
-              <span class="material-symbols-outlined download-icon">download</span>
-              <a href="/images/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
-                출석 입력 대장 다운로드
-              </a>
-            </div>
-            <p>
-              - 서류 작성<br>
-              - PDF 파일로 저장<br>
-              - 파일명 변경: <span class="ex">'날짜_과정명_성함(출석 입력 요청 대장)'</span><br>
-              4. 스크린샷 + 출석 대장 하나의 폴더로 압축
-            </p>
+              <h3>1. 운영 매니저에게 스크린샷 요청</h3>
+              <p>입실 및 퇴실 시 각 1장씩 총 2장의 스크린샷 제출</p>
+              <p>외출 정정 시: 외출 및 복귀 시 각 1장씩 총 4장의 스크린샷 제출 필요</p>
+              <br>
+              <h3>2. 스크린샷 준비 및 출석대장 작성</h3>
+              <p>얼굴 전체, 이름, 당일 날짜 및 시간을 하이라이트 표기</p>
+              <div class="download-link-container">
+                  <span class="material-symbols-outlined download-icon">download</span>
+                  <a href="/images/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
+                      출석 대장 다운로드
+                  </a>
+              </div>
+              <p>작성 후 PDF 파일로 변환.</p>
+              <p>파일명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
+              <br>
+              <h3>3. 필요 자료 폴더링</h3>
+              <p>출석 대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
+              <p>폴더명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출결 정정)'</span></p>
           </div>
         </div>
         <div class="correction-status-container">
@@ -89,7 +71,7 @@ export function loadAttendanceCorrectionRequest() {
           <h2>출결 정정 요청</h2>
           <div class="correction-submit-section">
             <div class="correction-date-container">
-              <label for="correctionDate">정정 요청 날짜</label>
+              <label for="correctionDate">정정 희망 날짜</label>
               <input type="date" id="correctionDate" name="correctionDate" required>
             </div>
             <div class="convert-press-container">
@@ -151,7 +133,7 @@ export function loadAttendanceCorrectionRequest() {
       return;
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (!userInfo || !userInfo.userName) {
@@ -169,7 +151,7 @@ export function loadAttendanceCorrectionRequest() {
         const user = users.find(u => u.name === userName);
 
         if (user) {
-          const fileName = `${correctionDate}_${courseName}_${user.name}(출석 입력 요청 대장).pdf`;
+          const fileName = `${correctionDate}_${courseName}_${user.name}(출석대장).pdf`;
 
           if (file) {
             const formData = new FormData();
@@ -227,7 +209,7 @@ export function loadAttendanceCorrectionRequest() {
       return;
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (!userInfo || !userInfo.userName) {
@@ -245,7 +227,7 @@ export function loadAttendanceCorrectionRequest() {
         const user = users.find(u => u.name === userName);
 
         if (user) {
-          const fileName = `${correctionDate}_${courseName}_${user.name}(출결정정).zip`;
+          const fileName = `${correctionDate}_${courseName}_${user.name}(출결 정정).zip`;
 
           const zip = new JSZip();
           for (let i = 0; i < files.length; i++) {
@@ -282,7 +264,7 @@ export function loadAttendanceCorrectionRequest() {
       alert("로그인된 사용자 정보를 찾을 수 없습니다.");
       return;
     }
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
     const userName = userInfo.userName;
   
     if (!correctionFile || !correctionDate) {

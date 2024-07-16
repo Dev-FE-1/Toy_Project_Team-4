@@ -33,7 +33,10 @@ if (process.platform === "win32") {
 
 // 미들웨어
 app.use(cors())
-app.use(fileUpload())
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}))
 app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
@@ -68,7 +71,7 @@ if (!fs.existsSync(documentRequestFilePath)) {
   fs.writeFileSync(documentRequestFilePath, JSON.stringify({ request: [] }))
 }
 
-// 출결 정정 신청
+// 출결 정정 요청
 app.post("/upload-attendance-correction-request", async (req, res) => {
   if (!req.files || !req.files.correctionFile) {
     return res.status(400).json({ error: "No files were uploaded." })
@@ -85,7 +88,7 @@ app.post("/upload-attendance-correction-request", async (req, res) => {
   const formattedDate = new Date(date).toISOString().split("T")[0]
   const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
-  const fileName = `${formattedDate}_${courseName}_${name}(출결정정).zip`
+  const fileName = `${formattedDate}_${courseName}_${name}(출결 정정).zip`
   const filePath = path.join(__dirname, "uploads", fileName)
 
   if (!fs.existsSync(path.join(__dirname, "uploads"))) {
@@ -521,7 +524,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
       }
 
       const request = requests.request[requestIndex]
-      const fileName = `${new Date().toISOString().split("T")[0]}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${
+      const fileName = `${new Date().toISOString().split("T")[0]}_데브캠프 : 프론트엔드 개발 4회차_${
         request.name
       }(공가).zip`
       const filePath = path.join(__dirname, "uploads", fileName)
@@ -594,6 +597,63 @@ app.post("/upload-official-leave-request", async (req, res) => {
   }
 })
 
+// 문서 업로드 처리
+app.post("/upload-document", async (req, res) => {
+  if (!req.files || !req.files.file) {
+    return res.status(400).json({ error: "No files were uploaded." });
+  }
+
+  const file = req.files.file;
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Missing required fields." });
+  }
+
+  const originalFileName = Buffer.from(file.name, 'latin1').toString('utf8');
+  const fileExtension = path.extname(originalFileName);
+  const fileName = `${uuidv4()}${fileExtension}`;
+  const uploadPath = path.join(__dirname, "uploads", fileName);
+
+  if (!fs.existsSync(path.join(__dirname, "uploads"))) {
+    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true });
+  }
+
+  try {
+    // 임시 파일을 사용하여 파일 복사
+    const tempPath = file.tempFilePath;
+    await fs.promises.copyFile(tempPath, uploadPath);
+
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id === id);
+
+    if (requestIndex === -1) {
+      return res.status(404).json({ error: "Request not found" });
+    }
+
+    requests.request[requestIndex] = {
+      ...requests.request[requestIndex],
+      fileUrl: `/uploads/${fileName}`,
+      originalFileName: originalFileName
+    };
+
+    await fs.promises.writeFile(
+      documentRequestFilePath,
+      JSON.stringify(requests, null, 2)
+    );
+
+    res.json({
+      message: "File uploaded successfully",
+      fileUrl: `/uploads/${fileName}`,
+      originalFileName: originalFileName
+    });
+  } catch (err) {
+    console.error("Error in file upload:", err);
+    res.status(500).json({ error: "File upload failed", details: err.message });
+  }
+});
+
 // 문서 발급 요청 제출
 app.post("/upload-document-request", async (req, res) => {
   const { name, documentType, startDate, endDate, reason, email, requiredDocument } = req.body
@@ -605,6 +665,7 @@ app.post("/upload-document-request", async (req, res) => {
   const now = new Date()
   const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
+  const fullSubmitTime = now.toISOString()
 
   const newRequest = {
     id: uuidv4(),
@@ -618,12 +679,13 @@ app.post("/upload-document-request", async (req, res) => {
     status: "pending",
     submitDate,
     submitTime,
+    fullSubmitTime
   }
 
   try {
     const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    requests.request.push(newRequest)
+    requests.request.unshift(newRequest) // 배열의 맨 앞에 추가
 
     await fs.promises.writeFile(documentRequestFilePath, JSON.stringify(requests, null, 2))
     res.json({

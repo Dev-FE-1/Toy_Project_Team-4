@@ -2,25 +2,21 @@
   width: 90%;
   height: 90%;
   background-color: #fff;
-  padding: 20px 40px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
   border: 1px solid #f2f2f2;
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
-.manager-official-leave-container-header {
+.manager-official-leave-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  width: 100%;
+  justify-content:left;
 }
 
-.manager-official-leave-container-header h1 {
+.manager-official-leave-header h1 {
   font-size: 2rem;
   font-weight: 500;
   color: #222;
@@ -28,33 +24,35 @@
   text-align: left;
 }
 
-.manager-official-leave-container {
+.manager-official-leave-search {
   display: flex;
-  align-items: center;
+  justify-content: right;
+  margin-bottom: 20px;
 }
 
-.manager-official-leave-container input {
-  padding: 8px 16px;
-  border: 1px solid #d6d6d6;
+.manager-official-leave-search #student-name {
+  padding-left: 10px;
+  border: 1px solid #ABABAB;
   border-radius: 5px;
+  width: 300px;
   margin-right: 5px;
 }
 
-.manager-official-leave-container input:focus {
+.manager-official-leave-search input:focus {
   border-color: #ED234B;
   outline: none;
 }
 
-.manager-official-leave-container .filter-button {
-  background-color: #ed234b;
-  color: #fff;
+.manager-official-leave-search .filter-button {
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #ED234B;
+  color: #fff;
+  padding: 5px 10px 5px 10px;
 }
 
-.manager-official-leave-container .filter-button:hover {
+.manager-official-leave-search .filter-button:hover {
   opacity: 0.7;
 }
 
@@ -62,12 +60,13 @@
 .manager-official-leave-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px;
   table-layout: fixed;
 }
 
 .manager-official-leave-table th,
 .manager-official-leave-table td {
-  padding: 12px 8px;
+  padding: 12px 8px 8px;
   text-align: center;
   border-bottom: 1px solid #efefef;
   vertical-align: middle;
@@ -83,38 +82,29 @@
   color: #666;
 }
 
-.official-leave-container .status-pending,
-.official-leave-container .status-finalPending {
+.status {
+  display: inline-block;
+  padding: 8px 12px 6px;
+  border-radius: 20px;
+}
+
+.manager-official-leave-container .status-pending,
+.manager-official-leave-container .status-finalPending {
   background-color: #f2f2f2;
   color: #6e6e6e;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: 500;
   word-break: break-all;
 }
 
-.official-leave-container .status-approved,
-.official-leave-container .status-finalApproved,
-.official-leave-container .status-completed {
+.manager-official-leave-container .status-approved,
+.manager-official-leave-container .status-finalApproved,
+.manager-official-leave-container .status-completed {
   background-color: #D9F7E7;
   color: #30A164;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: 500;
 }
 
-.official-leave-container .status-rejected {
+.manager-official-leave-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: inline-block;
-  font-weight: 500;
 }
 
 .manager-official-leave-actions {
@@ -122,71 +112,82 @@
 }
 
 .manager-official-leave-table .official-leave-btn {
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
+  padding: 6px 8px;
   border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.official-leave-btn.approve,
+.official-leave-btn.final-approve {
+  background-color: #28a745;
   color: #fff;
-  width: 70%;
-  margin: 1px 0;
 }
 
-.manager-official-leave-actions .approve,
-.manager-official-leave-actions .final-approve {
-  background-color: rgb(11, 192, 11);
+.official-leave-btn.approve:hover,
+.official-leave-btn.final-approve:hover {
+  opacity: 0.7;
 }
 
-.manager-official-leave-actions .reject {
-  background-color: #ea4163;
+.official-leave-btn.reject {
+  background-color: #ff3131;
+  color: #fff;
 }
 
-.manager-official-leave-actions .download-documents {
-  background-color: rgb(35, 131, 226);
+.official-leave-btn.reject:hover {
+  opacity: 0.7;
 }
 
-.manager-official-leave-container .pagination {
+.official-leave-btn.download-documents {
+  background-color: rgba(35, 131, 226);
+  color: #fff;
+}
+
+.official-leave-btn.download-documents:hover {
+  opacity: 0.7;
+}
+
+.manager-official-leave-container .manager-official-leave-pagination-container {
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
-.manager-official-leave-container .page-button {
-  width: 40px;
-  height: 30px;
-  margin: 0 5px;
-  text-align: center;
-  background-color: transparent;
+.manager-official-leave-container .manager-official-leave-pagination-container button {
+  padding: 5px 10px;
+  margin: 10px;
   color: #ababab;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
+  background-color: transparent;
 }
 
-.manager-official-leave-container .page-button-active {
+.manager-official-leave-container .manager-official-leave-pagination-container .prev-button,
+.manager-official-leave-container .manager-official-leave-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.manager-official-leave-container .manager-official-leave-pagination-container .prev-button.color,
+.manager-official-leave-container .manager-official-leave-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.manager-official-leave-container .manager-official-leave-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.manager-official-leave-container .manager-official-leave-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.manager-official-leave-container .manager-official-leave-pagination-container .number-btn-wrapper .btnFocus {
   color: #ed234b;
   font-weight: 800;
-}
-
-.manager-official-leave-container .page-arrow {
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  background-color: #f26581;
-  border: none;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.manager-official-leave-container .page-arrow-disabled {
-  color: #ababab;
-  background-color: #fff;
-  border: solid 0.5px #ababab;
-  cursor: default;
 }

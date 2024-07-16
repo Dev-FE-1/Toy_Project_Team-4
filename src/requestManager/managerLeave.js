@@ -6,12 +6,12 @@ export function loadManagerLeaveRequests() {
   app.innerHTML = `
     <div class="manager-leave-container">
       <div class="manager-leave-header">
-        <h1>외출 신청 관리</h1>
+        <h1>외출 신청 현황</h1>
+      </div>
         <div class="manager-leave-search">
           <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
           <button id="filter-button">검색</button>
         </div>
-      </div>
       <table class="manager-leave-table">
         <thead>
           <tr>
@@ -30,8 +30,10 @@ export function loadManagerLeaveRequests() {
           <!-- 자바스크립트로 내용 추가 -->
         </tbody>
       </table>
-      <div class="pagination" id="pagination">
-        <!-- 페이지네이션 버튼 -->
+      <div class="manager-leave-pagination-container">
+        <button class="prev-button">&lt;</button>
+        <div class="number-btn-wrapper"></div>
+        <button class="next-button">&gt;</button>
       </div>
     </div>
 
@@ -52,10 +54,10 @@ export function loadManagerLeaveRequests() {
   const closeModalBtn = document.getElementsByClassName('manager-leave-modal-close-btn')[0];
   const submitReasonBtn = document.getElementById('submitReasonBtn');
   const filterButton = document.getElementById('filter-button');
-  const paginationContainer = document.getElementById('pagination');
+  const paginationContainer = document.querySelector(".manager-leave-pagination-container .number-btn-wrapper");
   let currentRequestId;
   let currentPage = 1;
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
   let filteredData = [];
 
   async function loadTableData(studentName = '') {
@@ -68,10 +70,9 @@ export function loadManagerLeaveRequests() {
       if (!Array.isArray(data)) {
         throw new Error('Received data is not an array');
       }
-      // 제출일과 제출 시간을 기준으로 최신순 정렬
       data.sort((a, b) => {
-        const dateA = new Date(a.submitDate + 'T' + a.submitTime);
-        const dateB = new Date(b.submitDate + 'T' + b.submitTime);
+        const dateA = new Date(a.submitDate + 'T' + (a.submitTime.length === 5 ? a.submitTime + ":00" : a.submitTime));
+        const dateB = new Date(b.submitDate + 'T' + (b.submitTime.length === 5 ? b.submitTime + ":00" : b.submitTime));
         return dateB - dateA; // 내림차순 정렬 (최신 순)
       });
       filteredData = studentName ? data.filter(item => item.name.includes(studentName)) : data;
@@ -81,7 +82,6 @@ export function loadManagerLeaveRequests() {
       alert('외출 신청 데이터를 불러오는 데 실패했습니다.');
     }
   }
-  
 
   function displayPage(page) {
     currentPage = page;
@@ -89,7 +89,7 @@ export function loadManagerLeaveRequests() {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageData = filteredData.slice(startIndex, endIndex);
-  
+
     pageData.forEach((item) => {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -111,48 +111,65 @@ export function loadManagerLeaveRequests() {
       `;
       tableBody.appendChild(row);
     });
-  
+
     document.querySelectorAll('.approve').forEach(button => {
       button.addEventListener('click', approveRequest);
     });
     document.querySelectorAll('.reject').forEach(button => {
       button.addEventListener('click', openReasonModal);
     });
-  
-    updatePagination();
+
+    displayPagination(filteredData.length);
   }
 
-  function updatePagination() {
+  function displayPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
     paginationContainer.innerHTML = '';
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  
-    // 이전 버튼 추가
-    const prevButton = document.createElement('button');
-    prevButton.classList.add('page-arrow');
-    prevButton.innerHTML = '&lt;';
-    prevButton.addEventListener('click', () => displayPage(Math.max(1, currentPage - 1)));
-    prevButton.disabled = currentPage === 1;
-    paginationContainer.appendChild(prevButton);
-  
-    // 페이지 버튼 생성
-    for (let page = 1; page <= totalPages; page++) {
-      const button = document.createElement('button');
-      button.classList.add('page-button');
-      if (page === currentPage) {
-        button.classList.add('active');
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('button');
+      if (i === currentPage) {
+        pageButton.classList.add('btnFocus');
       }
-      button.innerText = page;
-      button.addEventListener('click', () => displayPage(page));
-      paginationContainer.appendChild(button);
+      pageButton.addEventListener('click', () => {
+        currentPage = i;
+        displayPage(currentPage);
+        changeBtn(currentPage.toString());
+        arrBtn();
+      });
+      paginationContainer.appendChild(pageButton);
     }
-  
-    // 다음 버튼 추가
-    const nextButton = document.createElement('button');
-    nextButton.classList.add('page-arrow');
-    nextButton.innerHTML = '&gt;';
-    nextButton.addEventListener('click', () => displayPage(Math.min(totalPages, currentPage + 1)));
-    nextButton.disabled = currentPage === totalPages;
-    paginationContainer.appendChild(nextButton);
+    arrBtn();
+  }
+
+  function changeBtn(clickBtnNum) {
+    const numberBtn = document.querySelectorAll('.button');
+    numberBtn.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
+  function arrBtn() {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+
+    if (currentPage === 1) {
+      prevBtn.classList.remove('color');
+      nextBtn.classList.add('color');
+    } else if (currentPage === totalPages) {
+      prevBtn.classList.add('color');
+      nextBtn.classList.remove('color');
+    } else {
+      prevBtn.classList.add('color');
+      nextBtn.classList.add('color');
+    }
   }
 
   async function approveRequest(event) {
@@ -183,23 +200,20 @@ export function loadManagerLeaveRequests() {
     reasonModal.style.display = 'none';
     document.getElementById('reasonText').value = '';
   };
-  
-  async function updateRequestStatus(id, status, reason) {
+
+  async function updateRequestStatus(id, status, reason = '') {
     try {
       const response = await fetch('/update-leave-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status, rejectReason: reason })
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
-      // 서버로부터 업데이트된 데이터를 받아옵니다.
+
       await loadTableData('');
-  
-      // 현재 페이지를 다시 표시합니다.
       displayPage(currentPage);
     } catch (error) {
       console.error('Error updating request status:', error);
@@ -219,6 +233,25 @@ export function loadManagerLeaveRequests() {
     const studentName = document.getElementById('student-name').value;
     loadTableData(studentName);
   });
-  
+
   loadTableData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+      currentPage++;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }

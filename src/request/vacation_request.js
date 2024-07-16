@@ -17,27 +17,27 @@ export function loadVacationRequest() {
             <div class="download-link-container">
               <span class="material-symbols-outlined download-icon">download</span>
               <a href="/images/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
-                출석 입력 대장 다운로드
+                출석대장 다운로드
               </a>
             </div>
             <p>
               작성 후 PDF 파일로 변환<br>
-              파일명: <span class="ex">'날짜_과정명_성함(출석 입력 대장)'</span>
+              파일명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span>
             </p>
             <div class="download-link-container">
               <span class="material-symbols-outlined download-icon">download</span>
               <a href="/images/[KDT] 휴가 사용 계획서_김패캠의 사본 - (시트 복제 후 사용)상담일자_휴가사용일자.docx" download class="download-link">
-                휴가 계획서 다운로드
+                휴가계획서 다운로드
               </a>
             </div>
             <p>
               작성 후 PDF 파일로 변환<br>
-              파일명: <span class="ex">'날짜_과정명_성함(휴가 계획서)'</span>
+              파일명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(휴가 계획서)'</span>
             </p><br>
             <h3>3. 필요 자료 폴더링</h3>
             <p>
               출석 입력 대장과 휴가 계획서를 하나의 폴더에 포함 및 압축<br>
-              압축 폴더명: <span class="ex">'날짜_과정명_이름(휴가)'</span>
+              폴더명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_이름(휴가)'</span>
             </p>
           </div>
         </div>
@@ -285,7 +285,7 @@ export function loadVacationRequest() {
       return
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차'
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     if (!userInfo || !userInfo.userName) {
@@ -306,7 +306,7 @@ export function loadVacationRequest() {
           let suffix = ""
 
           if (file.name.includes("출석대장")) {
-            suffix = "(출석 입력 대장)"
+            suffix = "(출석대장)"
           } else if (file.name.includes("휴가 사용 계획서")) {
             suffix = "(휴가 계획서)"
           } else {
@@ -364,7 +364,7 @@ export function loadVacationRequest() {
       return
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차'
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     if (!userInfo || !userInfo.userName) {
@@ -418,7 +418,7 @@ export function loadVacationRequest() {
       alert("로그인된 사용자 정보를 찾을 수 없습니다.")
       return
     }
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)'
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차'
     const userName = userInfo.userName
 
     if (!vacationFile || !vacationDate) {

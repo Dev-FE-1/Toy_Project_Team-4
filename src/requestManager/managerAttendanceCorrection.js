@@ -5,13 +5,13 @@ export function loadManagerAttendanceCorrectionRequests() {
 
   app.innerHTML = `
     <div class="manager-correction-container">
-      <div class="manager-correction-header">
-        <h1>출결 정정 요청 관리</h1>
+        <div class="manager-correction-header">
+        <h1>출결 정정 요청 현황</h1>
+        </div>
         <div class="manager-correction-search">
           <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
           <button class="filter-button">검색</button>
         </div>
-      </div>
       <table class="manager-correction-table">
         <thead>
           <tr>
@@ -27,8 +27,10 @@ export function loadManagerAttendanceCorrectionRequests() {
           <!-- 자바스크립트로 내용 추가 -->
         </tbody>
       </table>
-      <div class="pagination" id="pagination">
-        <!-- 페이지네이션 버튼 -->
+      <div class="manager-correction-pagination-container">
+        <button class="prev-button"><</button>
+        <div class="number-btn-wrapper"></div>
+        <button class="next-button">></button>
       </div>
     </div>
 
@@ -49,11 +51,13 @@ export function loadManagerAttendanceCorrectionRequests() {
   const closeModalBtn = document.getElementsByClassName('manager-correction-modal-close-btn')[0];
   const submitReasonBtn = document.getElementById('submitReasonBtn');
   const filterButton = document.querySelector('.filter-button');
-  const paginationContainer = document.getElementById("pagination");
+  const paginationContainer = document.querySelector(".number-btn-wrapper");
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
 
   let currentRequestId;
   let currentPage = 1;
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
   let filteredData = [];
 
   async function loadTableData(studentName = '') {
@@ -95,12 +99,12 @@ export function loadManagerAttendanceCorrectionRequests() {
         <td>${item.date || 'N/A'}</td>
         <td><span class="status status-${item.status || 'unknown'}">${getStatusText(item.status)}</span></td>
         <td class="manager-correction-actions">
-        ${item.status === 'pending' ? `
-          <button class="correction-btn approve" data-id="${item.id}">승인</button>
-          <button class="correction-btn reject" data-id="${item.id}">반려</button>
-        ` : ''}
-        <button class="correction-btn download" data-url="${item.fileUrl}">파일 다운로드</button>
-      </td>
+          ${item.status === 'pending' ? `
+            <button class="correction-btn approve" data-id="${item.id}">승인</button>
+            <button class="correction-btn reject" data-id="${item.id}">반려</button>
+          ` : ''}
+          <button class="correction-btn download" data-url="${item.fileUrl}">파일 다운로드</button>
+        </td>
       `;
       tableBody.appendChild(row);
     });
@@ -121,33 +125,79 @@ export function loadManagerAttendanceCorrectionRequests() {
   function updatePagination() {
     paginationContainer.innerHTML = '';
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  
-    // 이전 버튼 추가
-    const prevButton = document.createElement('button');
-    prevButton.classList.add('page-arrow');
-    prevButton.innerHTML = '&lt;';
-    prevButton.addEventListener('click', () => displayPage(Math.max(1, currentPage - 1)));
-    paginationContainer.appendChild(prevButton);
-  
-    // 페이지 버튼 생성
-    for (let page = 1; page <= totalPages; page++) {
+
+    for (let i = 1; i <= totalPages; i++) {
       const button = document.createElement('button');
-      button.classList.add('page-button');
-      if (page === currentPage) {
-        button.classList.add('active');
+      button.textContent = i;
+      button.classList.add('pagebtn');
+      if (i === currentPage) {
+        button.classList.add('btnFocus');
       }
-      button.innerText = page;
-      button.addEventListener('click', () => displayPage(page));
+      button.addEventListener('click', function() {
+        currentPage = parseInt(this.textContent);
+        displayPage(currentPage);
+        changeBtn(currentPage.toString());
+        arrBtn();
+      });
       paginationContainer.appendChild(button);
     }
-  
-    // 다음 버튼 추가
-    const nextButton = document.createElement('button');
-    nextButton.classList.add('page-arrow');
-    nextButton.innerHTML = '&gt;';
-    nextButton.addEventListener('click', () => displayPage(Math.min(totalPages, currentPage + 1)));
-    paginationContainer.appendChild(nextButton);
+    arrBtn();
   }
+
+  function changeBtn(clickBtnNum) {
+    const buttons = document.querySelectorAll('.pagebtn');
+    buttons.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
+  function arrBtn() {
+    const btnFocus = document.querySelector(".btnFocus");
+    const pageNumberBtn = document.querySelectorAll(".pagebtn");
+
+    if (!btnFocus || pageNumberBtn.length === 0) {
+      if (prevBtn) prevBtn.classList.remove("color");
+      if (nextBtn) nextBtn.classList.remove("color");
+      return;
+    }
+
+    let btnNum = Array.from(pageNumberBtn).map(btn => btn.textContent);
+    let maxNum = Math.max(...btnNum);
+    let minNum = Math.min(...btnNum);
+
+    if (Number(btnFocus.textContent) === minNum) {
+      nextBtn.classList.add("color");
+      prevBtn.classList.remove("color");
+    } else if (Number(btnFocus.textContent) === maxNum) {
+      nextBtn.classList.remove("color");
+      prevBtn.classList.add("color");
+    } else {
+      nextBtn.classList.add("color");
+      prevBtn.classList.add("color");
+    }
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+      currentPage++;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 
   async function approveRequest(event) {
     const id = event.target.dataset.id;
@@ -185,11 +235,11 @@ export function loadManagerAttendanceCorrectionRequests() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status, rejectReason: reason })
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       loadTableData(document.getElementById('student-name').value);
     } catch (error) {
       console.error('Error updating request status:', error);

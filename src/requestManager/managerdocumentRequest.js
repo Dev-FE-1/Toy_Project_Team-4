@@ -5,28 +5,30 @@ export function loadManagerDocumentRequests() {
 
   app.innerHTML = `
     <div class="manager-document-container">
-      <h1>문서 발급 요청 관리</h1>
-      <div class="manager-document-search">
-        <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
-        <button class="filter-button">검색</button>
-      </div>
-      <table class="manager-document-table">
-        <thead>
-          <tr>
-            <th>이름</th>
-            <th>신청 종류</th>
-            <th>제출 일자</th>
-            <th>이메일</th>
-            <th>필요 기간</th>
-            <th>사유</th>
-            <th>상태</th>
-            <th>관리</th>
-          </tr>
-        </thead>
-        <tbody id="manager-document-table-body">
-          <!-- 자바스크립트로 내용 추가 -->
-        </tbody>
-      </table>
+        <div class="manager-document-header">
+          <h1>문서 발급 요청 현황</h1>
+        </div>  
+          <div class="manager-document-search">
+            <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
+            <button class="filter-button">검색</button>
+          </div>  
+        <table class="manager-document-table">
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>신청 종류</th>
+              <th>제출 일자</th>
+              <th>이메일</th>
+              <th>필요 기간</th>
+              <th>사유</th>
+              <th>상태</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+          <tbody id="manager-document-table-body">
+            <!-- 자바스크립트로 내용 추가 -->
+          </tbody>
+        </table>
       <div class="manager-document-pagination-container">
         <button class="prev-button"><</button>
         <div class="number-btn-wrapper"></div>
@@ -50,8 +52,10 @@ export function loadManagerDocumentRequests() {
         <span class="manager-document-modal-close-btn">&times;</span>
         <div class="upload-form-container" id="uploadFormContainer">
           <h2>문서 업로드</h2>
-          <input type="file" id="uploadFile" name="uploadFile" accept=".pdf,.doc,.docx" required>
-          <button id="submitUploadBtn" class="submit-upload-btn">전송</button>
+          <form class="upload-form">
+            <input type="file" id="uploadFile" name="uploadFile" accept=".pdf,.doc,.docx" required>
+            <button type="submit" id="submitUploadBtn" class="submit-upload-btn">전송</button>
+          </form>
         </div>
       </div>
     </div>
@@ -62,13 +66,12 @@ export function loadManagerDocumentRequests() {
   const uploadModal = document.getElementById('uploadModal');
   const closeModalBtns = document.getElementsByClassName('manager-document-modal-close-btn');
   const submitReasonBtn = document.getElementById('submitReasonBtn');
-  const submitUploadBtn = document.getElementById('submitUploadBtn');
   const filterButton = document.querySelector('.filter-button');
   const paginationContainer = document.querySelector(".manager-document-pagination-container .number-btn-wrapper");
 
   let currentRequestId;
   let currentPage = 1;
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
   let filteredData = [];
 
   async function loadTableData(studentName = '') {
@@ -95,15 +98,15 @@ export function loadManagerDocumentRequests() {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageData = filteredData.slice(startIndex, endIndex);
-
+  
     pageData.forEach((item) => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${item.name || 'N/A'}</td>
         <td>${item.documentType === 'other' ? item.requiredDocument : getDocumentTypeText(item.documentType) || 'N/A'}</td>
-        <td>${item.submitDate || 'N/A'}</td>
+        <td>${item.submitDate} ${item.submitTime || ''}</td>
         <td>${item.email || 'N/A'}</td>
-        <td>${item.startDate ? item.startDate + ' ~ ' + item.endDate : 'N/A'}</td>
+        <td>${item.documentType === 'other' ? '-' : (item.startDate ? item.startDate + ' ~ ' + item.endDate : 'N/A')}</td>
         <td>${item.reason || 'N/A'}</td>
         <td><span class="status status-${item.status || 'unknown'}">${getStatusText(item)}</span></td>
         <td class="manager-document-actions">
@@ -112,52 +115,199 @@ export function loadManagerDocumentRequests() {
       `;
       tableBody.appendChild(row);
     });
-
+  
     addEventListeners();
     displayPagination(filteredData.length);
   }
 
   function getStatusText(item) {
-    if (item.status === 'pending') return '승인 대기';
-    if (item.status === 'approved') return '승인';
-    if (item.status === 'rejected') return '반려';
-    return '알 수 없음';
+    if (item.status === 'pending') return '대기중'
+    if (item.status === 'approved') return '양식 제출 대기중'
+    if (item.status === 'rejected') return '반려'
+    if (item.status === 'document_submitted') return '발급 대기중'
+    if (item.status === 'completed') return '발급 완료'
+    return '알 수 없음'
   }
 
   function getDocumentTypeText(type) {
     switch(type) {
-      case 'certificate-of-attendance': return '수강증명서';
-      case 'attendance-record': return '출석부';
-      case 'other': return '기타';
-      default: return '알 수 없음';
+      case 'certificate-of-attendance': return '수강증명서'
+      case 'attendance-record': return '출석부'
+      case 'other': return '기타'
+      default: return '알 수 없음'
     }
   }
 
   function getActionButtons(item) {
-    if (item.status === 'pending') {
-      return `
-        <button class="manager-document-btn approve" data-id="${item.id}">승인</button>
-        <button class="manager-document-btn reject" data-id="${item.id}">반려</button>
-      `;
+    const { status, documentType, id, fileUrl, originalFileName } = item
+    if (documentType === "certificate-of-attendance") {
+      if (status === "pending") {
+        return `
+          <button class="manager-document-btn approve" data-id="${id}">승인</button>
+          <button class="manager-document-btn reject" data-id="${id}">반려</button>
+        `;
+      } else if (status === "approved") {
+        return ''; // 버튼 없음, 서류 제출 대기중
+      } else if (status === "document_submitted") {
+        return `
+          <button class="manager-document-btn approve" data-id="${id}">승인</button>
+          <button class="manager-document-btn reject" data-id="${id}">반려</button>
+          <button class="manager-document-btn download" data-url="${fileUrl}" data-filename="${originalFileName || '문서'}">첨부파일</button>
+        `;
+      } else if (status === "completed") {
+        return `
+          <button class="manager-document-btn download" data-url="${fileUrl}" data-filename="${originalFileName || '문서'}">첨부파일</button>
+        `;
+      }
+    } else {
+      // 출석부와 기타 문서의 경우
+      if (status === "pending") {
+        return `
+          <button class="manager-document-btn approve" data-id="${id}">승인</button>
+          <button class="manager-document-btn reject" data-id="${id}">반려</button>
+        `;
+      } else if (status === "approved" || status === "completed") {
+        return `
+          <button class="manager-document-btn download" data-url="${fileUrl}" data-filename="${originalFileName || '문서'}">첨부파일</button>
+        `;
+      }
     }
-    if (item.status === 'approved') {
-      return `
-        <button class="manager-document-btn upload" data-id="${item.id}">문서 업로드</button>
-      `;
-    }
-    return '';
+    return "";
   }
-
+  
   function addEventListeners() {
     document.querySelectorAll('.approve').forEach(button => {
-      button.addEventListener('click', approveRequest);
-    });
+      button.addEventListener('click', approveRequest)
+    })
     document.querySelectorAll('.reject').forEach(button => {
-      button.addEventListener('click', openReasonModal);
-    });
-    document.querySelectorAll('.upload').forEach(button => {
-      button.addEventListener('click', openUploadModal);
-    });
+      button.addEventListener('click', openReasonModal)
+    })
+    document.querySelectorAll('.download').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('data-url');
+        const filename = this.getAttribute('data-filename');
+        if (url) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("다운로드할 파일이 없습니다.");
+        }
+      });
+    })
+  }
+  
+  async function approveRequest(event) {
+    const id = event.target.dataset.id;
+    const item = filteredData.find(item => item.id === id);
+    if (item.documentType === 'certificate-of-attendance') {
+      if (item.status === 'pending') {
+        openUploadModal(id);
+      } else if (item.status === 'document_submitted') {
+        openUploadModal(id);
+      }
+    } else {
+      openUploadModal(id);
+    }
+  }
+
+  function openUploadModal(id) {
+    currentRequestId = id;
+    uploadModal.style.display = 'block';
+  }
+  
+  Array.from(closeModalBtns).forEach(btn => {
+    btn.onclick = function() {
+      reasonModal.style.display = 'none';
+      uploadModal.style.display = 'none';
+    };
+  });
+  
+  window.onclick = function(event) {
+    if (event.target == reasonModal) {
+      reasonModal.style.display = 'none';
+    }
+    if (event.target == uploadModal) {
+      uploadModal.style.display = 'none';
+    }
+  };
+  
+  document.querySelector('.upload-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const fileInput = document.getElementById('uploadFile');
+    const file = fileInput.files[0];
+    if (!file) {
+      alert("파일을 선택하세요.");
+      return;
+    }
+  
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('id', currentRequestId);
+
+      const response = await fetch('/upload-document', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      const item = filteredData.find(item => item.id === currentRequestId);
+      if (item.documentType === 'certificate-of-attendance') {
+        if (item.status === 'pending') {
+          await updateRequestStatus(currentRequestId, 'approved', '', result.fileUrl, result.originalFileName);
+        } else if (item.status === 'document_submitted') {
+          await updateRequestStatus(currentRequestId, 'completed', '', result.fileUrl, result.originalFileName);
+        }
+      } else {
+        await updateRequestStatus(currentRequestId, 'completed', '', result.fileUrl, result.originalFileName);
+      }
+      alert("파일 전송이 완료되었습니다.");
+      uploadModal.style.display = 'none';
+      fileInput.value = '';
+      loadTableData(document.getElementById('student-name').value);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert("파일 전송 중 오류가 발생했습니다.");
+    }
+  });
+
+  function openReasonModal(event) {
+    currentRequestId = event.target.dataset.id;
+    reasonModal.style.display = 'block';
+  }
+
+  submitReasonBtn.onclick = async function() {
+    const reason = document.getElementById('reasonText').value;
+    await updateRequestStatus(currentRequestId, 'rejected', reason);
+    reasonModal.style.display = 'none';
+    document.getElementById('reasonText').value = '';
+  };
+
+  async function updateRequestStatus(id, status, reason = '', fileUrl = '', originalFileName = '') {
+    try {
+      const response = await fetch('/update-document-request-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status, rejectReason: reason, fileUrl, originalFileName })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      loadTableData(document.getElementById('student-name').value);
+    } catch (error) {
+      console.error('Error updating request status:', error);
+    }
   }
 
   function displayPagination(totalItems) {
@@ -167,7 +317,7 @@ export function loadManagerDocumentRequests() {
     for (let i = 1; i <= totalPages; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
-      pageButton.classList.add('page-button');
+      pageButton.classList.add('button');
       if (i === currentPage) {
         pageButton.classList.add('btnFocus');
       }
@@ -182,114 +332,31 @@ export function loadManagerDocumentRequests() {
     arrBtn();
   }
 
+  function changeBtn(clickBtnNum) {
+    const numberBtn = document.querySelectorAll('.button');
+    numberBtn.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
   function arrBtn() {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const prevBtn = document.querySelector(".prev-button");
     const nextBtn = document.querySelector(".next-button");
-  
+
     if (currentPage === 1) {
-      prevBtn.disabled = true;
       prevBtn.classList.remove('color');
-    } else {
-      prevBtn.disabled = false;
+      nextBtn.classList.add('color');
+    } else if (currentPage === totalPages) {
       prevBtn.classList.add('color');
-    }
-  
-    if (currentPage === totalPages) {
-      nextBtn.disabled = true;
       nextBtn.classList.remove('color');
     } else {
-      nextBtn.disabled = false;
+      prevBtn.classList.add('color');
       nextBtn.classList.add('color');
-    }
-  }
-
-  async function approveRequest(event) {
-    const id = event.target.dataset.id;
-    await updateRequestStatus(id, 'approved');
-  }
-
-  function openReasonModal(event) {
-    currentRequestId = event.target.dataset.id;
-    reasonModal.style.display = 'block';
-  }
-
-  function openUploadModal(event) {
-    currentRequestId = event.target.dataset.id;
-    uploadModal.style.display = 'block';
-  }
-
-  Array.from(closeModalBtns).forEach(btn => {
-    btn.onclick = function() {
-      reasonModal.style.display = 'none';
-      uploadModal.style.display = 'none';
-      document.getElementById('reasonText').value = '';
-      document.getElementById('uploadFile').value = '';
-    };
-  });
-
-  window.onclick = function(event) {
-    if (event.target == reasonModal || event.target == uploadModal) {
-      reasonModal.style.display = 'none';
-      uploadModal.style.display = 'none';
-      document.getElementById('reasonText').value = '';
-      document.getElementById('uploadFile').value = '';
-    }
-  };
-
-  submitReasonBtn.onclick = async function() {
-    const reason = document.getElementById('reasonText').value;
-    await updateRequestStatus(currentRequestId, 'rejected', reason);
-    reasonModal.style.display = 'none';
-    document.getElementById('reasonText').value = '';
-  };
-
-  submitUploadBtn.onclick = async function() {
-    const fileInput = document.getElementById('uploadFile');
-    const file = fileInput.files[0];
-    if (!file) {
-      alert("파일을 선택하세요.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('id', currentRequestId);
-
-    try {
-      const response = await fetch('/upload-document', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      alert("파일 업로드가 완료되었습니다.");
-      uploadModal.style.display = 'none';
-      fileInput.value = '';
-      loadTableData(document.getElementById('student-name').value);
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
-  };
-
-  async function updateRequestStatus(id, status, reason = '') {
-    try {
-      const response = await fetch('/update-document-request-status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status, rejectReason: reason })
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      loadTableData(document.getElementById('student-name').value);
-    } catch (error) {
-      console.error('Error updating request status:', error);
     }
   }
 
@@ -316,17 +383,6 @@ export function loadManagerDocumentRequests() {
       displayPage(currentPage);
       changeBtn(currentPage.toString());
       arrBtn();
-    }
-  });
-}
-
-function changeBtn(clickBtnNum) {
-  const numberBtn = document.querySelectorAll('.page-button');
-  numberBtn.forEach(button => {
-    if (button.textContent === clickBtnNum) {
-      button.classList.add('btnFocus');
-    } else {
-      button.classList.remove('btnFocus');
     }
   });
 }

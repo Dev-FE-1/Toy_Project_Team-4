@@ -1,30 +1,3 @@
 {
-  "request": [
-    {
-      "id": "f3509e56-a492-4aff-b494-e6e2acf2417d",
-      "name": "김도형",
-      "documentType": "certificate-of-attendance",
-      "startDate": "2024-07-01",
-      "endDate": "2024-07-15",
-      "reason": "필요하니까",
-      "email": "ddhkim11@gmail.com",
-      "requiredDocument": "",
-      "status": "approved",
-      "submitDate": "2024-07-14",
-      "submitTime": "00:39"
-    },
-    {
-      "id": "da917943-3a0c-45e4-a172-ae4aebac4bb7",
-      "name": "김도형",
-      "documentType": "other",
-      "startDate": "2024-07-01",
-      "endDate": "2024-07-15",
-      "reason": "필요하니까",
-      "email": "ddhkim11@gmail.com",
-      "requiredDocument": "예비군 연기 서류",
-      "status": "approved",
-      "submitDate": "2024-07-14",
-      "submitTime": "00:39"
-    }
-  ]
+  "request": []
 }

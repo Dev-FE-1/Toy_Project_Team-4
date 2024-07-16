@@ -116,7 +116,7 @@
   font-weight: 500;
   position: static;
   transform: none;
-  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .status-table-container {
@@ -153,26 +153,37 @@
 .document-container .status-pending,
 .document-container .status-approved,
 .document-container .status-rejected,
+.document-container .status-document_submitted,
+.document-container .status-completed,
 .document-container .cancel-button {
   display: inline-block;
-  padding: 6px 10px;
+  padding: 8px 12px 6px;
   border-radius: 20px;
   font-size: 14px;
 }
 
 .document-container .status-pending {
-  background-color: #bababa;
-  color: #fff;
+  background-color: #f2f2f2;
+  color: #6e6e6e;
 }
 
 .document-container .status-approved {
-  background-color: #D9F7E7;
-  color: #30A164;
+  background-color: #f2f2f2;
+  color: #6e6e6e;
 }
 
 .document-container .status-rejected {
   background-color: #FEE2E2;
   color: #B91C1C;
+}
+.document-container .status-document_submitted {
+  background-color: #f2f2f2;
+  color: #6e6e6e;
+}
+
+.document-container .status-completed {
+  background-color: #D9F7E7;
+  color: #30A164;
 }
 
 .document-container .cancel-button {
@@ -180,6 +191,25 @@
   color: #fff;
   cursor: pointer;
   opacity: 0.7;
+}
+
+.download-btn, 
+.submit-btn {
+  padding: 6px 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.download-btn {
+  background-color: rgba(35, 131, 226);
+  color: #fff;
+}
+
+.submit-btn {
+  background-color: #ed234b;
+  color: #fff;
 }
 
 .document-container .cancel-button:hover {
@@ -217,7 +247,7 @@
   background-color: rgba(0,0,0,0.4);
 }
 
-.document-modal-content {
+.document-modal .document-modal-content {
   background-color: #fff;
   padding: 40px;
   width: 35%;
@@ -322,6 +352,10 @@
   margin-top: 20px;
 }
 
+#submitModal {
+
+}
+
 .document-container .document-both-container .document-status-container .document-status-content .document-pagination-container {
   display: flex;
   justify-content: center;
@@ -331,8 +365,8 @@
 }
 
 .document-container .document-pagination-container button {
-  padding: 10px;
-  margin: 5px;
+  padding: 5px 10px;
+  margin: 10px;
   color: #ababab;
   background-color: transparent;
 }
@@ -364,4 +398,84 @@
 .document-container .document-pagination-container .number-btn-wrapper .btnFocus {
   color: #ed234b;
   font-weight: 800;
+}
+
+#resubmitModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.resubmit-modal-content {
+  background-color: #fff;
+  padding: 40px;
+  width: 35%;
+  height: 35%;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.resubmit-modal-close-btn {
+  color: #ababab;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.resubmit-modal-close-btn:hover,
+.resubmit-modal-close-btn:focus {
+  color: #ed234b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.resubmit-form-container h2 {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.resubmit-form-container input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.resubmit-form-container input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.resubmit-btn {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.resubmit-btn:hover {
+  opacity: 0.7;
 }

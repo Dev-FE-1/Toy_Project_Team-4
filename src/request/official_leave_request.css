@@ -23,7 +23,6 @@
 
 .official-leave-container h1 {
   font-size: 2rem;
-  font-weight: 500;
   color: #222;
   margin-top: 0;
   margin-bottom: 20px;
@@ -44,14 +43,7 @@
   border: 2px solid #f2f2f2;
   margin-right: 20px;
   height: 500px;
-}
-
-.official-leave-process-container h2 {
-  font-size: 1.5rem;
-  color: #222;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 20px;
+  overflow-y: scroll;
 }
 
 .official-leave-process-list {
@@ -71,10 +63,52 @@
   padding-bottom: 5px;
 }
 
+.official-link {
+  color: rgb(20, 93, 251);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
+}
+
+.official-leave-container .official-leave-both-container .official-leave-process-container .official-leave-process-list .download-link-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+.official-leave-container .official-leave-both-container .official-leave-process-container .official-leave-process-list .download-link-container a {
+  color: rgb(20, 93, 251);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.official-leave-container .official-leave-both-container .official-leave-process-container .official-leave-process-list .download-link-container a:hover {
+  text-decoration: underline;
+}
+
+.official-leave-container .official-leave-both-container .official-leave-process-container .official-leave-process-list .download-link-container .material-symbols-outlined {
+  color: rgb(20, 93, 251);
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-bottom: 13px;
+}
+
 .official-leave-process-list p {
   margin-top: 10px;
   margin-bottom: 10px;
   line-height: 1.5;
+}
+
+.official-leave-container .official-leave-both-container .official-leave-process-container .official-leave-process-list .ex {
+  color: #ed234b;
+  font-weight: 500;
 }
 
 .official-leave-status-container {
@@ -114,10 +148,10 @@
 .official-leave-status-header span {
   font-size: 1.5rem;
   color: #222;
-  font-weight: 500;
   position: static;
   transform: none;
   margin-left: 10px;
+  font-weight: 500;
 }
 
 .status-table-container {
@@ -159,7 +193,6 @@
   border-radius: 20px;
   font-size: 14px;
   display: inline-block;
-  font-weight: 500;
 }
 
 .official-leave-container .status-approved,
@@ -171,7 +204,6 @@
   border-radius: 20px;
   font-size: 14px;
   display: inline-block;
-  font-weight: 500;
 }
 
 .official-leave-container .status-rejected {
@@ -181,16 +213,15 @@
   border-radius: 20px;
   font-size: 14px;
   display: inline-block;
-  font-weight: 500;
 }
 
 .submit-document-btn {
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 14px;
 }
 
@@ -202,10 +233,9 @@
   background-color: #ed234b;
   color: #fff;
   cursor: pointer;
-  opacity: 0.7;
   padding: 6px 12px;
   border: none;
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: 14px;
 }
 
@@ -323,7 +353,7 @@
   color: #222;
   font-weight: 500;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .official-leave-all-section {
@@ -389,7 +419,6 @@
 }
 
 .official-leave-modal-content label {
-  font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;
@@ -398,7 +427,6 @@
 }
 
 #documentSubmitForm label {
-  font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;
@@ -447,7 +475,6 @@
 }
 
 #documentSubmitForm label {
-  font-weight: 500;
   font-size: 1rem;
   color: #222;
   display: block;

@@ -101,23 +101,43 @@ export function loadDocumentRequest() {
         </div>
       </div>
     </div>
+
+    <div id="resubmitModal" class="resubmit-modal">
+      <div class="resubmit-modal-content">
+        <span class="resubmit-modal-close-btn">&times;</span>
+        <div class="resubmit-form-container" id="resubmitFormContainer">
+          <h2>서류 제출</h2>
+          <form id="resubmit-form">
+            <input type="file" id="resubmitFile" name="resubmitFile" accept=".pdf,.doc,.docx" required>
+            <button type="submit" class="resubmit-btn">제출</button>
+          </form>
+        </div>
+      </div>
+    </div>
   `;
 
   const modal = document.getElementById("documentModal");
+  const submitModal = document.getElementById("resubmitModal");
   const openModalBtn = document.getElementById("documentModalBtn");
-  const closeModalBtn = document.getElementsByClassName("document-modal-close-btn")[0];
+  const closeModalBtns = document.getElementsByClassName("document-modal-close-btn");
 
   openModalBtn.onclick = function() {
     modal.style.display = "block";
   };
 
-  closeModalBtn.onclick = function() {
-    modal.style.display = "none";
-  };
+  Array.from(closeModalBtns).forEach(btn => {
+    btn.onclick = function() {
+      modal.style.display = "none";
+      submitModal.style.display = "none";
+    };
+  });
 
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+    }
+    if (event.target == submitModal) {
+      submitModal.style.display = "none";
     }
   };
 
@@ -165,34 +185,120 @@ export function loadDocumentRequest() {
   function displayData() {
     const tableBody = document.getElementById("status-table-body");
 
-    requestData.sort((a, b) => new Date(b.submitDate) - new Date(a.submitDate));
+    requestData.sort((a, b) => {
+      const dateA = new Date(a.submitDate + "T" + (a.submitTime.length === 5 ? a.submitTime + ":00" : a.submitTime));
+      const dateB = new Date(b.submitDate + "T" + (b.submitTime.length === 5 ? b.submitTime + ":00" : b.submitTime));
+      return dateB - dateA; // 내림차순 정렬 (최신 순)
+    });
+
+    tableBody.innerHTML = '';
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const pageData = requestData.slice(start, end);
 
-    tableBody.innerHTML = '';
-    pageData.forEach((item, index) => {
+    pageData.forEach(item => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td><span class="status-${item.status}">${getStatusText(item.status)}</span></td>
         <td>${getDocumentTypeText(item)}</td>
-        <td>${item.submitDate}</td>
-        <td>
-          ${item.status === 'rejected' ? `${item.rejectReason || ''}` : ''}
-          ${item.status === 'pending' ? `<button class="cancel-button" data-id="${item.id}">취소</button>` : ''}
-        </td>
+        <td>${item.submitDate} ${item.submitTime}</td>
+        <td>${getActionButtons(item)}</td>
       `;
       tableBody.appendChild(row);
     });
 
+    addEventListeners();
+    setPageButtons();
+  }
+
+  function getStatusText(status) {
+    switch(status) {
+      case 'pending': return '대기중';
+      case 'approved': return '양식 제출 대기중';
+      case 'rejected': return '반려';
+      case 'document_submitted': return '발급 대기중';
+      case 'completed': return '발급 완료';
+      default: return '';
+    }
+  }
+
+  function getDocumentTypeText(item) {
+    switch(item.documentType) {
+      case 'certificate-of-attendance': return '수강증명서';
+      case 'attendance-record': return '출석부';
+      case 'other': return item.requiredDocument || '기타';
+      default: return '';
+    }
+  }
+
+  function getActionButtons(item) {
+    if (item.status === 'pending') {
+      return `<button class="cancel-button" data-id="${item.id}">취소</button>`;
+    }
+    if (item.status === 'approved') {
+      if (item.documentType === 'certificate-of-attendance') {
+        return `
+          <button class="download-btn" data-url="${item.fileUrl}" data-filename="${item.originalFileName || '양식'}">양식 다운로드</button>
+          <button class="submit-btn" data-id="${item.id}">제출</button>
+        `;
+      } else {
+        return `<button class="download-btn" data-url="${item.fileUrl}" data-filename="${item.originalFileName || '문서'}">파일 다운로드</button>`;
+      }
+    }
+    if (item.status === 'document_submitted') {
+      return ''; // 발급 대기중 상태에서는 아무 버튼도 표시하지 않음
+    }
+    if (item.status === 'completed') {
+      return `<button class="download-btn" data-url="${item.fileUrl}" data-filename="${item.originalFileName || '문서'}">파일 다운로드</button>`;
+    }
+    if (item.status === 'rejected') {
+      if (item.documentType === 'certificate-of-attendance') {
+        return `
+          ${item.rejectReason || ''}
+          <button class="submit-btn" data-id="${item.id}">제출</button>
+        `;
+      } else {
+        return `
+          ${item.rejectReason || ''}
+          <button class="cancel-button" data-id="${item.id}">취소</button>
+        `;
+      }
+    }
+    return '';
+  }
+
+  function addEventListeners() {
     document.querySelectorAll('.cancel-button').forEach(btn => {
       btn.addEventListener('click', function() {
         cancelRequest(this.getAttribute('data-id'));
       });
     });
 
-    setPageButtons();
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = this.getAttribute('data-url');
+        const filename = this.getAttribute('data-filename');
+        if (url) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("다운로드할 파일이 없습니다.");
+        }
+      });
+    });
+
+    document.querySelectorAll('.submit-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const currentRequestId = this.getAttribute('data-id'); 
+        openSubmitModal(currentRequestId);
+      });
+    });
   }
 
   function setPageButtons() {
@@ -248,7 +354,7 @@ export function loadDocumentRequest() {
 
   async function cancelRequest(id) {
     try {
-      const response = await fetch('/delete-document-request', {
+      const response = await fetch('/cancel-document-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -273,22 +379,44 @@ export function loadDocumentRequest() {
     });
   }
 
-  function getStatusText(status) {
-    switch(status) {
-      case 'pending': return '대기중';
-      case 'approved': return '승인';
-      case 'rejected': return '반려';
-      default: return '';
-    }
-  }
-
-  function getDocumentTypeText(item) {
-    switch(item.documentType) {
-      case 'certificate-of-attendance': return '수강증명서';
-      case 'attendance-record': return '출석부';
-      case 'other': return item.requiredDocument || '기타';
-      default: return '';
-    }
+  function openSubmitModal(id) {
+    submitModal.style.display = "block";
+    const submitForm = document.getElementById("resubmit-form");
+    submitForm.onsubmit = async function(event) {
+      event.preventDefault();
+  
+      const fileInput = document.getElementById('resubmitFile');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("파일을 선택하세요.");
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('id', id);
+  
+      try {
+        const response = await fetch('/upload-document', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+  
+        const result = await response.json();
+        await updateRequestStatus(id, 'document_submitted', result.fileUrl);
+        alert("제출이 완료되었습니다.");
+        submitModal.style.display = "none";
+        fileInput.value = '';
+        loadRequestData();
+      } catch (error) {
+        console.error('Error submitting document:', error);
+        alert("제출 중 오류가 발생했습니다: " + error.message);
+      }
+    };
   }
 
   document.getElementById("document-form").addEventListener("submit", async function(event) {
@@ -327,6 +455,25 @@ export function loadDocumentRequest() {
       alert("문서 발급 요청 중 오류가 발생했습니다: " + error.message);
     }
   });
+
+  async function updateRequestStatus(id, status, fileUrl = '') {
+    try {
+      const response = await fetch('/update-document-request-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status, fileUrl })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      loadRequestData();
+    } catch (error) {
+      console.error('Error updating request status:', error);
+      alert("상태 업데이트 중 오류가 발생했습니다: " + error.message);
+    }
+  }
 
   loadRequestData();
 

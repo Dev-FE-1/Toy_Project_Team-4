@@ -6,12 +6,12 @@ export function loadManagerOfficialLeaveRequests() {
   app.innerHTML = `
     <div class="manager-official-leave-container">
       <div class="manager-leave-header">
-        <h1>공가 신청 관리</h1>
+        <h1>공가 신청 현황</h1>
+      </div>
         <div class="manager-official-leave-search">
           <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
           <button class="filter-button">검색</button>
         </div>
-      </div>
       <table class="manager-official-leave-table">
         <thead>
           <tr>
@@ -20,6 +20,7 @@ export function loadManagerOfficialLeaveRequests() {
             <th>제출 일자</th>
             <th>공가 시작일</th>
             <th>공가 종료일</th>
+            <th>사유</th>
             <th>상태</th>
             <th>관리</th>
           </tr>
@@ -28,8 +29,10 @@ export function loadManagerOfficialLeaveRequests() {
           <!-- 자바스크립트로 내용 추가 -->
         </tbody>
       </table>
-      <div id="pagination" class="pagination">
-        <!-- 페이지네이션 버튼 -->
+      <div class="manager-official-leave-pagination-container">
+        <button class="prev-button">&lt;</button>
+        <div class="number-btn-wrapper"></div>
+        <button class="next-button">&gt;</button>
       </div>
     </div>
 
@@ -43,18 +46,18 @@ export function loadManagerOfficialLeaveRequests() {
         </div>
       </div>
     </div>
-  `
+  `;
 
   const tableBody = document.getElementById('manager-official-leave-table-body');
   const reasonModal = document.getElementById('reasonModal');
   const closeModalBtn = document.getElementsByClassName('manager-official-leave-modal-close-btn')[0];
   const submitReasonBtn = document.getElementById('submitReasonBtn');
   const filterButton = document.querySelector('.filter-button');
-  const paginationContainer = document.getElementById("pagination");
+  const paginationContainer = document.querySelector(".manager-official-leave-pagination-container .number-btn-wrapper");
 
   let currentRequestId;
   let currentPage = 1;
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
   let filteredData = [];
 
   async function loadTableData(studentName = '') {
@@ -67,7 +70,7 @@ export function loadManagerOfficialLeaveRequests() {
       if (!Array.isArray(data)) {
         throw new Error('Received data is not an array');
       }
-      data.sort((a, b) => new Date(b.submitDate) - new Date(a.submitDate));
+      data.sort((a, b) => new Date(b.submitDate + 'T' + b.submitTime) - new Date(a.submitDate + 'T' + a.submitTime));
       filteredData = studentName ? data.filter(item => item.name.includes(studentName)) : data;
       displayPage(1);
     } catch (error) {
@@ -84,12 +87,15 @@ export function loadManagerOfficialLeaveRequests() {
 
     pageData.forEach((item) => {
       const row = document.createElement('tr');
+      const submitDateTime = new Date(item.submitDate + 'T' + item.submitTime);
+      const formattedSubmitDate = `${item.submitDate} ${submitDateTime.getHours().toString().padStart(2, '0')}:${submitDateTime.getMinutes().toString().padStart(2, '0')}`;
       row.innerHTML = `
         <td>${item.name || 'N/A'}</td>
         <td>${item.type || 'N/A'}</td>
-        <td>${item.submitDate || 'N/A'}</td>
+        <td>${formattedSubmitDate}</td>
         <td>${item.startDate || 'N/A'}</td>
         <td>${item.endDate || 'N/A'}</td>
+        <td>${item.reason || 'N/A'}</td>
         <td><span class="status status-${item.status || 'unknown'}">${getStatusText(item)}</span></td>
         <td class="manager-official-leave-actions">
           ${getActionButtons(item)}
@@ -99,45 +105,57 @@ export function loadManagerOfficialLeaveRequests() {
     });
 
     addEventListeners();
-    displayPagination();
+    displayPagination(filteredData.length);
   }
 
-  function displayPagination() {
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  function displayPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
     paginationContainer.innerHTML = '';
-  
-    const createArrow = (direction, disabled) => {
-      const arrow = document.createElement('button');
-      arrow.textContent = direction === 'left' ? '<' : '>';
-      arrow.classList.add('page-arrow');
-      if (disabled) {
-        arrow.classList.add('page-arrow-disabled');
-      } else {
-        arrow.addEventListener('click', () => {
-          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-          displayPage(currentPage);
-        });
-      }
-      return arrow;
-    };
-  
-    paginationContainer.appendChild(createArrow('left', currentPage === 1));
-  
+
     for (let i = 1; i <= totalPages; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
-      pageButton.classList.add('page-button');
+      pageButton.classList.add('button');
       if (i === currentPage) {
-        pageButton.classList.add('page-button-active');
+        pageButton.classList.add('btnFocus');
       }
       pageButton.addEventListener('click', () => {
         currentPage = i;
         displayPage(currentPage);
+        changeBtn(currentPage.toString());
+        arrBtn();
       });
       paginationContainer.appendChild(pageButton);
     }
-  
-    paginationContainer.appendChild(createArrow('right', currentPage === totalPages));
+    arrBtn();
+  }
+
+  function changeBtn(clickBtnNum) {
+    const numberBtn = document.querySelectorAll('.button');
+    numberBtn.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
+  function arrBtn() {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+
+    if (currentPage === 1) {
+      prevBtn.classList.remove('color');
+      nextBtn.classList.add('color');
+    } else if (currentPage === totalPages) {
+      prevBtn.classList.add('color');
+      nextBtn.classList.remove('color');
+    } else {
+      prevBtn.classList.add('color');
+      nextBtn.classList.add('color');
+    }
   }
 
   function getStatusText(item) {
@@ -159,14 +177,14 @@ export function loadManagerOfficialLeaveRequests() {
     }
     if (item.status === "finalPending") {
       return `
-        <button class="official-leave-btn final-approve" data-id="${item.id}">최종 승인</button>
+        <button class="official-leave-btn final-approve" data-id="${item.id}">승인</button>
         <button class="official-leave-btn reject" data-id="${item.id}">반려</button>
-        <button class="official-leave-btn download-documents" data-id="${item.id}">서류 다운로드</button>
+        <button class="official-leave-btn download-documents" data-id="${item.id}">첨부파일</button>
       `;
     }
     if (item.status === "finalApproved" || item.status === "completed") {
       return `
-        <button class="official-leave-btn download-documents" data-id="${item.id}">서류 다운로드</button>
+        <button class="official-leave-btn download-documents" data-id="${item.id}">첨부파일</button>
       `;
     }
     return "";
@@ -187,26 +205,6 @@ export function loadManagerOfficialLeaveRequests() {
     });
   }
   
-  async function updateRequestStatus(id, status, reason = '') {
-    try {
-      console.log(`Updating status: id=${id}, status=${status}, reason=${reason}`);
-      const response = await fetch('/update-official-leave-status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status, rejectReason: reason })
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      console.log('Status updated successfully');
-      loadTableData(document.getElementById('student-name').value);
-    } catch (error) {
-      console.error('Error updating request status:', error);
-    }
-  }
-
   async function approveRequest(event) {
     const id = event.target.dataset.id;
     await updateRequestStatus(id, 'approved');
@@ -284,4 +282,23 @@ export function loadManagerOfficialLeaveRequests() {
   });
 
   loadTableData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+      currentPage++;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }

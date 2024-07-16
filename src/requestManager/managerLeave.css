@@ -9,15 +9,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .manager-leave-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  width:100%;
+  justify-content:left;
 }
 
 .manager-leave-header h1 {
@@ -30,13 +26,15 @@
 
 .manager-leave-search {
   display: flex;
-  align-items: center;
+  justify-content: right;
+  margin-bottom: 20px;
 }
 
-.manager-leave-search input {
-  padding: 8px 16px;
-  border: 1px solid #d6d6d6;
+.manager-leave-search #student-name {
+  padding-left: 10px;
+  border: 1px solid #ABABAB;
   border-radius: 5px;
+  width: 300px;
   margin-right: 5px;
 }
 
@@ -46,51 +44,52 @@
 }
 
 .manager-leave-search #filter-button {
-  background-color: #ed234b;
-  color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #ED234B;
+  color: #fff;
+  padding: 5px 10px 5px 10px;
 }
 
-.manager-leave-search #filter-button:hover {
+.manager-leave-search .filter-button:hover {
   opacity: 0.7;
 }
 
 .manager-leave-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px;
   table-layout: fixed;
 }
 
 .manager-leave-table th,
 .manager-leave-table td {
-  padding: 12px;
+  padding: 12px 8px 8px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #efefef;
   vertical-align: middle;
-  height: 50px; /* 모든 셀의 높이를 통일 */
+  height: 50px;
+  font-size: 14px;
   line-height: 1.1rem;
   word-break: keep-all;
 }
 
 .manager-leave-table th {
   background-color: #f2f2f2;
-  color: #222;
+  font-weight: normal;
+  color: #666;
 }
 
 .manager-leave-actions .leave-btn {
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 6px 8px;
+  border: none;
   cursor: pointer;
-  font-size: 14px;
-  margin:1px 0;
-  width: 70%;
+  border-radius: 5px;
 }
 
 .manager-leave-actions .approve {
-  background-color: rgb(11, 192, 11);
+  background-color: #28a745;
   color: #fff;
 }
 
@@ -99,12 +98,58 @@
 }
 
 .manager-leave-actions .reject {
-  background-color: #ea4163;
+  background-color: #dc3545;
   color: #fff;
 }
 
 .manager-leave-actions .reject:hover {
   opacity: 0.7;
+}
+
+.manager-leave-pagination-container {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.manager-leave-pagination-container button {
+  padding: 5px 10px;
+  margin: 10px;
+  color: #ababab;
+  background-color: transparent;
+}
+
+.manager-leave-pagination-container .prev-button,
+.manager-leave-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.manager-leave-pagination-container .prev-button.color,
+.manager-leave-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.manager-leave-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.manager-leave-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.manager-leave-pagination-container .number-btn-wrapper .btnFocus {
+  color: #ed234b;
+  font-weight: 800;
+  transform: translateY(0);
 }
 
 .reason-modal {
@@ -121,30 +166,39 @@
 
 .manager-leave-modal-content {
   background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
+  padding: 40px;
+  width: 35%;
+  height: 35%;
   border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .manager-leave-modal-close-btn {
-  color: #aaa;
+  color: #ababab;
   float: right;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
-  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .manager-leave-modal-close-btn:hover,
 .manager-leave-modal-close-btn:focus {
-  color: #000;
+  color: #ed234b;
   text-decoration: none;
   cursor: pointer;
 }
 
 .reason-form-container h2 {
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #reasonText {
@@ -155,11 +209,16 @@
 }
 
 .submit-reason-btn {
-  background-color: #ED234B;
-  color: white;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
 }
 

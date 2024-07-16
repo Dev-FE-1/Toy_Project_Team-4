@@ -98,6 +98,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/upload-document': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
       '/get-document-request': {
         target: 'http://localhost:8080',
         changeOrigin: true,

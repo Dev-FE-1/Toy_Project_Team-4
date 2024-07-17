@@ -50,14 +50,14 @@ function createSidebar() {
       <ul>
         <li class="logo">
           <div class="logo-container">
-            <img src="/images/fast_campus_logo_toggle.png" alt="Logo" class="logo-default">
-            <img src="/images/fast_campus_logo.png" alt="Hover Logo" class="logo-hover">
+            <img src="../../../public/icon/fast_campus_logo_toggle.png" alt="Logo" class="logo-default">
+            <img src="../../../public/icon/fast_campus_logo.png" alt="Hover Logo" class="logo-hover">
           </div>
         </li>
         <li class="user-item">
           <a href="/user-profile">
             <img alt="User" class="user-icon">
-            <img src="/images/iconsettings.svg" alt="Settings" class="hover-icon">
+            <img src="../../../public/sidbarIcon/iconsettings.svg" alt="Settings" class="hover-icon">
             <div class="text-container">
               <span class="text1"></span>
               <span class="text2"></span>
@@ -67,7 +67,7 @@ function createSidebar() {
         <li>
           <a href="/home">
             <span class="icon">
-              <img src="/images/iconHome.svg" alt="Home">
+              <img src="../../../public/sidbarIcon/iconHome.svg" alt="Home">
             </span>
             <span class="text">홈</span>
           </a>
@@ -75,7 +75,7 @@ function createSidebar() {
         <li>
           <a href="javascript:void(0);" class="has-submenu">
             <span class="icon">
-              <img src="/images/iconBoard.svg" alt="게시판">
+              <img src="../../../public/sidbarIcon/iconBoard.svg" alt="게시판">
             </span>
             <span class="text">게시판</span>
           </a>
@@ -83,7 +83,7 @@ function createSidebar() {
             <li>
               <a href="/notice">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="공지사항">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="공지사항">
                 </span>
                 <span class="sub-text">공지사항</span>
               </a>
@@ -91,7 +91,7 @@ function createSidebar() {
             <li>
               <a href="/inquiry-board">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="문의 게시판">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="문의 게시판">
                 </span>
                 <span class="sub-text">문의 게시판</span>
               </a>
@@ -99,7 +99,7 @@ function createSidebar() {
             <li>
               <a href="/request">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="문서 발급">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="문서 발급">
                 </span>
                 <span class="sub-text">문서 발급</span>
               </a>
@@ -107,7 +107,7 @@ function createSidebar() {
             <li>
               <a href="/gallery">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="기업 공지 모음">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="기업 공지 모음">
                 </span>
                 <span class="sub-text">기업 공지 모음</span>
               </a>
@@ -117,7 +117,7 @@ function createSidebar() {
         <li>
           <a href="javascript:void(0);" class="has-submenu">
             <span class="icon">
-              <img src="/images/iconCalendar.svg" alt="출결 관리">
+              <img src="../../../public/sidbarIcon/iconCalendar.svg" alt="출결 관리">
             </span>
             <span class="text">출결 관리</span>
           </a>
@@ -125,7 +125,7 @@ function createSidebar() {
             <li>
               <a href="/attendance-record">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="입실/퇴실 기록">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="입실/퇴실 기록">
                 </span>
               <span class="sub-text">입실/퇴실 기록</span>
             </a>
@@ -133,7 +133,7 @@ function createSidebar() {
           <li>
               <a href="/status">
                 <span class="sub-icon">
-                  <img src="/images/category.svg" alt="출결 정정 요청">
+                  <img src="../../../public/sidbarIcon/category.svg" alt="출결 정정 요청">
                 </span>
                 <span class="sub-text">출결 정정 요청</span>
               </a>
@@ -141,7 +141,7 @@ function createSidebar() {
           <li>
             <a href="/going-out">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="외출 신청">
+                <img src="../../../public/sidbarIcon/category.svg" alt="외출 신청">
               </span>
               <span class="sub-text">외출 신청</span>
             </a>
@@ -149,7 +149,7 @@ function createSidebar() {
           <li>
             <a href="/vacation">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="휴가 신청">
+                <img src="../../../public/sidbarIcon/category.svg" alt="휴가 신청">
               </span>
               <span class="sub-text">휴가 신청</span>
             </a>
@@ -157,7 +157,7 @@ function createSidebar() {
           <li>
             <a href="/application-form">
               <span class="sub-icon">
-                <img src="/images/category.svg" alt="공가 신청">
+                <img src="../../../public/sidbarIcon/category.svg" alt="공가 신청">
               </span>
               <span class="sub-text">공가 신청</span>
             </a>  

@@ -110,35 +110,35 @@ export function todolist () {
             <div class="todo">
               <a href="/manager-going-out"></a>
               <div class="img-wrap">
-                <img src="../public/images/todolist-1.png" alt="외출/조퇴" />
+                <img src="../../../public/icon/todolist-1.png" alt="외출/조퇴" />
               </div>
               <p>대기 중인 외출/조퇴 신청 건이 <span class="case case-going-out"></span> 건 입니다.</p>
             </div>
             <div class="todo">
               <a href="/manager-vacation"></a>
               <div class="img-wrap">
-                <img src="../public/images/todolist-2.png" alt="휴가" />
+                <img src="../../../public/icon/todolist-2.png" alt="휴가" />
               </div>
               <p>대기 중인 휴가 신청 건이 <span class="case case-holiday"></span> 건 입니다.</p>
             </div>
             <div class="todo">
               <a href="/manager-public-house"> </a>
               <div class="img-wrap">
-                <img src="../public/images/todolist-3.png" alt="공가" />
+                <img src="../../../public/icon/todolist-3.png" alt="공가" />
               </div>
               <p>대기 중인 공가 신청 건이 <span class="case case-official"></span> 건 입니다.</p>
             </div>
             <div class="todo">
               <a href="/manager-attendance-correction"> </a>
               <div class="img-wrap">
-                <img src="../public/images/todolist-4.png" alt="출결 정정" />
+                <img src="../../../public/icon/todolist-4.png" alt="출결 정정" />
               </div>
               <p>대기 중인 출결 정정 요청 건이 <span class="case case-revise"></span> 건 입니다.</p>
             </div>
             <div class="todo">
               <a href="/manager-request"> </a>
               <div class="img-wrap">
-                <img src="../public/images/todolist-5.png" alt="문서 발급" />
+                <img src="../../../public/icon/todolist-5.png" alt="문서 발급" />
               </div>
               <p>대기 중인 문서 발급 요청 건이 <span class="case case-document"></span> 건 입니다.</p>
             </div>

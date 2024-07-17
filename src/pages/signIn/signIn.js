@@ -1,12 +1,6 @@
-<<<<<<< HEAD:src/pages/signIn/signIn.js
 import "./signIn.css"
-import { onLoginSuccess } from ".../main.js"
-import { SignupPage } from "../signUp/signUp"
-=======
-import "./login.css"
-import { onLoginSuccess } from "../main"
-import { SignupPage } from "./signup"
->>>>>>> c4c9951 (사이드바, 출결, 관리자 공지사항, common.. 경로 변경):src/pages/signIn/login.js
+import { onLoginSuccess } from "../../main.js"
+import { SignupPage } from "../signUp/signup.js"
 import axios from "axios"
 
 export function loadLogin() {
@@ -16,11 +10,7 @@ export function loadLogin() {
   <section id="login-main">
   <form action="" id="loginForm">
         <div class="loginForm-top">
-<<<<<<< HEAD:src/pages/signIn/signIn.js
           <img src="../../../public/icon/fast_campus_logo.png" alt="페스트넷로고" />
-=======
-          <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
->>>>>>> c4c9951 (사이드바, 출결, 관리자 공지사항, common.. 경로 변경):src/pages/signIn/login.js
           <div>로그인</div>
         </div>
         <div class="users-box">

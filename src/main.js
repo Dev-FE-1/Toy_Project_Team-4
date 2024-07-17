@@ -3,7 +3,7 @@ import "./styles/sidebar.css"
 import "./styles/header.css"
 import "./styles/home.css"
 import "./styles/footer.css"
-import { loadLogin } from "./login&signup/login.js"
+import { loadLogin } from "./pages/signIn/login.js"
 import { mainHome } from "./components/home.js"
 import { loadInquiryBoard } from "./inquiryBoard/InquiryBoard.js"
 import { loadLeaveRequest } from "./request/leave_request.js"
@@ -12,13 +12,13 @@ import { loadAttendanceCorrectionRequest } from "./request/attendance_correction
 import { loadVacationRequest } from "./request/vacation_request.js"
 import { loadGallery } from "./gallery/gallery.js"
 import { loadDocumentRequest } from "./request/document_request.js"
-import { profile } from "./profile/profile.js"
-import { loadNotice } from "./notice/notice.js"
+import { profile } from "./pages/profile/profile.js"
+import { loadNotice } from "./pages/notice/notice.js"
 import { createFooter, adjustFooterWidth } from "./components/footer.js"
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
-import { studentInfo } from "./studentInfoList/studentInfo.js"
-import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
+import { studentInfo } from "./pages/studentInfoList/studentInfo.js"
+import { studentAttendanceRecord } from "./pages/studentAttendanceRecord/studentAttendanceRecord.js"
 import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
 import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"
@@ -126,7 +126,7 @@ export function route() {
       loadManagerDocumentRequests() //문서 발급
       break
     case "/manager-gallery":
-      managerloadGallery()// 기업 공지 모음
+      managerloadGallery() // 기업 공지 모음
       break
     case "/student-attendance-record":
       studentAttendanceRecord() // 수강생 출결 현황

@@ -54,7 +54,7 @@
   margin: 0 auto;
   border-radius: 7px;
   padding: 20px;
-  background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px/16%;
+  background: url(../../..//public/icon/undraw_online_calendar.svg) no-repeat right 10px bottom 2px/16%;
 }
 
 .attend-Confirm .summary-wrap h4 {
@@ -181,7 +181,7 @@
 /*PC*/
 @media screen and (max-width:1005px) {
   .attend-Confirm .summary-wrap {
-    background: url(/public/images/undraw_online_calendar.svg) no-repeat right 10px bottom 2px / 70%;
+    background: url(../../..//public/icon/undraw_online_calendar.svg) no-repeat right 10px bottom 2px / 70%;
   }
 
   .attend-Confirm .summary-wrap .summary-btns .s-btn {

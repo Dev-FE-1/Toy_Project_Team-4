@@ -5,7 +5,7 @@ export function loadLeaveRequest() {
 
   app.innerHTML = `
     <div class="leave-container">
-      <h1><img src="./images/leave.png" alt="Leave Icon" class="leave-icon">외출 신청</h1>
+      <h1><img src="./icon/leave.png" alt="Leave Icon" class="leave-icon">외출 신청</h1>
       <div class="leave-both-container">
         <div class="leave-process-container">
           <h2>외출 사용 프로세스</h2>

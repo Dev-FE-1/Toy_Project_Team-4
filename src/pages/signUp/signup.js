@@ -1,4 +1,4 @@
-import "./signUp.css"
+import "./signup.css"
 import axios from "axios"
 
 export class SignupPage {

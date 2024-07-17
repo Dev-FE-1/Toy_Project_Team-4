@@ -1,9 +1,9 @@
 import { studentAttendanceRecordChart } from "../../components/home/chart/studentAttendChart.js"
 import { managerHomeStudentList } from "../../components/home/studentList/managerHomeStudentList.js"
-import { createHeader, adjustHeaderWidth } from "../components/header.js"
-import { loadManagerSidebar } from "./managerSidebar.js"
+import { createHeader, adjustHeaderWidth } from "../../components/header/header.js"
+import { loadManagerSidebar } from "../../components/sidebar/managerSidebar.js"
 import { loadLogin } from "../signIn/signIn.js"
-import { todolist } from "./todolist.js"
+import { todolist } from "../../components/home/todo/todolist.js"
 
 function managerHomeContent() {
   const content = document.createElement("div")

@@ -1,4 +1,4 @@
-import "./student-attendance-record.css"
+import "./studentAttendanceRecord.css"
 import axios from "axios"
 
 export function studentAttendanceRecordModal() {

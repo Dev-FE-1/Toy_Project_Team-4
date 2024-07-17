@@ -1,8 +1,8 @@
-import { loadAttendRecord } from "../attendance/attendRecord.js"
-import { loadAttendCheck } from "../attendance/attendCheck.js"
-import { loadOverlay } from "../attendance/overlay.js"
-import { createHeader, adjustHeaderWidth } from "./header.js"
-import { loadSidebar } from "./Sidebar.js"
+import { loadAttendRecord } from "../../components/home/chart/attendRecord.js"
+import { loadAttendCheck } from "../../components/home/chart/attendCheck.js"
+import { loadOverlay } from "../../components/home/chart/overlay.js"
+import { createHeader, adjustHeaderWidth } from "../../components/header/header.js"
+import { loadSidebar } from "../../components/sidebar/Sidebar.js"
 import { loadLogin } from "../signIn/signIn.js"
 import { mainNotice } from "../../components/home/notice/mainNotice.js"
 

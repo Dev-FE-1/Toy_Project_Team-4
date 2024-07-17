@@ -1,7 +1,7 @@
 import axios from "axios"
 import "./mainNotice.css"
 import { loadCalendar } from "../calendar/calendar.js"
-import { findClickedP } from "src/pages/notice/notice.js"
+import { findClickedP } from "../../../pages/notice/notice.js"
 
 let noticeList = []
 const COUNT_PAGE = 3

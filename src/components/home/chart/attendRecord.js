@@ -1,6 +1,6 @@
 import "./attendRecord.css"
-import { loadCheckInOut } from "./checkInOut.js"
-import { updateTime } from "./updateTime.js"
+import { loadCheckInOut } from "../../../utils/attendance/checkInOut.js"
+import { updateTime } from "../../../utils/attendance/updateTime.js"
 
 export function loadAttendRecord() {
   const attendance = document.querySelector("#attendance")

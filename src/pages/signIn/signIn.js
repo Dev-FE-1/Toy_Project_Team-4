@@ -1,6 +1,6 @@
-import "./login.css"
-import { onLoginSuccess } from "../main"
-import { SignupPage } from "./signup"
+import "./signIn.css"
+import { onLoginSuccess } from ".../main.js"
+import { SignupPage } from "../signUp/signUp"
 import axios from "axios"
 
 export function loadLogin() {
@@ -10,7 +10,7 @@ export function loadLogin() {
   <section id="login-main">
   <form action="" id="loginForm">
         <div class="loginForm-top">
-          <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
+          <img src="public/icon/fast_campus_logo.png" alt="페스트넷로고" />
           <div>로그인</div>
         </div>
         <div class="users-box">

@@ -5,7 +5,7 @@ import { saveAs } from "file-saver"
 export function loadOfficialLeaveRequest() {
   document.getElementById("app").innerHTML = `
     <div class="official-leave-container">
-      <h1><img src="./images/official-leave.png" alt="Official Leave Icon" class="official-leave-icon">공가 신청</h1>
+      <h1><img src="./icon/official-leave.png" alt="Official Leave Icon" class="official-leave-icon">공가 신청</h1>
       <div class="official-leave-both-container">
         <div class="official-leave-process-container">
           <h2>공가 신청 프로세스</h2>

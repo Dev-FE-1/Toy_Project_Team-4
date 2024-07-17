@@ -5,7 +5,7 @@ export function loadDocumentRequest() {
 
   app.innerHTML = `
     <div class="document-container">
-      <h1><img src="./images/document-request.png" alt="Document Icon" class="document-icon">문서 발급 요청</h1>
+      <h1><img src="./icon/document-request.png" alt="Document Icon" class="document-icon">문서 발급 요청</h1>
       <div class="document-both-container">
         <div class="document-process-container">
           <h2>문서 발급 프로세스</h2>

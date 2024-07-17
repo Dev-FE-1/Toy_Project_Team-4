@@ -7,7 +7,7 @@ export function loadAttendanceCorrectionRequest() {
 
   app.innerHTML = `
     <div class="correction-container">
-      <h1><img src="/images/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 신청</h1>
+      <h1><img src="/icon/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 신청</h1>
       <div class="correction-both-container">
         <div class="correction-process-container">
           <h2>출결 정정 신청 방법</h2>

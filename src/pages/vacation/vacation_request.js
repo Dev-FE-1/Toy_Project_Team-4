@@ -7,7 +7,7 @@ export function loadVacationRequest() {
 
   app.innerHTML = `
     <div class="vacation-container">
-      <h1><img src="/images/vacation.png" alt="Vacation Icon" class="vacation-icon">휴가 신청</h1>
+      <h1><img src="/icon/vacation.png"" alt="Vacation Icon" class="vacation-icon">휴가 신청</h1>
       <div class="vacation-both-container">
         <div class="vacation-process-container">
           <h2>휴가 신청 하는 법</h2>

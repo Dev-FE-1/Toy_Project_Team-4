@@ -10,7 +10,7 @@ export function loadLogin() {
   <section id="login-main">
   <form action="" id="loginForm">
         <div class="loginForm-top">
-          <img src="public/icon/fast_campus_logo.png" alt="페스트넷로고" />
+          <img src="../../../public/icon/fast_campus_logo.png" alt="페스트넷로고" />
           <div>로그인</div>
         </div>
         <div class="users-box">

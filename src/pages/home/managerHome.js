@@ -1,5 +1,5 @@
-import { studentAttendanceRecordChart } from ".../components/home/chart/studentAttendChart.js"
-import { managerHomeStudentList } from ".../components/home/studentList/managerHomeStudentList.js"
+import { studentAttendanceRecordChart } from "../../components/home/chart/studentAttendChart.js"
+import { managerHomeStudentList } from "../../components/home/studentList/managerHomeStudentList.js"
 import { createHeader, adjustHeaderWidth } from "../components/header.js"
 import { loadManagerSidebar } from "./managerSidebar.js"
 import { loadLogin } from "../signIn/signIn.js"

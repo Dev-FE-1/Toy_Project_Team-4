@@ -17,7 +17,7 @@ export function loadNotice() {
               class="form-control"
               placeholder="원하는 키워드로 검색해보세요."
             />
-            <img src="/public/images/notice.svg" alt="공지사항 아이콘">
+            <img src="../../../public/icon/notice.svg" alt="공지사항 아이콘">
           </div>
         </div>
         <div class="notice-bottom">

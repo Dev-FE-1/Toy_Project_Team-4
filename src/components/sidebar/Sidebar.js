@@ -1,6 +1,6 @@
 import axios from "axios"
-import { route } from "../main" // navigate 함수를 main.js에서 가져옴
-import { loadLogin } from "../login&signup/login"
+// import { route } from "../main" // navigate 함수를 main.js에서 가져옴
+// import { loadLogin } from "../login&signup/login"
 
 export function loadSidebar() {
   const sidebar = createSidebar()

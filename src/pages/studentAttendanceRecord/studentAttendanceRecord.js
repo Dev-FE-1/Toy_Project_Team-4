@@ -1,7 +1,7 @@
-import "./student-attendance-record.css"
+import "./studentAttendanceRecord.css"
 import Chart from "chart.js/auto"
 import axios from "axios"
-import { studentAttendanceRecordModal } from "./student-attendance-recordModal"
+import { studentAttendanceRecordModal } from "./studentAttendanceRecordModal"
 
 let students = []
 const dates = []

@@ -4,7 +4,7 @@ import { loadOverlay } from "../attendance/overlay.js"
 import { createHeader, adjustHeaderWidth } from "./header.js"
 import { loadSidebar } from "./Sidebar.js"
 import { loadLogin } from "../signIn/signIn.js"
-import { mainNotice } from ".../components/home/notice/mainNotice.js"
+import { mainNotice } from "../../components/home/notice/mainNotice.js"
 
 export function createHomeContent() {
   const content = document.createElement("div")

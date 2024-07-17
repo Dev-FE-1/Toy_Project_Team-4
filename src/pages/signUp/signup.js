@@ -22,7 +22,7 @@ export class SignupPage {
         <div class="wrapper">
           <div class="signupTop">
             <div class="logoNtext">
-              <img src="./public/images/fast_campus_logo.png" alt="페스트넷로고" />
+              <img src="../../../public/icon/fast_campus_logo.png" alt="페스트넷로고" />
               <div class="signupText1">회원가입</div>
             </div>
             <div class="signupText2">과정에 참여하신 것을 환영합니다 !</div>

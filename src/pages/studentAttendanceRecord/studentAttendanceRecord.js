@@ -71,11 +71,12 @@ const getChart = () => {
 }
 // 수강생 리스트 가져오기
 const studentList = async () => {
-  const ul = document.querySelector(".studentsListArea")
   const res = await axios.get("/api/users.json")
   const studentData = res.data.data
+
   const loadingContainer = document.querySelector("#loadingOverlay")
   loadingContainer.classList.add("hidden")
+
   function userType(element) {
     if (element.userType === "student") {
       return true
@@ -83,6 +84,7 @@ const studentList = async () => {
   }
   students = studentData.filter(userType)
 
+  const ul = document.querySelector(".studentsListArea")
   ul.innerHTML = ""
   for (let i = 0; i < students.length; i++) {
     ul.innerHTML += `

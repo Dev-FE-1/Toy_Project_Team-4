@@ -68,7 +68,7 @@ if (!fs.existsSync(documentRequestFilePath)) {
   fs.writeFileSync(documentRequestFilePath, JSON.stringify({ request: [] }))
 }
 
-// 출결 정정 신청
+// ---------- 출결 정정 요청 ----------
 app.post("/upload-attendance-correction-request", async (req, res) => {
   if (!req.files || !req.files.correctionFile) {
     return res.status(400).json({ error: "No files were uploaded." })
@@ -198,7 +198,7 @@ app.post("/delete-attendance-correction-request", async (req, res) => {
   }
 })
 
-// 외출 신청
+// ---------- 외출 신청 ----------
 app.post("/upload-leave-request", async (req, res) => {
   const { name, leaveDate, startTime, endTime, reason } = req.body
 
@@ -300,7 +300,7 @@ app.post("/delete-leave-request", async (req, res) => {
   }
 })
 
-// 휴가 신청
+// ---------- 휴가 신청 ----------
 app.post("/upload-vacation-request", async (req, res) => {
   if (!req.files || !req.files.vacationFile) {
     return res.status(400).json({ error: "No files were uploaded." })
@@ -421,6 +421,7 @@ app.post("/delete-vacation-request", async (req, res) => {
   }
 })
 
+// ---------- 공가 신청 ----------
 // 공가 신청 목록 조회
 app.get("/get-official-leave-request", async (req, res) => {
   const { userName } = req.query
@@ -594,6 +595,7 @@ app.post("/upload-official-leave-request", async (req, res) => {
   }
 })
 
+// ---------- 문서 발급 ----------
 // 문서 발급 요청 제출
 app.post("/upload-document-request", async (req, res) => {
   const { name, documentType, startDate, endDate, reason, email, requiredDocument } = req.body
@@ -707,7 +709,7 @@ app.post("/cancel-document-request", async (req, res) => {
   }
 })
 
-// PDF 변환
+// ---------- PDF 변환 기능 ----------
 app.post("/convert", async (req, res) => {
   if (!req.files?.wordFile) return res.status(400).send("No files were uploaded.")
 
@@ -743,90 +745,85 @@ app.post("/convert", async (req, res) => {
   })
 })
 
-//---------공지모음갤러리 사진업로드----------
-app.post('/upload', (req, res) => {
-
+// ---------- 기업공지모음 갤러리 업로드 기능 ----------
+app.post("/upload", (req, res) => {
   if (!req.files || !req.files.image) {
-    console.error("No files were uploaded.");
-    return res.status(400).send('No files were uploaded.');
+    console.error("No files were uploaded.")
+    return res.status(400).send("No files were uploaded.")
   }
 
-  const image = req.files.image;
-  const sanitizedFileName = `${uuidv4()}_${image.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
-  const uploadPath = path.join(__dirname, 'uploads', sanitizedFileName);
+  const image = req.files.image
+  const sanitizedFileName = `${uuidv4()}_${image.name.replace(/[^a-zA-Z0-9.]/g, "_")}`
+  const uploadPath = path.join(__dirname, "uploads", sanitizedFileName)
 
   if (!fs.existsSync(path.dirname(uploadPath))) {
-    fs.mkdirSync(path.dirname(uploadPath), { recursive: true });
+    fs.mkdirSync(path.dirname(uploadPath), { recursive: true })
   }
 
   image.mv(uploadPath, (err) => {
     if (err) {
-      return res.status(500).send(err);
+      return res.status(500).send(err)
     }
 
     const newEntry = {
-      img: `server/uploads/${path.basename(uploadPath)}`,  // 경로 수정
+      img: `server/uploads/${path.basename(uploadPath)}`, // 경로 수정
       title: req.body.title,
       desc: req.body.desc,
-      date: new Date().toISOString().split('T')[0],
-      popularity: 0
-    };
+      date: new Date().toISOString().split("T")[0],
+      popularity: 0,
+    }
 
-    const galleryData = readGalleryData();
-    galleryData.push(newEntry);
-    writeGalleryData(galleryData);
+    const galleryData = readGalleryData()
+    galleryData.push(newEntry)
+    writeGalleryData(galleryData)
 
-    res.status(200).json({ message: 'File uploaded successfully', filePath: `/uploads/${path.basename(uploadPath)}` });
-  });
-});
-
+    res.status(200).json({ message: "File uploaded successfully", filePath: `/uploads/${path.basename(uploadPath)}` })
+  })
+})
 
 // JSON 파일에서 데이터 읽기
 function readGalleryData() {
   try {
     if (!fs.existsSync(galleryDataFilePath)) {
       // console.log("gallery.json file does not exist, creating new one.");
-      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), 'utf8');
+      fs.writeFileSync(galleryDataFilePath, JSON.stringify([]), "utf8")
     }
-    const data = fs.readFileSync(galleryDataFilePath, 'utf8');
-    const parsedData = JSON.parse(data);
-    return Array.isArray(parsedData.data) ? parsedData.data : [];
+    const data = fs.readFileSync(galleryDataFilePath, "utf8")
+    const parsedData = JSON.parse(data)
+    return Array.isArray(parsedData.data) ? parsedData.data : []
   } catch (error) {
-    console.error("Error reading gallery data:", error);
-    return [];
+    console.error("Error reading gallery data:", error)
+    return []
   }
 }
 
 // JSON 파일에 데이터 저장
 function writeGalleryData(data) {
   try {
-    const dataToWrite = { status: "OK", data: data }; // 상태와 데이터를 함께 저장
-    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), 'utf8');
+    const dataToWrite = { status: "OK", data: data } // 상태와 데이터를 함께 저장
+    fs.writeFileSync(galleryDataFilePath, JSON.stringify(dataToWrite, null, 2), "utf8")
   } catch (error) {
-    console.error("Error writing gallery data:", error);
+    console.error("Error writing gallery data:", error)
   }
 }
 
 // 공지 목록을 반환하는 API
 app.get("/api/gallery", (req, res) => {
-
-  const galleryData = readGalleryData();
-  res.status(200).json(galleryData);
-});
+  const galleryData = readGalleryData()
+  res.status(200).json(galleryData)
+})
 
 // 정적 파일 제공
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+app.use("/public", express.static(path.join(__dirname, "public")))
 
 // 기존의 /api/gallery.json 엔드포인트 유지
 app.get("/api/gallery.json", (req, res) => {
+  const galleryData = readGalleryData()
+  res.status(200).json(galleryData)
+})
 
-  const galleryData = readGalleryData();
-  res.status(200).json(galleryData);
-});
-
-//---------공지모음갤러리 사진업로드----------
-
+// ---------- 사용자 정보 불러오기 ----------
 app.get("/api/users.json", (req, res) => {
   fs.readFile("./server/data/users.json", "utf8", (err, data) => {
     if (err) {
@@ -850,6 +847,7 @@ app.get("/api/users.json", (req, res) => {
   })
 })
 
+// ---------- 공지사항 정보 불러오기 ----------
 app.get("/api/notice.json", (req, res) => {
   fs.readFile("./server/data/notice.json", "utf8", (err, data) => {
     if (err) {
@@ -873,6 +871,7 @@ app.get("/api/notice.json", (req, res) => {
   })
 })
 
+// ---------- 입퇴실 정보 불러오기 ----------
 app.get("/api/attendance.json", (req, res) => {
   fs.readFile("./server/data/attendance.json", "utf8", (err, data) => {
     if (err) {
@@ -896,6 +895,7 @@ app.get("/api/attendance.json", (req, res) => {
   })
 })
 
+// ---------- 입퇴실 시간 기록하기 ----------
 app.post("/api/attendance", async (req, res) => {
   try {
     const { date, type, time } = req.body
@@ -954,6 +954,7 @@ function calculateTime(inTime, outTime) {
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
 }
 
+// ---------- 문의게시판 정보 불러오기 ----------
 app.get("/api/inquiry.json", (req, res) => {
   fs.readFile("./server/data/inquiry.json", "utf8", (err, data) => {
     if (err) {
@@ -977,6 +978,7 @@ app.get("/api/inquiry.json", (req, res) => {
   })
 })
 
+// ---------- database.js ----------
 app.get("/api/users", (req, res) => {
   const sql = "SELECT * FROM users"
 
@@ -995,30 +997,24 @@ app.get("/api/users", (req, res) => {
   })
 })
 
-// 마이페이지 프로필사진 업로드
+// ---------- 마이페이지 프로필사진 업로드 ----------
 const profileImgUploadPath = path.join(__dirname, "profileImgs")
 if (!fs.existsSync(profileImgUploadPath)) {
   fs.mkdirSync(profileImgUploadPath)
 }
-
 const userJsonPath = path.join(__dirname, "data", "users.json")
-
 app.post("/profileImgs/:id", (req, res) => {
   const userId = parseInt(req.params.id)
-
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("업로드된 파일이 존재하지 않습니다.")
   }
-
   const profileImage = req.files.profileImage
   const uploadFilePath = path.join(profileImgUploadPath, profileImage.name) //업로드한 파일 경로
-
   profileImage.mv(uploadFilePath, () => {
     fs.readFile(userJsonPath, "utf8", (err, data) => {
       if (err) {
         return res.status(500).send("유저 정보를 불러오지 못했습니다.")
       }
-
       let users = JSON.parse(data)
       let userIdx = 0
       if (Array.isArray(users.data)) {
@@ -1026,15 +1022,12 @@ app.post("/profileImgs/:id", (req, res) => {
           return item.id === userId
         })
       }
-
       const oldProfileImagePath = users.data[userIdx].profileImage
       users.data[userIdx].profileImage = path.join("/server/profileImgs/", profileImage.name)
-
       fs.writeFile(userJsonPath, JSON.stringify(users, null, 2), (err) => {
         if (err) {
           return res.status(500).send("프로필 이미지 업데이트 실패")
         }
-
         if (oldProfileImagePath && fs.existsSync(oldProfileImagePath)) {
           fs.unlink(oldProfileImagePath, (err) => {
             if (err) {

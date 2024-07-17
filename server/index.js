@@ -635,7 +635,9 @@ app.post("/upload-document", async (req, res) => {
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       fileUrl: `/uploads/${fileName}`,
-      originalFileName: originalFileName
+      originalFileName: originalFileName,
+      hasBeenSubmitted: true,  // 이 줄을 추가
+      status: 'document_submitted'  // 이 줄을 추가
     };
 
     await fs.promises.writeFile(
@@ -679,7 +681,8 @@ app.post("/upload-document-request", async (req, res) => {
     status: "pending",
     submitDate,
     submitTime,
-    fullSubmitTime
+    fullSubmitTime,
+    hasBeenSubmitted: false  // 여기에 hasBeenSubmitted 플래그 추가
   }
 
   try {
@@ -756,8 +759,16 @@ app.post("/cancel-document-request", async (req, res) => {
       return res.status(404).json({ error: "Request not found" })
     }
 
-    if (requests.request[requestIndex].status !== "pending") {
-      return res.status(400).json({ error: "Can only cancel pending requests" })
+    const request = requests.request[requestIndex]
+
+    // 'pending' 또는 'rejected' 상태일 때 취소 가능하도록 수정
+    if (request.status !== "pending" && request.status !== "rejected") {
+      return res.status(400).json({ error: "Can only cancel pending or rejected requests" })
+    }
+
+    // 수강증명서의 경우, hasBeenSubmitted가 false일 때만 취소 가능
+    if (request.documentType === 'certificate-of-attendance' && request.status === 'rejected' && request.hasBeenSubmitted) {
+      return res.status(400).json({ error: "Cannot cancel this request" })
     }
 
     requests.request.splice(requestIndex, 1)

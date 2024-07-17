@@ -120,6 +120,7 @@ export function loadDocumentRequest() {
   const submitModal = document.getElementById("resubmitModal");
   const openModalBtn = document.getElementById("documentModalBtn");
   const closeModalBtns = document.getElementsByClassName("document-modal-close-btn");
+  const closeResubmitModalBtns = document.getElementsByClassName("resubmit-modal-close-btn");
 
   openModalBtn.onclick = function() {
     modal.style.display = "block";
@@ -128,6 +129,11 @@ export function loadDocumentRequest() {
   Array.from(closeModalBtns).forEach(btn => {
     btn.onclick = function() {
       modal.style.display = "none";
+    };
+  });
+
+  Array.from(closeResubmitModalBtns).forEach(btn => {
+    btn.onclick = function() {
       submitModal.style.display = "none";
     };
   });
@@ -254,14 +260,27 @@ export function loadDocumentRequest() {
     }
     if (item.status === 'rejected') {
       if (item.documentType === 'certificate-of-attendance') {
-        return `
-          ${item.rejectReason || ''}
-          <button class="submit-btn" data-id="${item.id}">제출</button>
-        `;
+        if (!item.hasBeenSubmitted) {
+          return `
+            <div class="reject-reason-container">
+              <span class="reject-reason">${item.rejectReason || '반려 사유가 없습니다.'}</span>
+              <button class="cancel-button" data-id="${item.id}">취소</button>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="reject-reason-container">
+              <span class="reject-reason">${item.rejectReason || '반려 사유가 없습니다.'}</span>
+              <button class="submit-btn" data-id="${item.id}">다시 제출</button>
+            </div>
+          `;
+        }
       } else {
         return `
-          ${item.rejectReason || ''}
-          <button class="cancel-button" data-id="${item.id}">취소</button>
+          <div class="reject-reason-container">
+            <span class="reject-reason">${item.rejectReason || '반려 사유가 없습니다.'}</span>
+            <button class="cancel-button" data-id="${item.id}">취소</button>
+          </div>
         `;
       }
     }
@@ -360,11 +379,13 @@ export function loadDocumentRequest() {
         body: JSON.stringify({ id })
       });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || "요청 취소 중 오류가 발생했습니다.");
       }
       await loadRequestData();
     } catch (error) {
-      alert("요청 취소 중 오류가 발생했습니다: " + error.message);
+      console.error("Error cancelling request:", error);
+      alert(error.message);
     }
   }
 

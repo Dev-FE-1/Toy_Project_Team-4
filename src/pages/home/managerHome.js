@@ -1,8 +1,8 @@
-import { studentAttendanceRecordChart } from "./studentAttendChart.js"
-import { managerHomeStudentList } from "./managerHomeStudentList.js"
+import { studentAttendanceRecordChart } from ".../components/home/chart/studentAttendChart.js"
+import { managerHomeStudentList } from ".../components/home/studentList/managerHomeStudentList.js"
 import { createHeader, adjustHeaderWidth } from "../components/header.js"
 import { loadManagerSidebar } from "./managerSidebar.js"
-import { loadLogin } from "../login&signup/login.js"
+import { loadLogin } from "../signIn/signIn.js"
 import { todolist } from "./todolist.js"
 
 function managerHomeContent() {

@@ -1,6 +1,5 @@
-import "./signup.css"
+import "./signUp.css"
 import axios from "axios"
-import { loadLogin } from "./login"
 
 export class SignupPage {
   constructor() {

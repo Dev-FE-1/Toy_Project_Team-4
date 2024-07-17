@@ -1,32 +1,32 @@
 import "./main.css"
-import "./styles/sidebar.css"
-import "./styles/header.css"
-import "./styles/home.css"
-import "./styles/footer.css"
-import { loadLogin } from "./login&signup/login.js"
-import { mainHome } from "./components/home.js"
-import { loadInquiryBoard } from "./inquiryBoard/InquiryBoard.js"
-import { loadLeaveRequest } from "./request/leave_request.js"
-import { loadOfficialLeaveRequest } from "./request/official_leave_request.js"
-import { loadAttendanceCorrectionRequest } from "./request/attendance_correction_request.js"
-import { loadVacationRequest } from "./request/vacation_request.js"
-import { loadGallery } from "./gallery/gallery.js"
-import { loadDocumentRequest } from "./request/document_request.js"
-import { profile } from "./profile/profile.js"
-import { loadNotice } from "./notice/notice.js"
+import "./components/sidebar/sidebar.css"
+import "./components/header/header.css"
+import "./pages/home/home.css"
+import "./components/footer/footer.css"
+import { loadLogin } from "./pages/signIn/signIn.js"
+import { mainHome } from "./pages/home/userHome.js"
+import { loadInquiryBoard } from "./pages/inquiryBoard/InquiryBoard.js"
+import { loadLeaveRequest } from "./pages/leaveRequest/leave_request.js"
+import { loadOfficialLeaveRequest } from "./pages/officialLeave/official_leave_request.js"
+import { loadAttendanceCorrectionRequest } from "./pages/attendanceCorrection/attendanceCorrection.js"
+import { loadVacationRequest } from "./pages/vacation/vacation_request.js"
+import { loadGallery } from "./pages/gallery/gallery.js"
+import { loadDocumentRequest } from "./pages/documentRequest/document_request.js"
+import { profile } from "./pages/profile/profile.js"
+import { loadNotice } from "./pages/notice/notice.js"
 import { createFooter, adjustFooterWidth } from "./components/footer.js"
 import { loadAttendConfirm } from "./confirmAttend/attendConfirm.js"
 import { managerHome } from "./managerHome/managerHome.js"
-import { studentInfo } from "./studentInfoList/studentInfo.js"
-import { studentAttendanceRecord } from "./student-attendance-record/student-attendance-record.js"
-import { managerloadInquiryBoard } from "./inquiryBoard/managerinquiry.js"
+import { studentInfo } from "./pages/studentInfoList/studentInfo.js"
+import { studentAttendanceRecord } from "./pages/studentAttendanceRecord/studentAttendanceRecord.js"
+import { managerloadInquiryBoard } from "./pages/inquiryBoard/managerinquiry.js"
 import { registerNotice } from "./registerNotice/registerNotice.js"
-import { loadManagerLeaveRequests } from "./requestManager/managerLeave.js"
-import { loadManagerVacationRequests } from "./requestManager/managerVacation.js"
-import { loadManagerOfficialLeaveRequests } from "./requestManager/managerofficialLeave.js"
-import { loadManagerAttendanceCorrectionRequests } from "./requestManager/managerAttendanceCorrection.js"
-import { loadManagerDocumentRequests } from "./requestManager/managerdocumentRequest.js"
-import { managerloadGallery } from "./gallery/managergallery.js"
+import { loadManagerLeaveRequests } from "./pages/leaveRequest/managerLeave.js"
+import { loadManagerVacationRequests } from "./pages/vacation/managerVacation.js"
+import { loadManagerOfficialLeaveRequests } from "./pages/officialLeave/managerofficialLeave.js"
+import { loadManagerAttendanceCorrectionRequests } from "./pages/attendanceCorrection/managerAttendanceCorrection.js"
+import { loadManagerDocumentRequests } from "./pages/documentRequest/managerdocumentRequest.js"
+import { managerloadGallery } from "./pages/gallery/managergallery.js"
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 
@@ -126,7 +126,7 @@ export function route() {
       loadManagerDocumentRequests() //문서 발급
       break
     case "/manager-gallery":
-      managerloadGallery()// 기업 공지 모음
+      managerloadGallery() // 기업 공지 모음
       break
     case "/student-attendance-record":
       studentAttendanceRecord() // 수강생 출결 현황

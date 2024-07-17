@@ -8,8 +8,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages3.jpg",
-      "profileImage": "/public/images/수민.jpg"
+      "background": "/public/background/backgroundimages3.jpg",
+      "profileImage": "/public/userProfile/수민.jpg"
     },
     {
       "id": 2,
@@ -18,8 +18,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages2.jpg",
-      "profileImage": "/public/images/도형.jpg"
+      "background": "/public/background/backgroundimages2.jpg",
+      "profileImage": "/public/userProfile/도형.jpg"
     },
     {
       "id": 3,
@@ -28,8 +28,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages1.jpg",
-      "profileImage": "/public/images/효정.jpg"
+      "background": "/public/background/backgroundimages1.jpg",
+      "profileImage": "/public/userProfile/효정.jpg"
     },
     {
       "id": 4,
@@ -38,8 +38,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages4.jpg",
-      "profileImage": "/public/images/원지.jpg"
+      "background": "/public/background/backgroundimages4.jpg",
+      "profileImage": "/public/userProfile/원지.jpg"
     },
     {
       "id": 5,
@@ -48,8 +48,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "manager",
-      "background": "/public/images/backgroundimages3.jpg",
-      "profileImage": "/public/images/수민.jpg"
+      "background": "/public/background/backgroundimages3.jpg",
+      "profileImage": "/public/userProfile/수민.jpg"
     },
     {
       "id": 6,
@@ -58,8 +58,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "manager",
-      "background": "/public/images/backgroundimages2.jpg",
-      "profileImage": "/public/images/도형.jpg"
+      "background": "/public/background/backgroundimages2.jpg",
+      "profileImage": "/public/userProfile/도형.jpg"
     },
     {
       "id": 7,
@@ -68,8 +68,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "manager",
-      "background": "/public/images/backgroundimages1.jpg",
-      "profileImage": "/public/images/효정.jpg"
+      "background": "/public/background/backgroundimages1.jpg",
+      "profileImage": "/public/userProfile/효정.jpg"
     },
     {
       "id": 8,
@@ -78,8 +78,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "manager",
-      "background": "/public/images/backgroundimages4.jpg",
-      "profileImage": "/public/images/원지.jpg"
+      "background": "/public/background/backgroundimages4.jpg",
+      "profileImage": "/public/userProfile/원지.jpg"
     },
     {
       "id": 9,
@@ -88,8 +88,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages5.jpeg",
-      "profileImage": "/public/images/강동원.jpg"
+      "background": "/public/background/backgroundimages5.jpeg",
+      "profileImage": "/public/userProfile/강동원.jpg"
     },
     {
       "id": 10,
@@ -98,8 +98,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages6.jpeg",
-      "profileImage": "/public/images/변요한.jpg"
+      "background": "/public/background/backgroundimages6.jpeg",
+      "profileImage": "/public/userProfile/변요한.jpg"
     },
     {
       "id": 11,
@@ -108,8 +108,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages7.jpeg",
-      "profileImage": "/public/images/비숑.jpg"
+      "background": "/public/background/backgroundimages7.jpeg",
+      "profileImage": "/public/userProfile/비숑.jpg"
     },
     {
       "id": 12,
@@ -118,8 +118,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages8.jpg",
-      "profileImage": "/public/images/공유.jpg"
+      "background": "/public/background/backgroundimages8.jpg",
+      "profileImage": "/public/userProfile/공유.jpg"
     },
     {
       "id": 13,
@@ -128,8 +128,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages9.jpg",
-      "profileImage": "/public/images/팜하니.jpg"
+      "background": "/public/background/backgroundimages9.jpg",
+      "profileImage": "/public/userProfile/팜하니.jpg"
     },
     {
       "id": 14,
@@ -138,8 +138,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages10.jpg",
-      "profileImage": "/public/images/김수현.jpg"
+      "background": "/public/background/backgroundimages10.jpg",
+      "profileImage": "/public/userProfile/김수현.jpg"
     },
     {
       "id": 15,
@@ -148,8 +148,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages11.jpg",
-      "profileImage": "/public/images/구교환.jpg"
+      "background": "/public/background/backgroundimages11.jpg",
+      "profileImage": "/public/userProfile/구교환.jpg"
     },
     {
       "id": 16,
@@ -158,8 +158,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages12.jpg",
-      "profileImage": "/public/images/김지수.jpg"
+      "background": "/public/background/backgroundimages12.jpg",
+      "profileImage": "/public/userProfile/김지수.jpg"
     },
     {
       "id": 17,
@@ -168,8 +168,8 @@
       "pw": "1234",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages13.jpg",
-      "profileImage": "/public/images/김지원.jpg"
+      "background": "/public/background/backgroundimages13.jpg",
+      "profileImage": "/public/userProfile/김지원.jpg"
     },
     {
       "id": 18,
@@ -178,8 +178,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages14.jpg",
-      "profileImage": "/public/images/도경수.jpg"
+      "background": "/public/background/backgroundimages14.jpg",
+      "profileImage": "/public/userProfile/도경수.jpg"
     },
     {
       "id": 19,
@@ -188,8 +188,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages15.jpg",
-      "profileImage": "/public/images/박보검.jpg"
+      "background": "/public/background/backgroundimages15.jpg",
+      "profileImage": "/public/userProfile/박보검.jpg"
     },
     {
       "id": 20,
@@ -198,8 +198,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages3.jpg",
-      "profileImage": "/public/images/배수지.jpg"
+      "background": "/public/background/backgroundimages3.jpg",
+      "profileImage": "/public/userProfile/배수지.jpg"
     },
     {
       "id": 21,
@@ -208,8 +208,8 @@
       "pw": "1111",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages4.jpg",
-      "profileImage": "/public/images/고윤정.jpg"
+      "background": "/public/background/backgroundimages4.jpg",
+      "profileImage": "/public/userProfile/고윤정.jpg"
     },
     {
       "id": 22,
@@ -218,8 +218,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages6.jpeg",
-      "profileImage": "/public/images/변우석.jpg"
+      "background": "/public/background/backgroundimages6.jpeg",
+      "profileImage": "/public/userProfile/변우석.jpg"
     },
     {
       "id": 23,
@@ -228,8 +228,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages1.jpg",
-      "profileImage": "/public/images/손석구.jpg"
+      "background": "/public/background/backgroundimages1.jpg",
+      "profileImage": "/public/userProfile/손석구.jpg"
     },
     {
       "id": 24,
@@ -238,8 +238,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages2.jpg",
-      "profileImage": "/public/images/신세경.jpg"
+      "background": "/public/background/backgroundimages2.jpg",
+      "profileImage": "/public/userProfile/신세경.jpg"
     },
     {
       "id": 25,
@@ -248,8 +248,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages5.jpeg",
-      "profileImage": "/public/images/이도현.jpg"
+      "background": "/public/background/backgroundimages5.jpeg",
+      "profileImage": "/public/userProfile/이도현.jpg"
     },
     {
       "id": 26,
@@ -258,8 +258,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages7.jpeg",
-      "profileImage": "/public/images/임지연.jpg"
+      "background": "/public/background/backgroundimages7.jpeg",
+      "profileImage": "/public/userProfile/임지연.jpg"
     },
     {
       "id": 27,
@@ -268,8 +268,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages8.jpg",
-      "profileImage": "/public/images/정해인.jpg"
+      "background": "/public/background/backgroundimages8.jpg",
+      "profileImage": "/public/userProfile/정해인.jpg"
     },
     {
       "id": 28,
@@ -278,8 +278,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages10.jpg",
-      "profileImage": "/public/images/차은우.jpg"
+      "background": "/public/background/backgroundimages10.jpg",
+      "profileImage": "/public/userProfile/차은우.jpg"
     },
     {
       "id": 29,
@@ -288,8 +288,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages9.jpg",
-      "profileImage": "/public/images/최우식.jpg"
+      "background": "/public/background/backgroundimages9.jpg",
+      "profileImage": "/public/userProfile/최우식.jpg"
     },
     {
       "id": 30,
@@ -298,8 +298,8 @@
       "pw": "0000",
       "phone": "010-1234-5678",
       "userType": "student",
-      "background": "/public/images/backgroundimages14.jpg",
-      "profileImage": "/public/images/카리나.jpg"
+      "background": "/public/background/backgroundimages14.jpg",
+      "profileImage": "/public/userProfile/카리나.jpg"
     }
   ]
 }

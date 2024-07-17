@@ -1,7 +1,6 @@
 import './InquiryBoard.css';
 import './managerinquiry.css';
 import { displayInquiries, loadInquiries, toggleModal, inquiries, currentInquiryId, currentUser } from "./InquiryBoard.js";
-// import axios from 'axios';
 
 let filtered = false;
 

@@ -1,32 +1,3 @@
 {
-  "request": [
-    {
-      "id": "67273b21-1afd-4733-9eb7-6c17fce8a8a7",
-      "name": "김도형",
-      "type": "공가",
-      "startDate": "2024-07-19",
-      "endDate": "2024-07-26",
-      "status": "finalApproved",
-      "reason": "병가",
-      "submitDate": "2024-07-12",
-      "submitTime": "13:34",
-      "documentSubmitted": true,
-      "documentPath": "uploads\\2024-07-12_데브캠프_프론트엔드 개발 4기(DEV_FE1)_김도형(공가).zip",
-      "fileName": "2024-07-12_데브캠프_프론트엔드 개발 4기(DEV_FE1)_김도형(공가).zip"
-    }
-  ]
+  "request": []
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

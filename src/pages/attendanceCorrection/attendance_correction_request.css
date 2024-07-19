@@ -11,7 +11,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .correction-container .attendance_correction_request-icon {
@@ -44,6 +43,8 @@
   border-radius: 10px;
   border: 2px solid #f2f2f2;
   margin-right: 20px;
+  height: 500px;
+  overflow-y: auto;
 }
 
 .correction-process-container h2 {
@@ -134,7 +135,8 @@
 
 .correction-status-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   position: relative;
 }
@@ -156,25 +158,7 @@
   font-weight: 500;
   position: static;
   transform: none;
-  margin-bottom: 10px;
-}
-
-.correction-status-date-range {
-  position: static;
-  right: auto;
-  top: auto;
-}
-
-.correction-status-date-range .date-input {
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 0 5px;
-}
-
-.correction-status-date-range .date-input:focus {
-  border-color: #ED234B;
-  outline: none;
+  margin-left: 10px;
 }
 
 .status-table-container {
@@ -186,7 +170,7 @@
 .correction-status-container .status-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; 
+  table-layout: fixed;
 }
 
 .correction-status-container .status-table th,
@@ -194,9 +178,9 @@
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #efefef;
-  height: 50px; 
-  overflow: hidden; 
-  white-space: nowrap; 
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .correction-status-container .status-table th {
@@ -210,17 +194,27 @@
 
 .correction-status-container .status-pending,
 .correction-status-container .status-approved,
-.correction-status-container .status-rejected,
-.correction-status-container .cancel-button {
+.correction-status-container .status-rejected {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 14px;
+  font-weight: 500;
+}
+
+.correction-status-container .cancel-button {
+  background-color: #ed234b;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .correction-status-container .status-pending {
-  background-color: #bababa;
-  color: #fff;
+  background-color: #f2f2f2;
+  color: #6e6e6e;
 }
 
 .correction-status-container .status-approved {
@@ -233,19 +227,12 @@
   color: #B91C1C;
 }
 
-.correction-status-container .cancel-button {
-  background-color: #ed234b;
-  color: #fff;
-  cursor: pointer;
+.correction-status-container .cancel-button:hover {
   opacity: 0.7;
 }
 
-.correction-status-container .cancel-button:hover {
-  opacity: 0.5;
-}
-
 .correction-modal-btn-container {
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .correction-modal-btn {
@@ -260,19 +247,18 @@
   text-align: center;
   display: block;
   margin: auto;
-  margin-top: 40px;
 }
 
 .correction-modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
@@ -280,7 +266,7 @@
   background-color: #fff;
   padding: 40px;
   width: 35%;
-  height: 60%;
+  height: 75%;
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -318,9 +304,33 @@
   padding: 10px;
   border: 1px solid #ABABAB;
   border-radius: 5px;
+  width: 100%;
 }
 
 .correction-form-container .correction-date-container input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.correction-form-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+
+#correctionReason {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+#correctionReason:focus {
   border-color: #ED234B;
   outline: none;
 }
@@ -347,7 +357,8 @@
   outline: none;
 }
 
-.correction-date-container label, .correction-form-container .convert-press-container label {
+.correction-date-container label,
+.correction-form-container .convert-press-container label {
   font-weight: 500;
   font-size: 1rem;
   color: #222;
@@ -395,7 +406,7 @@
   color: #fff;
   background-color: #ed234b;
   width: 20%;
-  height: 44px;
+  height: 35px;
   border-radius: 10px;
   border: 1px solid #ed234b;
   margin-bottom: 10px;
@@ -425,4 +436,48 @@
 .correction-modal-btn:hover,
 .correctionSubmitForm .correction-btn:hover {
   opacity: 0.7;
+}
+
+.correction-container .correction-both-container .correction-status-container .correction-status-content .correction-pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.correction-container .correction-pagination-container button {
+  padding: 10px;
+  margin: 5px;
+  color: #ababab;
+  background-color: transparent;
+}
+
+.correction-container .correction-pagination-container .prev-button,
+.correction-container .correction-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.correction-container .correction-pagination-container .prev-button.color,
+.correction-container .correction-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.correction-container .correction-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.correction-container .correction-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.correction-container .correction-pagination-container .number-btn-wrapper .btnFocus {
+  color: #ed234b;
+  font-weight: 800;
 }

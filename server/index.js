@@ -33,7 +33,10 @@ if (process.platform === "win32") {
 
 // 미들웨어
 app.use(cors())
-app.use(fileUpload())
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}))
 app.use(morgan("dev"))
 app.use(express.static("dist"))
 app.use(express.static("public"))
@@ -69,15 +72,16 @@ if (!fs.existsSync(documentRequestFilePath)) {
 }
 
 // ---------- 출결 정정 요청 ----------
+
 app.post("/upload-attendance-correction-request", async (req, res) => {
   if (!req.files || !req.files.correctionFile) {
     return res.status(400).json({ error: "No files were uploaded." })
   }
 
   const correctionFile = req.files.correctionFile
-  const { name, date, courseName, userId } = req.body
+  const { name, date, courseName, userId, reason } = req.body
 
-  if (!name || !date || !courseName || !userId) {
+  if (!name || !date || !courseName || !userId || !reason) {
     return res.status(400).json({ error: "Missing required fields." })
   }
 
@@ -85,7 +89,7 @@ app.post("/upload-attendance-correction-request", async (req, res) => {
   const formattedDate = new Date(date).toISOString().split("T")[0]
   const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
-  const fileName = `${formattedDate}_${courseName}_${name}(출결정정).zip`
+  const fileName = `${formattedDate}_${courseName}_${name}(출결 정정).zip`
   const filePath = path.join(__dirname, "uploads", fileName)
 
   if (!fs.existsSync(path.join(__dirname, "uploads"))) {
@@ -101,7 +105,7 @@ app.post("/upload-attendance-correction-request", async (req, res) => {
       type: "출결정정",
       date: formattedDate,
       status: "pending",
-      reason: "",
+      reason,
       filePath,
       submitDate,
       submitTime,
@@ -199,6 +203,7 @@ app.post("/delete-attendance-correction-request", async (req, res) => {
 })
 
 // ---------- 외출 신청 ----------
+
 app.post("/upload-leave-request", async (req, res) => {
   const { name, leaveDate, startTime, endTime, reason } = req.body
 
@@ -301,31 +306,33 @@ app.post("/delete-leave-request", async (req, res) => {
 })
 
 // ---------- 휴가 신청 ----------
+
+// 휴가 요청 업로드 
 app.post("/upload-vacation-request", async (req, res) => {
   if (!req.files || !req.files.vacationFile) {
-    return res.status(400).json({ error: "No files were uploaded." })
+    return res.status(400).json({ error: "No files were uploaded." });
   }
 
-  const vacationFile = req.files.vacationFile
-  const { name, date, courseName, userId } = req.body
+  const vacationFile = req.files.vacationFile;
+  const { name, date, courseName, userId } = req.body;
 
   if (!name || !date || !courseName || !userId) {
-    return res.status(400).json({ error: "Missing required fields." })
+    return res.status(400).json({ error: "Missing required fields." });
   }
 
-  const now = new Date()
-  const formattedDate = new Date(date).toISOString().split("T")[0]
-  const submitDate = now.toISOString().split("T")[0]
-  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
-  const fileName = `${formattedDate}_${courseName}_${name}(휴가).zip`
-  const filePath = path.join(__dirname, "uploads", fileName)
+  const now = new Date();
+  const formattedDate = new Date(date).toISOString().split("T")[0];
+  const submitDate = now.toISOString().split("T")[0];
+  const submitTime = now.toTimeString().split(":").slice(0, 2).join(":");
+  const fileName = `${formattedDate}_${courseName}_${name}(휴가).zip`;
+  const filePath = path.join(__dirname, "uploads", fileName);
 
   if (!fs.existsSync(path.join(__dirname, "uploads"))) {
-    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true })
+    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true });
   }
 
   try {
-    await vacationFile.mv(filePath)
+    await vacationFile.mv(filePath);
 
     const newRequest = {
       id: Date.now(),
@@ -338,200 +345,116 @@ app.post("/upload-vacation-request", async (req, res) => {
       submitDate,
       submitTime,
       userId,
-    }
+    };
 
-    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
-    const requests = JSON.parse(data)
-    requests.request.push(newRequest)
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    requests.request.push(newRequest);
 
-    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2))
+    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2));
 
-    res.json({ message: "File uploaded successfully", request: newRequest })
+    res.json({ message: "File uploaded successfully", request: newRequest });
   } catch (err) {
-    res.status(500).json({ error: "File upload failed", details: err.message })
+    res.status(500).json({ error: "File upload failed", details: err.message });
   }
-})
+});
 
+// 휴가 요청 조회 
 app.get("/get-vacation-request", async (req, res) => {
-  const { userName } = req.query
+  const { userName } = req.query;
 
   try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
-    let requests = JSON.parse(data).request
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8");
+    let requests = JSON.parse(data).request;
 
     if (userName) {
-      requests = requests.filter((request) => request.name === userName)
+      requests = requests.filter((request) => request.name === userName);
     }
 
     requests = requests.map((request) => ({
       ...request,
       fileUrl: request.filePath ? `http://localhost:8080/uploads/${path.basename(request.filePath)}` : null,
-    }))
+    }));
 
-    res.json(requests)
+    res.json(requests);
   } catch (err) {
-    console.error("Failed to read data:", err)
-    res.status(500).json({ error: "Failed to read data", details: err.message })
+    console.error("Failed to read data:", err);
+    res.status(500).json({ error: "Failed to read data", details: err.message });
   }
-})
+});
 
+// 휴가 요청 상태 업데이트 
 app.post("/update-vacation-status", async (req, res) => {
-  const { id, status, rejectReason } = req.body
+  const { id, status, rejectReason } = req.body;
 
   try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
-    const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex((req) => req.id == id)
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id == id);
 
     if (requestIndex === -1) {
-      return res.status(404).json({ error: "Request not found" })
+      return res.status(404).json({ error: "Request not found" });
     }
 
     requests.request[requestIndex] = {
       ...requests.request[requestIndex],
       status: status,
       rejectReason: status === "rejected" ? rejectReason : undefined,
-    }
+    };
 
-    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2))
-    res.json({ message: "Status updated successfully" })
+    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2));
+    res.json({ message: "Status updated successfully" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to update status", details: err.message })
+    res.status(500).json({ error: "Failed to update status", details: err.message });
   }
-})
+});
 
+// 휴가 요청 삭제 
 app.post("/delete-vacation-request", async (req, res) => {
-  const { id } = req.body
+  const { id } = req.body;
 
   try {
-    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8")
-    const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex((req) => req.id == id)
+    const data = await fs.promises.readFile(vacationRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id == id);
 
     if (requestIndex === -1) {
-      return res.status(404).json({ error: "Request not found" })
+      return res.status(404).json({ error: "Request not found" });
     }
 
-    requests.request.splice(requestIndex, 1)
+    requests.request.splice(requestIndex, 1);
 
-    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2))
-    res.json({ message: "Request deleted successfully" })
+    await fs.promises.writeFile(vacationRequestFilePath, JSON.stringify(requests, null, 2));
+    res.json({ message: "Request deleted successfully" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to delete request", details: err.message })
+    res.status(500).json({ error: "Failed to delete request", details: err.message });
   }
-})
-
-// ---------- 공가 신청 ----------
-// 공가 신청 목록 조회
-app.get("/get-official-leave-request", async (req, res) => {
-  const { userName } = req.query
-
-  try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
-    let requests = JSON.parse(data).request
-
-    if (userName) {
-      requests = requests.filter((request) => request.name === userName)
-    }
-
-    requests = requests.map((request) => ({
-      ...request,
-      fileUrl: request.documentPath ? `http://localhost:8080/uploads/${path.basename(request.documentPath)}` : null,
-    }))
-
-    res.json(requests)
-  } catch (err) {
-    console.error("Failed to read data:", err)
-    res.status(500).json({ error: "Failed to read data", details: err.message })
-  }
-})
-
-// 공가 신청 상태 업데이트
-app.post("/update-official-leave-status", async (req, res) => {
-  const { id, status, rejectReason } = req.body
-
-  try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
-    const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex((req) => req.id === id)
-
-    if (requestIndex === -1) {
-      return res.status(404).json({ error: "Request not found" })
-    }
-
-    if (status === "rejected") {
-      requests.request[requestIndex] = {
-        ...requests.request[requestIndex],
-        status: "rejected",
-        rejectReason: rejectReason,
-        documentSubmitted: false, // 서류 재제출을 위해 false로 설정
-      }
-    } else {
-      requests.request[requestIndex] = {
-        ...requests.request[requestIndex],
-        status: status,
-      }
-    }
-
-    await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
-    res.json({ message: "Status updated successfully" })
-  } catch (err) {
-    res.status(500).json({ error: "Failed to update status", details: err.message })
-  }
-})
-
-// 공가 신청 취소
-app.post("/delete-official-leave-request", async (req, res) => {
-  const { id } = req.body
-
-  try {
-    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
-    const requests = JSON.parse(data)
-    const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id))
-
-    if (requestIndex === -1) {
-      return res.status(404).json({ error: "Request not found" })
-    }
-
-    if (requests.request[requestIndex].status !== "pending") {
-      return res.status(400).json({ error: "Can only cancel pending requests" })
-    }
-
-    requests.request.splice(requestIndex, 1)
-
-    await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
-    res.json({ message: "Request cancelled successfully" })
-  } catch (err) {
-    res.status(500).json({ error: "Failed to cancel request", details: err.message })
-  }
-})
+});
 
 // 공가 신청서 제출 및 서류 제출
 app.post("/upload-official-leave-request", async (req, res) => {
   if (req.files && req.files.documents) {
-    const { id } = req.body
-    const documents = req.files.documents
+    const { id } = req.body;
+    const documents = req.files.documents;
 
     try {
-      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
-      const requests = JSON.parse(data)
-      const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id))
+      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
+      const requests = JSON.parse(data);
+      const requestIndex = requests.request.findIndex((req) => String(req.id) === String(id));
 
       if (requestIndex === -1) {
-        return res.status(404).json({ error: "Request not found" })
+        return res.status(404).json({ error: "Request not found" });
       }
 
-      const request = requests.request[requestIndex]
-      const fileName = `${new Date().toISOString().split("T")[0]}_데브캠프_프론트엔드 개발 4기(DEV_FE1)_${
-        request.name
-      }(공가).zip`
-      const filePath = path.join(__dirname, "uploads", fileName)
+      const request = requests.request[requestIndex];
+      const fileName = `${new Date().toISOString().split("T")[0]}_데브캠프 : 프론트엔드 개발 4회차_${request.name}(공가).zip`;
+      const filePath = path.join(__dirname, "uploads", fileName);
 
       if (!fs.existsSync(path.dirname(filePath))) {
-        fs.mkdirSync(path.dirname(filePath), { recursive: true })
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
       }
 
-      await documents.mv(filePath)
+      await documents.mv(filePath);
 
       requests.request[requestIndex] = {
         ...request,
@@ -539,31 +462,31 @@ app.post("/upload-official-leave-request", async (req, res) => {
         documentPath: path.relative(__dirname, filePath),
         fileName: fileName,
         status: "finalPending", // 서류 제출 후 최종 승인 대기중 상태로 변경
-      }
+      };
 
-      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
+      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
 
-      const fileUrl = new URL(`/uploads/${fileName}`, `http://${req.headers.host}`).toString()
+      const fileUrl = new URL(`/uploads/${fileName}`, `http://${req.headers.host}`).toString();
 
       res.json({
         message: "서류가 제출되었습니다. 최종 승인 대기중입니다.",
         fileName: fileName,
         fileUrl: `http://localhost:8080/uploads/${fileName}`,
-      })
+      });
     } catch (err) {
-      console.error("Error in document submission:", err)
-      res.status(500).json({ error: "Failed to submit documents", details: err.message })
+      console.error("Error in document submission:", err);
+      res.status(500).json({ error: "Failed to submit documents", details: err.message });
     }
   } else {
-    const { name, startDate, endDate, reason } = req.body
+    const { name, startDate, endDate, reason } = req.body;
 
     if (!name || !startDate || !endDate || !reason) {
-      return res.status(400).json({ error: "Missing required fields." })
+      return res.status(400).json({ error: "Missing required fields." });
     }
 
-    const now = new Date()
-    const submitDate = now.toISOString().split("T")[0]
-    const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
+    const now = new Date();
+    const submitDate = now.toISOString().split("T")[0];
+    const submitTime = now.toTimeString().split(":").slice(0, 2).join(":");
 
     const newRequest = {
       id: uuidv4(),
@@ -576,26 +499,158 @@ app.post("/upload-official-leave-request", async (req, res) => {
       submitDate,
       submitTime,
       documentSubmitted: false,
-    }
+    };
 
     try {
-      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8")
-      const requests = JSON.parse(data)
-      requests.request.push(newRequest)
+      const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
+      const requests = JSON.parse(data);
+      requests.request.push(newRequest);
 
-      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2))
+      await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
       res.json({
         message: "Request submitted successfully",
         request: newRequest,
-      })
+      });
     } catch (err) {
-      console.error("Error in request submission:", err)
-      res.status(500).json({ error: "Request submission failed", details: err.message })
+      console.error("Error in request submission:", err);
+      res.status(500).json({ error: "Request submission failed", details: err.message });
     }
   }
-})
+});
+
+// 공가 신청 요청 조회
+app.get("/get-official-leave-request", async (req, res) => {
+  const { userName } = req.query;
+
+  try {
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
+    let requests = JSON.parse(data).request;
+
+    if (userName) {
+      requests = requests.filter((request) => request.name === userName);
+    }
+
+    requests = requests.map((request) => ({
+      ...request,
+      fileUrl: request.documentPath ? `http://localhost:8080/uploads/${path.basename(request.documentPath)}` : null,
+    }));
+
+    res.json(requests);
+  } catch (err) {
+    console.error("Failed to read data:", err);
+    res.status(500).json({ error: "Failed to read data", details: err.message });
+  }
+});
+
+// 공가 신청 상태 업데이트
+app.post("/update-official-leave-status", async (req, res) => {
+  const { id, status, rejectReason } = req.body;
+
+  try {
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id === id);
+
+    if (requestIndex === -1) {
+      return res.status(404).json({ error: "Request not found" });
+    }
+
+    requests.request[requestIndex] = {
+      ...requests.request[requestIndex],
+      status: status,
+      rejectReason: status === "rejected" ? rejectReason : undefined,
+    };
+
+    await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
+    res.json({ message: "Status updated successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update status", details: err.message });
+  }
+});
+
+// 공가 신청 삭제
+app.post("/delete-official-leave-request", async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const data = await fs.promises.readFile(officialLeaveRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id === id);
+
+    if (requestIndex === -1) {
+      return res.status(404).json({ error: "Request not found" });
+    }
+
+    requests.request.splice(requestIndex, 1);
+
+    await fs.promises.writeFile(officialLeaveRequestFilePath, JSON.stringify(requests, null, 2));
+    res.json({ message: "Request deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete request", details: err.message });
+  }
+});
 
 // ---------- 문서 발급 ----------
+
+// 문서 업로드 처리
+app.post("/upload-document", async (req, res) => {
+  if (!req.files || !req.files.file) {
+    return res.status(400).json({ error: "No files were uploaded." });
+  }
+
+  const file = req.files.file;
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Missing required fields." });
+  }
+
+  const originalFileName = Buffer.from(file.name, 'latin1').toString('utf8');
+  const fileExtension = path.extname(originalFileName);
+  const fileName = `${uuidv4()}${fileExtension}`;
+  const uploadPath = path.join(__dirname, "uploads", fileName);
+
+  if (!fs.existsSync(path.join(__dirname, "uploads"))) {
+    fs.mkdirSync(path.join(__dirname, "uploads"), { recursive: true });
+  }
+
+  try {
+    // 임시 파일을 사용하여 파일 복사
+    const tempPath = file.tempFilePath;
+    await fs.promises.copyFile(tempPath, uploadPath);
+
+    const data = await fs.promises.readFile(documentRequestFilePath, "utf8");
+    const requests = JSON.parse(data);
+    const requestIndex = requests.request.findIndex((req) => req.id === id);
+
+    if (requestIndex === -1) {
+      return res.status(404).json({ error: "Request not found" });
+    }
+
+    requests.request[requestIndex] = {
+      ...requests.request[requestIndex],
+      fileUrl: `/uploads/${fileName}`,
+      originalFileName: originalFileName,
+      hasBeenSubmitted: true,  // 이 줄을 추가
+      status: 'document_submitted'  // 이 줄을 추가
+    };
+
+    await fs.promises.writeFile(
+      documentRequestFilePath,
+      JSON.stringify(requests, null, 2)
+    );
+
+    res.json({
+      message: "File uploaded successfully",
+      fileUrl: `/uploads/${fileName}`,
+      originalFileName: originalFileName
+    });
+  } catch (err) {
+    console.error("Error in file upload:", err);
+    res.status(500).json({ error: "File upload failed", details: err.message });
+  }
+});
+
 // 문서 발급 요청 제출
 app.post("/upload-document-request", async (req, res) => {
   const { name, documentType, startDate, endDate, reason, email, requiredDocument } = req.body
@@ -607,6 +662,7 @@ app.post("/upload-document-request", async (req, res) => {
   const now = new Date()
   const submitDate = now.toISOString().split("T")[0]
   const submitTime = now.toTimeString().split(":").slice(0, 2).join(":")
+  const fullSubmitTime = now.toISOString()
 
   const newRequest = {
     id: uuidv4(),
@@ -620,12 +676,14 @@ app.post("/upload-document-request", async (req, res) => {
     status: "pending",
     submitDate,
     submitTime,
+    fullSubmitTime,
+    hasBeenSubmitted: false  // 여기에 hasBeenSubmitted 플래그 추가
   }
 
   try {
     const data = await fs.promises.readFile(documentRequestFilePath, "utf8")
     const requests = JSON.parse(data)
-    requests.request.push(newRequest)
+    requests.request.unshift(newRequest) // 배열의 맨 앞에 추가
 
     await fs.promises.writeFile(documentRequestFilePath, JSON.stringify(requests, null, 2))
     res.json({
@@ -696,8 +754,16 @@ app.post("/cancel-document-request", async (req, res) => {
       return res.status(404).json({ error: "Request not found" })
     }
 
-    if (requests.request[requestIndex].status !== "pending") {
-      return res.status(400).json({ error: "Can only cancel pending requests" })
+    const request = requests.request[requestIndex]
+
+    // 'pending' 또는 'rejected' 상태일 때 취소 가능하도록 수정
+    if (request.status !== "pending" && request.status !== "rejected") {
+      return res.status(400).json({ error: "Can only cancel pending or rejected requests" })
+    }
+
+    // 수강증명서의 경우, hasBeenSubmitted가 false일 때만 취소 가능
+    if (request.documentType === 'certificate-of-attendance' && request.status === 'rejected' && request.hasBeenSubmitted) {
+      return res.status(400).json({ error: "Cannot cancel this request" })
     }
 
     requests.request.splice(requestIndex, 1)

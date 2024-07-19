@@ -6,12 +6,12 @@ export function loadManagerVacationRequests() {
   app.innerHTML = `
     <div class="manager-vacation-container">
       <div class="manager-vacation-header">
-        <h1>휴가 신청 관리</h1>
+        <h1>휴가 신청 현황</h1>
+      </div> 
         <div class="manager-vacation-search">
           <input type="text" id="student-name" placeholder="수강생 이름을 입력하세요">
           <button class="filter-button">검색</button>
-        </div>
-      </div>
+        </div> 
       <table class="manager-vacation-table">
         <thead>
           <tr>
@@ -20,15 +20,17 @@ export function loadManagerVacationRequests() {
             <th>제출 일자</th>
             <th>휴가 예정일</th>
             <th>상태</th>
-            <th>관리</th>      
+            <th>관리</th>
           </tr>
         </thead>
         <tbody id="manager-vacation-table-body">
           <!-- 자바스크립트로 내용 추가 -->
         </tbody>
       </table>
-      <div class="pagination" id="pagination">
-        <!-- 페이지네이션 버튼 -->
+      <div class="manager-vacation-pagination-container">
+        <button class="prev-button">&lt;</button>
+        <div class="number-btn-wrapper"></div>
+        <button class="next-button">&gt;</button>
       </div>
     </div>
 
@@ -37,7 +39,7 @@ export function loadManagerVacationRequests() {
         <span class="manager-vacation-modal-close-btn">&times;</span>
         <div class="reason-form-container" id="reasonFormContainer">
           <h2>반려 사유</h2>
-          <textarea id="reasonText" rows="4" cols="50"></textarea>
+          <textarea id="reasonText" rows="5" cols="50"></textarea>
           <button id="submitReasonBtn" class="submit-reason-btn">전송</button>
         </div>
       </div>
@@ -49,11 +51,11 @@ export function loadManagerVacationRequests() {
   const closeModalBtn = document.getElementsByClassName('manager-vacation-modal-close-btn')[0];
   const submitReasonBtn = document.getElementById('submitReasonBtn');
   const filterButton = document.querySelector('.filter-button');
-  const paginationContainer = document.getElementById("pagination");
+  const paginationContainer = document.querySelector(".manager-vacation-pagination-container .number-btn-wrapper");
 
   let currentRequestId;
   let currentPage = 1;
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
   let filteredData = [];
 
   async function loadTableData(studentName = '') {
@@ -66,7 +68,6 @@ export function loadManagerVacationRequests() {
       if (!Array.isArray(data)) {
         throw new Error('Received data is not an array');
       }
-      // 제출일과 제출 시간을 기준으로 최신순 정렬
       data.sort((a, b) => {
         const dateA = new Date(a.submitDate + 'T' + a.submitTime);
         const dateB = new Date(b.submitDate + 'T' + b.submitTime);
@@ -100,7 +101,7 @@ export function loadManagerVacationRequests() {
           <button class="vacation-btn reject" data-id="${item.id}">반려</button>
         ` : ''}
         <button class="vacation-btn download" data-url="${item.fileUrl}">파일 다운로드</button>
-      </td>
+        </td>
       `;
       tableBody.appendChild(row);
     });
@@ -115,38 +116,57 @@ export function loadManagerVacationRequests() {
       button.addEventListener('click', downloadFile);
     });
 
-    updatePagination();
+    displayPagination(filteredData.length);
   }
 
-  function updatePagination() {
+  function displayPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
     paginationContainer.innerHTML = '';
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  
-    // 이전 버튼 추가
-    const prevButton = document.createElement('button');
-    prevButton.classList.add('page-arrow');
-    prevButton.innerHTML = '&lt;';
-    prevButton.addEventListener('click', () => displayPage(Math.max(1, currentPage - 1)));
-    paginationContainer.appendChild(prevButton);
-  
-    // 페이지 버튼 생성
-    for (let page = 1; page <= totalPages; page++) {
-      const button = document.createElement('button');
-      button.classList.add('page-button');
-      if (page === currentPage) {
-        button.classList.add('active');
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('button');
+      if (i === currentPage) {
+        pageButton.classList.add('btnFocus');
       }
-      button.innerText = page;
-      button.addEventListener('click', () => displayPage(page));
-      paginationContainer.appendChild(button);
+      pageButton.addEventListener('click', () => {
+        currentPage = i;
+        displayPage(currentPage);
+        changeBtn(currentPage.toString());
+        arrBtn();
+      });
+      paginationContainer.appendChild(pageButton);
     }
-  
-    // 다음 버튼 추가
-    const nextButton = document.createElement('button');
-    nextButton.classList.add('page-arrow');
-    nextButton.innerHTML = '&gt;';
-    nextButton.addEventListener('click', () => displayPage(Math.min(totalPages, currentPage + 1)));
-    paginationContainer.appendChild(nextButton);
+    arrBtn();
+  }
+
+  function changeBtn(clickBtnNum) {
+    const numberBtn = document.querySelectorAll('.button');
+    numberBtn.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
+  function arrBtn() {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+
+    if (currentPage === 1) {
+      prevBtn.classList.remove('color');
+      nextBtn.classList.add('color');
+    } else if (currentPage === totalPages) {
+      prevBtn.classList.add('color');
+      nextBtn.classList.remove('color');
+    } else {
+      prevBtn.classList.add('color');
+      nextBtn.classList.add('color');
+    }
   }
 
   async function approveRequest(event) {
@@ -158,12 +178,12 @@ export function loadManagerVacationRequests() {
     currentRequestId = event.target.dataset.id;
     reasonModal.style.display = 'block';
   }
-
+  
   closeModalBtn.onclick = function() {
     reasonModal.style.display = 'none';
     document.getElementById('reasonText').value = '';
   };
-
+  
   window.onclick = function(event) {
     if (event.target == reasonModal) {
       reasonModal.style.display = 'none';
@@ -185,11 +205,11 @@ export function loadManagerVacationRequests() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status, rejectReason: reason })
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       loadTableData(document.getElementById('student-name').value);
     } catch (error) {
       console.error('Error updating request status:', error);
@@ -220,4 +240,23 @@ export function loadManagerVacationRequests() {
   });
 
   loadTableData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+      currentPage++;
+      displayPage(currentPage);
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }

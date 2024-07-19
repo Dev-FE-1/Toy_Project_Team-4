@@ -7,58 +7,39 @@ export function loadAttendanceCorrectionRequest() {
 
   app.innerHTML = `
     <div class="correction-container">
-      <h1><img src="/icon/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 신청</h1>
+      <h1><img src="/icon/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 요청</h1>
       <div class="correction-both-container">
         <div class="correction-process-container">
-          <h2>출결 정정 신청 방법</h2>
           <div class="correction-process-list">
-            <h3>1. 기본 정보</h3>
-            <p>
-              <strong>가능 사유:</strong> HRD 오류, 수강생 소유한 기기 오류, 기타 훈련생의 불가피한 사정 등<br>
-              <strong>가능 조건:</strong> 입실 및 퇴실 zoom 스크린샷 참여 수강생 한정<br>
-              <strong>가능 시간:</strong> 영업일 기준 다음날 16시까지만 요청 가능<br>
-              - 예시:<br>
-              &nbsp;&nbsp;6월 20일 (목)요일의 정정 신청은 6월 21일 (금)요일 오후 4시까지<br>
-              &nbsp;&nbsp;6월 21일 (금)요일의 정정 신청은 6월 24일 (월)요일 오후 4시까지
-            </p>
-            <h3>2. 유의사항</h3>
-            <p>
-              <strong>출결 체크 불가 예시:</strong><br>
-              - 이목구비 확인 필수<br>
-              - 이동시/외부 참여시 인정 불가 (ex. 전철 안, 차 안, 버스 안)<br>
-              - 모바일, 테블릿 참여시 인정 불가<br>
-              - 실명 확인 필수
-            </p>
-            <h3>3. 정정 프로세스</h3>
-            <p>
-              1. 운영 매니저에게 스크린샷 요청 (입/퇴실 2개의 사진)<br>
-              &nbsp;&nbsp;- 외출 정정시: 외출/복귀시 훈련생이 진행한 스크린샷 포함 필요 (총 4개의 스크린샷)<br>
-              2. 얼굴전체/이름/당일 날짜&시간 <strong>하이라이트</strong> 표기<br>
-              3. 출석 입력 대장 작성
-            </p>
-            <div class="download-link-container">
-              <span class="material-symbols-outlined download-icon">download</span>
-              <a href="/images/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
-                출석 입력 대장 다운로드
-              </a>
-            </div>
-            <p>
-              - 서류 작성<br>
-              - PDF 파일로 저장<br>
-              - 파일명 변경: <span class="ex">'날짜_과정명_성함(출석 입력 요청 대장)'</span><br>
-              4. 스크린샷 + 출석 대장 하나의 폴더로 압축
-            </p>
+              <h3>1. 기본 정보</h3>
+              <p>가능 사유 : 수강생의 HRD 오류, 소유한 기기 오류, 불가피한 사정 등</p>
+              <p>가능 조건 : 입실 및 퇴실 zoom 스크린샷 참여 수강생 한정</p>
+              <p>가능 시간 : 발생일 기준 다음날 16시까지만 요청 가능</p>
+              <br>
+              <h3>2. 운영 매니저에게 스크린샷 요청</h3>
+              <p>입실 및 퇴실 시 각 1장씩 총 2장의 스크린샷 제출</p>
+              <p>외출 정정 시: 외출 및 복귀 시 각 1장씩 총 4장의 스크린샷 제출 필요</p>
+              <br>
+              <h3>3. 스크린샷 준비 및 출석대장 작성</h3>
+              <p>얼굴 전체, 이름, 당일 날짜 및 시간을 하이라이트 표기</p>
+              <div class="download-link-container">
+                  <span class="material-symbols-outlined download-icon">download</span>
+                  <a href="/document/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
+                      출석대장 다운로드
+                  </a>
+              </div>
+              <p>작성 후 PDF 파일로 변환.</p>
+              <p>파일명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
+              <br>
+              <h3>4. 필요 자료 폴더링</h3>
+              <p>출석 대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
+              <p>폴더명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출결 정정)'</span></p>
           </div>
         </div>
         <div class="correction-status-container">
-          <div class="content">
+          <div class="correction-status-content">
             <div class="correction-status-header">
               <span><span class="red-dot"></span>신청 현황</span>
-              <div class="correction-status-date-range">
-                <input type="date" id="search-start-date" class="date-input">
-                ~
-                <input type="date" id="search-end-date" class="date-input">
-              </div>
             </div>
             <div class="status-table-container">
               <table class="status-table">
@@ -67,7 +48,8 @@ export function loadAttendanceCorrectionRequest() {
                     <th>상태</th>
                     <th>신청 종류</th>
                     <th>제출 일자</th>
-                    <th>비고</th>
+                    <th>사유</th>
+                    <th>관리</th>
                   </tr>
                 </thead>
                 <tbody id="status-table-body">
@@ -75,11 +57,13 @@ export function loadAttendanceCorrectionRequest() {
                 </tbody>
               </table>
             </div>
-            <div id="pagination" class="pagination">
-              <!-- 자바스크립트로 페이지네이션 추가 -->
+            <div class="correction-pagination-container">
+              <button class="prev-button"><</button>
+              <div class="number-btn-wrapper"></div>
+              <button class="next-button">></button>
             </div>
             <div class="correction-modal-btn-container">
-              <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 신청</button>
+              <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 요청</button>
             </div>
           </div>
         </div>
@@ -90,12 +74,14 @@ export function loadAttendanceCorrectionRequest() {
       <div class="correction-modal-content">
         <span class="correction-modal-close-btn">&times;</span>
         <div class="correction-form-container" id="correctionFormContainer">
-          <h2>출결 정정 신청</h2>
+          <h2>출결 정정 요청</h2>
           <div class="correction-submit-section">
             <div class="correction-date-container">
-              <label for="correctionDate">정정 요청 날짜</label>
+              <label for="correctionDate">정정 희망 날짜</label>
               <input type="date" id="correctionDate" name="correctionDate" required>
-            </div>
+            </div>           
+              <label for="correctionReason">사유</label>
+              <textarea id="correctionReason" name="correctionReason" rows="5" required></textarea>           
             <div class="convert-press-container">
               <label for="convertpress">파일 변환</label>
               <div class="correction-pdf-container">
@@ -155,7 +141,7 @@ export function loadAttendanceCorrectionRequest() {
       return;
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (!userInfo || !userInfo.userName) {
@@ -173,7 +159,7 @@ export function loadAttendanceCorrectionRequest() {
         const user = users.find(u => u.name === userName);
 
         if (user) {
-          const fileName = `${correctionDate}_${courseName}_${user.name}(출석 입력 요청 대장).pdf`;
+          const fileName = `${correctionDate}_${courseName}_${user.name}(출석대장).pdf`;
 
           if (file) {
             const formData = new FormData();
@@ -231,7 +217,7 @@ export function loadAttendanceCorrectionRequest() {
       return;
     }
 
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (!userInfo || !userInfo.userName) {
@@ -249,7 +235,7 @@ export function loadAttendanceCorrectionRequest() {
         const user = users.find(u => u.name === userName);
 
         if (user) {
-          const fileName = `${correctionDate}_${courseName}_${user.name}(출결정정).zip`;
+          const fileName = `${correctionDate}_${courseName}_${user.name}(출결 정정).zip`;
 
           const zip = new JSZip();
           for (let i = 0; i < files.length; i++) {
@@ -281,15 +267,16 @@ export function loadAttendanceCorrectionRequest() {
   
     const correctionFile = document.getElementById("correction_submit_file").files[0];
     const correctionDate = document.getElementById("correctionDate").value;
+    const correctionReason = document.getElementById("correctionReason").value;
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (!userInfo || !userInfo.userName) {
       alert("로그인된 사용자 정보를 찾을 수 없습니다.");
       return;
     }
-    const courseName = '데브캠프:프론트엔드 개발 4기(DEV_FE1)';
+    const courseName = '데브캠프 : 프론트엔드 개발 4회차';
     const userName = userInfo.userName;
   
-    if (!correctionFile || !correctionDate) {
+    if (!correctionFile || !correctionDate || !correctionReason) {
       alert("모든 필드를 입력하세요.");
       return;
     }
@@ -303,6 +290,7 @@ export function loadAttendanceCorrectionRequest() {
     const formData = new FormData();
     formData.append("correctionFile", correctionFile);
     formData.append("date", correctionDate);
+    formData.append("reason", correctionReason);
     formData.append("name", userName);
     formData.append("courseName", courseName);
     formData.append("userId", userInfo.id);
@@ -335,7 +323,7 @@ export function loadAttendanceCorrectionRequest() {
   // 신청 현황 데이터 로드 및 표시 함수
   let requestData = [];
   let currentPage = 1;
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
 
   async function loadRequestData() {
     try {
@@ -357,80 +345,92 @@ export function loadAttendanceCorrectionRequest() {
 
   function displayData() {
     const tableBody = document.getElementById("status-table-body");
-    const pagination = document.getElementById("pagination");
-
+  
     requestData.sort((a, b) => {
       const dateA = new Date(a.submitDate + 'T' + a.submitTime);
       const dateB = new Date(b.submitDate + 'T' + b.submitTime);
       return dateB - dateA; // 내림차순 정렬 (최신 순)
     });
-
+  
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const pageData = requestData.slice(start, end);
-
+  
     tableBody.innerHTML = '';
     pageData.forEach((item, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td><span class="status-${item.status}">${getStatusText(item.status)}</span></td>
         <td>${item.type}</td>
-        <td>${item.submitDate}</td>
+        <td>${item.submitDate} ${item.submitTime}</td>
+        <td>${item.status === 'rejected' ? item.rejectReason : item.reason}</td>
         <td>
-        ${item.status === 'rejected' ? `${item.rejectReason || ''}` : ''}
-          ${item.status === 'pending' ? `<button class="cancel-button" data-index="${start + index}">취소</button>` : ''}
+          ${item.status === 'pending' || item.status === 'rejected' ? `<button class="cancel-button" data-index="${start + index}">취소</button>` : ''}
         </td>
       `;
       tableBody.appendChild(row);
     });
-
+  
     document.querySelectorAll('.cancel-button').forEach(button => {
       button.addEventListener('click', function() {
         const index = parseInt(this.getAttribute('data-index'));
         cancelRequest(requestData[index].id);
       });
     });
+  
+    setPageButtons();
+  }
+  
+  
+  function setPageButtons() {
+    const totalPageCount = Math.ceil(requestData.length / itemsPerPage);
 
-    displayPagination(requestData.length);
+    const numberBtnWrapper = document.querySelector(".number-btn-wrapper");
+    numberBtnWrapper.innerHTML = "";
+    for (let i = 0; i < totalPageCount; i++) {
+      const button = document.createElement('button');
+      button.textContent = i + 1;
+      button.classList.add('pagebtn');
+      if (i === currentPage - 1) {
+        button.classList.add('btnFocus');
+      }
+      button.addEventListener('click', function() {
+        currentPage = parseInt(this.textContent);
+        displayData();
+        changeBtn(this.textContent);
+        arrBtn();
+      });
+      numberBtnWrapper.appendChild(button);
+    }
+    arrBtn();
   }
 
-  function displayPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = '';
+  function arrBtn() {
+    const prevBtn = document.querySelector(".prev-button");
+    const nextBtn = document.querySelector(".next-button");
+    const btnFocus = document.querySelector(".btnFocus");
+    const pageNumberBtn = document.querySelectorAll(".pagebtn");
 
-    const createArrow = (direction, disabled) => {
-      const arrow = document.createElement('button');
-      arrow.textContent = direction === 'left' ? '<' : '>';
-      arrow.classList.add('page-arrow');
-      if (disabled) {
-        arrow.classList.add('page-arrow-disabled');
-      } else {
-        arrow.addEventListener('click', () => {
-          currentPage = direction === 'left' ? currentPage - 1 : currentPage + 1;
-          displayData();
-        });
-      }
-      return arrow;
+    if (!btnFocus || pageNumberBtn.length === 0) {
+      if (prevBtn) prevBtn.classList.remove("color");
+      if (nextBtn) nextBtn.classList.remove("color");
+      return;
     }
 
-    pagination.appendChild(createArrow('left', currentPage === 1));
+    let btnNum = Array.from(pageNumberBtn).map(btn => btn.textContent);
+    let maxNum = Math.max(...btnNum);
+    let minNum = Math.min(...btnNum);
 
-    for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.classList.add('page-button');
-      if (i === currentPage) {
-        pageButton.classList.add('page-button-active');
-      }
-      pageButton.addEventListener('click', () => {
-        currentPage = i;
-        displayData();
-      });
-      pagination.appendChild(pageButton);
+    if (Number(btnFocus.textContent) == minNum) {
+      nextBtn.classList.add("color");
+      prevBtn.classList.remove("color");
+    } else if (Number(btnFocus.textContent) == maxNum) {
+      nextBtn.classList.remove("color");
+      prevBtn.classList.add("color");
+    } else {
+      nextBtn.classList.add("color");
+      prevBtn.classList.add("color");
     }
-
-    pagination.appendChild(createArrow('right', currentPage === totalPages));
   }
 
   async function cancelRequest(id) {
@@ -449,6 +449,17 @@ export function loadAttendanceCorrectionRequest() {
     }
   }
 
+  function changeBtn(clickBtnNum) {
+    const buttons = document.querySelectorAll('.pagebtn');
+    buttons.forEach(button => {
+      if (button.textContent === clickBtnNum) {
+        button.classList.add('btnFocus');
+      } else {
+        button.classList.remove('btnFocus');
+      }
+    });
+  }
+
   function getStatusText(status) {
     switch(status) {
       case 'pending': return '대기중';
@@ -459,4 +470,24 @@ export function loadAttendanceCorrectionRequest() {
   }
 
   loadRequestData();
+
+  const prevBtn = document.querySelector(".prev-button");
+  const nextBtn = document.querySelector(".next-button");
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(requestData.length / itemsPerPage)) {
+      currentPage++;
+      displayData();
+      changeBtn(currentPage.toString());
+      arrBtn();
+    }
+  });
 }
+

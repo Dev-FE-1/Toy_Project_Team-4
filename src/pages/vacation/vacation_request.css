@@ -1,0 +1,457 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+.vacation-container {
+  width: 90%;
+  height: 90%;
+  background-color: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 .4rem 3rem -.8rem #0a0a1433;
+  border: 1px solid #f2f2f2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-container h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.vacation-container h1 .vacation-icon {
+  width: 80px;
+  height: 80px;
+  vertical-align: middle;
+  margin-left: 30px;
+  margin-right: 40px;
+}
+
+.vacation-container .vacation-both-container {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container {
+  flex: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #f2f2f2;
+  margin-right: 20px;
+  overflow-y: scroll;
+  height: 500px;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list h3 {
+  color: #222;
+  border-bottom: 2px solid #d6d6d6;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  padding-bottom: 5px;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container a {
+  color: rgb(20, 93, 251);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container a:hover {
+  text-decoration: underline;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .download-link-container .material-symbols-outlined {
+  color: rgb(20, 93, 251);
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-bottom: 13px;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.vacation-container .vacation-both-container .vacation-process-container .vacation-process-list .ex {
+  color: #ed234b;
+  font-weight: 500;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container {
+  flex: 3;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header span {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  position: static;
+  transform: none;
+  margin-left: 10px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-status-header .red-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ed234b;
+  border-radius: 50%;
+  margin-right: 20px;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 300px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table th,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #efefef;
+  height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table th {
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+  vertical-align: middle;
+  background-color: #f2f2f2;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-pending,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-approved,
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-rejected {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .cancel-button {
+  background-color: #ed234b;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-pending {
+  background-color: #f2f2f2;
+  color: #6e6e6e;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-approved {
+  background-color: #D9F7E7;
+  color: #30A164;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .status-rejected {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .status-table-container .status-table .cancel-button:hover {
+  opacity: 0.7;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.vacation-container .vacation-pagination-container button {
+  padding: 10px;
+  margin: 5px;
+  color: #ababab;
+  background-color: transparent;
+}
+
+.vacation-container .vacation-pagination-container .prev-button,
+.vacation-container .vacation-pagination-container .next-button {
+  padding: 6px 10px;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+}
+
+.vacation-container .vacation-pagination-container .prev-button.color,
+.vacation-container .vacation-pagination-container .next-button.color {
+  border: none;
+  background-color: #f26581;
+  color: #fff;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper button {
+  display: block;
+}
+
+.vacation-container .vacation-pagination-container .number-btn-wrapper .btnFocus {
+  color: #ed234b;
+  font-weight: 800;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container {
+  margin-top: 20px;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container .vacation-modal-btn {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.vacation-container .vacation-both-container .vacation-status-container .vacation-status-content .vacation-modal-btn-container .vacation-modal-btn:hover {
+  opacity: 0.7;
+}
+
+.vacation-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.vacation-modal .vacation-modal-content {
+  background-color: #fff;
+  padding: 40px;
+  width: 35%;
+  height: 60%;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn {
+  color: #ababab;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn:hover,
+.vacation-modal .vacation-modal-content .vacation-modal-close-btn:focus {
+  color: #ed234b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container h2 {
+  font-size: 1.5rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .vacation-date-container input[type="date"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container input[type="file"],
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container input[type="file"] {
+  flex: 1;
+  width: 70%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container input[type="file"]:focus,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container .convertpdf,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container .createzip {
+  margin-right: 0;
+  color: #fff;
+  background-color: #ed234b;
+  width: 20%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #ed234b;
+  margin-bottom: 10px;
+  padding: 2px 8px 4px;
+  cursor: pointer;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-pdf-container .convertpdf:hover,
+.vacation-modal .vacation-modal-content .vacation-form-container .vacation-submit-section .convert-press-container .vacation-zip-container .createzip:hover {
+  opacity: 0.7;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm {
+  margin-top: 20px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+  display: block;
+  margin: 20px 0 10px;
+  text-align: left;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-submit-all-section input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ABABAB;
+  border-radius: 5px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-submit-all-section input[type="file"]:focus {
+  border-color: #ED234B;
+  outline: none;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-btn {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ED234B;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.vacation-modal .vacation-modal-content .vacation-form-container #vacationSubmitForm .vacation-btn:hover {
+  opacity: 0.7;
+}

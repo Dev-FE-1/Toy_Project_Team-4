@@ -1,6 +1,6 @@
 import "./signIn.css"
 import { onLoginSuccess } from "../../main.js"
-import { SignupPage } from "../signUp/signup.js"
+import { SignupPage } from "../signUp/signUp.js"
 import axios from "axios"
 
 export function loadLogin() {

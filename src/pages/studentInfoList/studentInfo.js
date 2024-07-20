@@ -4,30 +4,6 @@ import { loadModal, loadstudentmodal } from "./studentInfoModal"
 
 let students = []
 
-async function getStudentInfo(e) {
-  // users.json에 수강생 정보 가져오기
-  const res = await axios.get("/api/users.json")
-  const userData = res.data.data
-
-  function userType(element) {
-    if (element.userType === "student") {
-      return true
-    }
-  }
-  students = userData.filter(userType)
-  setStudentList(students)
-
-  // 검색 필터
-  if (e) {
-    const searchValue = document.querySelector(".form-search").value
-    let regexp = new RegExp(searchValue, "gi")
-    let data = students.filter((item) => regexp.test(item.name) || regexp.test(item.email) || regexp.test(item.phone))
-    if (data.length > 0) {
-      setStudentList(data)
-    }
-  }
-}
-
 export function studentInfo() {
   const app = document.querySelector("#app")
   app.innerHTML = `
@@ -40,15 +16,14 @@ export function studentInfo() {
           </div>
         </div>
         <div class="studentListBottom">
-                    <div class="loading-container" id="loadingOverlay">
-      <div class="loading-animation">
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-      </div>
-    </div>
-          <ul class="getStudentInfo">
-          </ul>
+          <div class="loading-container" id="loadingOverlay">
+            <div class="loading-animation">
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+            </div>
+          </div>
+          <ul class="getStudentInfo"></ul>
         </div>
         <div class="studentModal"></div>
       </section>
@@ -72,11 +47,36 @@ export function studentInfo() {
   return app
 }
 
+// users.json에 수강생 정보 가져오기
+async function getStudentInfo(e) {
+  const res = await axios.get("/api/users.json")
+  const userData = res.data.data
+
+  function userType(element) {
+    if (element.userType === "student") {
+      return true
+    }
+  }
+  students = userData.filter(userType)
+  setStudentList(students)
+
+  // 검색 필터
+  if (e) {
+    const searchValue = document.querySelector(".form-search").value
+    let regexp = new RegExp(searchValue, "gi")
+    let data = students.filter((item) => regexp.test(item.name) || regexp.test(item.email) || regexp.test(item.phone))
+    if (data.length > 0) {
+      setStudentList(data)
+    }
+  }
+}
+
 // 수강생 리스트 생성
 export const setStudentList = (studentsList) => {
-  const ul = document.querySelector(".getStudentInfo")
   const loadingContainer = document.querySelector("#loadingOverlay")
   loadingContainer.classList.add("hidden")
+
+  const ul = document.querySelector(".getStudentInfo")
   ul.classList.add("addHeight")
 
   ul.innerHTML = ""

@@ -6,104 +6,111 @@ export function loadAttendanceCorrectionRequest() {
   const app = document.getElementById("app");
 
   app.innerHTML = `
-    <div class="correction-container">
-      <h1><img src="/icon/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 요청</h1>
-      <div class="correction-both-container">
-        <div class="correction-process-container">
-          <div class="correction-process-list">
-              <h3>1. 기본 정보</h3>
-              <p>가능 사유 : 수강생의 HRD 오류, 소유한 기기 오류, 불가피한 사정 등</p>
-              <p>가능 조건 : 입실 및 퇴실 zoom 스크린샷 참여 수강생 한정</p>
-              <p>가능 시간 : 발생일 기준 다음날 16시까지만 요청 가능</p>
-              <br>
-              <h3>2. 운영 매니저에게 스크린샷 요청</h3>
-              <p>입실 및 퇴실 시 각 1장씩 총 2장의 스크린샷 제출</p>
-              <p>외출 정정 시: 외출 및 복귀 시 각 1장씩 총 4장의 스크린샷 제출 필요</p>
-              <br>
-              <h3>3. 스크린샷 준비 및 출석대장 작성</h3>
-              <p>얼굴 전체, 이름, 당일 날짜 및 시간을 하이라이트 표기</p>
-              <div class="download-link-container">
-                  <span class="material-symbols-outlined download-icon">download</span>
-                  <a href="/document/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
-                      출석대장 다운로드
-                  </a>
-              </div>
-              <p>작성 후 PDF 파일로 변환.</p>
-              <p>파일명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
-              <br>
-              <h3>4. 필요 자료 폴더링</h3>
-              <p>출석대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
-              <p>폴더명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출결 정정)'</span></p>
+  <div class="correction-container">
+    <h1><img src="/icon/attendance_correction_request.png" alt="attendance_correction_request Icon" class="attendance_correction_request-icon">출결 정정 요청</h1>
+    <div class="correction-both-container">
+      <div class="correction-process-container">
+        <div class="correction-process-list">
+          <h3>1. 기본 정보</h3>
+          <p>가능 사유 : 수강생의 HRD 오류, 소유한 기기 오류, 불가피한 사정 등</p>
+          <p>가능 조건 : 입실 및 퇴실 zoom 스크린샷 참여 수강생 한정</p>
+          <p>가능 시간 : 발생일 기준 다음날 16시까지만 요청 가능</p>
+          <br>
+          <h3>2. 운영 매니저에게 스크린샷 요청</h3>
+          <p>입실 및 퇴실 시 각 1장씩 총 2장의 스크린샷 제출</p>
+          <p>외출 정정 시: 외출 및 복귀 시 각 1장씩 총 4장의 스크린샷 제출 필요</p>
+          <br>
+          <h3>3. 스크린샷 준비 및 출석대장 작성</h3>
+          <p>얼굴 전체, 이름, 당일 날짜 및 시간을 하이라이트 표기</p>
+          <div class="download-link-container">
+            <span class="material-symbols-outlined download-icon">download</span>
+            <a href="/document/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
+              출석대장 다운로드
+            </a>
           </div>
+          <p>작성 후 PDF 파일로 변환.</p>
+          <p>파일명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
+          <br>
+          <h3>4. 필요 자료 폴더링</h3>
+          <p>출석대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
+          <p>폴더명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출결 정정)'</span></p>
         </div>
-        <div class="correction-status-container">
-          <div class="correction-status-content">
-            <div class="correction-status-header">
-              <span><span class="red-dot"></span>신청 현황</span>
-            </div>
-            <div class="status-table-container">
-              <table class="status-table">
-                <thead>
-                  <tr>
-                    <th>상태</th>
-                    <th>신청 종류</th>
-                    <th>제출 일자</th>
-                    <th>사유</th>
-                    <th>관리</th>
-                  </tr>
-                </thead>
-                <tbody id="status-table-body">
-                  <!-- 자바스크립트로 내용 추가 -->
-                </tbody>
-              </table>
-            </div>
-            <div class="correction-pagination-container">
-              <button class="prev-button"><</button>
-              <div class="number-btn-wrapper"></div>
-              <button class="next-button">></button>
-            </div>
-            <div class="correction-modal-btn-container">
-              <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 요청</button>
-            </div>
+      </div>
+      <div class="correction-status-container">
+        <div class="correction-status-content">
+          <div class="correction-status-header">
+            <span><span class="red-dot"></span>신청 현황</span>
+          </div>
+          <div class="status-table-container">
+            <table class="status-table">
+              <thead>
+                <tr>
+                  <th>상태</th>
+                  <th>신청 종류</th>
+                  <th>제출 일자</th>
+                  <th>사유</th>
+                  <th>관리</th>
+                </tr>
+              </thead>
+              <tbody id="status-table-body">
+                <!-- 자바스크립트로 내용 추가 -->
+              </tbody>
+            </table>
+          </div>
+          <div class="correction-pagination-container">
+            <button class="prev-button"><</button>
+            <div class="number-btn-wrapper"></div>
+            <button class="next-button">></button>
+          </div>
+          <div class="correction-modal-btn-container">
+            <button id="correctionModalBtn" class="correction-modal-btn">출결 정정 요청</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="correctionModal" class="correction-modal">
-      <div class="correction-modal-content">
-        <span class="correction-modal-close-btn">&times;</span>
-        <div class="correction-form-container" id="correctionFormContainer">
-          <h2>출결 정정 요청</h2>
-          <div class="correction-submit-section">
-            <div class="correction-date-container">
-              <label for="correctionDate">정정 희망 날짜</label>
-              <input type="date" id="correctionDate" name="correctionDate" required>
-            </div>           
-              <label for="correctionReason">사유</label>
-              <textarea id="correctionReason" name="correctionReason" rows="5" required></textarea>           
-            <div class="convert-press-container">
-              <label for="convertpress">파일 변환</label>
-              <div class="correction-pdf-container">
-                <input type="file" id="wordFile" name="wordFile" accept=".doc,.docx" required>
-                <button type="button" id="convertToPDFBtn" class="convertpdf">PDF 변환</button>
-              </div>
-              <div class="correction-zip-container">
-                <input type="file" id="fileInput" name="fileInput" multiple required>
-                <button type="button" id="createZipBtn" class="createzip">ZIP 압축</button>
-              </div>
+  <div id="correctionModal" class="correction-modal">
+    <div class="correction-modal-content">
+      <span class="correction-modal-close-btn">&times;</span>
+      <div class="correction-form-container" id="correctionFormContainer">
+        <h2>출결 정정 요청</h2>
+        <div class="correction-submit-section">
+          <div class="correction-date-container">
+            <label for="correctionDate">정정 희망 날짜</label>
+            <input type="date" id="correctionDate" name="correctionDate" required>
+          </div>           
+            <label for="correctionReason">사유</label>
+            <textarea id="correctionReason" name="correctionReason" rows="5" required></textarea>           
+          <div class="convert-press-container">
+            <label for="convertpress">파일 변환</label>
+            <div class="correction-pdf-container">
+              <input type="file" id="wordFile" name="wordFile" accept=".doc,.docx" required>
+              <button type="button" id="convertToPDFBtn" class="convertpdf">PDF 변환</button>
+            </div>
+            <div class="correction-zip-container">
+              <input type="file" id="fileInput" name="fileInput" multiple required>
+              <button type="button" id="createZipBtn" class="createzip">ZIP 압축</button>
             </div>
           </div>
-          <form id="correctionSubmitForm" action="/upload-attendance-correction-request" method="post" enctype="multipart/form-data" class="correctionSubmitForm">
-            <label for="correction-file">파일 첨부</label>
-            <div class="correction-submit-all-section">
-              <input type="file" id="correction_submit_file" name="correctionFile" required>
-            </div>
-            <button type="submit" class="correction-btn">제출</button>
-          </form>
+        </div>
+        <form id="correctionSubmitForm" action="/upload-attendance-correction-request" method="post" enctype="multipart/form-data" class="correctionSubmitForm">
+          <label for="correction-file">파일 첨부</label>
+          <div class="correction-submit-all-section">
+            <input type="file" id="correction_submit_file" name="correctionFile" required>
+          </div>
+          <button type="submit" class="correction-btn">제출</button>
+        </form>
+      </div>
+      <div class="loading-container hidden" id="loadingOverlay">
+        <div class="loading-animation">
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
         </div>
       </div>
     </div>
+  </div>
   `;
 
   // 모달 관련 코드
@@ -130,14 +137,20 @@ export function loadAttendanceCorrectionRequest() {
     const file = document.getElementById("wordFile").files[0];
     const correctionDate = document.getElementById("correctionDate").value;
 
+    // 로딩 애니메이션 표시
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden");
+
     if (!correctionDate) {
       alert("정정 요청 날짜를 입력하세요.");
+      loadingOverlay.classList.add("hidden"); 
       return;
     }
 
     const today = new Date().toISOString().split('T')[0];
     if (correctionDate > today) {
       alert("미래 날짜는 선택할 수 없습니다.");
+      loadingOverlay.classList.add("hidden"); 
       return;
     }
 
@@ -146,6 +159,7 @@ export function loadAttendanceCorrectionRequest() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (!userInfo || !userInfo.userName) {
       alert("로그인된 사용자 정보를 찾을 수 없습니다.");
+      loadingOverlay.classList.add("hidden"); 
       return;
     }
 
@@ -185,19 +199,23 @@ export function loadAttendanceCorrectionRequest() {
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
+                loadingOverlay.classList.add("hidden"); 
               })
               .catch(error => {
                 console.error("Error:", error);
                 alert("파일 업로드 중 오류가 발생했습니다.");
+                loadingOverlay.classList.add("hidden"); 
               });
           }
         } else {
           alert('사용자를 찾을 수 없습니다.');
+          loadingOverlay.classList.add("hidden"); 
         }
       })
       .catch(error => {
         console.error("Error fetching user data:", error);
         alert("사용자 정보를 가져오는 중 오류가 발생했습니다.");
+        loadingOverlay.classList.add("hidden"); 
       });
   });
 
@@ -490,4 +508,3 @@ export function loadAttendanceCorrectionRequest() {
     }
   });
 }
-

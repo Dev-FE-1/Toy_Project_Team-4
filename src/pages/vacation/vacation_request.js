@@ -30,11 +30,11 @@ export function loadVacationRequest() {
             </div>
             <p>
               작성 후 PDF 파일로 변환<br>
-              파일명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(휴가 계획서)'</span>
+              파일명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(휴가계획서)'</span>
             </p><br>
             <h3>3. 필요 자료 폴더링</h3>
             <p>
-              출석 입력 대장과 휴가 계획서를 하나의 폴더에 포함 및 압축<br>
+              출석대장과 휴가계획서를 하나의 폴더에 포함 및 압축<br>
               폴더명: <span class="ex">'휴가 예정 날짜_데브캠프 : 프론트엔드 개발 4회차_이름(휴가)'</span>
             </p>
           </div>
@@ -102,6 +102,13 @@ export function loadVacationRequest() {
             </div>
             <button type="submit" class="vacation-btn">제출</button>
           </form>
+          <div class="loading-container hidden" id="loadingOverlay">
+            <div class="loading-animation">
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -189,7 +196,7 @@ export function loadVacationRequest() {
     setPageButtons();
   }
   
-   function getStatusText(status) {
+  function getStatusText(status) {
     switch(status) {
       case 'pending': return '대기중';
       case 'approved': return '승인';
@@ -197,7 +204,6 @@ export function loadVacationRequest() {
       default: return '';
     }
   }
-  
   
   const setPageButtons = () => {
     const getTotalPageCount = Math.ceil(requestData.length / itemsPerPage)
@@ -254,20 +260,20 @@ export function loadVacationRequest() {
 
   async function cancelRequest(id) {
     try {
-        const response = await fetch('/delete-vacation-request', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        await loadRequestData();
+      const response = await fetch('/delete-vacation-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      })
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      await loadRequestData()
     } catch (error) {
-        console.error('Error cancelling request:', error);
-        alert("휴가 신청 취소 중 오류가 발생했습니다: " + error.message);
+      console.error('Error cancelling request:', error)
+      alert("휴가 신청 취소 중 오류가 발생했습니다: " + error.message)
     }
-}
+  }
 
   const changeBtn = (clickBtnNum) => {
     const buttons = document.querySelectorAll('.pagebtn')
@@ -299,6 +305,9 @@ export function loadVacationRequest() {
 
     const userName = userInfo.userName
 
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
+
     fetch('/api/users.json')
       .then(response => response.json())
       .then(data => {
@@ -312,7 +321,7 @@ export function loadVacationRequest() {
           if (file.name.includes("출석대장")) {
             suffix = "(출석대장)"
           } else if (file.name.includes("휴가 사용 계획서")) {
-            suffix = "(휴가 계획서)"
+            suffix = "(휴가계획서)"
           } else {
             suffix = "(기타)"
           }
@@ -343,19 +352,23 @@ export function loadVacationRequest() {
                 a.click()
                 document.body.removeChild(a)
                 URL.revokeObjectURL(url)
+                loadingOverlay.classList.add("hidden"); 
               })
               .catch(error => {
                 console.error("Error:", error)
                 alert("파일 업로드 중 오류가 발생했습니다.")
+                loadingOverlay.classList.add("hidden"); 
               })
           }
         } else {
-            alert('사용자를 찾을 수 없습니다.')
+          alert('사용자를 찾을 수 없습니다.')
+          loadingOverlay.classList.add("hidden"); 
         }
       })
       .catch(error => {
         console.error("Error fetching user data:", error)
         alert("사용자 정보를 가져오는 중 오류가 발생했습니다.")
+        loadingOverlay.classList.add("hidden"); 
       })
   })
 
@@ -378,6 +391,9 @@ export function loadVacationRequest() {
 
     const userName = userInfo.userName
 
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
+
     fetch('/api/users.json')
       .then(response => response.json())
       .then(data => {
@@ -397,18 +413,22 @@ export function loadVacationRequest() {
           zip.generateAsync({ type: 'blob' })
             .then(function(content) {
               saveAs(content, fileName)
+              loadingOverlay.classList.add("hidden"); 
             })
             .catch(function(error) {
               console.error("Error:", error)
               alert("ZIP 파일 생성 중 오류가 발생했습니다.")
+              loadingOverlay.classList.add("hidden"); 
             })
         } else {
           alert('사용자를 찾을 수 없습니다.')
+          loadingOverlay.classList.add("hidden"); 
         }
       })
       .catch(error => {
         console.error("Error fetching user data:", error)
         alert("사용자 정보를 가져오는 중 오류가 발생했습니다.")
+        loadingOverlay.classList.add("hidden"); 
       })
   })
 
@@ -437,6 +457,9 @@ export function loadVacationRequest() {
     formData.append("courseName", courseName)
     formData.append("userId", userInfo.id)
 
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
+
     fetch("/upload-vacation-request", {
       method: "POST",
       body: formData,
@@ -454,13 +477,16 @@ export function loadVacationRequest() {
         alert("제출이 완료되었습니다.")
         modal.style.display = "none"
         loadRequestData()
+        loadingOverlay.classList.add("hidden"); 
       } else {
         alert("제출이 실패했습니다.")
+        loadingOverlay.classList.add("hidden"); 
       }
     })
     .catch(error => {
       console.error("Error:", error)
       alert("제출 도중 오류가 발생했습니다: " + error.message)
+      loadingOverlay.classList.add("hidden"); 
     })
   })
 

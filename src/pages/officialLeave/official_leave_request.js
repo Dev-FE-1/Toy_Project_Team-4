@@ -22,10 +22,10 @@ export function loadOfficialLeaveRequest() {
                 </div>
                 <p>작성 후 PDF 파일로 변환<br>파일명: <span class="ex">'공가 시작날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
                 <br>
-                <p>증빙 서류를 PDF 파일로 변환<br>파일명: <span class="ex">'공가 시작날짜_데브캠프 : 프론트엔드 개발 4회차_성함(서류명)'</span></p>
+                <p>증빙서류를 PDF 파일로 변환<br>파일명: <span class="ex">'공가 시작날짜_데브캠프 : 프론트엔드 개발 4회차_성함(서류명)'</span></p>
                 <br>
                 <h3>3. 필요 자료 폴더링</h3>
-                <p>출석대장과 증빙 서류를 하나의 폴더에 포함 및 압축<br>폴더명: <span class="ex">'공가 시작날짜_데브캠프 : 프론트엔드 개발 4회차_이름(공가)'</span></p>
+                <p>출석대장과 증빙서류를 하나의 폴더에 포함 및 압축<br>폴더명: <span class="ex">'공가 시작날짜_데브캠프 : 프론트엔드 개발 4회차_이름(공가)'</span></p>
           </div>
         </div>
         <div class="official-leave-status-container">
@@ -105,6 +105,13 @@ export function loadOfficialLeaveRequest() {
             </div>
             <button type="submit" class="document-submit-btn">제출</button>
           </form>
+          <div class="loading-container hidden" id="loadingOverlay">
+            <div class="loading-animation">
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -313,6 +320,8 @@ export function loadOfficialLeaveRequest() {
     const formData = new FormData(e.target);
     const id = e.target.getAttribute('data-id');
     formData.append('id', id);
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
     try {
       const response = await fetch('/upload-official-leave-request', {
         method: 'POST',
@@ -327,9 +336,11 @@ export function loadOfficialLeaveRequest() {
       const result = await response.json();
       alert(result.message || '서류가 제출되었습니다. 최종 승인 대기중입니다.');
       documentModal.style.display = "none";
+      loadingOverlay.classList.add("hidden"); 
       await loadRequestData();
     } catch (error) {
       console.error('Error:', error);
+      loadingOverlay.classList.add("hidden"); 
       alert('서류 제출 중 오류가 발생했습니다: ' + error.message);
     }
   };
@@ -380,6 +391,9 @@ export function loadOfficialLeaveRequest() {
 
     const fileName = `${startDate}_${courseName}_${userName}(출석대장).pdf`
 
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
+
     if (file) {
       const formData = new FormData()
       formData.append("wordFile", file)
@@ -404,10 +418,12 @@ export function loadOfficialLeaveRequest() {
         a.click()
         document.body.removeChild(a)
         URL.revokeObjectURL(url)
+        loadingOverlay.classList.add("hidden"); 
       })
       .catch(error => {
         console.error('Error:', error);
         alert("파일 업로드 중 오류가 발생했습니다: " + error.message)
+        loadingOverlay.classList.add("hidden"); 
       })
     }
   })
@@ -428,6 +444,9 @@ export function loadOfficialLeaveRequest() {
 
     const fileName = `${startDate}_${courseName}_${userName}(공가).zip`
 
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    loadingOverlay.classList.remove("hidden"); 
+
     const zip = new JSZip()
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
@@ -437,10 +456,12 @@ export function loadOfficialLeaveRequest() {
     zip.generateAsync({ type: 'blob' })
       .then(function(content) {
         saveAs(content, fileName)
+        loadingOverlay.classList.add("hidden"); 
       })
       .catch(function(error) {
         console.error('Error:', error);
         alert("ZIP 파일 생성 중 오류가 발생했습니다: " + error.message)
+        loadingOverlay.classList.add("hidden"); 
       })
   })
 

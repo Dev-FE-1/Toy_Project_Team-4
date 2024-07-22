@@ -102,7 +102,7 @@ app.post("/upload-attendance-correction-request", async (req, res) => {
     const newRequest = {
       id: Date.now(),
       name,
-      type: "출결정정",
+      type: "출결 정정",
       date: formattedDate,
       status: "pending",
       reason,

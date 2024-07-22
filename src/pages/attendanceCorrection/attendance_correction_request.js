@@ -32,7 +32,7 @@ export function loadAttendanceCorrectionRequest() {
               <p>파일명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출석대장)'</span></p>
               <br>
               <h3>4. 필요 자료 폴더링</h3>
-              <p>출석 대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
+              <p>출석대장과 스크린샷을 하나의 폴더에 포함하여 압축</p>
               <p>폴더명: <span class="ex">'정정 희망 날짜_데브캠프 : 프론트엔드 개발 4회차_성함(출결 정정)'</span></p>
           </div>
         </div>

@@ -16,9 +16,7 @@ export function loadVacationRequest() {
             <h3>2. 필요 자료 제작</h3>
             <div class="download-link-container">
               <span class="material-symbols-outlined download-icon">download</span>
-              <a href="/images/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">
-                출석대장 다운로드
-              </a>
+              <a href="/document/프론트엔드 개발 부트캠프_4기(DEV_FE1) 출석대장.docx" download class="download-link">출석대장 다운로드</a>
             </div>
             <p>
               작성 후 PDF 파일로 변환<br>
